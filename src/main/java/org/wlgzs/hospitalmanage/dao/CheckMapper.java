@@ -6,6 +6,7 @@ import org.wlgzs.hospitalmanage.entity.Check;
 import org.wlgzs.hospitalmanage.entity.CheckExample;
 
 public interface CheckMapper {
+
     long countByExample(CheckExample example);
 
     int deleteByExample(CheckExample example);
