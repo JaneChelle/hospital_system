@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="Mybatis3">
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+        <jdbcConnection driverClass="org.mariadb.jdbc.Driver"
+                        connectionURL="jdbc:mariadb://localhost:3307/hospital?serverTimezone=UTC" userId="root"
+                        password="root">
+        </jdbcConnection>
+        <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+                   NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- targetProject:生成PO类的位置 -->
+        <javaModelGenerator targetPackage="org.wlgzs.hospitalmanage.entity"
+                            targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="true" />
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- 指定SQL映射文件生成的位置 ，记得修改namespace-->
+        <sqlMapGenerator targetPackage="mappers" targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="org.wlgzs.hospitalmanage.dao" targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="drug_inventory" domainObjectName="DrugInventory"></table>
+        <table tableName="prescription_check" domainObjectName="PrescriptionCheck"></table>
+        <table tableName="prescription_drug" domainObjectName="PrescriptionDrug"></table>
+        <table tableName="prescription_treatment" domainObjectName="PrescriptionTreatment"></table>
+        <table tableName="tb_check" domainObjectName="Check"></table>
+        <table tableName="tb_disease" domainObjectName="Disease"></table>
+        <table tableName="tb_drug" domainObjectName="Drug"></table>
+        <table tableName="tb_drug_attribute" domainObjectName="DrugAttribute"></table>
+        <table tableName="tb_note" domainObjectName="Note"></table>
+        <table tableName="tb_patient" domainObjectName="Patient"></table>
+        <table tableName="tb_prescription" domainObjectName="Prescription"></table>
+        <table tableName="tb_storage_record" domainObjectName="StorageRecord"></table>
+        <table tableName="tb_treatment" domainObjectName="Treatment"></table>
+    </context>
+</generatorConfiguration>

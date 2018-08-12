@@ -1,0 +1,21 @@
+spring:
+  thymeleaf:
+      cache: false
+      mode: HTML5
+      encoding: UTF-8
+      servlet:
+        content-type: text/html
+      prefix: classpath:/templates/
+      suffix: .html
+  datasource:
+    druid:
+      url: jdbc:mariadb://localhost:3307/hospital
+      username: root
+      password: root
+      driver-class-name: org.mariadb.jdbc.Driver
+mybatis:
+    type-aliases-package: org.wlgzs.hospitalmanage.dao
+logging:
+  config: classpath:logback-spring.xml
+server:
+  port: 8080
