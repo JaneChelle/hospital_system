@@ -28,12 +28,12 @@
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 指定SQL映射文件生成的位置 ，记得修改namespace-->
-        <sqlMapGenerator targetPackage="mappers" targetProject=".\src\main\resources">
-            <property name="enableSubPackages" value="true"/>
-        </sqlMapGenerator>
-        <javaClientGenerator type="XMLMAPPER" targetPackage="org.wlgzs.hospitalmanage.dao" targetProject=".\src\main\java">
-            <property name="enableSubPackages" value="true"/>
-        </javaClientGenerator>
+        <!--<sqlMapGenerator targetPackage="mappers" targetProject=".\src\main\resources">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</sqlMapGenerator>-->
+        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="org.wlgzs.hospitalmanage.dao" targetProject=".\src\main\java">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</javaClientGenerator>-->
 
         <table tableName="drug_inventory" domainObjectName="DrugInventory"></table>
         <table tableName="prescription_check" domainObjectName="PrescriptionCheck"></table>

@@ -4,27 +4,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.wlgzs.hospitalmanage.entity.DrugAttribute;
 import org.wlgzs.hospitalmanage.entity.DrugAttributeExample;
+import tk.mybatis.mapper.common.Mapper;
 
-public interface DrugAttributeMapper {
-    long countByExample(DrugAttributeExample example);
+@org.apache.ibatis.annotations.Mapper
+public interface DrugAttributeMapper extends Mapper<DrugAttribute> {
 
-    int deleteByExample(DrugAttributeExample example);
 
-    int deleteByPrimaryKey(Integer attributeNumber);
-
-    int insert(DrugAttribute record);
-
-    int insertSelective(DrugAttribute record);
-
-    List<DrugAttribute> selectByExample(DrugAttributeExample example);
-
-    DrugAttribute selectByPrimaryKey(Integer attributeNumber);
-
-    int updateByExampleSelective(@Param("record") DrugAttribute record, @Param("example") DrugAttributeExample example);
-
-    int updateByExample(@Param("record") DrugAttribute record, @Param("example") DrugAttributeExample example);
-
-    int updateByPrimaryKeySelective(DrugAttribute record);
-
-    int updateByPrimaryKey(DrugAttribute record);
 }

@@ -1,6 +1,20 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Data
+@Entity
+@Table(name = "tb_patient")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Patient {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer patientNumber;
 
     private String patientName;
@@ -15,59 +29,4 @@ public class Patient {
 
     private String homeAddress;
 
-    public Integer getPatientNumber() {
-        return patientNumber;
-    }
-
-    public void setPatientNumber(Integer patientNumber) {
-        this.patientNumber = patientNumber;
-    }
-
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName == null ? null : patientName.trim();
-    }
-
-    public String getPinyinCode() {
-        return pinyinCode;
-    }
-
-    public void setPinyinCode(String pinyinCode) {
-        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
-    }
-
-    public String getPatientGender() {
-        return patientGender;
-    }
-
-    public void setPatientGender(String patientGender) {
-        this.patientGender = patientGender == null ? null : patientGender.trim();
-    }
-
-    public Integer getPatientAge() {
-        return patientAge;
-    }
-
-    public void setPatientAge(Integer patientAge) {
-        this.patientAge = patientAge;
-    }
-
-    public String getPatientPhone() {
-        return patientPhone;
-    }
-
-    public void setPatientPhone(String patientPhone) {
-        this.patientPhone = patientPhone == null ? null : patientPhone.trim();
-    }
-
-    public String getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(String homeAddress) {
-        this.homeAddress = homeAddress == null ? null : homeAddress.trim();
-    }
 }

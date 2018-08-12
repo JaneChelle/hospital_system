@@ -1,8 +1,21 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.Date;
 
+@Data
+@Entity
+@Table(name = "drug_inventory")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class DrugInventory {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer stockNumber;
 
     private Integer drugCode;
@@ -11,35 +24,4 @@ public class DrugInventory {
 
     private Date validPeriod;
 
-    public Integer getStockNumber() {
-        return stockNumber;
-    }
-
-    public void setStockNumber(Integer stockNumber) {
-        this.stockNumber = stockNumber;
-    }
-
-    public Integer getDrugCode() {
-        return drugCode;
-    }
-
-    public void setDrugCode(Integer drugCode) {
-        this.drugCode = drugCode;
-    }
-
-    public Integer getStorageAmount() {
-        return storageAmount;
-    }
-
-    public void setStorageAmount(Integer storageAmount) {
-        this.storageAmount = storageAmount;
-    }
-
-    public Date getValidPeriod() {
-        return validPeriod;
-    }
-
-    public void setValidPeriod(Date validPeriod) {
-        this.validPeriod = validPeriod;
-    }
 }

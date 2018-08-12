@@ -1,8 +1,21 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Data
+@Entity
+@Table(name = "tb_prescription")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Prescription {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer prescriptionId;
 
     private String pinyinCode;
@@ -17,59 +30,4 @@ public class Prescription {
 
     private BigDecimal priceAll;
 
-    public Integer getPrescriptionId() {
-        return prescriptionId;
-    }
-
-    public void setPrescriptionId(Integer prescriptionId) {
-        this.prescriptionId = prescriptionId;
-    }
-
-    public String getPinyinCode() {
-        return pinyinCode;
-    }
-
-    public void setPinyinCode(String pinyinCode) {
-        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
-    }
-
-    public String getPrescriptionName() {
-        return prescriptionName;
-    }
-
-    public void setPrescriptionName(String prescriptionName) {
-        this.prescriptionName = prescriptionName == null ? null : prescriptionName.trim();
-    }
-
-    public Integer getIsDrug() {
-        return isDrug;
-    }
-
-    public void setIsDrug(Integer isDrug) {
-        this.isDrug = isDrug;
-    }
-
-    public Integer getIsCheck() {
-        return isCheck;
-    }
-
-    public void setIsCheck(Integer isCheck) {
-        this.isCheck = isCheck;
-    }
-
-    public Integer getIsTreatment() {
-        return isTreatment;
-    }
-
-    public void setIsTreatment(Integer isTreatment) {
-        this.isTreatment = isTreatment;
-    }
-
-    public BigDecimal getPriceAll() {
-        return priceAll;
-    }
-
-    public void setPriceAll(BigDecimal priceAll) {
-        this.priceAll = priceAll;
-    }
 }
