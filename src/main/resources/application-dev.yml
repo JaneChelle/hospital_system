@@ -9,7 +9,7 @@ spring:
       suffix: .html
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3307/hospital
+      url: jdbc:mysql://localhost:3306/hospital?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true
       username: root
       password: root
       driver-class-name: com.mysql.jdbc.Driver
