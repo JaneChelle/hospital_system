@@ -1,6 +1,9 @@
 package org.wlgzs.hospitalmanage.service;
 
 import org.wlgzs.hospitalmanage.entity.Disease;
+import org.wlgzs.hospitalmanage.util.Result;
+
+import java.util.List;
 
 /**
  * @author:胡亚星
@@ -10,6 +13,11 @@ import org.wlgzs.hospitalmanage.entity.Disease;
 public interface DiseaseService {
 
     //添加疾病
-    void addDisease(Disease disease);
+    Result addDisease(Disease disease);
 
+    //通过id删除
+    Result deleteDiseaseById(int diseaseId);
+
+    //查询所有
+    List<Disease> selectAll();
 }

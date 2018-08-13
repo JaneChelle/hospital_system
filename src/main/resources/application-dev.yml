@@ -9,7 +9,7 @@ spring:
       suffix: .html
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3307/hospital
+      url: jdbc:mysql://localhost:3307/hospital?autoReconnect=true&useUnicode=true&characterEncoding=utf8
       username: root
       password: root
       driver-class-name: com.mysql.jdbc.Driver
@@ -18,4 +18,4 @@ mybatis:
 logging:
   config: classpath:logback-spring.xml
 server:
-  port: 8080
+  port: 8182
