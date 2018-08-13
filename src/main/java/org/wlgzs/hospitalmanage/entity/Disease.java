@@ -18,5 +18,4 @@ public class Disease {
     private Integer diseaseId;
 
     private String diseaseName;
-
 }

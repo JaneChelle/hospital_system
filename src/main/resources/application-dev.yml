@@ -9,12 +9,12 @@ spring:
       suffix: .html
   datasource:
     druid:
-      url: jdbc:mariadb://localhost:3307/hospital
+      url: jdbc:mysql://localhost:3307/hospital
       username: root
       password: root
-      driver-class-name: org.mariadb.jdbc.Driver
+      driver-class-name: com.mysql.jdbc.Driver
 mybatis:
-    type-aliases-package: org.wlgzs.hospitalmanage.dao
+    type-aliases-package: org.wlgzs.hospitalmanage.entity
 logging:
   config: classpath:logback-spring.xml
 server:

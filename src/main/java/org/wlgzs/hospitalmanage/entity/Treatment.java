@@ -1,21 +1,8 @@
 package org.wlgzs.hospitalmanage.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
-@Entity
-@Table(name = "tb_treatment")
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Treatment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer treatmentId;
 
     private String treatmentName;
@@ -24,4 +11,35 @@ public class Treatment {
 
     private BigDecimal treatmentPrice;
 
+    public Integer getTreatmentId() {
+        return treatmentId;
+    }
+
+    public void setTreatmentId(Integer treatmentId) {
+        this.treatmentId = treatmentId;
+    }
+
+    public String getTreatmentName() {
+        return treatmentName;
+    }
+
+    public void setTreatmentName(String treatmentName) {
+        this.treatmentName = treatmentName == null ? null : treatmentName.trim();
+    }
+
+    public String getPinyinCode() {
+        return pinyinCode;
+    }
+
+    public void setPinyinCode(String pinyinCode) {
+        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
+    }
+
+    public BigDecimal getTreatmentPrice() {
+        return treatmentPrice;
+    }
+
+    public void setTreatmentPrice(BigDecimal treatmentPrice) {
+        this.treatmentPrice = treatmentPrice;
+    }
 }
