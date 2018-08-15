@@ -1,10 +1,7 @@
 package org.wlgzs.hospitalmanage.controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.Disease;
@@ -15,7 +12,7 @@ import java.util.List;
 /**
  * @author:胡亚星
  * @createTime 2018-08-12 15:40
- * @description:
+ * @description: 疾病管理控制层
  **/
 
 @RestController
@@ -33,12 +30,21 @@ public class DiseaseController extends BaseController {
         return diseaseService.deleteDiseaseById(diseaseId);
     }
 
-    //查找所有
-    @RequestMapping(value = "/disease",method = RequestMethod.GET)
-    public ModelAndView selectAll(Model model){
-        List<Disease> diseaseList = diseaseService.selectAll();
+    //查找所有疾病(分页)
+    @RequestMapping(value = "/disease/{page}", method = RequestMethod.GET)
+    public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
+        List<Disease> diseaseList = diseaseService.selectAll(page);
+        model.addAttribute("diseaseList", diseaseList);
+        return new ModelAndView("disease");
+    }
+
+    //搜索疾病(分页)
+    @RequestMapping(value = "/findDisease/{page}")
+    public ModelAndView findDisease(Model model,@PathVariable("page") int page,
+                                    @RequestParam(value = "findName", defaultValue = "") String findName) {
+        List<Disease> diseaseList = diseaseService.findDisease(findName,page);
         model.addAttribute("diseaseList",diseaseList);
-        return new ModelAndView("ascs");
+        return new ModelAndView("disease");
     }
 
 }

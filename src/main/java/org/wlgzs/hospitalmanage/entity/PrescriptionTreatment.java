@@ -1,55 +1,35 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class PrescriptionTreatment {
-    private Integer detailId;
+@Data
+@Entity
+@Table(name = "prescription_treatment")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+public class PrescriptionTreatment implements Serializable {
+    private static final long serialVersionUID = -1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "detail_id")
+    private Integer detail_id;              //编号
 
-    private Integer prescriptionId;
+    @Column(name = "prescription_id")
+    private Integer prescription_id;        //处方编号
 
-    private Integer treatmentId;
+    @Column(name = "treatment_id")
+    private Integer treatment_id;           //治疗编号
 
-    private Integer number;
+    @Column(name = "number")
+    private Integer number;                 //数量
 
-    private BigDecimal priceOne;
-
-    public Integer getDetailId() {
-        return detailId;
-    }
-
-    public void setDetailId(Integer detailId) {
-        this.detailId = detailId;
-    }
-
-    public Integer getPrescriptionId() {
-        return prescriptionId;
-    }
-
-    public void setPrescriptionId(Integer prescriptionId) {
-        this.prescriptionId = prescriptionId;
-    }
-
-    public Integer getTreatmentId() {
-        return treatmentId;
-    }
-
-    public void setTreatmentId(Integer treatmentId) {
-        this.treatmentId = treatmentId;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public BigDecimal getPriceOne() {
-        return priceOne;
-    }
-
-    public void setPriceOne(BigDecimal priceOne) {
-        this.priceOne = priceOne;
-    }
+    @Column(name = "price_one")
+    private BigDecimal price_one;           //价格
 }

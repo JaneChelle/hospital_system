@@ -1,5 +1,6 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.wlgzs.hospitalmanage.dao.DiseaseMapper;
 import org.wlgzs.hospitalmanage.entity.Disease;
@@ -47,10 +48,19 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    public List<Disease> selectAll() {
-        List<Disease> list = diseaseMapper.selectAll();
-        System.out.println(list);
-        return list;
+    public List<Disease> selectAll(int page) {
+        PageHelper.startPage(page,10);
+        List<Disease> diseaseList = diseaseMapper.selectAll();
+        System.out.println(diseaseList);
+        return diseaseList;
+    }
+
+    @Override
+    public List<Disease> findDisease(String findName,int page) {
+        PageHelper.startPage(page,10);
+        List<Disease> diseaseList = diseaseMapper.findDisease(findName);
+        System.out.println(diseaseList);
+        return diseaseList;
     }
 
     public Disease findByName (String name) {

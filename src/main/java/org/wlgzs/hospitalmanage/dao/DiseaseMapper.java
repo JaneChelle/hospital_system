@@ -21,4 +21,6 @@ public interface DiseaseMapper extends Mapper<Disease> {
     @Select("SELECT * FROM tb_disease")
     List<Disease> find();
 
+    @Select("SELECT * FROM tb_disease WHERE disease_name LIKE '%${findName}%'")
+    List<Disease> findDisease(@Param("findName") String findName);
 }

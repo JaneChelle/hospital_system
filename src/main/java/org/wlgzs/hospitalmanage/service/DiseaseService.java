@@ -19,5 +19,10 @@ public interface DiseaseService {
     Result deleteDiseaseById(int diseaseId);
 
     //查询所有
-    List<Disease> selectAll();
+    List<Disease> selectAll(int page);
+
+    //搜索疾病
+    List<Disease> findDisease(String findName,int page);
+
+
 }
