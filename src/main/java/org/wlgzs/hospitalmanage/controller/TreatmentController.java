@@ -1,10 +1,7 @@
 package org.wlgzs.hospitalmanage.controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.Treatment;
@@ -42,16 +39,31 @@ public class TreatmentController extends BaseController {
     }
 
     //按id查询
-    @RequestMapping(value = "/findCheckById/{treatmentId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/treatment/findTreatmentById/{treatmentId}", method = RequestMethod.GET)
     public Result findTreatmentById(@PathVariable("treatmentId") int treatmentId) {
         return treatmentService.findTreatmentById(treatmentId);
     }
 
     //修改治疗
-    @RequestMapping(value = "treatment", method = RequestMethod.POST)
-    public ModelAndView modifyCheck(Treatment treatment){
+    @RequestMapping(value = "/treatment", method = RequestMethod.POST)
+    public ModelAndView modifyTreatment(Treatment treatment){
         treatmentService.modifyTreatment(treatment);
         return new ModelAndView("redirect:/treatment/1");
     }
 
+    //搜索检查
+    @RequestMapping(value = "/treatment/findTreatment")
+    public ModelAndView findTreatment(Model model,
+                                  @RequestParam(value = "findName", defaultValue = "") String findName){
+        List<Treatment> treatmentList = treatmentService.findTreatment(findName,0);
+        model.addAttribute("findName",findName);
+        model.addAttribute("treatmentList",treatmentList);
+        return new ModelAndView("treatmentList");
+    }
+
+    //搜索提示
+    @RequestMapping(value = "/treatment/searchWord")
+    public Result searchWord(@RequestParam(value = "search_word") String search_word){
+        return treatmentService.findTreatmentByWord(search_word);
+    }
 }

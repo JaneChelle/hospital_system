@@ -26,4 +26,10 @@ public interface TreatmentService {
 
     //修改
     void modifyTreatment(Treatment treatment);
+
+    //搜索治疗
+    List<Treatment> findTreatment(String findName,int page);
+
+    //搜索提示
+    Result findTreatmentByWord(String search_word);
 }

@@ -32,4 +32,7 @@ public class PrescriptionDrug implements Serializable {
 
     @Column(name = "price_one")
     private BigDecimal price_one;           //价格
+
+    @Column(name = "drug_name")
+    private Integer drug_name;              //药品名字
 }

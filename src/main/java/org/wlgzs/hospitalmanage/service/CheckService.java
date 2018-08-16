@@ -26,4 +26,11 @@ public interface CheckService {
     //修改
     void modifyCheck(Check check);
 
+    //搜索检查
+    List<Check> findCheck(String findName,int page);
+
+    //搜索提示
+    Result findCheckByWord(String search_word);
+
+
 }

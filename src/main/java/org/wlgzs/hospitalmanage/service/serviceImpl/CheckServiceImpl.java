@@ -9,6 +9,7 @@ import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,5 +65,26 @@ public class CheckServiceImpl implements CheckService {
         if(check != null){
             checkMapper.updateByPrimaryKeySelective(check);
         }
+    }
+
+    @Override
+    public List<Check> findCheck(String findName, int page) {
+        PageHelper.startPage(page,10);
+        List<Check> checkList = checkMapper.findCheck(findName);
+        System.out.println(checkList);
+        return checkList;
+    }
+
+    @Override
+    public Result findCheckByWord(String search_word) {
+        if(search_word != null && !search_word.equals("")){
+            List<Check> checkList = checkMapper.findCheckByWord(search_word);
+            List<String> list = new ArrayList<String>();
+            for (Check aCheckList : checkList) {
+                list.add(aCheckList.getCheck_name());
+            }
+            return new Result(ResultCode.SUCCESS,list);
+        }
+        return new Result(ResultCode.FAIL);
     }
 }

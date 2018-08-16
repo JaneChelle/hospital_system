@@ -28,13 +28,13 @@ public class Prescription implements Serializable {
     private String prescription_name;    //处方名称
 
     @Column(name = "is_drug")
-    private Integer is_drug=0;             //是否有药品
+    private Integer is_drug = 0;             //是否有药品
 
     @Column(name = "is_check")
-    private Integer is_check=0;            //是否有检查
+    private Integer is_check = 0;            //是否有检查
 
     @Column(name = "is_treatment")
-    private Integer is_treatment=0;        //是否有治疗
+    private Integer is_treatment = 0;        //是否有治疗
 
     @Column(name = "price_all")
     private BigDecimal price_all;        //总价

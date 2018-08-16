@@ -1,10 +1,7 @@
 package org.wlgzs.hospitalmanage.controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.Check;
@@ -42,17 +39,32 @@ public class CheckController extends BaseController {
     }
 
     //按id查询
-    @RequestMapping(value = "/findCheckById/{checkId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/check/findCheckById/{checkId}", method = RequestMethod.GET)
     public Result findCheckById(@PathVariable("checkId") int checkId) {
         return checkService.findCheckById(checkId);
     }
 
     //修改检查
-    @RequestMapping(value = "check", method = RequestMethod.POST)
+    @RequestMapping(value = "/check", method = RequestMethod.POST)
     public ModelAndView modifyCheck(Check check){
         checkService.modifyCheck(check);
-        return new ModelAndView("redirect:/check/1");
+        return new ModelAndView("redirect:/findCheck");
     }
 
+    //搜索检查
+    @RequestMapping(value = "/check/findCheck")
+    public ModelAndView findCheck(Model model,
+                                  @RequestParam(value = "findName", defaultValue = "") String findName){
+        List<Check> checkList = checkService.findCheck(findName,0);
+        model.addAttribute("findName",findName);
+        model.addAttribute("checkList",checkList);
+        return new ModelAndView("checkList");
+    }
+
+    //搜索提示
+    @RequestMapping(value = "/check/searchWord")
+    public Result searchWord(@RequestParam(value = "search_word") String search_word){
+        return checkService.findCheckByWord(search_word);
+    }
 
 }

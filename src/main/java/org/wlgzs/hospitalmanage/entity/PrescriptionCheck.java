@@ -32,4 +32,7 @@ public class PrescriptionCheck implements Serializable {
 
     @Column(name = "price_one")
     private BigDecimal price_one;           //价格
+
+    @Column(name = "check_name")
+    private String check_name;           //价格
 }

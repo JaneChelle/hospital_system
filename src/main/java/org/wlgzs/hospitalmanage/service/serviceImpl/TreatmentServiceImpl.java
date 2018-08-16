@@ -9,6 +9,7 @@ import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,5 +66,26 @@ public class TreatmentServiceImpl implements TreatmentService {
         if(treatment != null){
             treatmentMapper.updateByPrimaryKeySelective(treatment);
         }
+    }
+
+    @Override
+    public List<Treatment> findTreatment(String findName, int page) {
+        PageHelper.startPage(page,10);
+        List<Treatment> treatmentList = treatmentMapper.findTreatment(findName);
+        System.out.println(treatmentList);
+        return treatmentList;
+    }
+
+    @Override
+    public Result findTreatmentByWord(String search_word) {
+        if(search_word != null && !search_word.equals("")){
+            List<Treatment> treatmentList = treatmentMapper.findTreatmentByWord(search_word);
+            List<String> list = new ArrayList<String>();
+            for (Treatment aTreatmentList : treatmentList) {
+                list.add(aTreatmentList.getTreatment_name());
+            }
+            return new Result(ResultCode.SUCCESS,list);
+        }
+        return new Result(ResultCode.FAIL);
     }
 }
