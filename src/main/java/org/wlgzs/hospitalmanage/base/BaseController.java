@@ -1,9 +1,11 @@
 package org.wlgzs.hospitalmanage.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.wlgzs.hospitalmanage.service.DiseaseService;
+import org.wlgzs.hospitalmanage.service.DrugAttributeService;
+import org.wlgzs.hospitalmanage.service.DrugService;
+import org.wlgzs.hospitalmanage.service.PatientService;
 import org.wlgzs.hospitalmanage.service.*;
-
-import javax.annotation.Resource;
 
 /**
  * @author:胡亚星
@@ -19,6 +21,12 @@ public class BaseController {
     protected PatientService patientService;
 
     @Autowired
+
+    protected DrugService drugService;
+
+    @Autowired
+    protected DrugAttributeService drugAttributeService;
+
     protected PrescriptionService prescriptionService;
 
     @Autowired

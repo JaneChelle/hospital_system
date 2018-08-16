@@ -18,25 +18,56 @@ public class PatientServiceImpl implements PatientService {
     @Resource
     PatientMapper patientMapper;
 
-    public List<Patient> getPatients(int page){
-        PageHelper.startPage(page,10);
+    //查询患者
+    public List<Patient> getPatients(int page) {
+        PageHelper.startPage(page, 10);
         List<Patient> patients = patientMapper.selectAll();
         System.out.println(patients);
 
         return patients;
     }
 
-    public void savePatient(Patient patient){
+    //注册患者
+    public void savePatient(Patient patient) {
         patientMapper.insert(patient);
     }
 
-    public boolean deletePatient(int patientId){
-        Patient patient =(Patient)patientMapper.selectByPrimaryKey(patientId);
-        if (patient==null){
+    //删除患者
+    public boolean deletePatient(int patientId) {
+        Patient patient = (Patient) patientMapper.selectByPrimaryKey(patientId);
+        if (patient == null) {
             return false;
-        }else {
+        } else {
             patientMapper.deleteByPrimaryKey(patientId);
             return true;
+        }
+    }
+
+    //变更患者信息
+    public void updatePatient(Patient patient) {
+        System.out.println(patient);
+        patientMapper.update(patient);
+    }
+    //患者下拉框提示
+    public List<Patient> keyWordsearchPatient(String patientAttribute, int attributeIdentify) {
+        if (attributeIdentify == 1) {
+            return patientMapper.nameKeyWord(patientAttribute);
+        } else if (attributeIdentify == 2) {
+            return patientMapper.phoneKeyWord(patientAttribute);
+        } else {
+            return null;
+        }
+    }
+   //根据条件模糊搜索患者
+    public List<Patient> searchPatient(String patientAttribute, int attributeIdentify) {
+        if (attributeIdentify == 1) {
+            return patientMapper.searchName(patientAttribute);
+        } else if (attributeIdentify == 2) {
+            return patientMapper.searchPhone(patientAttribute);
+        } else if (attributeIdentify == 3) {
+            return patientMapper.searchpinyinCode(patientAttribute);
+        } else {
+            return null;
         }
     }
 

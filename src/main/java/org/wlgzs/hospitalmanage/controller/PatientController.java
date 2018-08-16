@@ -9,7 +9,6 @@ import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import java.util.List;
 
-
 /**
  * @author 武凯焱
  * @date 2018/8/13 9:56
@@ -17,26 +16,44 @@ import java.util.List;
 @RestController
 @RequestMapping("patient")
 public class PatientController extends BaseController {
-
-    @GetMapping("/patient/{page}")            //查看所有患者
+    //查看所有患者
+    @GetMapping("/patient/{page}")
     public Result getPatients(Model model, @PathVariable("page") int page) {
-        List<Patient> patients =  patientService.getPatients(page);
-        return new Result(ResultCode.SUCCESS,patients);
+        List<Patient> patients = patientService.getPatients(page);
+        return new Result(ResultCode.SUCCESS, patients);
 
     }
-    @PostMapping("/patient")           //添加患者
-    public Result addPatient(Model model,Patient patient){
-        System.out.println(patient);
+    //添加患者
+    @PostMapping("/patient")
+    public Result addPatient(Model model, Patient patient) {
         patientService.savePatient(patient);
-        return new Result(ResultCode.SUCCESS,"添加成功");
+        return new Result(ResultCode.SUCCESS, "添加成功");
     }
-    @DeleteMapping("/patient/{patientId}")        //删除患者
-    public Result deletePatient(@PathVariable("patientId") int patientId){
-        if (patientService.deletePatient(patientId)){
-            return new Result(ResultCode.SUCCESS,"删除成功");
-        }else {
-            return new Result(ResultCode.FAIL,"该用户不存在");
+    //删除患者
+    @DeleteMapping("/patient/{patientId}")
+    public Result deletePatient(@PathVariable("patientId") int patientId) {
+        if (patientService.deletePatient(patientId)) {
+            return new Result(ResultCode.SUCCESS, "删除成功");
+        } else {
+            return new Result(ResultCode.FAIL, "该用户不存在");
         }
     }
+    //修改患者消息
+    @PutMapping("/patient")
+    public Result updatePatient(Patient patient, @RequestParam("patientName") String patientName) {
+        System.out.println("sfdsf" + patient);
+        patientService.updatePatient(patient);
+        return new Result(ResultCode.SUCCESS, "更改成功");
+    }
 
+    //搜索患者下拉框提示
+    @PostMapping("/keyword")
+    public Result keyword(@RequestParam("patientAttribute") String patientAttribute, @RequestParam("attributeIdentify") int attributeIdentify) {
+        return new Result(ResultCode.SUCCESS, patientService.keyWordsearchPatient(patientAttribute, attributeIdentify));
+    }
+    //搜索患者
+    @PostMapping("/searchpatient")
+    public Result searchPatient(@RequestParam("patientAttribute") String patientAttribute, @RequestParam("attributeIdentify") int attributeIdentify) {
+        return new Result(ResultCode.SUCCESS, patientService.searchPatient(patientAttribute, attributeIdentify));
+    }
 }

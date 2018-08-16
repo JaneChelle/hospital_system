@@ -1,135 +1,59 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Data
+@Entity
+@Table(name = "tb_drug")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Drug {
-    private Integer drugCode;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private Integer drugCategory;
+    @Column(name = "drug_code")
+    private Integer drug_code;              //药品编码
 
-    private String pinyinCode;
+    @Column(name = "drug_category")          // 药品类别
+    private Integer drug_category;
 
-    private String specificationContent;
+    @Column(name = "pinyin_code")            // 拼音码
+    private String pinyin_code;
 
-    private Integer drugUnit;
+    @Column(name = "specification_content")  //规格含量
+    private String specification_content;
 
-    private Integer dosageForm;
+    @Column(name = "drug_unit")            //单位
+    private Integer drug_unit;
 
+    @Column(name = "dosage_form")          //剂型
+    private Integer dosage_form;
+
+    @Column(name = "manufacturer")         //厂家
     private String manufacturer;
 
-    private String approvalNumber;
+    @Column(name = "approval_number")      // 批准文号
+    private String approval_number;
 
-    private Integer safetyStock;
+    @Column(name = "safety_stock")         // 安全库存
+    private Integer safety_stock;
 
-    private BigDecimal unitPrice;
+    @Column(name = "unit_price")           //单位价格
+    private BigDecimal unit_price;
 
-    private String healthcareCode;
+    @Column(name = "healthcare_code")      //医保编码
+    private String healthcare_code;
 
-    private String healthcareName;
+    @Column(name = "healthcare_name")      //医保名称
+    private String healthcare_name;
 
-    private byte[] drugName;
+    @Column(name = "drug_name")            //药品名称
+    private String drug_name;
 
-    public Integer getDrugCode() {
-        return drugCode;
-    }
-
-    public void setDrugCode(Integer drugCode) {
-        this.drugCode = drugCode;
-    }
-
-    public Integer getDrugCategory() {
-        return drugCategory;
-    }
-
-    public void setDrugCategory(Integer drugCategory) {
-        this.drugCategory = drugCategory;
-    }
-
-    public String getPinyinCode() {
-        return pinyinCode;
-    }
-
-    public void setPinyinCode(String pinyinCode) {
-        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
-    }
-
-    public String getSpecificationContent() {
-        return specificationContent;
-    }
-
-    public void setSpecificationContent(String specificationContent) {
-        this.specificationContent = specificationContent == null ? null : specificationContent.trim();
-    }
-
-    public Integer getDrugUnit() {
-        return drugUnit;
-    }
-
-    public void setDrugUnit(Integer drugUnit) {
-        this.drugUnit = drugUnit;
-    }
-
-    public Integer getDosageForm() {
-        return dosageForm;
-    }
-
-    public void setDosageForm(Integer dosageForm) {
-        this.dosageForm = dosageForm;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer == null ? null : manufacturer.trim();
-    }
-
-    public String getApprovalNumber() {
-        return approvalNumber;
-    }
-
-    public void setApprovalNumber(String approvalNumber) {
-        this.approvalNumber = approvalNumber == null ? null : approvalNumber.trim();
-    }
-
-    public Integer getSafetyStock() {
-        return safetyStock;
-    }
-
-    public void setSafetyStock(Integer safetyStock) {
-        this.safetyStock = safetyStock;
-    }
-
-    public BigDecimal getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public String getHealthcareCode() {
-        return healthcareCode;
-    }
-
-    public void setHealthcareCode(String healthcareCode) {
-        this.healthcareCode = healthcareCode == null ? null : healthcareCode.trim();
-    }
-
-    public String getHealthcareName() {
-        return healthcareName;
-    }
-
-    public void setHealthcareName(String healthcareName) {
-        this.healthcareName = healthcareName == null ? null : healthcareName.trim();
-    }
-
-    public byte[] getDrugName() {
-        return drugName;
-    }
-
-    public void setDrugName(byte[] drugName) {
-        this.drugName = drugName;
-    }
 }

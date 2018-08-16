@@ -15,4 +15,14 @@ public interface PatientService {
     void savePatient(Patient patient);
 
     boolean deletePatient(int patientId);
+
+    void updatePatient(Patient patient);
+
+    List<Patient> keyWordsearchPatient (String patientPhone,int attributeIdentify);
+
+    List<Patient> searchPatient(String patientAttribute,int attributeIdentify);
+
+
+
+
 }
