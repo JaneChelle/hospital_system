@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @Entity
@@ -16,19 +15,26 @@ import java.io.Serializable;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer patientNumber;
 
-    private String patientName;
+    @Column(name = "patient_number")
+    private Integer patient_number;
 
-    private String pinyinCode;
+    @Column(name = "patient_name")
+    private String patient_name;
 
-    private String patientGender;
+    @Column(name = "pinyin_code")
+    private String pinyin_code;
 
-    private Integer patientAge;
+    @Column(name = "patient_gender")
+    private String patient_gender;
 
-    private String patientPhone;
+    @Column(name = "patient_age")
+    private Integer patient_age;
 
-    private String homeAddress;
+    @Column(name = "patient_phone")
+    private String patient_phone;
 
+    @Column(name = "home_address")
+    private String home_address;
 
 }
