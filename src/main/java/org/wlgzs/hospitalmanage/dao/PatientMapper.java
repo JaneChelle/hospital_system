@@ -1,5 +1,4 @@
 package org.wlgzs.hospitalmanage.dao;
-
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.wlgzs.hospitalmanage.entity.Patient;

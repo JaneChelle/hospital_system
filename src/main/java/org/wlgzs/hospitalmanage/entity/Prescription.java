@@ -1,75 +1,41 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Prescription {
-    private Integer prescriptionId;
+@Data
+@Entity
+@Table(name = "tb_prescription")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+public class Prescription implements Serializable {
+    private static final long serialVersionUID = -1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prescription_id")
+    private Integer prescription_id;     //处方编号
 
-    private String pinyinCode;
+    @Column(name = "pinyin_code")
+    private String pinyin_code;          //拼音码
 
-    private String prescriptionName;
+    @Column(name = "prescription_name")
+    private String prescription_name;    //处方名称
 
-    private Integer isDrug;
+    @Column(name = "is_drug")
+    private Integer is_drug=0;             //是否有药品
 
-    private Integer isCheck;
+    @Column(name = "is_check")
+    private Integer is_check=0;            //是否有检查
 
-    private Integer isTreatment;
+    @Column(name = "is_treatment")
+    private Integer is_treatment=0;        //是否有治疗
 
-    private BigDecimal priceAll;
-
-    public Integer getPrescriptionId() {
-        return prescriptionId;
-    }
-
-    public void setPrescriptionId(Integer prescriptionId) {
-        this.prescriptionId = prescriptionId;
-    }
-
-    public String getPinyinCode() {
-        return pinyinCode;
-    }
-
-    public void setPinyinCode(String pinyinCode) {
-        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
-    }
-
-    public String getPrescriptionName() {
-        return prescriptionName;
-    }
-
-    public void setPrescriptionName(String prescriptionName) {
-        this.prescriptionName = prescriptionName == null ? null : prescriptionName.trim();
-    }
-
-    public Integer getIsDrug() {
-        return isDrug;
-    }
-
-    public void setIsDrug(Integer isDrug) {
-        this.isDrug = isDrug;
-    }
-
-    public Integer getIsCheck() {
-        return isCheck;
-    }
-
-    public void setIsCheck(Integer isCheck) {
-        this.isCheck = isCheck;
-    }
-
-    public Integer getIsTreatment() {
-        return isTreatment;
-    }
-
-    public void setIsTreatment(Integer isTreatment) {
-        this.isTreatment = isTreatment;
-    }
-
-    public BigDecimal getPriceAll() {
-        return priceAll;
-    }
-
-    public void setPriceAll(BigDecimal priceAll) {
-        this.priceAll = priceAll;
-    }
+    @Column(name = "price_all")
+    private BigDecimal price_all;        //总价
 }

@@ -1,45 +1,32 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Treatment {
-    private Integer treatmentId;
+@Data
+@Entity
+@Table(name = "tb_treatment")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+public class Treatment implements Serializable {
+    private static final long serialVersionUID = -1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "treatment_id")
+    private Integer treatment_id;           //治疗编号
 
-    private String treatmentName;
+    @Column(name = "treatment_name")
+    private String treatment_name;          //治疗名称
 
-    private String pinyinCode;
+    @Column(name = "pinyin_code")
+    private String pinyin_code;             //拼音码
 
-    private BigDecimal treatmentPrice;
-
-    public Integer getTreatmentId() {
-        return treatmentId;
-    }
-
-    public void setTreatmentId(Integer treatmentId) {
-        this.treatmentId = treatmentId;
-    }
-
-    public String getTreatmentName() {
-        return treatmentName;
-    }
-
-    public void setTreatmentName(String treatmentName) {
-        this.treatmentName = treatmentName == null ? null : treatmentName.trim();
-    }
-
-    public String getPinyinCode() {
-        return pinyinCode;
-    }
-
-    public void setPinyinCode(String pinyinCode) {
-        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
-    }
-
-    public BigDecimal getTreatmentPrice() {
-        return treatmentPrice;
-    }
-
-    public void setTreatmentPrice(BigDecimal treatmentPrice) {
-        this.treatmentPrice = treatmentPrice;
-    }
+    @Column(name = "treatment_price")
+    private BigDecimal treatment_price;     //价格
 }

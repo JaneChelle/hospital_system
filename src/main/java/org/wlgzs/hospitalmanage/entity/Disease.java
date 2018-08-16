@@ -6,16 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "tb_disease")
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class Disease {
+public class Disease implements Serializable {
+    private static final long serialVersionUID = -1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer diseaseId;
+    @Column(name = "disease_id")
+    private int disease_id;         //疾病编号
 
-    private String diseaseName;
+    @Column(name = "disease_name")
+    private String disease_name;     //疾病名称
 }

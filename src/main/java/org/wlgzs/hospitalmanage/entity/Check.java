@@ -1,45 +1,32 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Check {
-    private Integer checkId;
+@Data
+@Entity
+@Table(name = "tb_check")
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+public class Check implements Serializable {
+    private static final long serialVersionUID = -1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "check_id")
+    private Integer check_id;
 
-    private String checkName;
+    @Column(name = "check_name")
+    private String check_name;
 
-    private String pinyinCode;
+    @Column(name = "pinyin_code")
+    private String pinyin_code;
 
-    private BigDecimal checkPrice;
-
-    public Integer getCheckId() {
-        return checkId;
-    }
-
-    public void setCheckId(Integer checkId) {
-        this.checkId = checkId;
-    }
-
-    public String getCheckName() {
-        return checkName;
-    }
-
-    public void setCheckName(String checkName) {
-        this.checkName = checkName == null ? null : checkName.trim();
-    }
-
-    public String getPinyinCode() {
-        return pinyinCode;
-    }
-
-    public void setPinyinCode(String pinyinCode) {
-        this.pinyinCode = pinyinCode == null ? null : pinyinCode.trim();
-    }
-
-    public BigDecimal getCheckPrice() {
-        return checkPrice;
-    }
-
-    public void setCheckPrice(BigDecimal checkPrice) {
-        this.checkPrice = checkPrice;
-    }
+    @Column(name = "check_price")
+    private BigDecimal check_price;
 }
