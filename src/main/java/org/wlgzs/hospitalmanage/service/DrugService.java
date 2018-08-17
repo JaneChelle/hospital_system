@@ -14,6 +14,6 @@ public interface DrugService {
     boolean addDrug(Drug drug);
     void updateDrug(Drug drug);
     void deleteDrug(int drugCode);
-    List<Drug> keyword(@RequestParam("drugName") String drugName, @RequestParam("identify") int identify);
-    List searchDrug(@RequestParam("drugName") String drugName,@RequestParam("identify") int identify);
+    List<Drug> keyword(@RequestParam("drugName") String drugName);
+    List searchDrug(@RequestParam("drugName") String drugName);
 }

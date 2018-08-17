@@ -8,7 +8,6 @@ import org.wlgzs.hospitalmanage.entity.Drug;
 import org.wlgzs.hospitalmanage.service.DrugService;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,26 +39,13 @@ public class DrugServiceImpl implements DrugService {
    public void deleteDrug(int drugCode){
        drugMapper.deleteByPrimaryKey(drugCode);
    }
-   public List<Drug> keyword(@RequestParam("drugName") String drugName, @RequestParam("identify") int identify){
-            if(identify==1){
+   public List<Drug> keyword(@RequestParam("drugName") String drugName){
                 List<Drug> drugList = drugMapper.keyWordName(drugName);
                 return drugList;
-            }else {
-                return null;
-            }
    }
-   public List searchDrug(@RequestParam("drugName") String drugName,@RequestParam("identify") int identify){
-       List<Drug> drugList = new ArrayList<>();
-       if (identify==1){
-          drugList = drugMapper.searchName(drugName);
+   public List searchDrug(@RequestParam("drugName") String drugName){
+       List<Drug> drugList = drugMapper.searchName(drugName);
            return drugList;
-       }
-       else if (identify==2){
-          drugList = drugMapper.searchDrugCode(drugName);
-           return drugList;
-       }else {
-           return null;
-       }
    }
 
 }
