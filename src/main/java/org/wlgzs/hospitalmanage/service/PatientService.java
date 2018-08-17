@@ -18,9 +18,9 @@ public interface PatientService {
 
     void updatePatient(Patient patient);
 
-    List<Patient> keyWordsearchPatient (String patientPhone,int attributeIdentify);
+    List<Patient> keyWordsearchPatient (String patientPhone);
 
-    List<Patient> searchPatient(String patientAttribute,int attributeIdentify);
+    List<Patient> searchPatient(String patientAttribute);
 
 
 

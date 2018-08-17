@@ -51,14 +51,14 @@ public class DrugController extends BaseController {
 
     //搜索药物下拉框提示
     @PostMapping("/keyword")
-    public Result keyword(@RequestParam("drugName") String drugName, @RequestParam("identify") int identify) {
-        return new Result(ResultCode.SUCCESS, drugService.keyword(drugName, identify));
+    public Result keyword(@RequestParam("drugName") String drugName) {
+        return new Result(ResultCode.SUCCESS, drugService.keyword(drugName));
     }
 
     //搜索药物
     @PostMapping("/searchdrug")
-    public ModelAndView searchDrug(Model model, @RequestParam("drugName") String drugName, @RequestParam("identify") int identify) {
-        model.addAttribute("drugs", drugService.searchDrug(drugName, identify));
+    public ModelAndView searchDrug(Model model, @RequestParam("drugName") String drugName) {
+        model.addAttribute("drugs", drugService.searchDrug(drugName));
         return new ModelAndView();
     }
 }

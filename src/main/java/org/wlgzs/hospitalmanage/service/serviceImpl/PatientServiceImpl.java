@@ -49,26 +49,13 @@ public class PatientServiceImpl implements PatientService {
         patientMapper.update(patient);
     }
     //患者下拉框提示
-    public List<Patient> keyWordsearchPatient(String patientAttribute, int attributeIdentify) {
-        if (attributeIdentify == 1) {
+    public List<Patient> keyWordsearchPatient(String patientAttribute) {
             return patientMapper.nameKeyWord(patientAttribute);
-        } else if (attributeIdentify == 2) {
-            return patientMapper.phoneKeyWord(patientAttribute);
-        } else {
-            return null;
-        }
     }
    //根据条件模糊搜索患者
-    public List<Patient> searchPatient(String patientAttribute, int attributeIdentify) {
-        if (attributeIdentify == 1) {
+    public List<Patient> searchPatient(String patientAttribute) {
             return patientMapper.searchName(patientAttribute);
-        } else if (attributeIdentify == 2) {
-            return patientMapper.searchPhone(patientAttribute);
-        } else if (attributeIdentify == 3) {
-            return patientMapper.searchpinyinCode(patientAttribute);
-        } else {
-            return null;
-        }
+
     }
 
 }

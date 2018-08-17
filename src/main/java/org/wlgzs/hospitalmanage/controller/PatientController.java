@@ -48,12 +48,12 @@ public class PatientController extends BaseController {
 
     //搜索患者下拉框提示
     @PostMapping("/keyword")
-    public Result keyword(@RequestParam("patientAttribute") String patientAttribute, @RequestParam("attributeIdentify") int attributeIdentify) {
-        return new Result(ResultCode.SUCCESS, patientService.keyWordsearchPatient(patientAttribute, attributeIdentify));
+    public Result keyword(@RequestParam("patientAttribute") String patientAttribute) {
+        return new Result(ResultCode.SUCCESS, patientService.keyWordsearchPatient(patientAttribute));
     }
     //搜索患者
     @PostMapping("/searchpatient")
-    public Result searchPatient(@RequestParam("patientAttribute") String patientAttribute, @RequestParam("attributeIdentify") int attributeIdentify) {
-        return new Result(ResultCode.SUCCESS, patientService.searchPatient(patientAttribute, attributeIdentify));
+    public Result searchPatient(@RequestParam("patientAttribute") String patientAttribute) {
+        return new Result(ResultCode.SUCCESS, patientService.searchPatient(patientAttribute));
     }
 }
