@@ -34,5 +34,5 @@ public class PrescriptionCheck implements Serializable {
     private BigDecimal price_one;           //价格
 
     @Column(name = "check_name")
-    private String check_name;           //价格
+    private String check_name;           //检查名字
 }

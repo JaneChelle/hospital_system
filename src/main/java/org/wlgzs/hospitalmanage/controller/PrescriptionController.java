@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * @author:胡亚星
+ * @author: 胡亚星
  * @createTime 2018-08-13 22:12
  * @description:
  **/
@@ -28,6 +28,7 @@ public class PrescriptionController extends BaseController {
     //新增处方
     @RequestMapping(value = "/prescription", method = RequestMethod.PUT)
     public ModelAndView addPrescription(Prescription prescription,HttpServletResponse response){
+        System.out.println(prescription);
         prescriptionService.addPrescription(prescription,response);
         return new ModelAndView("addDrug");
     }
@@ -60,18 +61,28 @@ public class PrescriptionController extends BaseController {
         return new ModelAndView("redirect:/prescription/1");
     }
 
-    //跳转到添加药品明细
-//    @RequestMapping(value = "toAddDrug")
-//    public ModelAndView toAddDrug(){
-//
-//        return new ModelAndView("addDrug");
-//    }
+    //跳转到添加药品明细(搜索)
+    @RequestMapping(value = "/prescription/toAddDrug")
+    public ModelAndView toAddDrug(Model model,HttpServletRequest request,
+                                  @RequestParam(value = "findName", defaultValue = "") String findName){
+//        List<Drug> drugList = drugService.findDrug(findName,0);
+        //搜索已经加入的药品
+        List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(request);
+        System.out.println("prescriptionDrugList"+prescriptionDrugList);
+        model.addAttribute("prescriptionDrugList",prescriptionDrugList);
+        model.addAttribute("findName",findName);
+//        System.out.println("drugList"+drugList);
+        System.out.println("findName"+findName);
+//        model.addAttribute("drugList",drugList);
+        return new ModelAndView("addDrug");
+    }
 
     //添加药品明细
-//    @RequestMapping(value = "/prescription/addDrug")
-//    public ModelAndView addDrug(PrescriptionDrug prescriptionDrug){
-//
-//    }
+    @RequestMapping(value = "/prescription/addDrug")
+    public ModelAndView addDrug(PrescriptionDrug prescriptionDrug,HttpServletRequest request){
+        prescriptionService.addDrug(prescriptionDrug,request);
+        return new ModelAndView("redirect:/prescription/toAddDrug");
+    }
 
     //跳转到添加检查明细(搜索)
     @RequestMapping(value = "/prescription/toAddCheck")
@@ -134,6 +145,12 @@ public class PrescriptionController extends BaseController {
         model.addAttribute("findName",findName);
         model.addAttribute("prescriptionList",prescriptionList);
         return new ModelAndView("prescriptionList");
+    }
+
+    //搜索提示
+    @RequestMapping("/prescription/searchWord")
+    public Result searchWord(@RequestParam(value = "search_word") String search_word){
+        return prescriptionService.findPrescriptionByWord(search_word);
     }
 
 }

@@ -48,17 +48,17 @@ public class TreatmentController extends BaseController {
     @RequestMapping(value = "/treatment", method = RequestMethod.POST)
     public ModelAndView modifyTreatment(Treatment treatment){
         treatmentService.modifyTreatment(treatment);
-        return new ModelAndView("redirect:/treatment/1");
+        return new ModelAndView("redirect:/treatment/findTreatment");
     }
 
-    //搜索检查
+    //搜索治疗
     @RequestMapping(value = "/treatment/findTreatment")
     public ModelAndView findTreatment(Model model,
                                   @RequestParam(value = "findName", defaultValue = "") String findName){
         List<Treatment> treatmentList = treatmentService.findTreatment(findName,0);
         model.addAttribute("findName",findName);
         model.addAttribute("treatmentList",treatmentList);
-        return new ModelAndView("treatmentList");
+        return new ModelAndView("treatment");
     }
 
     //搜索提示

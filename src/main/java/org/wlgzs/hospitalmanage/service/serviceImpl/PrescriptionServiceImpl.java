@@ -13,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,11 +33,15 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Resource
     PrescriptionCheckMapper prescriptionCheckMapper;
     @Resource
+    PrescriptionDrugMapper prescriptionDrugMapper;
+    @Resource
     PrescriptionTreatmentMapper prescriptionTreatmentMapper;
-
+    @Resource
+    DrugMapper drugMapper;
     //新增处方
     @Override
     public void addPrescription(Prescription prescription, HttpServletResponse response) {
+        System.out.println("21484645654");
         if (prescription != null) {
             prescriptionMapper.insert(prescription);
             String prescription_id = prescription.getPrescription_id() + "";
@@ -85,6 +90,52 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (prescription != null) {
             prescriptionMapper.updateByPrimaryKeySelective(prescription);
         }
+    }
+
+    //添加药品明细
+    @Override
+    public void addDrug(PrescriptionDrug prescriptionDrug, HttpServletRequest request) {
+        if (prescriptionDrug != null) {
+            Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
+            int prescription_id;
+            Cookie[] cookies = request.getCookies();
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("prescription_id")) {
+                    prescription_id = Integer.parseInt(cookie.getValue());
+                    System.out.println(prescription_id);
+                    prescriptionDrug.setPrescription_id(prescription_id);
+                    //修改处方表
+                    Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+                    if (prescription.getIs_drug() == 0) {
+                        prescription.setIs_drug(1);
+                        prescriptionMapper.updateByPrimaryKey(prescription);
+                    }
+                    break;
+                }
+            }
+            //查询检查表，添加价格
+            BigDecimal temp = new BigDecimal(prescriptionDrug.getNumber());
+            BigDecimal bigDecimal = drug.getUnit_price().multiply(temp);
+            prescriptionDrug.setPrice_one(bigDecimal);
+            prescriptionDrug.setDrug_name(drug.getDrug_name());
+            prescriptionDrugMapper.insert(prescriptionDrug);
+        }
+    }
+
+    //搜索已添加的处方药品
+    @Override
+    public List<PrescriptionDrug> queryPrescriptionDrug(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        List<PrescriptionDrug> prescriptionDrugList = null;
+        int prescription_id;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("prescription_id")) {
+                prescription_id = Integer.parseInt(cookie.getValue());
+                prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
+                break;
+            }
+        }
+        return prescriptionDrugList;
     }
 
     //添加检查明细
@@ -172,7 +223,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("prescription_id")) {
                 prescription_id = Integer.parseInt(cookie.getValue());
-                prescriptionTreatmentList = prescriptionCheckMapper.findPrescriptionTreatment(prescription_id);
+                prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
                 break;
             }
         }
@@ -201,7 +252,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 }
 
                 BigDecimal priceTreatment = BigDecimal.ZERO;
-                List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionCheckMapper.findPrescriptionTreatment(prescription_id);
+                List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
                 for(int i = 0;i < prescriptionTreatmentList.size();i++){
 
                     priceTreatment = priceTreatment.add(prescriptionTreatmentList.get(i).getPrice_one());
@@ -224,7 +275,23 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         PageHelper.startPage(page,10);
         List<Prescription> list = prescriptionMapper.findPrescription(findName);
         System.out.println(list);
-        return list;
+        if(list != null){
+            return list;
+        }
+        return null;
+    }
+
+    @Override
+    public Result findPrescriptionByWord(String search_word) {
+        if(search_word != null && !search_word.equals("")){
+            List<Prescription> prescriptionList = prescriptionMapper.findPrescriptionByWord(search_word);
+            List<String> list = new ArrayList<String>();
+            for (Prescription aPrescriptionList : prescriptionList) {
+                list.add(aPrescriptionList.getPrescription_name());
+            }
+            return new Result(ResultCode.SUCCESS,list);
+        }
+        return new Result(ResultCode.FAIL);
     }
 
 }
