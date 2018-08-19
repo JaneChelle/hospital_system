@@ -51,4 +51,5 @@ public class Note implements Serializable {
         this.patient_name = patient_name;
         this.disease_name = disease_name;
     }
+
 }

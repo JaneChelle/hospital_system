@@ -7,6 +7,7 @@ import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.service.PatientService;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -28,8 +29,12 @@ public class PatientServiceImpl implements PatientService {
     }
 
     //注册患者
-    public void savePatient(Patient patient) {
-        patientMapper.insert(patient);
+    public void savePatient(Patient patient,HttpSession session) {
+        if(patient != null){
+            session.setAttribute("patient",patient);
+            session.setMaxInactiveInterval(30 *60);
+            patientMapper.insert(patient);
+        }
     }
 
     //删除患者

@@ -48,17 +48,27 @@ public class PrescriptionController extends BaseController {
         return prescriptionService.deletePrescription(prescriptionId);
     }
 
-    //按id查询
+    //按id查询(修改和查看详情)
     @RequestMapping(value = "/prescription/findPrescription/{prescriptionId}", method = RequestMethod.GET)
-    public Result findPrescriptionById(@PathVariable("prescriptionId") int prescriptionId) {
-        return prescriptionService.findPrescriptionById(prescriptionId);
+    public ModelAndView findPrescriptionById(Model model,@PathVariable("prescriptionId") int prescriptionId) {
+
+        Prescription prescription = prescriptionService.findPrescriptionById(prescriptionId);//处方
+        List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(prescriptionId);
+        List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(prescriptionId);
+        List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(prescriptionId);
+        model.addAttribute("prescriptionDrugList",prescriptionDrugList);
+        model.addAttribute("prescriptionCheckList",prescriptionCheckList);
+        model.addAttribute("prescriptionTreatmentList",prescriptionTreatmentList);
+        model.addAttribute("prescription",prescription);
+
+        return new ModelAndView("prescriptionDetails");
     }
 
     //修改处方
     @RequestMapping(value = "/prescription", method = RequestMethod.POST)
     public ModelAndView modifyPrescription(Prescription prescription){
         prescriptionService.modifyPrescription(prescription);
-        return new ModelAndView("redirect:/prescription/1");
+        return new ModelAndView("redirect:/prescription/findPrescription");
     }
 
     //跳转到添加药品明细(搜索)

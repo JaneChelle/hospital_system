@@ -27,7 +27,7 @@ public interface PrescriptionService {
     Result deletePrescription(int prescriptionId);
 
     //按id查询
-    Result findPrescriptionById(int prescriptionId);
+    Prescription findPrescriptionById(int prescriptionId);
 
     //修改
     void modifyPrescription(Prescription prescription);
@@ -38,17 +38,26 @@ public interface PrescriptionService {
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(HttpServletRequest request);
 
+    //搜索已添加的处方药品
+    List<PrescriptionDrug> queryPrescriptionDrug(int prescriptionId);
+
     //添加检查明细
     void addCheck(PrescriptionCheck prescriptionCheck, HttpServletRequest request);
 
     //搜索已添加的处方检查
     List<PrescriptionCheck> queryPrescriptionCheck(HttpServletRequest request);
 
+    //搜索已添加的处方检查
+    List<PrescriptionCheck> queryPrescriptionCheck(int prescriptionId);
+
     //添加治疗明细
     void addTreatment(PrescriptionTreatment prescriptionTreatment, HttpServletRequest request);
 
     //搜索已添加的处方治疗
     List<PrescriptionTreatment> queryPrescriptionTreatment(HttpServletRequest request);
+
+    //搜索已添加的处方治疗
+    List<PrescriptionTreatment> queryPrescriptionTreatment(int prescriptionId);
 
     //计算总价格
     void totalPrice(HttpServletRequest request);

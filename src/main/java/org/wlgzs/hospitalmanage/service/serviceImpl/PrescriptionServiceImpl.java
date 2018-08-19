@@ -38,6 +38,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     PrescriptionTreatmentMapper prescriptionTreatmentMapper;
     @Resource
     DrugMapper drugMapper;
+
     //新增处方
     @Override
     public void addPrescription(Prescription prescription, HttpServletResponse response) {
@@ -76,12 +77,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //按id查询
     @Override
-    public Result findPrescriptionById(int prescriptionId) {
+    public Prescription findPrescriptionById(int prescriptionId) {
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescriptionId);
-        if (prescription != null) {
-            return new Result(ResultCode.SUCCESS, prescription);
-        }
-        return new Result(ResultCode.FAIL);
+        return prescription;
     }
 
     //修改
@@ -138,6 +136,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionDrugList;
     }
 
+    //搜索已添加的处方药品
+    @Override
+    public List<PrescriptionDrug> queryPrescriptionDrug(int prescriptionId) {
+        return prescriptionDrugMapper.findPrescriptionDrug(prescriptionId);
+    }
+
     //添加检查明细
     @Override
     public void addCheck(PrescriptionCheck prescriptionCheck, HttpServletRequest request) {
@@ -182,6 +186,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             }
         }
         return prescriptionCheckList;
+    }
+
+    @Override
+    public List<PrescriptionCheck> queryPrescriptionCheck(int prescriptionId) {
+        return prescriptionCheckMapper.findPrescriptionCheck(prescriptionId);
     }
 
     //添加治疗明细
@@ -230,6 +239,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionTreatmentList;
     }
 
+    @Override
+    public List<PrescriptionTreatment> queryPrescriptionTreatment(int prescriptionId) {
+        return prescriptionTreatmentMapper.findPrescriptionTreatment(prescriptionId);
+    }
+
     //计算总价格
     @Override
     public void totalPrice(HttpServletRequest request) {
@@ -238,32 +252,32 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("prescription_id")) {
                 prescription_id = Integer.parseInt(cookie.getValue());
-                System.out.println("prescription_id:"+prescription_id);
+                System.out.println("prescription_id:" + prescription_id);
                 Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 
                 BigDecimal priceDrug = BigDecimal.ZERO;
 
                 BigDecimal priceCheck = BigDecimal.ZERO;
                 List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
-                for(int i = 0;i < prescriptionCheckList.size();i++){
+                for (int i = 0; i < prescriptionCheckList.size(); i++) {
                     priceCheck = priceCheck.add(prescriptionCheckList.get(i).getPrice_one());
                     System.out.println(prescriptionCheckList.get(i).getPrice_one());
-                    System.out.println("priceCheck:"+priceCheck);
+                    System.out.println("priceCheck:" + priceCheck);
                 }
 
                 BigDecimal priceTreatment = BigDecimal.ZERO;
                 List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
-                for(int i = 0;i < prescriptionTreatmentList.size();i++){
+                for (int i = 0; i < prescriptionTreatmentList.size(); i++) {
 
                     priceTreatment = priceTreatment.add(prescriptionTreatmentList.get(i).getPrice_one());
                 }
-                System.out.println("priceDrug:"+priceDrug);
+                System.out.println("priceDrug:" + priceDrug);
 
-                System.out.println("priceTreatment:"+priceTreatment);
+                System.out.println("priceTreatment:" + priceTreatment);
 
                 BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
                 prescription.setPrice_all(priceAll);
-                System.out.println("priceAll:"+priceAll);
+                System.out.println("priceAll:" + priceAll);
                 prescriptionMapper.updateByPrimaryKey(prescription);
                 break;
             }
@@ -272,10 +286,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public List<Prescription> findPrescription(String findName, int page) {
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page, 10);
         List<Prescription> list = prescriptionMapper.findPrescription(findName);
         System.out.println(list);
-        if(list != null){
+        if (list != null) {
             return list;
         }
         return null;
@@ -283,13 +297,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Override
     public Result findPrescriptionByWord(String search_word) {
-        if(search_word != null && !search_word.equals("")){
+        if (search_word != null && !search_word.equals("")) {
             List<Prescription> prescriptionList = prescriptionMapper.findPrescriptionByWord(search_word);
             List<String> list = new ArrayList<String>();
             for (Prescription aPrescriptionList : prescriptionList) {
                 list.add(aPrescriptionList.getPrescription_name());
             }
-            return new Result(ResultCode.SUCCESS,list);
+            return new Result(ResultCode.SUCCESS, list);
         }
         return new Result(ResultCode.FAIL);
     }

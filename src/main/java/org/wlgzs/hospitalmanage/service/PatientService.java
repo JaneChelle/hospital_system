@@ -2,6 +2,7 @@ package org.wlgzs.hospitalmanage.service;
 
 import org.wlgzs.hospitalmanage.entity.Patient;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public interface PatientService {
      List<Patient> getPatients(int page);
 
-    void savePatient(Patient patient);
+    void savePatient(Patient patient, HttpSession session);
 
     boolean deletePatient(int patientId);
 
