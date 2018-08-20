@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>邢氏诊所患者就诊记录及电子处方系统</title>
+		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />>
+		<link rel="stylesheet" th:href="@{/css/popop.css}" />
+	</head>
+	<body>
+		<section>
+			<div class="fixed">
+				<div class="nav">
+					<span><b>患者管理</b></span>
+				</div>
+				<div class="add">
+					<div class="search">
+						<form action="" method="post">
+							<input type="text" name="" id="" value="" required="required"/>
+							<button type="submit"></button> 
+						</form>
+					</div>
+					<div class="input_btn">
+						<input type="button" value="全选" id="selectAll">
+						<!--<input type="button" value="全不选" id="unSelect">-->  
+						<input type="button" value="反选" id="reverse"> 
+						<input type="button" value="批量删除">
+						<input type="hidden" value="" class="btn" id="getValue">
+					</div>
+					<button class="label-info add_item"><b>添加</b></button>
+				</div>
+			</div>
+			<div class="same_fixed"></div>
+			<div class="section_table">
+				<table class="table table-bordered table-hover">
+					<thead>
+		                <tr>
+		                	<th>选择</th>
+		                    <th>患者编号</th>
+		                    <th>患者姓名</th>
+		                    <th>患者性别</th>
+		                    <th>拼音码</th>
+		                    <th>年龄</th>
+		                    <th>电话</th>
+		                    <th>家庭住址</th>
+		                    <th>操作</th>
+		                </tr>
+	                </thead>
+	                <tbody>
+	                	<tr th:each="patient : ${}">
+	                		<td>
+	                			<input type="checkbox" id="awesome2" value="1"/>
+								<label for="awesome2"></label>
+	                		</td>
+	                		<td>D133</td>
+	                		<td>叶小天</td>
+	                		<td>男</td>
+	                		<td>YXT</td>
+	                		<td>21</td>	
+	                		<td>15936571865</td>
+	                		<td>湖北省黄冈市黄州区</td>
+	                		<td>
+	                			<button id="modify" class="modify_add">修改</button>
+	                			<button id="delete">删除</button>
+	                		</td>
+	                	</tr>
+	                </tbody>
+				</table>
+			</div>
+		</section>
+		<!--弹窗-->
+		
+		<!--添加-->
+		<div class="window1_popup">
+			<div class="add_infor">
+				<h3>添加患者</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>患者编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                <tr>
+				                	<th>患者姓名</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>患者性别</th>
+				                	<td>
+				                		<select name="">
+			                                <option value="">男</option>
+			                                <option value="">女</option>
+			                            </select>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>拼音码</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>年龄</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>电话</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>家庭住址</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="添加"/>
+							<input type="button" name="" class="cancel_1" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!--修改-->
+		<div class="window2_popup">
+			<div class="inform">
+				<h3>修改患者</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>患者编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                <tr>
+				                	<th>患者姓名</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>患者性别</th>
+				                	<td>
+				                		<select name="">
+			                                <option value="">男</option>
+			                                <option value="">女</option>
+			                            </select>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>拼音码</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>年龄</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>电话</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>家庭住址</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="修改"/>
+							<input type="button" name="" class="cancel_2" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
+	<script type="text/javascript" src="js/drug.js" ></script>
+</html>
