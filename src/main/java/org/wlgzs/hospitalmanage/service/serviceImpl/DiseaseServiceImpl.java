@@ -9,6 +9,7 @@ import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -47,6 +48,7 @@ public class DiseaseServiceImpl implements DiseaseService {
         return new Result(ResultCode.FAIL);
     }
 
+    //查询所有
     @Override
     public List<Disease> selectAll(int page) {
         PageHelper.startPage(page,10);
@@ -55,12 +57,23 @@ public class DiseaseServiceImpl implements DiseaseService {
         return diseaseList;
     }
 
+    //搜索疾病
     @Override
     public List<Disease> findDisease(String findName,int page) {
         PageHelper.startPage(page,10);
         List<Disease> diseaseList = diseaseMapper.findDisease(findName);
         System.out.println(diseaseList);
         return diseaseList;
+    }
+
+    //选择疾病存入session
+    @Override
+    public void selectDisease(int disease_id, HttpSession session) {
+        Disease disease = diseaseMapper.selectByPrimaryKey(disease_id);
+        if(disease != null){
+            session.setAttribute("disease",disease);
+            session.setMaxInactiveInterval(30 * 60);
+        }
     }
 
     public Disease findByName (String name) {

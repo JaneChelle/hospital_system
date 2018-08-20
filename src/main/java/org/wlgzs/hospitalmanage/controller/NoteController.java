@@ -21,6 +21,12 @@ import java.util.List;
 @RequestMapping("/note")
 public class NoteController extends BaseController {
 
+    //跳转到添加一条记录
+    @RequestMapping("/toAddNote")
+    public ModelAndView toAddNote(){
+        return new ModelAndView("addNote");
+    }
+
     //添加记录
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public ModelAndView addNote(Note note,

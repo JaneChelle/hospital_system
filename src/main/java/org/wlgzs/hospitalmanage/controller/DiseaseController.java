@@ -7,6 +7,7 @@ import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.Disease;
 import org.wlgzs.hospitalmanage.util.Result;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -16,22 +17,23 @@ import java.util.List;
  **/
 
 @RestController
+@RequestMapping("/disease")
 public class DiseaseController extends BaseController {
 
     //添加疾病
-    @RequestMapping(value = "/disease", method = RequestMethod.PUT)
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result addDisease(Disease disease) {
         return diseaseService.addDisease(disease);
     }
 
     //删除疾病
-    @RequestMapping(value = "/disease/{diseaseId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{diseaseId}", method = RequestMethod.DELETE)
     public Result deleteDisease(@PathVariable("diseaseId") int diseaseId) {
         return diseaseService.deleteDiseaseById(diseaseId);
     }
 
     //查找所有疾病(分页)
-    @RequestMapping(value = "/disease/{page}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
         List<Disease> diseaseList = diseaseService.selectAll(page);
         model.addAttribute("diseaseList", diseaseList);
@@ -39,13 +41,20 @@ public class DiseaseController extends BaseController {
     }
 
     //搜索疾病(分页)
-    @RequestMapping(value = "/disease/findDisease")
+    @RequestMapping(value = "/findDisease")
     public ModelAndView findDisease(Model model,
                                     @RequestParam(value = "findName", defaultValue = "") String findName) {
         List<Disease> diseaseList = diseaseService.findDisease(findName,0);
         model.addAttribute("diseaseList",diseaseList);
         model.addAttribute("findName",findName);
         return new ModelAndView("diseaseList");
+    }
+
+    //选择疾病存入session
+    @RequestMapping("/selectDisease")
+    public ModelAndView selectDisease(int disease_id,HttpSession session){
+        diseaseService.selectDisease(disease_id,session);
+        return new ModelAndView("addNote");
     }
 
 }
