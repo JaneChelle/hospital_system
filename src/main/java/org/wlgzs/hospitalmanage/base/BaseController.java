@@ -29,6 +29,7 @@ public class BaseController {
     @Autowired
     protected DrugAttributeService drugAttributeService;
 
+    @Autowired
     protected PrescriptionService prescriptionService;
 
     @Autowired
@@ -38,6 +39,7 @@ public class BaseController {
     protected TreatmentService treatmentService;
 
     @Autowired
+
     protected HttpSession session;
 
     @Autowired
@@ -45,4 +47,8 @@ public class BaseController {
 
     @Autowired
     protected StorageRecordService storageRecordService;
+
+    @Autowired
+    protected NoteService noteService;
+
 }

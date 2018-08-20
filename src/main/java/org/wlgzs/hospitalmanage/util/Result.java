@@ -35,6 +35,12 @@ public class Result implements Serializable {
         this.count=count;
     }
 
+    public Result(ResultCode resultCode,Object data,String msg) {
+        this.code = resultCode.getCode();
+        this.data = data;
+        this.msg = msg;
+    }
+
     public int getCode() {
         return code;
     }

@@ -1,0 +1,121 @@
+.item_label{
+	padding: 0 12px;
+	font-size: 18px;
+}
+p{
+	position: relative;
+	overflow: hidden;
+	box-shadow: 2px 2px 7px #1111;
+}
+form{
+	overflow: hidden;
+	padding: 12px;
+}
+form b{
+	display: inline-block;
+	width: 100%;
+	color: #f00;
+	right: 0;
+	font-size: 15px;
+}
+.item_label{
+	display: inline-block;
+	margin: 12px;
+}
+.item_label input[type=text]{
+	width: 275px;
+	height: 56px;
+	line-height: 56px;
+	padding: 0 12px;
+	border-bottom: 2px solid #5BC0DE;
+}
+.item_label input[type=text]:focus{
+	color: #fff;
+	background-color: #5BC0DE;
+	animation:mymove 1.2s forwards;
+}
+ @keyframes mymove
+{
+	0% {
+        height: 0;
+    }
+    100% {
+        height: 56px;
+    }
+}
+.item_label label{
+	width: 111px;
+	text-align: center;
+}
+form button{
+	background-color: #5CB85C;
+	color: #fff;
+    width: 84px;
+    height: 36px;
+    float: right;
+    margin: 12px;
+}
+.list_item{
+	margin: 24px 12px;
+	padding: 12px 0;
+	font-size: 18px;
+	box-shadow: 0px 2px 7px #6aa3ef;
+}
+/*下一步*/
+.item_lists{
+	float: right;
+    width: 72px;
+    height: 40px;
+    line-height: 40px;
+    transition: .5s;
+    background-color: #5CB85C;
+    position: relative;
+    top: -2px;
+}
+.item_lists a{
+	color: #fff;
+	
+}
+.item_lists b{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+}
+/*生成记录*/
+.popup_bottom a{
+	display: inline-block;
+	width: 64px;
+    height: 36px;
+}
+.popup_bottom a button{
+	width: 100%;
+    height: 100%;
+    color: #fff;
+    transition: .5s;
+}
+.cha i{
+	font-size: 24px;
+	float: right;
+	cursor: pointer; 
+	margin-right: 12px;
+}
+.label_btn{
+	width: 72px!important; 
+	height: 42px!important; 
+	margin-top: -7px;
+}
+.list_item input[type=text]{
+	width: 180px;
+	height: 36px;
+	border-bottom: 2px solid #89949B;
+	margin: 0 24px;
+}
+p small{
+	color: #f00;
+	float: right;
+}
+.ulist div{
+	width: 500px;
+	margin: 12px auto;
+}

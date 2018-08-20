@@ -11,6 +11,8 @@ import org.wlgzs.hospitalmanage.service.serviceImpl.DiseaseServiceImpl;
 
 import javax.annotation.Resource;
 import javax.sound.midi.Soundbank;
+
+import java.sql.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -25,10 +27,13 @@ public class HospitalmanageApplicationTests {
 
     @Test
     public void contextLoads() {
-        String  name = "发烧";
-        int id = 7;
+//        String  name = "发烧";
+//        int id = 7;
 //        Disease disease = diseaseService.findById(id);
 //        System.out.println(disease+"12634566");
+
+        System.out.println(new Date(123));
+
     }
 
     @Test

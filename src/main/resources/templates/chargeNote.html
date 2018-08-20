@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/test/jeDate-test.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/skin/jedate.css}">
+    <script type="text/javascript" th:src="@{/src/jedate.js}"></script>
+</head>
+<body>
+<form th:action="@{/note/chargeNote}" method="post">
+    <div class="jewarp">
+        <h3 class="gray">常规选择</h3>
+        <div class="content">
+            <div class="jeitem">
+                <label class="jelabel">选择起始时间</label>
+                <div class="jeinpbox"><input th:name="time" type="text" class="jeinput" id="testgray" placeholder="YYYY-MM-DD hh:mm:ss">
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="submit" value="添加" class="btn btn-success" id="add"/>
+</form>
+<script type="text/javascript" th:src="@{/test/demo.js}"></script>
+</body>
+</html>

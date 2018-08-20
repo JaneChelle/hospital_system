@@ -8,6 +8,7 @@ import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -27,8 +28,8 @@ public class PatientController extends BaseController {
     }
     //添加患者
     @PostMapping("/patient")
-    public Result addPatient(Model model, Patient patient) {
-        patientService.savePatient(patient);
+    public Result addPatient(Model model, Patient patient,HttpSession session){
+        patientService.savePatient(patient,session);
         return new Result(ResultCode.SUCCESS, "添加成功");
     }
     //删除患者

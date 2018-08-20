@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>邢氏诊所患者就诊记录及电子处方系统</title>
+        <link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />>
+        <link rel="stylesheet" th:href="@{/css/popop.css}" />
+    </head>
+	<body>
+		<section>
+			<div class="fixed">
+				<div class="nav">
+					<span>处方管理 > <b style="color: #F00;">查看处方</b></span>
+					<button class="label-info modify_add">
+						<b>
+							<a href="prescriptionManagement.html">
+								<i class="fa fa-mail-reply"></i>
+							</a>
+						</b>
+					</button>
+				</div>
+			</div>
+			<div style="width: 100%; height: 45px;"></div>
+			<div class="all_inform">
+				<!--处方信息-->
+				<div>
+					<p>处方信息</p>
+					<div class="section_table">
+						<table class="table table-bordered table-hover">
+							<thead>
+				                <tr>
+				                	<th>选择</th>
+				                	<th>处方编号</th>
+				                    <th>处方名称</th>
+				                    <th>拼音码</th>
+				                    <th>操作</th>
+				                </tr>
+			                </thead>
+			                <tbody>
+			                	<tr>
+			                		<td>
+			                			<input type="checkbox" id="awesome2" value="1"/>
+										<label for="awesome2"></label>
+			                		</td>
+			                		<td>A133</td>
+			                		<td>A133</td>
+			                		<td>QMS</td>
+			                		<td>
+			                			<button id="modify" class="modify_1">修改</button>
+	                					<button id="delete">删除</button>
+			                		</td>
+			                	</tr>
+			                </tbody>
+						</table>
+					</div>
+				</div>
+				<!--处方药品-->
+				<div>
+					<div class="prescript_p">
+						<p>处方药品 <button class="modify_8">添加</button></p>
+					</div>
+					<div class="section_table">
+						<table class="table table-bordered table-hover">
+							<thead>
+				                <tr>
+				                	<th>编号</th>
+				                    <th>处方编号</th>
+				                    <th>药品编号</th>
+				                    <th>数量</th>
+				                    <th>操作</th>
+				                </tr>
+			                </thead>
+			                <tbody>
+			                	<tr>
+			                		<td>A133</td>
+			                		<td>X123</td>
+			                		<td>R123</td>
+			                		<td></td>
+			                		<td>
+			                			<button id="modify" class="modify_2">修改</button>
+	                					<button id="delete">删除</button>
+			                		</td>
+			                	</tr>
+			                </tbody>
+						</table>
+					</div>
+				</div>
+				<div class="add_2">
+					<p>处方药品</p>
+					<b>PS：该处方暂无药品</b>
+					<button class="modify_5">添加</button>
+				</div>
+				
+				<!--处方检查-->
+				<div>
+					<div class="prescript_p">
+						<p>处方检查 <button class="modify_9">添加</button></p>
+					</div>
+					<div class="section_table">
+						<table class="table table-bordered table-hover">
+							<thead>
+				                <tr>
+				                	<th>编号</th>
+				                    <th>处方编号</th>
+				                    <th>检查编号</th>
+				                    <th>数量</th>
+				                    <th>操作</th>
+				                </tr>
+			                </thead>
+			                <tbody>
+			                	<tr>
+			                		<td>A133</td>
+			                		<td></td>
+			                		<td>QMS</td>
+			                		<td></td>
+			                		<td>
+			                			<button id="modify" class="modify_3">修改</button>
+	                					<button id="delete">删除</button>
+			                		</td>
+			                	</tr>
+			                </tbody>
+						</table>
+					</div>
+				</div>
+				<div class="add_2">
+					<p>处方检查</p>
+					<b>PS：该处方暂无检查</b>
+					<button class="modify_6">添加</button>
+				</div>
+				
+				<!--处方治疗-->
+				<div style="margin-bottom: 50px;">
+					<div class="prescript_p">
+						<p>处方检查 <button class="modify_10">添加</button></p>
+					</div>
+					<div class="section_table">
+						<table class="table table-bordered table-hover">
+							<thead>
+				                <tr>
+				                	<th>编号</th>
+				                    <th>处方编号</th>
+				                    <th>治疗编号</th>
+				                    <th>数量</th>
+				                    <th>操作</th>
+				                </tr>
+			                </thead>
+			                <tbody>
+			                	<tr>
+			                		<td>A133</td>
+			                		<td></td>
+			                		<td></td>
+			                		<td>QMS</td>
+			                		<td>
+			                			<button id="modify" class="modify_4">修改</button>
+	                					<button id="delete">删除</button>
+			                		</td>
+			                	</tr>
+			                </tbody>
+						</table>
+					</div>
+				</div>
+				<div class="add_2" style="margin-bottom: 50px;">
+					<p>处方治疗</p>
+					<b>PS：该处方暂无治疗</b>
+					<button class="modify_7">添加</button>
+				</div>
+			</div>
+		</section>
+		
+		<!--弹窗-->
+		<!--处方信息-->
+		<div class="window1_popup">
+			<div class="add_infor">
+				<h3>处方信息</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>处方编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方名称</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>拼音码</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="修改"/>
+							<input type="button" name="" class="cancel_1" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!--弹窗-->
+		<!--修改处方药品-->
+		<div class="window2_popup">
+			<div class="add_infor">
+				<h3>修改处方药品</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>药品编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="修改"/>
+							<input type="button" name="" class="cancel_2" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--无处方药品时添加处方药品-->
+		<div class="window5_popup">
+			<div class="add_infor">
+				<h3>添加处方药品</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>药品编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="添加"/>
+							<input type="button" name="" class="cancel_5" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--有处方药品时添加处方药品-->
+		<div class="window8_popup">
+			<div class="add_infor">
+				<h3>添加处方药品//</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>药品编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="添加"/>
+							<input type="button" name="" class="cancel_8" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<!--修改处方检查-->
+		<div class="window3_popup">
+			<div class="add_infor">
+				<h3>修改处方检查</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>检查编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="修改"/>
+							<input type="button" name="" class="cancel_3" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--无   添加处方检查-->
+		<div class="window6_popup">
+			<div class="add_infor">
+				<h3>添加处方检查</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>检查编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="添加"/>
+							<input type="button" name="" class="cancel_6" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--有   添加处方检查-->
+		<div class="window9_popup">
+			<div class="add_infor">
+				<h3>添加处方检查//</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>检查编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="添加"/>
+							<input type="button" name="" class="cancel_9" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!--修改处方治疗-->
+		<div class="window4_popup">
+			<div class="add_infor">
+				<h3>修改处方治疗</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>治疗编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="修改"/>
+							<input type="button" name="" class="cancel_4" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--无 添加处方治疗-->
+		<div class="window7_popup">
+			<div class="add_infor">
+				<h3>添加处方治疗</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>治疗编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="添加"/>
+							<input type="button" name="" class="cancel_7" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--有 添加处方治疗-->
+		<div class="window10_popup">
+			<div class="add_infor">
+				<h3>添加处方治疗//</h3>
+				<div class="popup_table">
+					<form action="" method="post">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+				                    <th>编号</th>
+				                    <td>
+				                    	<input type="" name="" id="" value="" required="required"/>
+				                    </td>
+				                </tr>
+				                <tr>
+				                	<th>处方编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>治疗编号</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+				                <tr>
+				                	<th>数量</th>
+				                	<td>
+				                		<input type="" name="" id="" value="" required="required"/>
+				                	</td>
+				                </tr>
+							</thead>
+						</table>
+						<div class="popup_bottom">
+							<input type="reset" name="" id="" value="重置" />
+							<input type="submit" value="添加"/>
+							<input type="button" name="" class="cancel_10" value="取消" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
+	<script type="text/javascript" src="js/prescription.js" ></script>
+</html>

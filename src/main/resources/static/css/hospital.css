@@ -1,0 +1,104 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+body{
+	font-size: 14px;
+	font-family: '仿宋';
+}
+.content{
+	margin: 0 auto;
+	width: 1200px;
+	margin-top: 20px;
+}
+ul{
+	list-style-type: none;
+	padding-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+}
+li{
+	position: relative;
+    display: inline-block;
+    width: 31%;
+    margin-left: 1%;
+    cursor: pointer;
+}
+.fu_tet{
+	    position: absolute;
+    top: 0;
+    background-color: #67d6b7;
+    width: 70%;
+    height: 70%;
+    /*transform: rotateZ(45deg);*/
+    left: 15%;
+    top: 14%;
+    text-align: center;
+    display: none;
+    /*transition: all 2s ease-in 1s;*/
+}
+.fu_tet h3 {
+    font-size: 24px;
+    color: #ffffff;
+    width: 148px;
+    font-weight: bold;
+    transform: rotateZ(-45deg);
+    top: 30%;
+    position: absolute;
+    left: 6%;
+    font-weight: inherit;
+    }
+  .fu_tet p {
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 25px;
+    transform: rotateZ(-45deg);
+    width: 200px;
+    position: absolute;
+    left: 16%;
+    top: 35%;
+    height: 100px;
+    overflow: hidden;
+    }
+    ul>li>p{
+ 	position: absolute;
+    top: 56%;
+    left: 50%;
+    margin-left: -73px;
+    font-size: 24px;
+    color: #ffffff;
+    width: 148px;
+    }
+ ul li:nth-child(4){
+    top: -180px;
+    margin-left: 210px;
+}
+ ul li:nth-child(5) {
+     top: -180px;
+}
+ ul li:nth-child(2) .fu_tet {
+    background-color: #fc7971;
+}
+ ul li:nth-child(3) .fu_tet {
+    background-color: #b695ed;
+}
+ ul li:nth-child(4) .fu_tet {
+    background-color: #f7cc61;
+    }
+ ul li:nth-child(5) .fu_tet {
+    background-color: #75cdf6;
+}
+li:hover .fu_tet {
+ 	display: block;
+ 	animation:mymove 1.2s forwards;
+ 	
+ } 
+ @keyframes mymove
+{
+	0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(45deg);
+    }
+}  

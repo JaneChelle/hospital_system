@@ -3,6 +3,7 @@ package org.wlgzs.hospitalmanage.service;
 import org.wlgzs.hospitalmanage.entity.Disease;
 import org.wlgzs.hospitalmanage.util.Result;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -24,5 +25,6 @@ public interface DiseaseService {
     //搜索疾病
     List<Disease> findDisease(String findName,int page);
 
-
+    //选择疾病存入session
+    void selectDisease(int disease_id, HttpSession session);
 }

@@ -1,0 +1,384 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "宋体";
+	font-weight: 600;
+	font-size: 18px;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 0 !important;
+}
+a:hover{
+	text-decoration: none;
+}
+li{
+    list-style-type: none;
+}
+input,button{
+	border: none;
+	outline: none;
+	border-radius: 5px!important;
+}
+body{
+	overflow-x:hidden ;
+}
+.window1_popup,.window2_popup,.window3_popup,.window4_popup,
+.window5_popup,.window6_popup,.window7_popup,
+.window8_popup,.window9_popup,.window10_popup{
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;	
+	width: 100%;
+	height: 100%;
+	color: #000;
+	font-weight: 600;
+	z-index: 999;
+	background-color: rgba(0,0,0,.4);
+}
+/*弹框*/
+.inform,.add_infor{
+	width: 352px;
+	position: fixed;
+	left: 35%;
+	top: -35px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: #fff;
+}
+.inform h3,.add_infor h3{
+	margin: 0;
+	color: #fff;
+	padding: 10px 0;
+	overflow: hidden;
+	background-color: #5CB85C;
+	box-shadow: 2px 2px 7px #5CB85C;
+}
+.popup_table{
+	padding: 12px;
+}
+ .table-body{width:100%; height:550px;overflow-y:scroll;}
+.popup_table .table-bordered input{
+	height: 32px;
+	padding-left: 6px;
+}
+.popup_table select{
+    outline: none;
+    padding: 5px;
+    border-radius: 5px;
+    width: 90px;
+    margin-left: -112px;
+}
+
+.popup_bottom input{
+	display: inline-block;
+	width: 64px;
+	height: 36px;
+	color: #fff;
+}
+input[type=submit]{
+	transition: .5s;
+	background-color: #5CB85C;
+}
+input[type=submit]:hover{
+	box-shadow: 2px 2px 7px #5CB85C;
+}
+input[type=reset]{
+	transition: .5s;
+	background-color: #5BC0DE;
+}
+input[type=reset]:hover{
+	box-shadow: 2px 2px 7px #5BC0DE;
+}
+input[type=button]{
+	transition: .5s;
+	background-color: #fc5656;
+}
+input[type=button]:hover{
+	box-shadow: 2px 2px 7px #fc5656;
+}
+
+.table-bordered tr:hover{
+	background-color: rgba(184, 220, 152, 0.2);
+}
+
+/*每一个下标题*/
+.nav{
+	color: #000;
+	height: 45px;
+	line-height: 45px;
+	font-size: 19px;
+	margin: 0 3px;
+	background: -webkit-linear-gradient(#fff, #E0EDFF); 
+	/* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#fff, #E0EDFF); 
+    /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#fff, #E0EDFF);
+     /* Firefox 3.6 - 15 */
+    background: linear-gradient(#fff, #E0EDFF); 
+    /* 标准的语法（必须放在最后） */
+}
+.nav span{
+	display: inline-block;
+	height: 25px;
+	line-height: 25px;
+	margin: 0 12px;
+	letter-spacing: 3px;
+}
+
+.item-info{
+	background-color: #5BC0DE;
+}
+.label-info{
+	background-color: #6aa3ef;
+}
+.fixed{
+	position: fixed;
+	width: 100%;
+	background-color: #fff;
+	/*box-shadow: 2px 2px 7px #1111;*/
+}
+.same_fixed{
+	width: 100%;
+	height: 103px;
+}
+/*添加*/
+.add{
+	height: 42px;
+	margin: 8px 12px;
+	position: relative;
+}
+.add button,.nav button{
+	display: inline-block;
+	width: 75px;
+	text-align: center;
+	height: 42px;
+	line-height: 36px;
+	position: absolute;
+	top: 3px;
+	right: 0;
+	color: #fff;
+	letter-spacing: 5px;
+	transition: .5s;
+}
+.add button:hover{
+	box-shadow: 2px 2px 7px #95B8E7;
+}
+.nav button{
+	right: 28px;
+	top: 9px;
+	width: 42px;
+	height: 30px;
+	line-height: 24px;
+}
+.add button a,.nav button a{
+	color: #fff;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	margin: 4px 0 0 2px;
+}
+.input_btn{
+	padding: 0 12px;
+	display: inline-block;
+}
+.input_btn input[type=button]{
+	display: inline-block;
+	width: 80px;
+    height: 42px;
+    line-height: 42px;
+    color: #000; 
+    background: -webkit-linear-gradient(#fff, #ddd); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#fff, #ddd); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#fff, #ddd); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#fff, #ddd); /* 标准的语法（必须放在最后） */
+}
+.input_btn input[type=button]:hover{
+	box-shadow: 2px 2px 7px #adb8c7;
+}
+/*搜索框*/
+.search{
+	display: inline-block;
+	/*width: 600px;*/
+}
+.search form{
+	position: relative;
+	width: 300px; 
+}
+.search form input{
+	height: 42px; 
+	width: 100%;
+	color: #000;
+	font-size: 18px;
+	padding-left: 12px;
+	border: 2px solid #6aa3ef; 
+	background-color: transparent; 
+	transition: .5s;
+}
+.search form input:hover{
+	box-shadow: 2px 2px 7px #95B8E7;
+}
+.search button { 
+	letter-spacing: 5px;
+	position: absolute; 
+	top: 0; 
+	right: 0;
+	height: 42px; 
+	width: 60px; 
+	cursor: pointer; 
+	background-color: #6aa3ef; 
+	border-radius: 0 5px 5px 0; 
+} 
+.search button:before { 
+	content: "查找"; 
+	color: #F9F0DA; 
+	font-size: 16px; 
+	font-weight: 600;
+}
+.view_storage{
+	position: absolute;
+	top: 5px;
+	left: 310px;
+}
+.view_storage select{
+	height: 42px;
+}
+/*表格*/
+.section_table{
+	/*padding: 12px;*/
+	max-height: 536px;
+	overflow: auto;
+	margin: 20px 10px;
+	box-shadow: 0 0 1px 3px #ddd;
+}
+table,tr,th,td{
+	text-align: center;
+	font-size: 18px;
+	color: #000;
+	font-weight: 600;
+	vertical-align: middle;	
+	line-height: 24px;
+}
+.section_table>.table-hover>thead>tr>th:hover{
+	background-color: rgba(184, 220, 152, 0.2);
+	cursor: pointer;
+}
+.section_table>.table-hover>tbody>tr:hover{
+	background-color: transparent;
+}
+.section_table>.table-hover>tbody>tr>td:hover{
+	background-color: rgba(184, 220, 152, 0.2);
+	cursor: pointer;
+}
+.section_table table thead tr th{
+	color: #000!important;
+	border-radius: 0 5px 5px 0; 
+	border-top: 2px solid #ddd;
+	background: #f3f3f3;
+}
+/*删除 查看 修改*/
+td button{
+	color: #fff;
+	width: 60px;
+	height: 36px;
+}
+/*查看*/
+#see{
+	display: inline-block;
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	padding-top: 3px;
+	transition: .5s;
+	background-color: #6aa3ef;
+}
+#see:hover{
+	box-shadow: 2px 2px 7px #6aa3ef;
+}
+/*修改*/
+#xiugai{
+	display: inline-block;
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	padding-top: 3px;
+	transition: .5s;
+	background-color: #5CB85C;
+}
+#xiugai:hover{
+	box-shadow: 2px 2px 7px #5CB85C;
+}
+
+#delete{
+	transition: .5s;
+	background-color: #fc5656;
+}
+#delete:hover{
+	box-shadow: 2px 2px 7px #fc5656;
+}
+#modify{
+	transition: .5s ease;
+	background-color: #5CB85C;
+}
+#modify:hover{
+	box-shadow: 2px 2px 7px #5CB85C;
+}
+.popup_bottom{
+	margin-top: 18px;
+}
+.section_table input[type="checkbox"] + label::before {
+    content: "\a0";  /*不换行空格*/
+    display: inline-block;
+    vertical-align: .2em;
+    width: .9em;
+    height: .9em;
+    margin-right: .2em;
+    border-radius: .2em;
+    background-color: #E0EDFF;
+    text-indent: .15em;
+    line-height: .65;  /*行高不加单位，子元素将继承数字乘以自身字体尺寸而非父元素行高*/
+}
+.section_table input[type="checkbox"]:checked + label::before {
+    content: "\2713";
+    background-color: #6aa3ef;
+}
+.section_table input[type="checkbox"] {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+}
+.all_inform{
+	overflow-y: scroll; 
+	height: 628px; 
+	padding: 0 12px;
+}
+p{
+	cursor: pointer;
+	padding: 0 12px;
+	line-height: 40px;
+	box-shadow: 2px 2px 7px #1111;
+}
+.add_2{
+	overflow: hidden;
+	padding: 12px;
+}
+.add_2 b{
+	color: #F00;
+}
+.prescript_p{
+	overflow: hidden;
+}
+.add_2 button, .prescript_p button{
+	width: 64px;
+    height: 36px;
+    color: #fff;
+    float: right;
+    transition: .5s;
+    background-color: #5BC0DE;
+}
+.add_2 button:hover, .prescript_p button:hover{
+	box-shadow: 2px 2px 7px #5BC0DE;
+}

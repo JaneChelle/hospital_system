@@ -1,0 +1,83 @@
+*{
+	font-family: "宋体";
+}
+.sidebar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background-color: #E0EDFF; }
+  .sidebar-menu > li {
+    position: relative;
+    margin: 0;
+    padding: 0;}
+    .sidebar-menu > li > a {
+      padding: 12px 5px 12px 15px;
+      display: block;
+      border-left: 2px solid transparent;
+      color: #000; }
+      .sidebar-menu > li > a > .fa {
+        width: 20px; }
+    .sidebar-menu > li:hover > a, .sidebar-menu > li.active > a {
+      color: #000;
+      background: #fff;}
+    .sidebar-menu > li > .treeview-menu {
+      margin: 0 1px;
+      background: #E0EDFF; }
+    .sidebar-menu > li .label,
+    .sidebar-menu > li .badge {
+      margin-top: 3px;
+      margin-right: 5px; }
+  .sidebar-menu li.header {
+    padding: 10px 25px 10px 15px;
+    font-size: 12px;
+    color: #4b646f;
+    background: #1a2226; }
+  .sidebar-menu li > a > .fa-angle-left {
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin-right: 10px;
+    margin-top: 3px; }
+  .sidebar-menu li.active > a > .fa-angle-left {
+    transform: rotate(-90deg); }
+  .sidebar-menu li.active > .treeview-menu {
+    display: block; 
+    background: -webkit-linear-gradient(#fff, #E0EDFF); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#fff, #E0EDFF); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#fff, #E0EDFF); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#fff, #E0EDFF); /* 标准的语法（必须放在最后） */}
+  .sidebar-menu a {
+    text-decoration: none; }
+  .sidebar-menu .treeview-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 5px; }
+    .sidebar-menu .treeview-menu .treeview-menu {
+      padding-left: 20px; }
+    .sidebar-menu .treeview-menu > li {
+      margin: 0; }
+      .sidebar-menu .treeview-menu > li > a {
+        padding: 5px 5px 5px 15px;
+        display: block;
+        font-size: 14px;
+        color: #000; 
+        font-size: 18px;}
+        .sidebar-menu .treeview-menu > li > a > .fa {
+          width: 20px; }
+        .sidebar-menu .treeview-menu > li > a > .fa-angle-left,
+        .sidebar-menu .treeview-menu > li > a > .fa-angle-down {
+          width: auto; }
+      .sidebar-menu .treeview-menu > li.active > a, .sidebar-menu .treeview-menu > li > a:hover {
+        color: #6AA3EF; 
+        border-bottom: 2px solid; }
+.treeview-menu li a{
+	line-height: 40px;
+	transition: .5s;
+	border-bottom: 2px solid transparent;
+}
+.treeview-menu li a:hover{
+	border-bottom: 2px solid;
+	color: #fff;
+}
