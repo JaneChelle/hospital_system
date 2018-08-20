@@ -45,18 +45,18 @@ public class NoteServiceImpl implements NoteService {
 
     //添加记录
     @Override
-    public void addNote(Note note,String price_end,HttpSession session) throws ParseException {
-            if (note != null) {
-                BigDecimal bigDecimal = new BigDecimal(price_end);
-                DateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");    // 这里填写的是想要进行转换的时间格式
-                Date date = new Date();
-                String str = format.format(date);
-                date = format.parse(str);
-                System.out.println(note.getPatient_name());
-                note.setPrice_end(bigDecimal);
-                note.setNote_time(date);
-                noteMapper.insert(note);
-            }
+    public void addNote(Note note, String price_end, HttpSession session) throws ParseException {
+        if (note != null) {
+            BigDecimal bigDecimal = new BigDecimal(price_end);
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");    // 这里填写的是想要进行转换的时间格式
+            Date date = new Date();
+            String str = format.format(date);
+            date = format.parse(str);
+            System.out.println(note.getPatient_name());
+            note.setPrice_end(bigDecimal);
+            note.setNote_time(date);
+            noteMapper.insert(note);
+        }
     }
 
     //查看记录详情(id查询)
@@ -78,7 +78,7 @@ public class NoteServiceImpl implements NoteService {
 
     //修改记录
     @Override
-    public void modifyNote(Note note,String price_end) {
+    public void modifyNote(Note note, String price_end) {
         if (note != null) {
             Note note1 = noteMapper.selectByPrimaryKey(note.getNote_id());
             note.setNote_time(note1.getNote_time());
@@ -94,26 +94,30 @@ public class NoteServiceImpl implements NoteService {
         //查询用户表
         List<Patient> patientList = patientMapper.searchName(findName);
         List<Integer> listId = new ArrayList<>();
-        for(int i = 0;i < patientList.size();i++) {
+        for (int i = 0; i < patientList.size(); i++) {
             listId.add(patientList.get(i).getPatient_number());
         }
         //根据id查询
-        List<Note> list =  noteMapper.selectNoteByIds(listId);
+        List<Note> list = noteMapper.selectNoteByIds(listId);
         System.out.println(list);
         return list;
     }
 
     //按时间段查询记录和总价
     @Override
-    public Result chargeNote(String time_start, String time_end) {
-        List<Note> noteList = noteMapper.chargeNote(time_start,time_end);
+    public Result chargeNote(String time) {
+        String time_start = time.substring(0,19);
+        String time_end = time.substring(time.length() - 19,time.length());
+        System.out.println(time_start);
+        System.out.println(time_end);
+        List<Note> noteList = noteMapper.chargeNote(time_start, time_end);
         System.out.println(noteList);
         BigDecimal totalPrice = new BigDecimal("0");
-        for(Note aNoteList : noteList){
+        for (Note aNoteList : noteList) {
             totalPrice = totalPrice.add(aNoteList.getPrice_end());
         }
         String total_price = totalPrice.toString();
-        return new Result(ResultCode.SUCCESS,noteList,total_price);
+        return new Result(ResultCode.SUCCESS, noteList, total_price);
     }
 
 }

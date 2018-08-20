@@ -75,10 +75,9 @@ public class NoteController extends BaseController {
 
     //按时间查询记录收费情况
     @RequestMapping("/chargeNote")
-    public Result chargeNote(String time_start,String time_end){
-        System.out.println(time_start);
-        System.out.println(time_end);
-        return noteService.chargeNote(time_start,time_end);
+    public Result chargeNote(String time){
+        System.out.println(time);
+        return noteService.chargeNote(time);
     }
 
 }

@@ -31,5 +31,5 @@ public interface NoteService {
     List<Note> findNote(String findName,int page);
 
     //按时间段查询记录和总价
-    Result chargeNote(String time_start,String time_end);
+    Result chargeNote(String time);
 }
