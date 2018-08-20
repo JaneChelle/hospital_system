@@ -1,45 +1,35 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
+
+@Data
+@Entity
+@Table(name = "tb_drug_inventory")
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class DrugInventory {
-    private Integer stockNumber;
+    private Integer stock_number;  // 库存编号
 
-    private Integer drugCode;
+    private Integer drug_code;     // 药品编码
 
-    private Integer storageAmount;
+    private BigDecimal storage_amount;  // 库存量
 
-    private Date validPeriod;
+    private Date valid_period;       // 有效期
+    public DrugInventory(){
 
-    public Integer getStockNumber() {
-        return stockNumber;
     }
 
-    public void setStockNumber(Integer stockNumber) {
-        this.stockNumber = stockNumber;
-    }
-
-    public Integer getDrugCode() {
-        return drugCode;
-    }
-
-    public void setDrugCode(Integer drugCode) {
-        this.drugCode = drugCode;
-    }
-
-    public Integer getStorageAmount() {
-        return storageAmount;
-    }
-
-    public void setStorageAmount(Integer storageAmount) {
-        this.storageAmount = storageAmount;
-    }
-
-    public Date getValidPeriod() {
-        return validPeriod;
-    }
-
-    public void setValidPeriod(Date validPeriod) {
-        this.validPeriod = validPeriod;
+    public DrugInventory(Integer drug_code, BigDecimal storage_amount, Date valid_period) {
+        this.drug_code = drug_code;
+        this.storage_amount = storage_amount;
+        this.valid_period = valid_period;
     }
 }

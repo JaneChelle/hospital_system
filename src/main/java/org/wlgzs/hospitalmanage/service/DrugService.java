@@ -1,5 +1,6 @@
 package org.wlgzs.hospitalmanage.service;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.wlgzs.hospitalmanage.entity.Drug;
 
@@ -15,5 +16,6 @@ public interface DrugService {
     void updateDrug(Drug drug);
     void deleteDrug(int drugCode);
     List<Drug> keyword(@RequestParam("drugName") String drugName);
-    List searchDrug(@RequestParam("drugName") String drugName);
+    List searchDrug(Model model,@RequestParam("drugName") String drugName,int page);
+
 }

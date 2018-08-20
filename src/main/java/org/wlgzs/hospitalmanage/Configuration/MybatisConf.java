@@ -24,5 +24,4 @@ public class MybatisConf {
         pageHelper.setProperties(p);
         return pageHelper;
     }
-
 }

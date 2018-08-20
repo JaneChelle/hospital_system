@@ -2,6 +2,7 @@ package org.wlgzs.hospitalmanage.controller;
 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.util.Result;
@@ -18,9 +19,10 @@ import java.util.List;
 public class PatientController extends BaseController {
     //查看所有患者
     @GetMapping("/patient/{page}")
-    public Result getPatients(Model model, @PathVariable("page") int page) {
+    public ModelAndView getPatients(Model model, @PathVariable("page") int page) {
         List<Patient> patients = patientService.getPatients(page);
-        return new Result(ResultCode.SUCCESS, patients);
+        model.addAttribute("patients",patients);
+        return new ModelAndView();
 
     }
     //添加患者
@@ -52,8 +54,9 @@ public class PatientController extends BaseController {
         return new Result(ResultCode.SUCCESS, patientService.keyWordsearchPatient(patientAttribute));
     }
     //搜索患者
-    @PostMapping("/searchpatient")
-    public Result searchPatient(@RequestParam("patientAttribute") String patientAttribute) {
-        return new Result(ResultCode.SUCCESS, patientService.searchPatient(patientAttribute));
+    @PostMapping("/searchpatient/{page}")
+    public ModelAndView searchPatient(Model model,@RequestParam("page") int page, @RequestParam("patientAttribute") String patientAttribute) {
+        model.addAttribute("patients",patientService.searchPatient(model,patientAttribute,page));
+        return new ModelAndView();
     }
 }

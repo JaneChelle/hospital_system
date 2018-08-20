@@ -1,65 +1,38 @@
 package org.wlgzs.hospitalmanage.entity;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
+
+
+@Data
+@Entity
+@Table(name = "tb_drug_inventory")
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class StorageRecord {
-    private Integer recordNumber;
+    private Integer record_number;  // 记录编号
 
-    private Integer drugCode;
+    private Integer drug_code;      // 药品编码
 
-    private Integer operatorCode;
+    private Integer operator_code;  // 操作员编码
 
-    private Integer receipt;
+    private Integer receipt;       // 入库量
 
-    private Date inboundDate;
+    private Date inbound_date;      // 入库日期
 
-    private Date validPeriod;
+    private Date valid_period;      // 有效期
+    public StorageRecord(){
 
-    public Integer getRecordNumber() {
-        return recordNumber;
     }
-
-    public void setRecordNumber(Integer recordNumber) {
-        this.recordNumber = recordNumber;
-    }
-
-    public Integer getDrugCode() {
-        return drugCode;
-    }
-
-    public void setDrugCode(Integer drugCode) {
-        this.drugCode = drugCode;
-    }
-
-    public Integer getOperatorCode() {
-        return operatorCode;
-    }
-
-    public void setOperatorCode(Integer operatorCode) {
-        this.operatorCode = operatorCode;
-    }
-
-    public Integer getReceipt() {
-        return receipt;
-    }
-
-    public void setReceipt(Integer receipt) {
+    public StorageRecord(Integer drug_code, Integer operator_code, Integer receipt, Date inbound_date, Date valid_period) {
+        this.drug_code = drug_code;
+        this.operator_code = operator_code;
         this.receipt = receipt;
-    }
-
-    public Date getInboundDate() {
-        return inboundDate;
-    }
-
-    public void setInboundDate(Date inboundDate) {
-        this.inboundDate = inboundDate;
-    }
-
-    public Date getValidPeriod() {
-        return validPeriod;
-    }
-
-    public void setValidPeriod(Date validPeriod) {
-        this.validPeriod = validPeriod;
+        this.inbound_date = inbound_date;
+        this.valid_period = valid_period;
     }
 }

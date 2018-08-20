@@ -19,10 +19,17 @@ public class DrugController extends BaseController {
     @GetMapping("drug/{page}")
     // 查询药物
     public ModelAndView getDrugs(Model model, @PathVariable("page") int page) {
-        model.addAttribute(drugService.getDrugs(page));
+        model.addAttribute("drugs", drugService.getDrugs(page));
         return new ModelAndView();
     }
-
+    //进入添加药物页面
+    @GetMapping("toAdd")
+    public ModelAndView toAdd(Model model){
+    model.addAttribute("drugType",drugAttributeService.getAttribute(1)); //药品类型
+    model.addAttribute("drugUnit",drugAttributeService.getAttribute(2));  //药品单位
+    model.addAttribute("dosageForm",drugAttributeService.getAttribute(3)); //药品剂型
+        return new ModelAndView();
+    }
     // 添加药物
     @PostMapping("drug")
     public Result addDrugs(Drug drug) {
@@ -56,9 +63,9 @@ public class DrugController extends BaseController {
     }
 
     //搜索药物
-    @PostMapping("/searchdrug")
-    public ModelAndView searchDrug(Model model, @RequestParam("drugName") String drugName) {
-        model.addAttribute("drugs", drugService.searchDrug(drugName));
+    @GetMapping("/searchdrug/{page}")
+    public ModelAndView searchDrug(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page ) {
+        model.addAttribute("drugs", drugService.searchDrug(model,drugName ,page));
         return new ModelAndView();
     }
 }

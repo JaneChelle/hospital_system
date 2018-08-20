@@ -2,6 +2,7 @@ package org.wlgzs.hospitalmanage.service.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.PatientMapper;
 import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.service.PatientService;
@@ -53,8 +54,12 @@ public class PatientServiceImpl implements PatientService {
             return patientMapper.nameKeyWord(patientAttribute);
     }
    //根据条件模糊搜索患者
-    public List<Patient> searchPatient(String patientAttribute) {
-            return patientMapper.searchName(patientAttribute);
+    public List<Patient> searchPatient(Model model, String patientAttribute, int page) {
+        PageHelper.startPage(page,10);
+        List<Patient> drugList = patientMapper.searchName(patientAttribute);
+        model.addAttribute("pages",Math.ceil(page/10.0));
+        model.addAttribute("page",page);
+        return drugList;
 
     }
 

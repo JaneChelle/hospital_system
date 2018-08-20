@@ -7,6 +7,8 @@ import org.wlgzs.hospitalmanage.service.DrugService;
 import org.wlgzs.hospitalmanage.service.PatientService;
 import org.wlgzs.hospitalmanage.service.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author:胡亚星
  * @createTime 2018-08-12 15:47
@@ -34,4 +36,13 @@ public class BaseController {
 
     @Autowired
     protected TreatmentService treatmentService;
+
+    @Autowired
+    protected HttpSession session;
+
+    @Autowired
+    protected DrugInventoryService drugInventoryService;
+
+    @Autowired
+    protected StorageRecordService storageRecordService;
 }

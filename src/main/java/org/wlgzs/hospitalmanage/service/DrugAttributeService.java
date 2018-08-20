@@ -12,6 +12,7 @@ import java.util.List;
 public interface DrugAttributeService {
     List<DrugAttribute> getAttributes( int distinction,int page );
     boolean addAttribute(DrugAttribute drugAttribute);
-
-
+    boolean deleteAttribute(int drugAttributeId);
+    void updateAttribute(DrugAttribute drugAttribute);
+    List<DrugAttribute> getAttribute(int distinction);
 }

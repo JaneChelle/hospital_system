@@ -1,5 +1,6 @@
 package org.wlgzs.hospitalmanage.service;
 
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.entity.Patient;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface PatientService {
 
     List<Patient> keyWordsearchPatient (String patientPhone);
 
-    List<Patient> searchPatient(String patientAttribute);
+    List<Patient> searchPatient(Model model, String patientAttribute, int page);
 
 
 
