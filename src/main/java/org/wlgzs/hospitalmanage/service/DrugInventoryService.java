@@ -15,5 +15,5 @@ public interface DrugInventoryService {
 
     boolean  updateDrugInventory(DrugInventory drugInventory);
 
-
+    boolean reduceInventories(int drugCode, String num);
 }
