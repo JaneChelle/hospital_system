@@ -188,6 +188,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionCheckList;
     }
 
+    //搜索已添加的处方检查
     @Override
     public List<PrescriptionCheck> queryPrescriptionCheck(int prescriptionId) {
         return prescriptionCheckMapper.findPrescriptionCheck(prescriptionId);
@@ -239,6 +240,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionTreatmentList;
     }
 
+    //搜索已添加的处方治疗
     @Override
     public List<PrescriptionTreatment> queryPrescriptionTreatment(int prescriptionId) {
         return prescriptionTreatmentMapper.findPrescriptionTreatment(prescriptionId);
@@ -256,6 +258,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 
                 BigDecimal priceDrug = BigDecimal.ZERO;
+                List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
+                for (int i = 0; i < prescriptionDrugList.size(); i++) {
+                    priceDrug = priceDrug.add(prescriptionDrugList.get(i).getPrice_one());
+                    System.out.println(prescriptionDrugList.get(i).getPrice_one());
+                    System.out.println("priceDrug:" + priceDrug);
+                }
 
                 BigDecimal priceCheck = BigDecimal.ZERO;
                 List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
@@ -284,6 +292,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         }
     }
 
+    //搜索处方
     @Override
     public List<Prescription> findPrescription(String findName, int page) {
         PageHelper.startPage(page, 10);
@@ -295,6 +304,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return null;
     }
 
+    //搜索提示
     @Override
     public Result findPrescriptionByWord(String search_word) {
         if (search_word != null && !search_word.equals("")) {

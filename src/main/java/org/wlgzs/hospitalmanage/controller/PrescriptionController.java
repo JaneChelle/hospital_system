@@ -35,7 +35,7 @@ public class PrescriptionController extends BaseController {
 
     //查看所有处方
     @RequestMapping(value = "/prescription/{page}", method = RequestMethod.GET)
-    public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
+    public ModelAndView selectAll(Model model, @PathVariable("page") int page){
         List<Prescription> prescriptionList = prescriptionService.selectAll(page);
         model.addAttribute("prescriptionList", prescriptionList);
         System.out.println(prescriptionList);
@@ -75,15 +75,16 @@ public class PrescriptionController extends BaseController {
     @RequestMapping(value = "/prescription/toAddDrug")
     public ModelAndView toAddDrug(Model model,HttpServletRequest request,
                                   @RequestParam(value = "findName", defaultValue = "") String findName){
-//        List<Drug> drugList = drugService.findDrug(findName,0);
+        List<Drug> drugList = drugService.searchDrug(model,findName ,0);
+
         //搜索已经加入的药品
         List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(request);
         System.out.println("prescriptionDrugList"+prescriptionDrugList);
         model.addAttribute("prescriptionDrugList",prescriptionDrugList);
         model.addAttribute("findName",findName);
-//        System.out.println("drugList"+drugList);
+        System.out.println("drugList"+drugList);
         System.out.println("findName"+findName);
-//        model.addAttribute("drugList",drugList);
+        model.addAttribute("drugList",drugList);
         return new ModelAndView("addDrug");
     }
 

@@ -61,10 +61,12 @@ public class CheckServiceImpl implements CheckService {
     }
 
     @Override
-    public void modifyCheck(Check check) {
+    public Result modifyCheck(Check check) {
         if(check != null){
             checkMapper.updateByPrimaryKeySelective(check);
+            return new Result(ResultCode.SUCCESS);
         }
+        return new Result(ResultCode.FAIL);
     }
 
     @Override

@@ -1,14 +1,10 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.wlgzs.hospitalmanage.dao.DiseaseMapper;
-import org.wlgzs.hospitalmanage.dao.NoteMapper;
-import org.wlgzs.hospitalmanage.dao.PatientMapper;
-import org.wlgzs.hospitalmanage.dao.PrescriptionMapper;
-import org.wlgzs.hospitalmanage.entity.Disease;
-import org.wlgzs.hospitalmanage.entity.Note;
-import org.wlgzs.hospitalmanage.entity.Patient;
-import org.wlgzs.hospitalmanage.entity.Prescription;
+import org.wlgzs.hospitalmanage.dao.*;
+import org.wlgzs.hospitalmanage.entity.*;
+import org.wlgzs.hospitalmanage.service.DrugInventoryService;
 import org.wlgzs.hospitalmanage.service.NoteService;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
@@ -43,6 +39,11 @@ public class NoteServiceImpl implements NoteService {
     @Resource
     DiseaseMapper diseaseMapper;
 
+    @Resource
+    PrescriptionDrugMapper prescriptionDrugMapper;
+
+    @Autowired
+    DrugInventoryService drugInventoryService;
     //添加记录
     @Override
     public void addNote(Note note, String price_end, HttpSession session) throws ParseException {
@@ -56,6 +57,12 @@ public class NoteServiceImpl implements NoteService {
             note.setPrice_end(bigDecimal);
             note.setNote_time(date);
             noteMapper.insert(note);
+            //减少相应的库存
+            List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
+            for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
+                String number = aPrescriptionDrugList.getNumber()+"";
+                drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
+            }
         }
     }
 

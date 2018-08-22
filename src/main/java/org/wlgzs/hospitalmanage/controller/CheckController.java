@@ -46,9 +46,8 @@ public class CheckController extends BaseController {
 
     //修改检查
     @RequestMapping(value = "/check", method = RequestMethod.POST)
-    public ModelAndView modifyCheck(Check check){
-        checkService.modifyCheck(check);
-        return new ModelAndView("redirect:/check/findCheck");
+    public Result modifyCheck(Check check){
+        return checkService.modifyCheck(check);
     }
 
     //搜索检查

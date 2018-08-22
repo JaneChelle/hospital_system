@@ -30,5 +30,5 @@ public interface DrugInventoryService {
 
     List<DrugInventory> keyword(String drugName);
 
-
+    boolean reduceInventories(int drugCode, String num);
 }

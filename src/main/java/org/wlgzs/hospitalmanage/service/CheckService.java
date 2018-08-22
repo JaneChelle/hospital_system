@@ -24,7 +24,7 @@ public interface CheckService {
     Result findCheckById(int checkId);
 
     //修改
-    void modifyCheck(Check check);
+    Result modifyCheck(Check check);
 
     //搜索检查
     List<Check> findCheck(String findName,int page);

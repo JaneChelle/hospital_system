@@ -7,11 +7,11 @@ p{
 	overflow: hidden;
 	box-shadow: 2px 2px 7px #1111;
 }
-form{
+#pre_inform{
 	overflow: hidden;
 	padding: 12px;
 }
-form b{
+#pre_inform b{
 	display: inline-block;
 	width: 100%;
 	color: #f00;
@@ -47,7 +47,7 @@ form b{
 	width: 111px;
 	text-align: center;
 }
-form button{
+#pre_inform button{
 	background-color: #5CB85C;
 	color: #fff;
     width: 84px;
@@ -118,4 +118,15 @@ p small{
 .ulist div{
 	width: 500px;
 	margin: 12px auto;
+}
+.add_pre {
+	overflow: hidden;
+}
+.add_pre button{
+	background-color: #5CB85C;
+	color: #fff;
+	width: 84px;
+	height: 36px;
+	float: right;
+	margin: 12px;
 }

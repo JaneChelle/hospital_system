@@ -28,7 +28,7 @@ public class PrescriptionDrug implements Serializable {
     private Integer drug_code;              //药品编号
 
     @Column(name = "number")
-    private Integer number;                 //数量
+    private String number;                 //数量
 
     @Column(name = "price_one")
     private BigDecimal price_one;           //价格
