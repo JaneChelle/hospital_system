@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
 	<head>
 		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
-		<link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="css/prescription.css" />
-		<link rel="stylesheet" href="css/popup.css" />
+		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/popup.css}" />
+		<link rel="stylesheet" th:href="@{/css/prescription.css}" />
 	</head>
 	<body>
 		<section>
@@ -32,7 +33,7 @@
 						<span>处方治疗</span>
 						<button class="item_lists">
 							<b>
-								<a href="prescriptionExamination.html">
+								<a th:href="@{/prescription/toAddTreatment}">
 									<b>下一步</b>
 								</a>
 							</b>
@@ -100,5 +101,5 @@
 			</div>
 		</section>
 	</body>
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
+	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 </html>

@@ -7,8 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />>
-		<link rel="stylesheet" th:href="@{/css/popop.css}" />
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+		<link rel="stylesheet" th:href="@{/css/popup.css}" />
 	</head>
 	<body>
 		<section>
@@ -18,8 +19,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="" method="post">
-							<input type="text" name="" id="" value="" required="required"/>
+						<form th:action="@{/prescription/findPrescription}" method="post">
+							<input type="text" name="findName" value="" required="required"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -31,7 +32,9 @@
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
 					<button class="label-info">
-						<b><a href="addAprescription.html">添加</a></b>
+						<b>
+							<a th:href="@{/prescription/toAddPrescription}">添加</a>
+						</b>
 					</button>
 				</div>
 			</div>
@@ -56,7 +59,7 @@
 	                			<input type="checkbox" id="awesome2" value="1"/>
 								<label for="awesome2"></label>
 	                		</td>
-	                		<td th:text="${prescription.prescription_id}">A133</td>
+	                		<td class="prescriptionId" th:text="${prescription.prescription_id}">A133</td>
 	                		<td th:text="${prescription.prescription_name}">R</td>
 	                		<td th:text="${prescription.pinyin_code}"></td>
 	                		<td th:text="${prescription.is_drug}">有</td>
@@ -64,9 +67,9 @@
 	                		<td th:text="${prescription.is_treatment}">有</td>
 	                		<td>
 	                			<button>
-	                				<a id="see" href="viewPrescription.html">查看</a>
+	                				<a id="see" th:href="@{/prescription/findPrescriptionById/(prescriptionId=${prescription.prescription_id})}">查看</a>
 	                			</button>
-	                			<button id="delete">删除</button>
+								<button id="delete" class="delete">删除</button>
 	                		</td>
 	                	</tr>
 	                </tbody>
@@ -76,4 +79,5 @@
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/prescript.js}" ></script>
 </html>

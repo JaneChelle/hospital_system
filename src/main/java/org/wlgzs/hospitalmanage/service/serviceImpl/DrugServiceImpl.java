@@ -30,8 +30,12 @@ public class DrugServiceImpl implements DrugService {
     HttpSession session;
     @Resource
     DrugInventoryMapper drugInventoryMapper;
-   public List<Drug> getDrugs(int page){
+   public List<Drug> getDrugs(Model model,int page){
        PageHelper.startPage(page, 10);
+       int count = drugMapper.getcount();
+       int pages = (int) Math.ceil(count/10.0);
+       model.addAttribute("page",page);
+       model.addAttribute("pages",pages);
        List<Drug> drugList  = drugMapper.selectAll();
        return drugList;
     }
@@ -41,7 +45,7 @@ public class DrugServiceImpl implements DrugService {
         drugMapper.insert(drug);
         Drug currentDrug = drugMapper.jundgeName(drug.getDrug_name());
         int drug_code  = currentDrug.getDrug_code();
-        DrugInventory drugInventory = new DrugInventory(drug_code,new BigDecimal(0),null);
+        DrugInventory drugInventory = new DrugInventory(drug_code,currentDrug.getDrug_name(), new BigDecimal(0),null,0);
         drugInventoryMapper.insert(drugInventory);
         return true;
     }
@@ -63,9 +67,9 @@ public class DrugServiceImpl implements DrugService {
    public List searchDrug(Model model, @RequestParam("drugName") String drugName, int page){
        PageHelper.startPage(page,10);
        List<Drug> drugList = drugMapper.searchName(drugName);
-       model.addAttribute("pages",Math.ceil(page/10.0));
+       int count = drugMapper.getcount();
+       model.addAttribute("pages",Math.ceil(count/10.0));
        model.addAttribute("page",page);
            return drugList;
    }
-
 }

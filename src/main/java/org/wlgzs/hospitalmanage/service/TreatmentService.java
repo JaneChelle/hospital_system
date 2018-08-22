@@ -25,7 +25,7 @@ public interface TreatmentService {
     Result findTreatmentById(int treatmentId);
 
     //修改
-    void modifyTreatment(Treatment treatment);
+    Result modifyTreatment(Treatment treatment);
 
     //搜索治疗
     List<Treatment> findTreatment(String findName,int page);

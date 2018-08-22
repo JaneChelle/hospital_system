@@ -7,8 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />>
-		<link rel="stylesheet" th:href="@{/css/popop.css}" />
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+		<link rel="stylesheet" th:href="@{/css/popup.css}" />
 	</head>
 	<body>
 		<section>
@@ -44,26 +45,30 @@
 		                <tr>
 		                	<th>选择</th>
 		                    <th>编号</th>
-		                    <th>患者名称</th>
+		                    <th>患者编号</th>
+							<th>患者名称</th>
+							<th>疾病编号</th>
 		                    <th>疾病名称</th>
-		                    <th>处方名称</th>
+		                    <th>处方编号</th>
 		                    <th>收费</th>
 		                    <th>就诊日期</th>
 		                    <th>操作</th>
 		                </tr>
 	                </thead>
 	                <tbody>
-	                	<tr th:each="record : ${note}">
+	                	<tr>
 	                		<td>
-	                			<input type="checkbox" id="awesome2" value="1"/>
-								<label for="awesome2"></label>
+	                			<input type="checkbox" id="awesome" value="1"/>
+								<label for="awesome"></label>
 	                		</td>
-	                		<td th:text="${record.note_id}">D133</td>
-	                		<td th:text="${record}"></td>
-	                		<td></td>
-	                		<td></td>
-	                		<td></td>
-	                		<td></td>
+	                		<td th:text="${note.note_id}">D133</td>
+	                		<td th:text="${note.patient_id}"></td>
+	                		<td th:text="${note.patient_name}" </td>
+	                		<td th:text="${note.disease_id}"></td>
+	                		<td th:text="${note.disease_name}"></td>
+	                		<td th:text="${note.prescription_id}"></td>
+							<td th:text="${note.price_end}"></td>
+							<td th:text="${note.note_time}"></td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>
 	                			<button id="delete">删除</button>
@@ -99,8 +104,20 @@
 					<form action="" method="post">
 						<table class="table table-bordered">
 							<thead>
+								<tr>
+									<th>患者编号</th>
+									<td>
+										<input type="" name="" id="" value="" required="required"/>
+									</td>
+								</tr>
+								<tr>
+									<th>患者名称</th>
+									<td>
+										<input type="" name="" id="" value="" required="required"/>
+									</td>
+								</tr>
 				                <tr>
-				                	<th>患者名称</th>
+				                	<th>疾病编号</th>
 				                	<td>
 				                		<input type="" name="" id="" value="" required="required"/>
 				                	</td>
@@ -112,7 +129,7 @@
 				                	</td>
 				                </tr>
 				                 <tr>
-				                	<th>处方名称</th>
+				                	<th>处方编号</th>
 				                	<td>
 				                		<input type="" name="" id="" value="" required="required"/>
 				                	</td>

@@ -68,10 +68,12 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     //修改
     @Override
-    public void modifyTreatment(Treatment treatment) {
+    public Result modifyTreatment(Treatment treatment) {
         if(treatment != null){
             treatmentMapper.updateByPrimaryKeySelective(treatment);
+            return new Result(ResultCode.SUCCESS);
         }
+        return new Result(ResultCode.FAIL);
     }
 
     //搜索治疗

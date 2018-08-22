@@ -7,8 +7,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />>
-		<link rel="stylesheet" th:href="@{/css/popop.css}" />
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+		<link rel="stylesheet" th:href="@{/css/popup.css}" />
 	</head>
 	<body>
 		<section>
@@ -18,14 +19,13 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="" method="post">
-							<input type="text" name="" id="" value="" required="required"/>
+						<form action="/check/findCheck" method="post">
+							<input type="text" name="findName" id="findName" required="required" placeholder="检查名称/拼音码"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
 					<div class="input_btn">
 						<input type="button" value="全选" id="selectAll">
-						<!--<input type="button" value="全不选" id="unSelect">-->  
 						<input type="button" value="反选" id="reverse"> 
 						<input type="button" value="批量删除">
 						<input type="hidden" value="" class="btn" id="getValue">
@@ -52,13 +52,13 @@
 	                			<input type="checkbox" id="awesome2" value="1"/>
 								<label for="awesome2"></label>
 	                		</td>
-	                		<td th:text="${check.check_id}">D133</td>
-	                		<td th:text="${check.check_name}"></td>
-	                		<td th:text="${check.pinyin_code}"></td>
-	                		<td th:text="${check.check_price}"></td>
+	                		<td class="checkId" th:text="${check.check_id}">D133</td>
+	                		<td class="checkName" th:text="${check.check_name}"></td>
+	                		<td class="pinyinCode" th:text="${check.pinyin_code}"></td>
+	                		<td class="checkPrice" th:text="${check.check_price}"></td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>
-	                			<button id="delete">删除</button>
+	                			<button id="delete" class="delete">删除</button>
 	                		</td>
 	                	</tr>
 	                </tbody>
@@ -66,46 +66,39 @@
 			</div>
 		</section>
 		<!--弹窗-->
+
 		
 		<!--添加-->
 		<div class="window1_popup">
 			<div class="add_infor">
 				<h3>添加检查</h3>
 				<div class="popup_table">
-					<form action="" method="post">
 						<table class="table table-bordered">
 							<thead>
-								<tr>
-				                    <th>检查编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
 				                <tr>
 				                	<th>检查名称</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input name="check_name" class="check_name" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                 <tr>
 				                	<th>拼音码</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input name="pinyin_code" class="pinyin_code" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                 <tr>
 				                	<th>价格</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input name="check_price" class="check_price" value="" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
-							<input type="submit" value="添加"/>
+							<input type="submit" value="添加" class="add_check"/>
 							<input type="button" name="" class="cancel_1" value="取消" />
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
@@ -115,44 +108,43 @@
 			<div class="inform">
 				<h3>修改检查</h3>
 				<div class="popup_table">
-					<form action="" method="post">
 						<table class="table table-bordered">
 							<thead>
-								<tr>
-				                     <th>检查编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
+								<tr style="display: none">
+									<th>检查编码</th>
+									<td>
+										<input type="text" name="checkID" class="check-id" value="" required="required"/>
+									</td>
+								</tr>
 				                <tr>
 				                	<th>检查名称</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="text" name="checkName" class="name" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                 <tr>
 				                	<th>拼音码</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="text" name="pinyinCode" class="code" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                 <tr>
 				                	<th>价格</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="text" name="checkPrice" class="price" value="" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
-							<input type="submit" value="修改"/>
+							<input type="submit" value="修改" class="modify"/>
 							<input type="button" name="" class="cancel_2" value="取消" />
 						</div>
-					</form>
 				</div>
 			</div>
 		</div>
 	</body>
 		<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
+		<script type="text/javascript" th:src="@{/js/check.js}" ></script>
 </html>

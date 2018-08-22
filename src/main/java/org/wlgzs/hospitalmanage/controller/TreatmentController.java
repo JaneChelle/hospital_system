@@ -46,9 +46,8 @@ public class TreatmentController extends BaseController {
 
     //修改治疗
     @RequestMapping(value = "/treatment", method = RequestMethod.POST)
-    public ModelAndView modifyTreatment(Treatment treatment){
-        treatmentService.modifyTreatment(treatment);
-        return new ModelAndView("redirect:/treatment/findTreatment");
+    public Result modifyTreatment(Treatment treatment){
+        return treatmentService.modifyTreatment(treatment);
     }
 
     //搜索治疗

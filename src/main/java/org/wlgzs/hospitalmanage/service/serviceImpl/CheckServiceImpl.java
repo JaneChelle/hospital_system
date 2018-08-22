@@ -67,10 +67,12 @@ public class CheckServiceImpl implements CheckService {
 
     //修改
     @Override
-    public void modifyCheck(Check check) {
+    public Result modifyCheck(Check check) {
         if(check != null){
             checkMapper.updateByPrimaryKeySelective(check);
+            return new Result(ResultCode.SUCCESS);
         }
+        return new Result(ResultCode.FAIL);
     }
 
     //搜索检查
