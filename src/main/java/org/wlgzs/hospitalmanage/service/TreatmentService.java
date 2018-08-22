@@ -32,4 +32,7 @@ public interface TreatmentService {
 
     //搜索提示
     Result findTreatmentByWord(String search_word);
+
+    //批量删除
+    Result deleteTreatmentByIds(String treatmentIds);
 }

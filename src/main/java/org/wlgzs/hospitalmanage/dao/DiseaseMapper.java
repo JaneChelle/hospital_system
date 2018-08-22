@@ -1,7 +1,7 @@
 package org.wlgzs.hospitalmanage.dao;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.JdbcType;
 import org.wlgzs.hospitalmanage.entity.Disease;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -23,4 +23,19 @@ public interface DiseaseMapper extends Mapper<Disease> {
 
     @Select("SELECT * FROM tb_disease WHERE disease_name LIKE '%${findName}%'")
     List<Disease> findDisease(@Param("findName") String findName);
+
+    @Delete({"<script>",
+            "DELETE FROM tb_disease",
+            "<where>",
+            "disease_id in",
+            "<foreach item='item' index='index' collection='Ids' open='(' separator=',' close=')'>",
+            "#{item}",
+            "</foreach>",
+            "</where>",
+            "</script>"})
+    @Results({
+            @Result(column="disease_id",property = "disease_id",jdbcType = JdbcType.VARCHAR)
+    })
+    void deleteDiseaseByIds(@Param("Ids")int[] Ids);
+
 }

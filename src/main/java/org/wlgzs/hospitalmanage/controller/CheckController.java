@@ -66,4 +66,10 @@ public class CheckController extends BaseController {
         return checkService.findCheckByWord(search_word);
     }
 
+    //批量删除
+    @RequestMapping("/check/deleteCheckByIds")
+    public Result deleteCheckByIds(String checkIds){
+        return checkService.deleteCheckByIds(checkIds);
+    }
+
 }

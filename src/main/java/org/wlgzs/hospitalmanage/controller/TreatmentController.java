@@ -65,4 +65,11 @@ public class TreatmentController extends BaseController {
     public Result searchWord(@RequestParam(value = "search_word") String search_word){
         return treatmentService.findTreatmentByWord(search_word);
     }
+
+    //批量删除
+    @RequestMapping("/check/deleteByIds")
+    public Result deleteCheckByIds(String treatmentIds){
+        return treatmentService.deleteTreatmentByIds(treatmentIds);
+    }
+
 }

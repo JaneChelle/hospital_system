@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.wlgzs.hospitalmanage.dao.CheckMapper;
 import org.wlgzs.hospitalmanage.entity.Check;
 import org.wlgzs.hospitalmanage.service.CheckService;
+import org.wlgzs.hospitalmanage.util.IdsUtil;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
@@ -22,6 +23,7 @@ public class CheckServiceImpl implements CheckService {
     @Resource
     CheckMapper checkMapper;
 
+    //新增
     @Override
     public Result addCheck(Check check) {
         if(check != null){
@@ -31,6 +33,7 @@ public class CheckServiceImpl implements CheckService {
         return new Result(ResultCode.FAIL);
     }
 
+    //查找全部分页
     @Override
     public List<Check> selectAll(int page) {
         PageHelper.startPage(page,10);
@@ -38,6 +41,7 @@ public class CheckServiceImpl implements CheckService {
         return list;
     }
 
+    //按id删除
     @Override
     public Result deleteCheck(int checkId) {
         System.out.println(checkId);
@@ -51,6 +55,7 @@ public class CheckServiceImpl implements CheckService {
         return new Result(ResultCode.FAIL);
     }
 
+    //按id查询
     @Override
     public Result findCheckById(int checkId) {
         Check check = checkMapper.selectByPrimaryKey(checkId);
@@ -60,6 +65,7 @@ public class CheckServiceImpl implements CheckService {
         return new Result(ResultCode.FAIL);
     }
 
+    //修改
     @Override
     public Result modifyCheck(Check check) {
         if(check != null){
@@ -69,6 +75,7 @@ public class CheckServiceImpl implements CheckService {
         return new Result(ResultCode.FAIL);
     }
 
+    //搜索检查
     @Override
     public List<Check> findCheck(String findName, int page) {
         PageHelper.startPage(page,10);
@@ -77,6 +84,7 @@ public class CheckServiceImpl implements CheckService {
         return checkList;
     }
 
+    //搜索提示
     @Override
     public Result findCheckByWord(String search_word) {
         if(search_word != null && !search_word.equals("")){
@@ -89,4 +97,15 @@ public class CheckServiceImpl implements CheckService {
         }
         return new Result(ResultCode.FAIL);
     }
+
+    //批量删除
+    @Override
+    public Result deleteCheckByIds(String checkIds) {
+        IdsUtil idsUtil = new IdsUtil();
+        int[] Ids = idsUtil.IdsUtils(checkIds);
+        checkMapper.deleteCheckByIds(Ids);
+        return new Result(ResultCode.SUCCESS);
+    }
+
+
 }
