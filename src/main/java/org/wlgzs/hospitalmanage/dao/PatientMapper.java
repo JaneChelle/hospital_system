@@ -19,4 +19,8 @@ public interface PatientMapper extends Mapper<Patient>{
     List<Patient> searchPhone(String patientPhone);*/
     @Select("SELECT * FROM tb_patient WHERE  patient_name LIKE CONCAT('%',#{0},'%') or patient_phone LIKE CONCAT('%',#{0},'%')  or pinyin_code LIKE CONCAT('%',#{0},'%') ")
     List<Patient> searchName(String patientName);
+    @Select(" SELECT COUNT(*) FROM  tb_patient ")
+    int getcount();
+
+
 }

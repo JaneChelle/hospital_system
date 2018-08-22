@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "tb_drug_inventory")
+@Table(name = "tb_storage_record")
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class StorageRecord {
     private Integer record_number;  // 记录编号

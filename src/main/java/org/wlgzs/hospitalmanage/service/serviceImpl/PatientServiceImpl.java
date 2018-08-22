@@ -62,7 +62,8 @@ public class PatientServiceImpl implements PatientService {
     public List<Patient> searchPatient(Model model, String patientAttribute, int page) {
         PageHelper.startPage(page,10);
         List<Patient> drugList = patientMapper.searchName(patientAttribute);
-        model.addAttribute("pages",Math.ceil(page/10.0));
+        int count = patientMapper.getcount();
+        model.addAttribute("pages",Math.ceil(count/10.0));
         model.addAttribute("page",page);
         return drugList;
 

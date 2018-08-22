@@ -1,6 +1,10 @@
 package org.wlgzs.hospitalmanage.service;
 
+
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.entity.StorageRecord;
+
+import java.util.List;
 
 /**
  * @author 武凯焱
@@ -9,4 +13,7 @@ import org.wlgzs.hospitalmanage.entity.StorageRecord;
 
 public interface StorageRecordService {
     void record(StorageRecord storageRecord);
+    List<StorageRecord> getStorageRecord(Model model,int page);
+    void deleteStorage(int storageId);
+    void deleteStorages(int[] storageIds);
 }

@@ -42,7 +42,7 @@ public class Drug {
     private String approval_number;
 
     @Column(name = "safety_stock")         // 安全库存
-    private Integer safety_stock;
+    private BigDecimal safety_stock;
 
     @Column(name = "unit_price")           //单位价格
     private BigDecimal unit_price;

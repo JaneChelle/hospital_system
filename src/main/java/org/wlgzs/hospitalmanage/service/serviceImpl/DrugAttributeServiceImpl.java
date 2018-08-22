@@ -1,6 +1,7 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.DrugAttributeMapper;
 import org.wlgzs.hospitalmanage.entity.DrugAttribute;
 import org.wlgzs.hospitalmanage.service.DrugAttributeService;
@@ -25,10 +26,20 @@ public class DrugAttributeServiceImpl implements DrugAttributeService {
         List<DrugAttribute> drugAttributes = drugAttributeMapper.getAttribute(distinction);
         return drugAttributes;
     }
-
+    public List<DrugAttribute> searchAttribute(Model model, String attributeName , int page ){  //搜索属性名字
+        PageHelper.startPage(page,10);
+        List<DrugAttribute> drugAttributeList = drugAttributeMapper.searchAttribute(attributeName);
+        model.addAttribute("pages",Math.ceil(page/10.0));
+        model.addAttribute("page",page);
+        return drugAttributeList;
+    }
+    public List<DrugAttribute> keyword(String attributeName){
+        List<DrugAttribute> drugAttributes = drugAttributeMapper.keyword(attributeName);
+        return drugAttributes;
+    }
     public boolean addAttribute(DrugAttribute drugAttribute) {
         DrugAttribute attribute = drugAttributeMapper.findByname(drugAttribute.getAttribute_name(), drugAttribute.getAttribute_distinction());
-        if (attribute != null) {
+        if (attribute == null) {
             drugAttributeMapper.insert(drugAttribute);
             return true;
         } else {
@@ -43,8 +54,12 @@ public class DrugAttributeServiceImpl implements DrugAttributeService {
       }
       return true;
     }
+    public DrugAttribute getDrugAttribute(int attributeId){
+       DrugAttribute drugAttribute =  drugAttributeMapper.selectByPrimaryKey(attributeId);
+       return drugAttribute;
+    }
+
     public void updateAttribute(DrugAttribute drugAttribute){
         drugAttributeMapper.updateByPrimaryKey(drugAttribute);
     }
-
 }
