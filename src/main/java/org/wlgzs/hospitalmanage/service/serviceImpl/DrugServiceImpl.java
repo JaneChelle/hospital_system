@@ -55,7 +55,21 @@ public class DrugServiceImpl implements DrugService {
     }
    }
    public void updateDrug(Drug drug){
-       drugMapper.updateDrug(drug);
+       Drug beforeDrug = drugMapper.selectByPrimaryKey(drug.getDrug_code());
+       BigDecimal beforeAmount = beforeDrug.getSafety_stock();
+       BigDecimal afterAmount = drug.getSafety_stock();
+       if (beforeAmount==afterAmount) {
+           drugMapper.updateDrug(drug);
+       }else {
+           DrugInventory drugInventory = drugInventoryMapper.increase(beforeDrug.getDrug_code());
+           BigDecimal currentAmount = drugInventory.getStorage_amount();
+           if (currentAmount.compareTo(afterAmount)<=0){
+               drugInventory.setIs_safety_stock(0);
+           }else {
+               drugInventory.setIs_safety_stock(1);
+           }
+           drugInventoryMapper.update(drugInventory);
+       }
    }
    public void deleteDrug(int drugCode){
        drugMapper.deleteByPrimaryKey(drugCode);

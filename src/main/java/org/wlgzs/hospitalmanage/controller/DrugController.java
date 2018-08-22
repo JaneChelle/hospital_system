@@ -21,6 +21,7 @@ public class DrugController extends BaseController {
     public ModelAndView getDrugs(Model model, @PathVariable("page") int page) {
         model.addAttribute("drugs", drugService.getDrugs(model,page));
         return new ModelAndView();
+
     }
     //进入添加药物页面
     @GetMapping("toAdd")

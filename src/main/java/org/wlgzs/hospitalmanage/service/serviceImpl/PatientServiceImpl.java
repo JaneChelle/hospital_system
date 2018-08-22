@@ -48,7 +48,12 @@ public class PatientServiceImpl implements PatientService {
             return true;
         }
     }
-
+    //批量删除患者
+    public void deletePatients(int[] patients){
+          for (int i=0;i<patients.length;i++){
+              patientMapper.deleteByPrimaryKey(patients[i]);
+          }
+    }
     //变更患者信息
     public void updatePatient(Patient patient) {
         System.out.println(patient);
