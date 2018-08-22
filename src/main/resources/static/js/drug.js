@@ -9,7 +9,7 @@ $(document).ready(function(){
 		console.log(height);
 		if(height<=326){
 			$('.inform').animate({
-				top:"115px",
+				top:"135px",
 			})
 		}
 		else{
