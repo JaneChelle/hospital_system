@@ -27,4 +27,7 @@ public interface DiseaseService {
 
     //选择疾病存入session
     void selectDisease(int disease_id, HttpSession session);
+
+    //批量删除
+    Result deleteDiseaseByIds(String DiseaseIds);
 }

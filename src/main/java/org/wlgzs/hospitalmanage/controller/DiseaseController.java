@@ -57,4 +57,10 @@ public class DiseaseController extends BaseController {
         return new ModelAndView("addNote");
     }
 
+    //批量删除
+    @RequestMapping("/deleteDiseaseByIds")
+    public Result deleteDiseaseByIds(String DiseaseIds){
+        return diseaseService.deleteDiseaseByIds(DiseaseIds);
+    }
+
 }

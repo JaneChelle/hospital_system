@@ -32,5 +32,7 @@ public interface CheckService {
     //搜索提示
     Result findCheckByWord(String search_word);
 
+    //批量删除
+    Result deleteCheckByIds(String checkIds);
 
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.wlgzs.hospitalmanage.dao.TreatmentMapper;
 import org.wlgzs.hospitalmanage.entity.Treatment;
 import org.wlgzs.hospitalmanage.service.TreatmentService;
+import org.wlgzs.hospitalmanage.util.IdsUtil;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
@@ -23,6 +24,7 @@ public class TreatmentServiceImpl implements TreatmentService {
     @Resource
     TreatmentMapper treatmentMapper;
 
+    //新增
     @Override
     public Result addTreatment(Treatment treatment) {
         if(treatment != null){
@@ -32,6 +34,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         return new Result(ResultCode.FAIL);
     }
 
+    //查找全部分页
     @Override
     public List<Treatment> selectAll(int page) {
         PageHelper.startPage(page,10);
@@ -39,6 +42,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         return list;
     }
 
+    //按id删除
     @Override
     public Result deleteTreatment(int treatmentId) {
         System.out.println(treatmentId);
@@ -52,6 +56,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         return new Result(ResultCode.FAIL);
     }
 
+    //按id查询
     @Override
     public Result findTreatmentById(int treatmentId) {
         Treatment treatment = treatmentMapper.selectByPrimaryKey(treatmentId);
@@ -61,6 +66,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         return new Result(ResultCode.FAIL);
     }
 
+    //修改
     @Override
     public void modifyTreatment(Treatment treatment) {
         if(treatment != null){
@@ -68,6 +74,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         }
     }
 
+    //搜索治疗
     @Override
     public List<Treatment> findTreatment(String findName, int page) {
         PageHelper.startPage(page,10);
@@ -76,6 +83,7 @@ public class TreatmentServiceImpl implements TreatmentService {
         return treatmentList;
     }
 
+    //搜索提示
     @Override
     public Result findTreatmentByWord(String search_word) {
         if(search_word != null && !search_word.equals("")){
@@ -87,5 +95,14 @@ public class TreatmentServiceImpl implements TreatmentService {
             return new Result(ResultCode.SUCCESS,list);
         }
         return new Result(ResultCode.FAIL);
+    }
+
+    //批量删除
+    @Override
+    public Result deleteTreatmentByIds(String treatmentIds) {
+        IdsUtil idsUtil = new IdsUtil();
+        int[] Ids = idsUtil.IdsUtils(treatmentIds);
+        treatmentMapper.deleteTreatmentByIds(Ids);
+        return new Result(ResultCode.SUCCESS);
     }
 }
