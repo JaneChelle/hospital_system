@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.wlgzs.hospitalmanage.dao.DiseaseMapper;
 import org.wlgzs.hospitalmanage.entity.Disease;
 import org.wlgzs.hospitalmanage.service.DiseaseService;
+import org.wlgzs.hospitalmanage.util.IdsUtil;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
@@ -76,7 +77,15 @@ public class DiseaseServiceImpl implements DiseaseService {
         }
     }
 
-    public Disease findByName (String name) {
-        return diseaseMapper.findByName(name);
+    @Override
+    public Result deleteDiseaseByIds(String DiseaseIds) {
+        IdsUtil idsUtil = new IdsUtil();
+        int[] Ids = idsUtil.IdsUtils(DiseaseIds);
+        diseaseMapper.deleteDiseaseByIds(Ids);
+        return new Result(ResultCode.SUCCESS);
     }
+
+//    public Disease findByName (String name) {
+//        return diseaseMapper.findByName(name);
+//    }
 }

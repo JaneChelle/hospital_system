@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2018/8/14 21:25
  */
 public interface DrugService {
-    List<Drug> getDrugs(int page);
+    List<Drug> getDrugs(Model model,int page);
     boolean addDrug(Drug drug);
     void updateDrug(Drug drug);
     void deleteDrug(int drugCode);

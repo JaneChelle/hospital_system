@@ -48,7 +48,12 @@ public class PatientServiceImpl implements PatientService {
             return true;
         }
     }
-
+    //批量删除患者
+    public void deletePatients(int[] patients){
+          for (int i=0;i<patients.length;i++){
+              patientMapper.deleteByPrimaryKey(patients[i]);
+          }
+    }
     //变更患者信息
     public void updatePatient(Patient patient) {
         System.out.println(patient);
@@ -62,7 +67,8 @@ public class PatientServiceImpl implements PatientService {
     public List<Patient> searchPatient(Model model, String patientAttribute, int page) {
         PageHelper.startPage(page,10);
         List<Patient> drugList = patientMapper.searchName(patientAttribute);
-        model.addAttribute("pages",Math.ceil(page/10.0));
+        int count = patientMapper.getcount();
+        model.addAttribute("pages",Math.ceil(count/10.0));
         model.addAttribute("page",page);
         return drugList;
 

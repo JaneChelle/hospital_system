@@ -3,7 +3,6 @@ package org.wlgzs.hospitalmanage.entity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -20,16 +19,23 @@ public class DrugInventory {
 
     private Integer drug_code;     // 药品编码
 
+    private String  drug_name;     //药品名字
+
     private BigDecimal storage_amount;  // 库存量
 
-    private Date valid_period;       // 有效期
+    private Date valid_period;       //有效期
+
+    private int   is_safety_stock;    //是否安全库存
+
     public DrugInventory(){
 
     }
 
-    public DrugInventory(Integer drug_code, BigDecimal storage_amount, Date valid_period) {
+    public DrugInventory(Integer drug_code,String drug_name, BigDecimal storage_amount, Date valid_period,int is_safety_stock) {
         this.drug_code = drug_code;
         this.storage_amount = storage_amount;
         this.valid_period = valid_period;
+        this.drug_name = drug_name;
+        this.is_safety_stock = is_safety_stock;
     }
 }

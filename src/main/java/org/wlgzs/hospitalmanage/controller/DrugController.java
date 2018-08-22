@@ -19,7 +19,7 @@ public class DrugController extends BaseController {
     @GetMapping("drug/{page}")
     // 查询药物
     public ModelAndView getDrugs(Model model, @PathVariable("page") int page) {
-        model.addAttribute("drugs", drugService.getDrugs(page));
+        model.addAttribute("drugs", drugService.getDrugs(model,page));
         return new ModelAndView("drug");
     }
     //进入添加药物页面

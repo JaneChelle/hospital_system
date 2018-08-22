@@ -24,6 +24,8 @@ public interface PatientService {
 
     List<Patient> searchPatient(Model model, String patientAttribute, int page);
 
+    void deletePatients(int[] patients);
+
 
 
 
