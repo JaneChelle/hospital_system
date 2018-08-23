@@ -43,7 +43,7 @@ public interface PrescriptionService {
     List<PrescriptionDrug> queryPrescriptionDrug(int prescriptionId);
 
     //添加检查明细
-    void addCheck(PrescriptionCheck prescriptionCheck, HttpSession session);
+    Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session);
 
     //搜索已添加的处方检查
     List<PrescriptionCheck> queryPrescriptionCheck(HttpSession session);
@@ -52,7 +52,7 @@ public interface PrescriptionService {
     List<PrescriptionCheck> queryPrescriptionCheck(int prescriptionId);
 
     //添加治疗明细
-    void addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session);
+    Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session);
 
     //搜索已添加的处方治疗
     List<PrescriptionTreatment> queryPrescriptionTreatment(HttpSession session);

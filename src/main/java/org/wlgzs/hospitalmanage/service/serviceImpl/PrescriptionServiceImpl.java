@@ -141,20 +141,18 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加检查明细
     @Override
-    public void addCheck(PrescriptionCheck prescriptionCheck, HttpSession session) {
-        if (prescriptionCheck != null) {
+    public Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session) {
+        if (prescriptionCheck != null && session.getAttribute("prescription_id") != null) {
             Check check = checkMapper.selectByPrimaryKey(prescriptionCheck.getCheck_id());
             int prescription_id;
-            if (session.getAttribute("prescription_id") != null) {
-                prescription_id = (int) session.getAttribute("prescription_id");
-                System.out.println(prescription_id);
-                prescriptionCheck.setPrescription_id(prescription_id);
-                //修改处方表
-                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
-                if (prescription.getIs_check() == 0) {
-                    prescription.setIs_check(1);
-                    prescriptionMapper.updateByPrimaryKey(prescription);
-                }
+            prescription_id = (int) session.getAttribute("prescription_id");
+            System.out.println(prescription_id);
+            prescriptionCheck.setPrescription_id(prescription_id);
+            //修改处方表
+            Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+            if (prescription.getIs_check() == 0) {
+                prescription.setIs_check(1);
+                prescriptionMapper.updateByPrimaryKey(prescription);
             }
             //查询检查表，添加价格
             BigDecimal temp = new BigDecimal(prescriptionCheck.getNumber());
@@ -162,6 +160,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             prescriptionCheck.setPrice_one(bigDecimal);
             prescriptionCheck.setCheck_name(check.getCheck_name());
             prescriptionCheckMapper.insert(prescriptionCheck);
+            return new Result(ResultCode.SUCCESS);
+        } else {
+            return new Result(ResultCode.FAIL);
         }
     }
 
@@ -185,20 +186,18 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加治疗明细
     @Override
-    public void addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session) {
-        if (prescriptionTreatment != null) {
+    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session) {
+        if (prescriptionTreatment != null && session.getAttribute("prescription_id") != null) {
             Treatment treatment = treatmentMapper.selectByPrimaryKey(prescriptionTreatment.getTreatment_id());
             int prescription_id;
-            if (session.getAttribute("prescription_id") != null) {
-                prescription_id = (int) session.getAttribute("prescription_id");
-                System.out.println(prescription_id);
-                prescriptionTreatment.setPrescription_id(prescription_id);
-                //修改处方表
-                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
-                if (prescription.getIs_treatment() == 0) {
-                    prescription.setIs_treatment(1);
-                    prescriptionMapper.updateByPrimaryKey(prescription);
-                }
+            prescription_id = (int) session.getAttribute("prescription_id");
+            System.out.println(prescription_id);
+            prescriptionTreatment.setPrescription_id(prescription_id);
+            //修改处方表
+            Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+            if (prescription.getIs_treatment() == 0) {
+                prescription.setIs_treatment(1);
+                prescriptionMapper.updateByPrimaryKey(prescription);
             }
             //查询检查表，添加价格
             BigDecimal temp = new BigDecimal(prescriptionTreatment.getNumber());
@@ -206,6 +205,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             prescriptionTreatment.setPrice_one(bigDecimal);
             prescriptionTreatment.setTreatment_name(treatment.getTreatment_name());
             prescriptionTreatmentMapper.insert(prescriptionTreatment);
+            return new Result(ResultCode.SUCCESS);
+        } else {
+            return new Result(ResultCode.FAIL);
         }
     }
 

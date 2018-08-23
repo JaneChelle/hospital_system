@@ -115,9 +115,9 @@ public class PrescriptionController extends BaseController {
 
     //添加检查明细
     @RequestMapping(value = "/prescription/addCheck")
-    public ModelAndView addCheck(PrescriptionCheck prescriptionCheck,HttpSession session){
-        prescriptionService.addCheck(prescriptionCheck,session);
-        return new ModelAndView("redirect:/prescription/toAddCheck");
+    public Result addCheck(PrescriptionCheck prescriptionCheck,HttpSession session){
+        return prescriptionService.addCheck(prescriptionCheck,session);
+//        return new ModelAndView("redirect:/prescription/toAddCheck");
     }
 
     //跳转到添加治疗方案(搜索)
@@ -138,9 +138,9 @@ public class PrescriptionController extends BaseController {
 
     //添加治疗明细
     @RequestMapping(value = "/prescription/addTreatment")
-    public ModelAndView addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session){
-        prescriptionService.addTreatment(prescriptionTreatment,session);
-        return new ModelAndView("redirect:/prescription/toAddTreatment");
+    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session){
+        return prescriptionService.addTreatment(prescriptionTreatment,session);
+//        return new ModelAndView("redirect:/prescription/toAddTreatment");
     }
 
     //完成时计算总价
