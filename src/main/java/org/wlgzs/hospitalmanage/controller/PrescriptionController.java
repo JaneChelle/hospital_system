@@ -97,6 +97,12 @@ public class PrescriptionController extends BaseController {
         return new ModelAndView("redirect:/prescription/toAddDrug");
     }
 
+    //删除药品明细
+    @RequestMapping(value = "/prescription/deleteDrug")
+    public Result deleteDrug(int detailId){
+        return prescriptionService.deleteDrug(detailId);
+    }
+
     //跳转到添加检查明细(搜索)
     @RequestMapping(value = "/prescription/toAddCheck")
     public ModelAndView toAddCheck(Model model,HttpSession session,
@@ -120,6 +126,12 @@ public class PrescriptionController extends BaseController {
 //        return new ModelAndView("redirect:/prescription/toAddCheck");
     }
 
+    //删除检查明细
+    @RequestMapping(value = "/prescription/deleteCheck")
+    public Result deleteCheck(int checkId){
+        return prescriptionService.deleteCheck(checkId);
+    }
+
     //跳转到添加治疗方案(搜索)
     @RequestMapping(value = "/prescription/toAddTreatment")
     public ModelAndView toAddTreatment(Model model,HttpSession session,
@@ -141,6 +153,12 @@ public class PrescriptionController extends BaseController {
     public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session){
         return prescriptionService.addTreatment(prescriptionTreatment,session);
 //        return new ModelAndView("redirect:/prescription/toAddTreatment");
+    }
+
+    //删除检查明细
+    @RequestMapping(value = "/prescription/deleteTreatment")
+    public Result deleteTreatment(int treatmentId){
+        return prescriptionService.deleteTreatment(treatmentId);
     }
 
     //完成时计算总价

@@ -39,6 +39,9 @@ public interface PrescriptionService {
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session);
 
+    //删除已添加的处方药品
+    Result deleteDrug(int detailId);
+
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(int prescriptionId);
 
@@ -51,6 +54,9 @@ public interface PrescriptionService {
     //搜索已添加的处方检查
     List<PrescriptionCheck> queryPrescriptionCheck(int prescriptionId);
 
+    //删除已添加的处方检查
+    Result deleteCheck(int checkId);
+
     //添加治疗明细
     Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session);
 
@@ -59,6 +65,9 @@ public interface PrescriptionService {
 
     //搜索已添加的处方治疗
     List<PrescriptionTreatment> queryPrescriptionTreatment(int prescriptionId);
+
+    //删除已添加的处方治疗
+    Result deleteTreatment(int treatmentId);
 
     //计算总价格
     void totalPrice(HttpSession session);

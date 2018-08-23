@@ -133,6 +133,24 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionDrugList;
     }
 
+    //删除已添加的处方药品
+    @Override
+    public Result deleteDrug(int detailId) {
+        PrescriptionDrug prescriptionDrug = prescriptionDrugMapper.selectByPrimaryKey(detailId);
+        if (prescriptionDrug != null) {
+            prescriptionDrugMapper.deleteByPrimaryKey(detailId);
+            List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescriptionDrug.getPrescription_id());
+            if (prescriptionDrugList.size() == 0) {
+                //修改处方表
+                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescriptionDrug.getPrescription_id());
+                prescription.setIs_drug(0);
+                prescriptionMapper.updateByPrimaryKey(prescription);
+            }
+            return new Result(ResultCode.SUCCESS);
+        }
+        return new Result(ResultCode.FAIL);
+    }
+
     //搜索已添加的处方药品
     @Override
     public List<PrescriptionDrug> queryPrescriptionDrug(int prescriptionId) {
@@ -184,6 +202,24 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return prescriptionCheckMapper.findPrescriptionCheck(prescriptionId);
     }
 
+    //删除已添加的处方检查
+    @Override
+    public Result deleteCheck(int checkId) {
+        PrescriptionCheck prescriptionCheck = prescriptionCheckMapper.selectByPrimaryKey(checkId);
+        if (prescriptionCheck != null) {
+            prescriptionCheckMapper.deleteByPrimaryKey(checkId);
+            List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescriptionCheck.getPrescription_id());
+            if (prescriptionCheckList.size() == 0) {
+                //修改处方表
+                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescriptionCheck.getPrescription_id());
+                prescription.setIs_drug(0);
+                prescriptionMapper.updateByPrimaryKey(prescription);
+            }
+            return new Result(ResultCode.SUCCESS);
+        }
+        return new Result(ResultCode.FAIL);
+    }
+
     //添加治疗明细
     @Override
     public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session) {
@@ -227,6 +263,24 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public List<PrescriptionTreatment> queryPrescriptionTreatment(int prescriptionId) {
         return prescriptionTreatmentMapper.findPrescriptionTreatment(prescriptionId);
+    }
+
+    //删除已添加的处方治疗
+    @Override
+    public Result deleteTreatment(int treatmentId) {
+        PrescriptionTreatment prescriptionTreatment = prescriptionTreatmentMapper.selectByPrimaryKey(treatmentId);
+        if (prescriptionTreatment != null) {
+            prescriptionTreatmentMapper.deleteByPrimaryKey(treatmentId);
+            List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescriptionTreatment.getPrescription_id());
+            if (prescriptionTreatmentList.size() == 0) {
+                //修改处方表
+                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescriptionTreatment.getPrescription_id());
+                prescription.setIs_drug(0);
+                prescriptionMapper.updateByPrimaryKey(prescription);
+            }
+            return new Result(ResultCode.SUCCESS);
+        }
+        return new Result(ResultCode.FAIL);
     }
 
     //计算总价格
