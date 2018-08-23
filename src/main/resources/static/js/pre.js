@@ -24,4 +24,4 @@ $(".add_pre").on('click',function () {
     else {
         alert("请把信息补充完整");
     }
-})
+});

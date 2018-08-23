@@ -54,21 +54,22 @@
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td>
-			                			<button id="delete">删除</button>
-			                		</td>
-			                	</tr>
+								<tr th:each="prescription : ${prescriptionDrugList}">
+									<td th:text="${prescription.detail_id}"></td>
+									<td th:text="${prescription.drug_code}"></td>
+									<td th:text="${prescription.drug_name}"></td>
+									<td th:text="${prescription.price_one}"></td>
+									<td th:text="${prescription.number}"></td>
+									<td th:text="${prescription."></td>
+									<td>
+										<button id="delete">删除</button>
+									</td>
+								</tr>
 			                </tbody>
 						</table>
 					</div>
 					<div class="search search-a">
-						<form th:action="@{/prescription/addDrug}" method="post">
+						<form th:action="@{/prescription/toAddDrug}" method="post">
 							<input type="text" name="findName" id="drugName" value="" placeholder="药品名称" required="required"/>
 							<button type="submit"></button> 
 						</form>
@@ -77,25 +78,25 @@
 						<table class="table table-bordered table-hover">
 							<thead>
 				                <tr>
-				                	<th>编号</th>
-				                	<th>药品编号</th>
-				                	<th>药品名称</th>
+									<th>药品编号</th>
+									<th>药品名称</th>
+				                	<th>拼音码</th>
 				                	<th>价格</th>
-				                    <th>数量</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr th:each="prescriptionDrug : ${prescriptionDrugList}">
-			                		<td th:text="${prescriptionDrug.drug_code}"></td>
-			                		<td th:text="${prescriptionDrug.drug_code}"></td>
-			                		<td th:text="${prescriptionDrug.price_one}"></td>
-			                		<td th:text="${prescriptionDrug.number}"></td>
-			                		<td></td>
-			                		<td>
-			                			<button id="modify">选择</button>
-			                		</td>
-			                	</tr>
+								<tr th:each="pre : ${drugList}">
+									<td th:text="${pre.drug_code}"></td>
+									<td th:text="${pre.drug_name}">
+									<td th:text="${pre.pinyin_code}"></td>
+									<td th:text="${pre.unit_price}"></td>
+									<td>
+										<a th:href="@{/prescription/addDrug}">
+											<button id="modify" class="select_drug">选择</button>
+										</a>
+									</td>
+								</tr>
 			                </tbody>
 						</table>
 					</div>

@@ -41,10 +41,15 @@ public class PatientController extends BaseController {
             return new Result(ResultCode.FAIL, "该用户不存在");
         }
     }
+    //批量删除患者
+    @PostMapping("/deletePatients")
+    public Result deletePatients(@RequestParam("patients") int[] patients){
+        patientService.deletePatients(patients);
+        return new Result(ResultCode.SUCCESS,"批量删除成功");
+    }
     //修改患者消息
     @PutMapping("/patient")
     public Result updatePatient(Patient patient, @RequestParam("patientName") String patientName) {
-        System.out.println("sfdsf" + patient);
         patientService.updatePatient(patient);
         return new Result(ResultCode.SUCCESS, "更改成功");
     }

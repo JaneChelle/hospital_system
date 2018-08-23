@@ -46,18 +46,17 @@
 				                   	<th>编号</th>
 				                   	<th>检查编号</th>
 				                	<th>检查名称</th>
-				                	<th>价格</th>
-				                    <th>数量</th>
+				                	<th>拼音码</th>
+				                    <th>价格</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr>
-			                		<td>D133</td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
+			                	<tr th:each="check : ${prescriptionCheckList}">
+			                		<td th:text="${check.check_id}">D133</td>
+			                		<td th:text="${check.check_name}"></td>
+									<td th:text="${check.pinyin_code}"></td>
+			                		<td th:text="${check.check_price}"></td>
 			                		<td>
 			                			<button id="delete">删除</button>
 			                		</td>
@@ -75,23 +74,23 @@
 						<table class="table table-bordered table-hover">
 							<thead>
 				                <tr>
-				                   	<th>编号</th>
 				                   	<th>检查编号</th>
 				                	<th>检查名称</th>
+									<th>拼音码</th>
 				                	<th>价格</th>
-				                    <th>数量</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr>			                		
-			                		<td>D133</td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
+			                	<tr th:each="checks : ${checkList}">
+			                		<td th:text="${checks.check_id}">D133</td>
+			                		<td th:text="${checks.check_name}"></td>
+			                		<td th:text="${checks.pinyin_code}"></td>
+			                		<td th:text="${checks.check_price}"></td>
 			                		<td>
-			                			<button id="modify">选择</button>
+										<a th:href="@{/prescription/addDrug}">
+											<button id="modify" class="select_check">选择</button>
+										</a>
 			                		</td>
 			                	</tr>
 			                </tbody>

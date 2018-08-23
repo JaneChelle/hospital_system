@@ -87,7 +87,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("drugList"+drugList);
         System.out.println("findName"+findName);
         model.addAttribute("drugList",drugList);
-        return new ModelAndView("addDrug");
+        return new ModelAndView("prescriptionDrugs");
     }
 
     //添加药品明细
@@ -110,7 +110,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("checkList"+checkList);
         System.out.println("findName"+findName);
         model.addAttribute("checkList",checkList);
-        return new ModelAndView("addCheck");
+        return new ModelAndView("prescriptionCheck");
     }
 
     //添加检查明细
