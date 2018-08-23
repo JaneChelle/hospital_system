@@ -17,7 +17,7 @@
 					<div class="nav"><span>处方管理 > <b style="color: #F00;">添加处方</b></span>
 					<button class="label-info">
 						<b>
-							<a href="prescriptionDrugs.html">
+							<a th:href="@{/prescription/toAddDrug}">
 								<i class="fa fa-mail-reply"></i>
 							</a>
 						</b>
@@ -44,6 +44,7 @@
 							<thead>
 				                <tr>
 				                    <th>编号</th>
+									<th>处方编号</th>
 				                    <th>治疗编号</th>
 				                	<th>治疗名称</th>
 				                	<th>价格</th>
@@ -52,11 +53,13 @@
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr th:each="">
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
+			                	<tr th:each="therapy : ${prescriptionCheckList}">
+			                		<td th:text="${therapy.detail_id}"></td>
+									<td th:text="${therapy.prescription_id}"></td>
+									<td th:text="${therapy.treatment_id}"></td>
+									<td th:text="${therapy.treatment_name}"></td>
+			                		<td th:text="${therapy.price_one}"></td>
+									<td th:text="${therapy.number}"></td>
 			                		<td></td>
 			                		<td>
 			                			<button id="delete">删除</button>
@@ -75,23 +78,21 @@
 						<table class="table table-bordered table-hover">
 							<thead>
 				                <tr>
-				                    <th>编号</th>
 				                	<th>治疗编号</th>
 				                	<th>治疗名称</th>
+									<th>拼音码</th>
 				                	<th>价格</th>
-				                    <th>数量</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr>
-			                		<td>D133</td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
+			                	<tr th:each="treat : ${treatmentList}">
+			                		<td th:text="${treat.treatment_id}">D133</td>
+			                		<td th:text="${treat.treatment_name}"></td>
+									<td th:text="${treat.pinyin_code}"></td>
+			                		<td th:text="${treat.treatment_price}"></td>
 			                		<td>
-										<a th:href="@{/prescription/addDrug}">
+										<a th:href="@{/prescription/addTreatment}">
 											<button id="modify" class="select_therapy">选择</button>
 										</a>
 			                		</td>

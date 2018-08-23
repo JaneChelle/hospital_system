@@ -66,7 +66,7 @@ $(".modify_add").on('click', function () {
     var checkId = parent.children("td.checkId").text();
     $(".name").val(checkName);
     $(".code").val(pinyinCode);
-    $(".price").val("￥ "+checkPrice);
+    $(".price").val(checkPrice);
     $('.check-id').val(checkId);
 });
 

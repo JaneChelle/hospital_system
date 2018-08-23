@@ -11,9 +11,7 @@ $(".add_pre").on('click',function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    location="/prescription/toAddDrug";
-                } else {
-
+                    window.location.href="/prescription/toAddDrug";
                 }
             },
             error: function (msg) {
@@ -25,3 +23,4 @@ $(".add_pre").on('click',function () {
         alert("请把信息补充完整");
     }
 });
+
