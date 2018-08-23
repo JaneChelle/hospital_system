@@ -7,8 +7,10 @@ import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.util.Result;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -73,12 +75,12 @@ public class PrescriptionController extends BaseController {
 
     //跳转到添加药品明细(搜索)
     @RequestMapping(value = "/prescription/toAddDrug")
-    public ModelAndView toAddDrug(Model model,HttpServletRequest request,
+    public ModelAndView toAddDrug(Model model,HttpSession session,
                                   @RequestParam(value = "findName", defaultValue = "") String findName){
         List<Drug> drugList = drugService.searchDrug(model,findName ,0);
 
         //搜索已经加入的药品
-        List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(request);
+        List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(session);
         System.out.println("prescriptionDrugList"+prescriptionDrugList);
         model.addAttribute("prescriptionDrugList",prescriptionDrugList);
         model.addAttribute("findName",findName);
@@ -97,11 +99,11 @@ public class PrescriptionController extends BaseController {
 
     //跳转到添加检查明细(搜索)
     @RequestMapping(value = "/prescription/toAddCheck")
-    public ModelAndView toAddCheck(Model model,HttpServletRequest request,
+    public ModelAndView toAddCheck(Model model,HttpSession session,
                                    @RequestParam(value = "findName", defaultValue = "") String findName){
         List<Check> checkList = checkService.findCheck(findName,0);
         //搜索已经加入的检查
-        List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(request);
+        List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(session);
         System.out.println("prescriptionCheckList"+prescriptionCheckList);
         model.addAttribute("prescriptionCheckList",prescriptionCheckList);
         model.addAttribute("findName",findName);
@@ -113,18 +115,18 @@ public class PrescriptionController extends BaseController {
 
     //添加检查明细
     @RequestMapping(value = "/prescription/addCheck")
-    public ModelAndView addCheck(PrescriptionCheck prescriptionCheck,HttpServletRequest request){
-        prescriptionService.addCheck(prescriptionCheck,request);
+    public ModelAndView addCheck(PrescriptionCheck prescriptionCheck,HttpSession session){
+        prescriptionService.addCheck(prescriptionCheck,session);
         return new ModelAndView("redirect:/prescription/toAddCheck");
     }
 
     //跳转到添加治疗方案(搜索)
     @RequestMapping(value = "/prescription/toAddTreatment")
-    public ModelAndView toAddTreatment(Model model,HttpServletRequest request,
+    public ModelAndView toAddTreatment(Model model,HttpSession session,
                                    @RequestParam(value = "findName", defaultValue = "") String findName){
         List<Treatment> treatmentList = treatmentService.findTreatment(findName,0);
         //搜索已经加入的治疗
-        List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(request);
+        List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(session);
         System.out.println("prescriptionCheckList"+prescriptionTreatmentList);
         model.addAttribute("prescriptionCheckList",prescriptionTreatmentList);
         model.addAttribute("findName",findName);
@@ -136,15 +138,15 @@ public class PrescriptionController extends BaseController {
 
     //添加治疗明细
     @RequestMapping(value = "/prescription/addTreatment")
-    public ModelAndView addTreatment(PrescriptionTreatment prescriptionTreatment, HttpServletRequest request){
-        prescriptionService.addTreatment(prescriptionTreatment,request);
+    public ModelAndView addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session){
+        prescriptionService.addTreatment(prescriptionTreatment,session);
         return new ModelAndView("redirect:/prescription/toAddTreatment");
     }
 
     //完成时计算总价
     @RequestMapping(value = "/prescription/totalPrice")
-    public ModelAndView totalPrice(HttpServletRequest request){
-        prescriptionService.totalPrice(request);
+    public ModelAndView totalPrice(HttpSession session){
+        prescriptionService.totalPrice(session);
         return new ModelAndView("redirect:/prescription/1");
     }
 

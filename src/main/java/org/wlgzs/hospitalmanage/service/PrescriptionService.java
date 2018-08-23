@@ -8,6 +8,7 @@ import org.wlgzs.hospitalmanage.util.Result;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,31 +37,31 @@ public interface PrescriptionService {
     void addDrug(PrescriptionDrug prescriptionDrug, HttpServletRequest request);
 
     //搜索已添加的处方药品
-    List<PrescriptionDrug> queryPrescriptionDrug(HttpServletRequest request);
+    List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session);
 
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(int prescriptionId);
 
     //添加检查明细
-    void addCheck(PrescriptionCheck prescriptionCheck, HttpServletRequest request);
+    void addCheck(PrescriptionCheck prescriptionCheck, HttpSession session);
 
     //搜索已添加的处方检查
-    List<PrescriptionCheck> queryPrescriptionCheck(HttpServletRequest request);
+    List<PrescriptionCheck> queryPrescriptionCheck(HttpSession session);
 
     //搜索已添加的处方检查
     List<PrescriptionCheck> queryPrescriptionCheck(int prescriptionId);
 
     //添加治疗明细
-    void addTreatment(PrescriptionTreatment prescriptionTreatment, HttpServletRequest request);
+    void addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session);
 
     //搜索已添加的处方治疗
-    List<PrescriptionTreatment> queryPrescriptionTreatment(HttpServletRequest request);
+    List<PrescriptionTreatment> queryPrescriptionTreatment(HttpSession session);
 
     //搜索已添加的处方治疗
     List<PrescriptionTreatment> queryPrescriptionTreatment(int prescriptionId);
 
     //计算总价格
-    void totalPrice(HttpServletRequest request);
+    void totalPrice(HttpSession session);
 
     //搜索处方
     List<Prescription> findPrescription(String findName,int page);

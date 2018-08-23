@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -122,16 +123,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //搜索已添加的处方药品
     @Override
-    public List<PrescriptionDrug> queryPrescriptionDrug(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
+    public List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session) {
         List<PrescriptionDrug> prescriptionDrugList = null;
         int prescription_id;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("prescription_id")) {
-                prescription_id = Integer.parseInt(cookie.getValue());
-                prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
-                break;
-            }
+        if (session.getAttribute("prescription_id") != null) {
+            prescription_id = (int) session.getAttribute("prescription_id");
+            prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
         }
         return prescriptionDrugList;
     }
@@ -144,23 +141,19 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加检查明细
     @Override
-    public void addCheck(PrescriptionCheck prescriptionCheck, HttpServletRequest request) {
+    public void addCheck(PrescriptionCheck prescriptionCheck, HttpSession session) {
         if (prescriptionCheck != null) {
             Check check = checkMapper.selectByPrimaryKey(prescriptionCheck.getCheck_id());
             int prescription_id;
-            Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("prescription_id")) {
-                    prescription_id = Integer.parseInt(cookie.getValue());
-                    System.out.println(prescription_id);
-                    prescriptionCheck.setPrescription_id(prescription_id);
-                    //修改处方表
-                    Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
-                    if (prescription.getIs_check() == 0) {
-                        prescription.setIs_check(1);
-                        prescriptionMapper.updateByPrimaryKey(prescription);
-                    }
-                    break;
+            if (session.getAttribute("prescription_id") != null) {
+                prescription_id = (int) session.getAttribute("prescription_id");
+                System.out.println(prescription_id);
+                prescriptionCheck.setPrescription_id(prescription_id);
+                //修改处方表
+                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+                if (prescription.getIs_check() == 0) {
+                    prescription.setIs_check(1);
+                    prescriptionMapper.updateByPrimaryKey(prescription);
                 }
             }
             //查询检查表，添加价格
@@ -174,16 +167,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //搜索已添加的处方检查
     @Override
-    public List<PrescriptionCheck> queryPrescriptionCheck(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
+    public List<PrescriptionCheck> queryPrescriptionCheck(HttpSession session) {
         List<PrescriptionCheck> prescriptionCheckList = null;
         int prescription_id;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("prescription_id")) {
-                prescription_id = Integer.parseInt(cookie.getValue());
-                prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
-                break;
-            }
+        if (session.getAttribute("prescription_id") != null) {
+            prescription_id = (int) session.getAttribute("prescription_id");
+            prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
         }
         return prescriptionCheckList;
     }
@@ -196,23 +185,19 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加治疗明细
     @Override
-    public void addTreatment(PrescriptionTreatment prescriptionTreatment, HttpServletRequest request) {
+    public void addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session) {
         if (prescriptionTreatment != null) {
             Treatment treatment = treatmentMapper.selectByPrimaryKey(prescriptionTreatment.getTreatment_id());
             int prescription_id;
-            Cookie[] cookies = request.getCookies();
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("prescription_id")) {
-                    prescription_id = Integer.parseInt(cookie.getValue());
-                    System.out.println(prescription_id);
-                    prescriptionTreatment.setPrescription_id(prescription_id);
-                    //修改处方表
-                    Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
-                    if (prescription.getIs_treatment() == 0) {
-                        prescription.setIs_treatment(1);
-                        prescriptionMapper.updateByPrimaryKey(prescription);
-                    }
-                    break;
+            if (session.getAttribute("prescription_id") != null) {
+                prescription_id = (int) session.getAttribute("prescription_id");
+                System.out.println(prescription_id);
+                prescriptionTreatment.setPrescription_id(prescription_id);
+                //修改处方表
+                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+                if (prescription.getIs_treatment() == 0) {
+                    prescription.setIs_treatment(1);
+                    prescriptionMapper.updateByPrimaryKey(prescription);
                 }
             }
             //查询检查表，添加价格
@@ -226,16 +211,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //搜索已添加的处方治疗
     @Override
-    public List<PrescriptionTreatment> queryPrescriptionTreatment(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
+    public List<PrescriptionTreatment> queryPrescriptionTreatment(HttpSession session) {
         List<PrescriptionTreatment> prescriptionTreatmentList = null;
         int prescription_id;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("prescription_id")) {
-                prescription_id = Integer.parseInt(cookie.getValue());
-                prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
-                break;
-            }
+        if (session.getAttribute("prescription_id") != null) {
+            prescription_id = (int) session.getAttribute("prescription_id");
+            prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
         }
         return prescriptionTreatmentList;
     }
@@ -248,47 +229,43 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //计算总价格
     @Override
-    public void totalPrice(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
+    public void totalPrice(HttpSession session) {
         int prescription_id;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("prescription_id")) {
-                prescription_id = Integer.parseInt(cookie.getValue());
-                System.out.println("prescription_id:" + prescription_id);
-                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+        if (session.getAttribute("prescription_id") != null) {
+            prescription_id = (int) session.getAttribute("prescription_id");
+            System.out.println("prescription_id:" + prescription_id);
+            Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 
-                BigDecimal priceDrug = BigDecimal.ZERO;
-                List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
-                for (int i = 0; i < prescriptionDrugList.size(); i++) {
-                    priceDrug = priceDrug.add(prescriptionDrugList.get(i).getPrice_one());
-                    System.out.println(prescriptionDrugList.get(i).getPrice_one());
-                    System.out.println("priceDrug:" + priceDrug);
-                }
-
-                BigDecimal priceCheck = BigDecimal.ZERO;
-                List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
-                for (int i = 0; i < prescriptionCheckList.size(); i++) {
-                    priceCheck = priceCheck.add(prescriptionCheckList.get(i).getPrice_one());
-                    System.out.println(prescriptionCheckList.get(i).getPrice_one());
-                    System.out.println("priceCheck:" + priceCheck);
-                }
-
-                BigDecimal priceTreatment = BigDecimal.ZERO;
-                List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
-                for (int i = 0; i < prescriptionTreatmentList.size(); i++) {
-
-                    priceTreatment = priceTreatment.add(prescriptionTreatmentList.get(i).getPrice_one());
-                }
+            BigDecimal priceDrug = BigDecimal.ZERO;
+            List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
+            for (int i = 0; i < prescriptionDrugList.size(); i++) {
+                priceDrug = priceDrug.add(prescriptionDrugList.get(i).getPrice_one());
+                System.out.println(prescriptionDrugList.get(i).getPrice_one());
                 System.out.println("priceDrug:" + priceDrug);
-
-                System.out.println("priceTreatment:" + priceTreatment);
-
-                BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
-                prescription.setPrice_all(priceAll);
-                System.out.println("priceAll:" + priceAll);
-                prescriptionMapper.updateByPrimaryKey(prescription);
-                break;
             }
+
+            BigDecimal priceCheck = BigDecimal.ZERO;
+            List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
+            for (int i = 0; i < prescriptionCheckList.size(); i++) {
+                priceCheck = priceCheck.add(prescriptionCheckList.get(i).getPrice_one());
+                System.out.println(prescriptionCheckList.get(i).getPrice_one());
+                System.out.println("priceCheck:" + priceCheck);
+            }
+
+            BigDecimal priceTreatment = BigDecimal.ZERO;
+            List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
+            for (int i = 0; i < prescriptionTreatmentList.size(); i++) {
+
+                priceTreatment = priceTreatment.add(prescriptionTreatmentList.get(i).getPrice_one());
+            }
+            System.out.println("priceDrug:" + priceDrug);
+
+            System.out.println("priceTreatment:" + priceTreatment);
+
+            BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
+            prescription.setPrice_all(priceAll);
+            System.out.println("priceAll:" + priceAll);
+            prescriptionMapper.updateByPrimaryKey(prescription);
         }
     }
 
