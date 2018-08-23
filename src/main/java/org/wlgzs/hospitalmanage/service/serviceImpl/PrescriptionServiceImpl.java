@@ -101,7 +101,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             if (a != -1) {
                 int prescription_id;
                 if (session.getAttribute("prescription_id") != null) {
-                    prescription_id = (int) session.getAttribute("prescription_id");
+                    String prescriptionId = (String)session.getAttribute("prescription_id");
+                    prescription_id = Integer.parseInt(prescriptionId);
                     System.out.println(prescription_id);
                     prescriptionDrug.setPrescription_id(prescription_id);
                     //修改处方表
@@ -121,7 +122,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             BigDecimal bigDecimal = drug.getUnit_price().multiply(temp);
             prescriptionDrug.setPrice_one(bigDecimal);
             prescriptionDrug.setDrug_name(drug.getDrug_name());
+            System.out.println("===============");
             prescriptionDrugMapper.insert(prescriptionDrug);
+            System.out.println("-----------------");
         }
         return new Result(ResultCode.SUCCESS,"成功！");
     }
@@ -132,7 +135,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         List<PrescriptionDrug> prescriptionDrugList = null;
         int prescription_id;
         if (session.getAttribute("prescription_id") != null) {
-            prescription_id = (int) session.getAttribute("prescription_id");
+            String prescriptionId = (String)session.getAttribute("prescription_id");
+            prescription_id = Integer.parseInt(prescriptionId);
             prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
         }
         return prescriptionDrugList;
@@ -150,7 +154,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (prescriptionCheck != null && session.getAttribute("prescription_id") != null) {
             Check check = checkMapper.selectByPrimaryKey(prescriptionCheck.getCheck_id());
             int prescription_id;
-            prescription_id = (int) session.getAttribute("prescription_id");
+            String prescriptionId = (String)session.getAttribute("prescription_id");
+            prescription_id = Integer.parseInt(prescriptionId);
             System.out.println(prescription_id);
             prescriptionCheck.setPrescription_id(prescription_id);
             //修改处方表
@@ -177,7 +182,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         List<PrescriptionCheck> prescriptionCheckList = null;
         int prescription_id;
         if (session.getAttribute("prescription_id") != null) {
-            prescription_id = (int) session.getAttribute("prescription_id");
+            String prescriptionId = (String)session.getAttribute("prescription_id");
+            prescription_id = Integer.parseInt(prescriptionId);
             prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
         }
         return prescriptionCheckList;
@@ -195,7 +201,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (prescriptionTreatment != null && session.getAttribute("prescription_id") != null) {
             Treatment treatment = treatmentMapper.selectByPrimaryKey(prescriptionTreatment.getTreatment_id());
             int prescription_id;
-            prescription_id = (int) session.getAttribute("prescription_id");
+            String prescriptionId = (String)session.getAttribute("prescription_id");
+            prescription_id = Integer.parseInt(prescriptionId);
             System.out.println(prescription_id);
             prescriptionTreatment.setPrescription_id(prescription_id);
             //修改处方表
@@ -222,7 +229,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         List<PrescriptionTreatment> prescriptionTreatmentList = null;
         int prescription_id;
         if (session.getAttribute("prescription_id") != null) {
-            prescription_id = (int) session.getAttribute("prescription_id");
+            String prescriptionId = (String)session.getAttribute("prescription_id");
+            prescription_id = Integer.parseInt(prescriptionId);
             prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
         }
         return prescriptionTreatmentList;
@@ -239,7 +247,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public void totalPrice(HttpSession session) {
         int prescription_id;
         if (session.getAttribute("prescription_id") != null) {
-            prescription_id = (int) session.getAttribute("prescription_id");
+            String prescriptionId = (String)session.getAttribute("prescription_id");
+            prescription_id = Integer.parseInt(prescriptionId);
             System.out.println("prescription_id:" + prescription_id);
             Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 

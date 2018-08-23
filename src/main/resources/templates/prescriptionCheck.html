@@ -19,7 +19,7 @@
 					<span>处方管理 > <b style="color: #F00;">添加处方</b></span>
 					<button class="label-info">
 						<b>
-							<a th:href="@{/prescription/toAddTreatment}">
+							<a th:href="@{/prescription/toAddDrug}">
 								<i class="fa fa-mail-reply"></i>
 							</a>
 						</b>
@@ -34,9 +34,9 @@
 					<p>
 						<span>处方检查</span>
 						<button class="item_lists">
-							<b class="add_item">
-								<b>确认</b>
-							</b>
+							<a th:href="@{/prescription/toAddTreatment}">
+								<b>下一步</b>
+							</a>
 						</button>
 					</p>
 					<div class="section_table">
@@ -92,7 +92,7 @@
 			                		<td th:text="${checks.pinyin_code}"></td>
 			                		<td class="check_price" th:text="${checks.check_price}"></td>
 									<td>
-										<input class="drug_num" type="text" placeholder="数量">
+										<input type="text" placeholder="数量" name="number">
 									</td>
 			                		<td>
 										<button id="modify" class="select_check">选择</button>
@@ -104,30 +104,6 @@
 				</div>
 			</div>
 		</section>
-		
-		<!--弹窗-->
-		
-		<div class="window1_popup">
-			<div class="add_infor">
-				<h3>
-					是否生成就诊记录?
-					<span class="cancel_1 cha">
-						<i class="fa fa-times"></i>
-					</span>
-				</h3>
-				<div class="popup_bottom">
-					<div style="height: 32px;"></div>
-					<div style="margin: 18px 0;">
-						<a href="generatingMedicalRecords.html">
-							<button style="background-color: #5BC0DE;">是</button>
-						</a>
-						<a th:href="@{/prescription/1}">
-							<button style="background-color: #fc5656;">否</button>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/preDrug.js}"></script>

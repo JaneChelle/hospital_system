@@ -93,7 +93,7 @@ public class PrescriptionController extends BaseController {
     //添加药品明细
     @RequestMapping(value = "/prescription/addDrug")
     public Result addDrug(PrescriptionDrug prescriptionDrug,HttpSession session){
-        prescriptionService.addDrug(prescriptionDrug,session);
+//        prescriptionService.addDrug(prescriptionDrug,session);
         return prescriptionService.addDrug(prescriptionDrug,session);
     }
 
