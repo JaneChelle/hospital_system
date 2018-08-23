@@ -8,6 +8,7 @@
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
 		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
 		<link rel="stylesheet" th:href="@{/css/popup.css}" />
 		<link rel="stylesheet" th:href="@{/css/prescription.css}" />
 	</head>
@@ -17,7 +18,7 @@
 					<div class="nav"><span>处方管理 > <b style="color: #F00;">添加处方</b></span>
 					<button class="label-info">
 						<b>
-							<a href="prescriptionDrugs.html">
+							<a th:href="@{/prescription/toAddCheck}">
 								<i class="fa fa-mail-reply"></i>
 							</a>
 						</b>
@@ -33,9 +34,9 @@
 						<span>处方治疗</span>
 						<button class="item_lists">
 							<b>
-								<a th:href="@{/prescription/toAddTreatment}">
-									<b>下一步</b>
-								</a>
+								<b class="add_item">
+									<b>确认</b>
+								</b>
 							</b>
 						</button>
 					</p>
@@ -44,6 +45,7 @@
 							<thead>
 				                <tr>
 				                    <th>编号</th>
+									<th>处方编号</th>
 				                    <th>治疗编号</th>
 				                	<th>治疗名称</th>
 				                	<th>价格</th>
@@ -52,12 +54,13 @@
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr th:each="">
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
+			                	<tr th:each="therapy : ${prescriptionCheckList}">
+			                		<td th:text="${therapy.detail_id}"></td>
+									<td th:text="${therapy.prescription_id}"></td>
+									<td th:text="${therapy.treatment_id}"></td>
+									<td th:text="${therapy.treatment_name}"></td>
+			                		<td th:text="${therapy.price_one}"></td>
+									<td th:text="${therapy.number}"></td>
 			                		<td>
 			                			<button id="delete">删除</button>
 			                		</td>
@@ -75,23 +78,25 @@
 						<table class="table table-bordered table-hover">
 							<thead>
 				                <tr>
-				                    <th>编号</th>
 				                	<th>治疗编号</th>
 				                	<th>治疗名称</th>
+									<th>拼音码</th>
 				                	<th>价格</th>
-				                    <th>数量</th>
+									<th>数量</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr>
-			                		<td>D133</td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
-			                		<td></td>
+			                	<tr th:each="treat : ${treatmentList}">
+			                		<td class="treatment_id" th:text="${treat.treatment_id}">D133</td>
+			                		<td class="treatment_name" th:text="${treat.treatment_name}"></td>
+									<td th:text="${treat.pinyin_code}"></td>
+			                		<td th:text="${treat.treatment_price}"></td>
 			                		<td>
-										<a th:href="@{/prescription/addDrug}">
+										<input type="text" placeholder="数量" name="number">
+									</td>
+									<td>
+										<a>
 											<button id="modify" class="select_therapy">选择</button>
 										</a>
 			                		</td>
@@ -102,6 +107,32 @@
 				</div>
 			</div>
 		</section>
+
+		<!--弹窗-->
+
+		<div class="window1_popup">
+			<div class="add_infor">
+				<h3>
+					是否生成就诊记录?
+					<span class="cancel_1 cha">
+						<i class="fa fa-times"></i>
+					</span>
+				</h3>
+				<div class="popup_bottom">
+					<div style="height: 32px;"></div>
+					<div style="margin: 18px 0;">
+						<a href="generatingMedicalRecords.html">
+							<button style="background-color: #5BC0DE;">是</button>
+						</a>
+						<a th:href="@{/prescription/1}">
+							<button style="background-color: #fc5656;">否</button>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/preDrug.js}"></script>
+	<script type="text/javascript" th:src="@{/js/drug.js}"></script>
 </html>

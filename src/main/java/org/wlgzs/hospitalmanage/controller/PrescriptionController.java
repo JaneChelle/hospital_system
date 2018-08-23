@@ -24,15 +24,15 @@ public class PrescriptionController extends BaseController {
     //跳转到新增处方
     @RequestMapping(value = "/prescription/toAddPrescription")
     public ModelAndView toAddPrescription(){
-        return new ModelAndView("addPrescription");
+
+        return new ModelAndView("addAPrescription");
     }
 
     //新增处方
     @RequestMapping(value = "/prescription", method = RequestMethod.PUT)
-    public ModelAndView addPrescription(Prescription prescription,HttpServletResponse response){
+    public Result addPrescription(Prescription prescription,HttpSession session){
         System.out.println(prescription);
-        prescriptionService.addPrescription(prescription,response);
-        return new ModelAndView("addDrug");
+        return prescriptionService.addPrescription(prescription,session);
     }
 
     //查看所有处方
@@ -51,8 +51,8 @@ public class PrescriptionController extends BaseController {
     }
 
     //按id查询(修改和查看详情)
-    @RequestMapping(value = "/prescription/findPrescription/{prescriptionId}", method = RequestMethod.GET)
-    public ModelAndView findPrescriptionById(Model model,@PathVariable("prescriptionId") int prescriptionId) {
+    @RequestMapping(value = "/prescription/findPrescriptionById")
+    public ModelAndView findPrescriptionById(Model model,@RequestParam("prescriptionId") int prescriptionId) {
 
         Prescription prescription = prescriptionService.findPrescriptionById(prescriptionId);//处方
         List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(prescriptionId);
@@ -92,9 +92,9 @@ public class PrescriptionController extends BaseController {
 
     //添加药品明细
     @RequestMapping(value = "/prescription/addDrug")
-    public ModelAndView addDrug(PrescriptionDrug prescriptionDrug,HttpServletRequest request){
-        prescriptionService.addDrug(prescriptionDrug,request);
-        return new ModelAndView("redirect:/prescription/toAddDrug");
+    public Result addDrug(PrescriptionDrug prescriptionDrug,HttpSession session){
+//        prescriptionService.addDrug(prescriptionDrug,session);
+        return prescriptionService.addDrug(prescriptionDrug,session);
     }
 
     //删除药品明细
@@ -145,7 +145,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("treatmentList"+treatmentList);
         System.out.println("findName"+findName);
         model.addAttribute("treatmentList",treatmentList);
-        return new ModelAndView("addTreatment");
+        return new ModelAndView("prescriptionTherapy");
     }
 
     //添加治疗明细

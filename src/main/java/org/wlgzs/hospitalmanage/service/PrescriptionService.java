@@ -19,7 +19,7 @@ import java.util.List;
 public interface PrescriptionService {
 
     //新增处方
-    void addPrescription(Prescription prescription,HttpServletResponse response);
+    Result addPrescription(Prescription prescription,HttpSession session);
 
     //查找全部分页
     List<Prescription> selectAll(int page);
@@ -34,7 +34,7 @@ public interface PrescriptionService {
     void modifyPrescription(Prescription prescription);
 
     //添加药品明细
-    void addDrug(PrescriptionDrug prescriptionDrug, HttpServletRequest request);
+    Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session);
 
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session);

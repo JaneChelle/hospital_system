@@ -46,6 +46,7 @@
 							<thead>
 				                <tr>
 				                	<th>编号</th>
+									<th>处方编号</th>
 				                	<th>药品编号</th>
 				                	<th>药品名称</th>
 				                	<th>价格</th>
@@ -56,11 +57,11 @@
 			                <tbody>
 								<tr th:each="prescription : ${prescriptionDrugList}">
 									<td th:text="${prescription.detail_id}"></td>
+									<td th:text="${prescription.prescription_id}"></td>
 									<td th:text="${prescription.drug_code}"></td>
 									<td th:text="${prescription.drug_name}"></td>
 									<td th:text="${prescription.price_one}"></td>
 									<td th:text="${prescription.number}"></td>
-									<td th:text="${prescription."></td>
 									<td>
 										<button id="delete">删除</button>
 									</td>
@@ -80,21 +81,23 @@
 				                <tr>
 									<th>药品编号</th>
 									<th>药品名称</th>
-				                	<th>拼音码</th>
 				                	<th>价格</th>
+									<th>库存</th>
+									<th>数量</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
 								<tr th:each="pre : ${drugList}">
-									<td th:text="${pre.drug_code}"></td>
-									<td th:text="${pre.drug_name}">
-									<td th:text="${pre.pinyin_code}"></td>
-									<td th:text="${pre.unit_price}"></td>
+									<td class="drug_code" th:text="${pre.drug_code}"></td>
+									<td class="drug_name" th:text="${pre.drug_name}">
+									<td class="unit_price" th:text="${pre.unit_price}"></td>
+									<td class="safety_stock" th:text="${pre.safety_stock}"></td>
 									<td>
-										<a th:href="@{/prescription/addDrug}">
-											<button id="modify" class="select_drug">选择</button>
-										</a>
+										<input name="number" class="drug_num" type="text" placeholder="数量">
+									</td>
+									<td>
+										<button id="modify" class="select_drug">选择</button>
 									</td>
 								</tr>
 			                </tbody>
@@ -105,5 +108,5 @@
 		</section>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/pre.js}"></script>
+	<script type="text/javascript" th:src="@{/js/preDrug.js}"></script>
 </html>
