@@ -17,5 +17,7 @@ public interface DrugService {
     void deleteDrug(int drugCode);
     List<Drug> keyword(@RequestParam("drugName") String drugName);
     List searchDrug(Model model,@RequestParam("drugName") String drugName,int page);
+    Drug toView(int drugId);
+    void deleteDrugs(@RequestParam("drugCodes") int[] drugCodes );
 
 }
