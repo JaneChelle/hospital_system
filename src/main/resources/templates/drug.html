@@ -32,7 +32,7 @@
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
 					<button class="label-info">
-						<b><a href="addDrug.html">添加</a></b>
+						<b><a th:href="@{/drug/toAdd}">添加</a></b>
 					</button>
 				</div>
 			</div>
@@ -78,7 +78,7 @@
 	                		<td th:text="${drug.healthcare_code}"></td>
 	                		<td th:text="${drug.healthcare_name}"></td>
 	                		<td>
-	                			<button id="modify">修改</button>
+								<a th:href="@{'/drug/toView/'+${drug.drug_code}}"><button id="modify">修改</button></a>
 	                			<button id="delete">删除</button>
 	                		</td>
 	                	</tr>

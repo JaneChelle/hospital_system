@@ -32,62 +32,75 @@
 			<div class="pre_inform">
 				<!--药品信息-->
 				<p>药品信息</p>
-				<form action="" method="">
+				<form th:action="@{/drug/drug}" method="post">
 					<div class="item_label">
 						<label for="">药品名称</label>
-						<input type="text" name="" id="" value="" placeholder="药品名称" required="required"/>
+						<input type="text" name="drug_name"  placeholder="药品名称" required="required" class="drug_name"/>
 					</div>
 					<div class="item_label">
 						<label for="">类别</label>
-						<input type="text" name="" id="" value="" placeholder="类别" required="required"	`/>
+						<!--<input type="text" name="drug_category"   placeholder="类别" required="required">-->
+						<select name="drug_category" id="attribute_number" class="drug_category">
+							<option value="">请选择供</option>
+							<option  th:each="drugTypes : ${drugType}" th:value="${drugTypes.attribute_number}" th:text="${drugTypes.attribute_name}"></option>
+						</select>
 					</div>
 					<div class="item_label">
 						<label for="">拼音码</label>
-						<input type="text" name="" id="" value="" placeholder="拼音码" required="required"/>
+						<input type="text" name="pinyin_code" class="pinyin_code"  placeholder="拼音码" required="required"/>
 					</div>
 					<div class="item_label">
 						<label for="">规格含量</label>
-						<input type="text" name="" id="" value="" placeholder="规格含量" required="required"/>
+						<input type="text" name="specification_content" class="specification_content" placeholder="规格含量" required="required"/>
 					</div>
 					<div class="item_label">
 						<label for="">单位</label>
-						<input type="text" name="" id="" value="" placeholder="单位" required="required"	`/>
+						<!--<input type="text" name="drug_unit"  placeholder="单位" required="required"/>-->
+						<select name="drug_unit" class="drug_unit">
+							<option value="">请选择供</option>
+							<option th:each="drugUnits : ${drugUnit}" th:value="${drugUnits.attribute_number}" th:text="${drugUnits.attribute_name}"></option>
+						</select>
 					</div>
 					<div class="item_label">
 						<label for="">剂型</label>
-						<input type="text" name="" id="" value="" placeholder="剂型" required="required"/>
+						<!--<input type="text" name="dosage_form"  placeholder="剂型" required="required"/>-->
+						<select name="dosage_form" class="dosage_form" >
+							<option value="">请选择供</option>
+							<option th:each="dosageForms : ${dosageForm}" th:value="${dosageForms.attribute_number}" th:text="${dosageForms.attribute_name}"></option>
+						</select>
 					</div>
 					<div class="item_label">
 						<label for="">厂家</label>
-						<input type="text" name="" id="" value="" placeholder="厂家" required="required"/>
+						<input type="text" name="manufacturer" class="manufacturer" placeholder="厂家" required="required"/>
 					</div>
 					<div class="item_label">
 						<label for="">批准文号</label>
-						<input type="text" name="" id="" value="" placeholder="批准文号" required="required"	`/>
+						<input type="text" name="approval_number" class="approval_number" placeholder="批准文号" required="required"/>
 					</div>
 					<div class="item_label">
 						<label for="">安全存库</label>
-						<input type="text" name="" id="" value="" placeholder="安全存库" required="required"	`/>
+						<input type="text" name="safety_stock" class="safety_stock" placeholder="安全存库" required="required"/>
 					</div>
 					<div class="item_label">
 						<label for="">单位价格</label>
-						<input type="text" name="" id="" value="" placeholder="单位价格" required="required"	`/>
+						<input type="text" name="unit_price" class="unit_price" placeholder="单位价格" required="required"/>
 					</div>
 					<div class="item_label">
 						<label for="">医保编码</label>
-						<input type="text" name="" id="" value="" placeholder="医保编码" required="required"	`/>
+						<input type="text" name="healthcare_code" class="healthcare_code"  placeholder="医保编码" required="required"/>
 					</div>
 					<div class="item_label">
 						<label for="">医保名称</label>
-						<input type="text" name="" id="" value="" placeholder="医保名称" required="required"	`/>
+						<input type="text" name="healthcare_name" class="healthcare_name" placeholder="医保名称" required="required"/>
 					</div>
 					<div style="height: 32px;"></div>
 					<div style="overflow: hidden;">
-						<button type="submit">添加</button>
+						<button type="submit" class="btn_add">添加</button>
 					</div>
 				</form>
 			</div>
 		</section>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}" ></script>
+<script th:src="@{/js/drug.js}"></script>
 </html>

@@ -28,7 +28,7 @@ public class DrugController extends BaseController {
     model.addAttribute("drugType",drugAttributeService.getAttribute(1)); //药品类型
     model.addAttribute("drugUnit",drugAttributeService.getAttribute(2));  //药品单位
     model.addAttribute("dosageForm",drugAttributeService.getAttribute(3)); //药品剂型
-        return new ModelAndView("");
+        return new ModelAndView("addDrug");
     }
     // 添加药物
     @PostMapping("drug")
@@ -53,7 +53,7 @@ public class DrugController extends BaseController {
     @GetMapping("/toView/{drugId}")
     public ModelAndView toView(Model model, @PathVariable("drugId") int drugId ){
         model.addAttribute("drug",drugService.toView(drugId));
-        return new ModelAndView("");
+        return new ModelAndView("drugEidit");
     }
     //删除药物
     @DeleteMapping("drug/{drugCode}")

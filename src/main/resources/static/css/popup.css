@@ -400,3 +400,48 @@ p{
 .modify:hover{
 	box-shadow: 2px 2px 7px #5CB85C;
 }
+.adiv{
+	display: inline-block;
+	padding: 7px 15px;
+	border-radius: 5px;
+	color: #fff;
+	float: right;
+	margin: 0 10px;
+}
+.adiv:hover{
+	color: #fff;
+	cursor: pointer;
+}
+.uu{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	color: #fff;
+	padding: 10px;
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 5px;
+	transition: all 0.3s;
+	animation: aa 1s ease-out;
+}
+@keyframes aa {
+	0%{
+		transform: scale(0,0);
+	}
+	50%{
+		transform: scale(0.5,0.5);
+	}
+	100%{
+		transform: scale(1,1);
+	}
+
+}
+select{
+	width: 270px;
+	height: 35px;
+}
+.btn_add{
+	margin-right: 65px;
+	float: right;
+	padding: 10px 15px;
+
+}
