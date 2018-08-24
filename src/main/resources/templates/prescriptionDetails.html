@@ -71,16 +71,20 @@
 				                	<th>编号</th>
 				                    <th>处方编号</th>
 				                    <th>药品编号</th>
+									<th>药品名称</th>
+									<th>价格</th>
 				                    <th>数量</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr>
-			                		<td>A133</td>
-			                		<td>X123</td>
-			                		<td>R123</td>
-			                		<td></td>
+			                	<tr th:each="prescript : ${prescriptionDrugList}">
+			                		<td th:text="${prescript.detail_id}"></td>
+			                		<td th:text="${prescript.prescription_id}"></td>
+			                		<td th:text="${prescript.drug_code}"></td>
+									<td th:text="${prescript.drug_name}"></td>
+									<td th:text="${prescript.price_one}"></td>
+			                		<td th:text="${prescript.number}"></td>
 			                		<td>
 										<button class="modify modify_2">修改</button>
 										<button class="delete">删除</button>
@@ -111,16 +115,20 @@
 				                	<th>编号</th>
 				                    <th>处方编号</th>
 				                    <th>检查编号</th>
+									<th>检查名称</th>
+									<th>价格</th>
 				                    <th>数量</th>
 				                    <th>操作</th>
 				                </tr>
 			                </thead>
 			                <tbody>
-			                	<tr>
-			                		<td>A133</td>
-			                		<td></td>
-			                		<td>QMS</td>
-			                		<td></td>
+			                	<tr  th:each="exam : ${prescriptionCheckList}">
+			                		<td th:text="${exam.detail_id}">A133</td>
+			                		<td th:text="${exam.prescription_id}"></td>
+			                		<td th:text="${exam.check_id}">QMS</td>
+			                		<td th:text="${exam.check_name}"></td>
+									<td th:text="${exam.price_one}"></td>
+									<td th:text="${exam.number}"></td>
 			                		<td>
 										<button class="modify modify_3">修改</button>
 										<button class="delete">删除</button>
@@ -151,21 +159,25 @@
 									<th>编号</th>
 									<th>处方编号</th>
 									<th>治疗编号</th>
+									<th>治疗名称</th>
+									<th>价格</th>
 									<th>数量</th>
 									<th>操作</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr>
-									<td>A133</td>
-									<td></td>
-									<td></td>
-									<td>QMS</td>
-									<td>
-										<button class="modify modify_4">修改</button>
-										<button class="delete">删除</button>
-									</td>
-								</tr>
+									<tr th:each="therapy : ${prescriptionTreatmentList}">
+										<td th:text="${therapy.detail_id}"></td>
+										<td th:text="${therapy.prescription_id}"></td>
+										<td th:text="${therapy.treatment_id}"></td>
+										<td th:text="${therapy.treatment_name}"></td>
+										<td th:text="${therapy.price_one}"></td>
+										<td th:text="${therapy.number}"></td>
+										<td>
+											<button class="modify modify_4">修改</button>
+											<button class="delete">删除</button>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
