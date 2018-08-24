@@ -16,7 +16,7 @@ public interface DrugAttributeService {
     boolean deleteAttribute(int drugAttributeId);
     void updateAttribute(DrugAttribute drugAttribute);
     List<DrugAttribute> getAttribute(int distinction);
-    List<DrugAttribute> searchAttribute(Model model, String attributeName , int page);
+    List<DrugAttribute>  searchAttribute(Model model,int distinction, String attributeName , int page );
     List<DrugAttribute> keyword(String attributeName);
     DrugAttribute  getDrugAttribute(int AttributeId);
 

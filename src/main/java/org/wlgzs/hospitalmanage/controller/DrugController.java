@@ -50,13 +50,24 @@ public class DrugController extends BaseController {
         drugService.updateDrug(drug);
         return new Result(ResultCode.SUCCESS, "更改成功");
     }
+    //查看详情/修改药物信息
+    @GetMapping("/toView/{drugId}")
+    public ModelAndView toView(Model model, @PathVariable("drugId") int drugId ){
+        model.addAttribute("drug",drugService.toView(drugId));
+        return new ModelAndView("");
+    }
     //删除药物
     @DeleteMapping("drug/{drugCode}")
     public Result deleteDrug(@PathVariable("drugCode") int drugCode) {
         drugService.deleteDrug(drugCode);
         return new Result(ResultCode.SUCCESS, "删除成功");
     }
-
+    //批量删除药物
+    @PostMapping("drugs")
+    public Result  deleteDrugs(@RequestParam("drugCodes") int[] drugCodes ){
+        drugService.deleteDrugs(drugCodes);
+        return new Result(ResultCode.SUCCESS,"批量删除成功");
+    }
     //搜索药物下拉框提示
     @PostMapping("/keyword")
     public Result keyword(@RequestParam("drugName") String drugName) {

@@ -28,7 +28,7 @@ public class PatientController extends BaseController {
     }
     //添加患者
     @PostMapping("/patient")
-    public Result addPatient(Model model, Patient patient,HttpSession session){
+    public Result addPatient(Model model, Patient patient){
         patientService.savePatient(patient,session);
         return new Result(ResultCode.SUCCESS, "添加成功");
     }
@@ -49,7 +49,7 @@ public class PatientController extends BaseController {
     }
     //修改患者消息
     @PutMapping("/patient")
-    public Result updatePatient(Patient patient, @RequestParam("patientName") String patientName) {
+    public Result updatePatient(Patient patient) {
         patientService.updatePatient(patient);
         return new Result(ResultCode.SUCCESS, "更改成功");
     }
@@ -60,8 +60,8 @@ public class PatientController extends BaseController {
         return new Result(ResultCode.SUCCESS, patientService.keyWordsearchPatient(patientAttribute));
     }
     //搜索患者
-    @PostMapping("/searchpatient/{page}")
-    public ModelAndView searchPatient(Model model,@RequestParam("page") int page, @RequestParam("patientAttribute") String patientAttribute) {
+    @GetMapping("/searchpatient/{page}")
+    public ModelAndView searchPatient(Model model,@PathVariable("page") int page, @RequestParam("patientAttribute") String patientAttribute) {
         model.addAttribute("patients",patientService.searchPatient(model,patientAttribute,page));
         return new ModelAndView();
     }

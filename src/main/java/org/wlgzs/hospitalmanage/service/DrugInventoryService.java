@@ -28,7 +28,17 @@ public interface DrugInventoryService {
 
     List<DrugInventory>  searchStorage(Model model, String drugName,int page);
 
+    List<DrugInventory> searchStorageDate(Model model,String drugName,int page);
+
     List<DrugInventory> keyword(String drugName);
 
     boolean reduceInventories(int drugCode, String num);
+
+    List<DrugInventory> getDrugInventoryDate(Model model,int page);
+
+    void deleteDrugInventories(int[] drugInventories);
+
+     List<DrugInventory> keywordDate(String drugName);
+
+
 }

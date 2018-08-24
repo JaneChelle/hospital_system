@@ -26,7 +26,7 @@ public class StorageRecordServiceImpl implements StorageRecordService {
     //查询所有入库记录
     public List<StorageRecord> getStorageRecord(Model model,int page){
         PageHelper.startPage(page,10);
-        List<StorageRecord> storageRecordList = storageRecordMapper.selectAll();
+        List<StorageRecord> storageRecordList = storageRecordMapper.getAll();
         int count = storageRecordMapper.getcount();
         model.addAttribute("pages",Math.ceil(count/10.0));
         model.addAttribute("page",page);
@@ -41,5 +41,13 @@ public class StorageRecordServiceImpl implements StorageRecordService {
         for (int i=0;i<storageIds.length;i++){
             deleteStorage(storageIds[i]);
         }
+    }
+    //搜索库存记录
+    public List<StorageRecord> searchStorageRecord(String drug_name){
+        return storageRecordMapper.search(drug_name);
+    }
+    //搜索库存记录下拉框
+    public List<StorageRecord> keyword(String drug_name){
+        return storageRecordMapper.keyword(drug_name);
     }
 }

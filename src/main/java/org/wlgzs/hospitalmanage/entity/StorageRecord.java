@@ -25,14 +25,17 @@ public class StorageRecord {
     private Date inbound_date;      // 入库日期
 
     private Date valid_period;      // 有效期
+
+    private String  drug_name;     //药品名字
     public StorageRecord(){
 
     }
-    public StorageRecord(Integer drug_code, Integer operator_code, Integer receipt, Date inbound_date, Date valid_period) {
+    public StorageRecord(Integer drug_code,String  drug_name, Integer operator_code, Integer receipt, Date inbound_date, Date valid_period) {
         this.drug_code = drug_code;
         this.operator_code = operator_code;
         this.receipt = receipt;
         this.inbound_date = inbound_date;
         this.valid_period = valid_period;
+        this.drug_name = drug_name;
     }
 }

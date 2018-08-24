@@ -30,10 +30,11 @@ public class PatientServiceImpl implements PatientService {
     }
 
     //注册患者
-    public void savePatient(Patient patient,HttpSession session) {
+    public void
+    savePatient(Patient patient,HttpSession session) {
         if(patient != null){
             session.setAttribute("patient",patient);
-            session.setMaxInactiveInterval(30 *60);
+            //session.setMaxInactiveInterval(30 *60);
             patientMapper.insert(patient);
         }
     }
