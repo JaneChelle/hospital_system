@@ -45,7 +45,7 @@ public class DrugServiceImpl implements DrugService {
         drugMapper.insert(drug);
         Drug currentDrug = drugMapper.jundgeName(drug.getDrug_name());
         int drug_code  = currentDrug.getDrug_code();
-        DrugInventory drugInventory = new DrugInventory(drug_code,currentDrug.getDrug_name(), new BigDecimal(0),null,0);
+        DrugInventory drugInventory = new DrugInventory(drug_code,currentDrug.getDrug_name(),currentDrug.getPinyin_code(), new BigDecimal(0),null,0);
         drugInventoryMapper.insert(drugInventory);
         return true;
     }
@@ -55,7 +55,21 @@ public class DrugServiceImpl implements DrugService {
     }
    }
    public void updateDrug(Drug drug){
-       drugMapper.updateDrug(drug);
+       Drug beforeDrug = drugMapper.selectByPrimaryKey(drug.getDrug_code());
+       BigDecimal beforeAmount = beforeDrug.getSafety_stock();
+       BigDecimal afterAmount = drug.getSafety_stock();
+       if (beforeAmount==afterAmount) {
+           drugMapper.updateDrug(drug);
+       }else {
+           DrugInventory drugInventory = drugInventoryMapper.increase(beforeDrug.getDrug_code());
+           BigDecimal currentAmount = drugInventory.getStorage_amount();
+           if (currentAmount.compareTo(afterAmount)<=0){
+               drugInventory.setIs_safety_stock(0);
+           }else {
+               drugInventory.setIs_safety_stock(1);
+           }
+           drugInventoryMapper.update(drugInventory);
+       }
    }
    public void deleteDrug(int drugCode){
        drugMapper.deleteByPrimaryKey(drugCode);
@@ -72,4 +86,14 @@ public class DrugServiceImpl implements DrugService {
        model.addAttribute("page",page);
            return drugList;
    }
+   public Drug toView(int drugId ) {
+       Drug drug = drugMapper.selectByPrimaryKey(drugId);
+       return drug;
+   }
+   //批量删除药物
+   public void deleteDrugs(@RequestParam("drugCodes") int[] drugCodes ){
+            for (int i=0;i<drugCodes.length;i++){
+                drugMapper.deleteByPrimaryKey(drugCodes[i]);
+            }
+    }
 }

@@ -27,15 +27,19 @@ public class DrugInventory {
 
     private int   is_safety_stock;    //是否安全库存
 
+    private String  pinyin_code;     //药品拼音码
+
+
     public DrugInventory(){
 
     }
 
-    public DrugInventory(Integer drug_code,String drug_name, BigDecimal storage_amount, Date valid_period,int is_safety_stock) {
+    public DrugInventory(Integer drug_code,String drug_name,String pinyin_code, BigDecimal storage_amount, Date valid_period,int is_safety_stock) {
         this.drug_code = drug_code;
         this.storage_amount = storage_amount;
         this.valid_period = valid_period;
         this.drug_name = drug_name;
         this.is_safety_stock = is_safety_stock;
+        this.pinyin_code=pinyin_code;
     }
 }

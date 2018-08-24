@@ -30,10 +30,11 @@ public class PatientServiceImpl implements PatientService {
     }
 
     //注册患者
-    public void savePatient(Patient patient,HttpSession session) {
+    public void
+    savePatient(Patient patient,HttpSession session) {
         if(patient != null){
             session.setAttribute("patient",patient);
-            session.setMaxInactiveInterval(30 *60);
+            //session.setMaxInactiveInterval(30 *60);
             patientMapper.insert(patient);
         }
     }
@@ -48,7 +49,12 @@ public class PatientServiceImpl implements PatientService {
             return true;
         }
     }
-
+    //批量删除患者
+    public void deletePatients(int[] patients){
+          for (int i=0;i<patients.length;i++){
+              patientMapper.deleteByPrimaryKey(patients[i]);
+          }
+    }
     //变更患者信息
     public void updatePatient(Patient patient) {
         System.out.println(patient);

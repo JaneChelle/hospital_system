@@ -12,5 +12,8 @@ public interface StorageRecordMapper extends Mapper<StorageRecord> {
     List<StorageRecord> getAll();
     @Select(" SELECT COUNT(*) FROM   tb_storage_record")
     int getcount();
-
+    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') limit 10")
+    List<StorageRecord> keyword(String drug_name );
+    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') limit 10")
+    List<StorageRecord> search(String drug_name );
 }

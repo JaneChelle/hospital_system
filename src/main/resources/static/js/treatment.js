@@ -62,7 +62,7 @@ $(".modify_add").on('click', function () {
     var parent = $(this).parent().parent();
     var treatment = parent.children("td.treatmentId").text();
     var treatmentPrice = parent.children("td.treatmentPrice").text();
-    $(".price").val("￥ "+treatmentPrice);
+    $(".price").val(treatmentPrice);
     $(".treatment").val(treatment);
 });
 
