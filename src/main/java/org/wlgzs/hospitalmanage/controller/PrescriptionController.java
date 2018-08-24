@@ -23,21 +23,21 @@ public class PrescriptionController extends BaseController {
 
     //跳转到新增处方
     @RequestMapping(value = "/prescription/toAddPrescription")
-    public ModelAndView toAddPrescription(){
+    public ModelAndView toAddPrescription() {
 
         return new ModelAndView("addAPrescription");
     }
 
     //新增处方
     @RequestMapping(value = "/prescription", method = RequestMethod.PUT)
-    public Result addPrescription(Prescription prescription,HttpSession session){
+    public Result addPrescription(Prescription prescription, HttpSession session) {
         System.out.println(prescription);
-        return prescriptionService.addPrescription(prescription,session);
+        return prescriptionService.addPrescription(prescription, session);
     }
 
     //查看所有处方
     @RequestMapping(value = "/prescription/{page}", method = RequestMethod.GET)
-    public ModelAndView selectAll(Model model, @PathVariable("page") int page){
+    public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
         List<Prescription> prescriptionList = prescriptionService.selectAll(page);
         model.addAttribute("prescriptionList", prescriptionList);
         System.out.println(prescriptionList);
@@ -52,118 +52,136 @@ public class PrescriptionController extends BaseController {
 
     //按id查询(修改和查看详情)
     @RequestMapping(value = "/prescription/findPrescriptionById")
-    public ModelAndView findPrescriptionById(Model model,@RequestParam("prescriptionId") int prescriptionId) {
+    public ModelAndView findPrescriptionById(Model model, @RequestParam("prescriptionId") int prescriptionId) {
 
         Prescription prescription = prescriptionService.findPrescriptionById(prescriptionId);//处方
         List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(prescriptionId);
         List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(prescriptionId);
         List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(prescriptionId);
-        model.addAttribute("prescriptionDrugList",prescriptionDrugList);
-        model.addAttribute("prescriptionCheckList",prescriptionCheckList);
-        model.addAttribute("prescriptionTreatmentList",prescriptionTreatmentList);
-        model.addAttribute("prescription",prescription);
+        model.addAttribute("prescriptionDrugList", prescriptionDrugList);
+        model.addAttribute("prescriptionCheckList", prescriptionCheckList);
+        model.addAttribute("prescriptionTreatmentList", prescriptionTreatmentList);
+        model.addAttribute("prescription", prescription);
 
         return new ModelAndView("prescriptionDetails");
     }
 
     //修改处方
     @RequestMapping(value = "/prescription", method = RequestMethod.POST)
-    public ModelAndView modifyPrescription(Prescription prescription){
+    public ModelAndView modifyPrescription(Prescription prescription) {
         prescriptionService.modifyPrescription(prescription);
         return new ModelAndView("redirect:/prescription/findPrescription");
     }
 
     //跳转到添加药品明细(搜索)
     @RequestMapping(value = "/prescription/toAddDrug")
-    public ModelAndView toAddDrug(Model model,HttpSession session,
-                                  @RequestParam(value = "findName", defaultValue = "") String findName){
-        List<Drug> drugList = drugService.searchDrug(model,findName ,0);
+    public ModelAndView toAddDrug(Model model, HttpSession session,
+                                  @RequestParam(value = "findName", defaultValue = "") String findName) {
+        List<Drug> drugList = drugService.searchDrug(model, findName, 0);
 
         //搜索已经加入的药品
         List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(session);
-        System.out.println("prescriptionDrugList"+prescriptionDrugList);
-        model.addAttribute("prescriptionDrugList",prescriptionDrugList);
-        model.addAttribute("findName",findName);
-        System.out.println("drugList"+drugList);
-        System.out.println("findName"+findName);
-        model.addAttribute("drugList",drugList);
+        System.out.println("prescriptionDrugList" + prescriptionDrugList);
+        model.addAttribute("prescriptionDrugList", prescriptionDrugList);
+        model.addAttribute("findName", findName);
+        System.out.println("drugList" + drugList);
+        System.out.println("findName" + findName);
+        model.addAttribute("drugList", drugList);
         return new ModelAndView("prescriptionDrugs");
     }
 
     //添加药品明细
     @RequestMapping(value = "/prescription/addDrug")
-    public Result addDrug(PrescriptionDrug prescriptionDrug,HttpSession session){
+    public Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session) {
 //        prescriptionService.addDrug(prescriptionDrug,session);
-        return prescriptionService.addDrug(prescriptionDrug,session);
+        return prescriptionService.addDrug(prescriptionDrug, session);
     }
 
     //删除药品明细
     @RequestMapping(value = "/prescription/deleteDrug")
-    public Result deleteDrug(int detailId){
+    public Result deleteDrug(int detailId) {
         return prescriptionService.deleteDrug(detailId);
+    }
+
+    //修改已添加的处方药品（数量）
+    @RequestMapping("/prescription/modifyPrescriptionDrug")
+    public Result modifyPrescriptionDrug(int detail_id, String number) {
+        return prescriptionService.modifyPrescriptionDrug(detail_id, number);
     }
 
     //跳转到添加检查明细(搜索)
     @RequestMapping(value = "/prescription/toAddCheck")
-    public ModelAndView toAddCheck(Model model,HttpSession session,
-                                   @RequestParam(value = "findName", defaultValue = "") String findName){
-        List<Check> checkList = checkService.findCheck(findName,0);
+    public ModelAndView toAddCheck(Model model, HttpSession session,
+                                   @RequestParam(value = "findName", defaultValue = "") String findName) {
+        List<Check> checkList = checkService.findCheck(findName, 0);
         //搜索已经加入的检查
         List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(session);
-        System.out.println("prescriptionCheckList"+prescriptionCheckList);
-        model.addAttribute("prescriptionCheckList",prescriptionCheckList);
-        model.addAttribute("findName",findName);
-        System.out.println("checkList"+checkList);
-        System.out.println("findName"+findName);
-        model.addAttribute("checkList",checkList);
+        System.out.println("prescriptionCheckList" + prescriptionCheckList);
+        model.addAttribute("prescriptionCheckList", prescriptionCheckList);
+        model.addAttribute("findName", findName);
+        System.out.println("checkList" + checkList);
+        System.out.println("findName" + findName);
+        model.addAttribute("checkList", checkList);
         return new ModelAndView("prescriptionCheck");
     }
 
     //添加检查明细
     @RequestMapping(value = "/prescription/addCheck")
-    public Result addCheck(PrescriptionCheck prescriptionCheck,HttpSession session){
-        return prescriptionService.addCheck(prescriptionCheck,session);
+    public Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session) {
+        return prescriptionService.addCheck(prescriptionCheck, session);
 //        return new ModelAndView("redirect:/prescription/toAddCheck");
     }
 
     //删除检查明细
     @RequestMapping(value = "/prescription/deleteCheck")
-    public Result deleteCheck(int checkId){
+    public Result deleteCheck(int checkId) {
         return prescriptionService.deleteCheck(checkId);
+    }
+
+    //修改已添加的处方检查（数量）
+    @RequestMapping("/prescription/modifyPrescriptionCheck")
+    public Result modifyPrescriptionCheck(int detail_id, String number) {
+        return prescriptionService.modifyPrescriptionCheck(detail_id, number);
     }
 
     //跳转到添加治疗方案(搜索)
     @RequestMapping(value = "/prescription/toAddTreatment")
-    public ModelAndView toAddTreatment(Model model,HttpSession session,
-                                   @RequestParam(value = "findName", defaultValue = "") String findName){
-        List<Treatment> treatmentList = treatmentService.findTreatment(findName,0);
+    public ModelAndView toAddTreatment(Model model, HttpSession session,
+                                       @RequestParam(value = "findName", defaultValue = "") String findName) {
+        List<Treatment> treatmentList = treatmentService.findTreatment(findName, 0);
         //搜索已经加入的治疗
         List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(session);
-        System.out.println("prescriptionCheckList"+prescriptionTreatmentList);
-        model.addAttribute("prescriptionCheckList",prescriptionTreatmentList);
-        model.addAttribute("findName",findName);
-        System.out.println("treatmentList"+treatmentList);
-        System.out.println("findName"+findName);
-        model.addAttribute("treatmentList",treatmentList);
+        System.out.println("prescriptionCheckList" + prescriptionTreatmentList);
+        model.addAttribute("prescriptionCheckList", prescriptionTreatmentList);
+        model.addAttribute("findName", findName);
+        System.out.println("treatmentList" + treatmentList);
+        System.out.println("findName" + findName);
+        model.addAttribute("treatmentList", treatmentList);
         return new ModelAndView("prescriptionTherapy");
     }
 
     //添加治疗明细
     @RequestMapping(value = "/prescription/addTreatment")
-    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session){
-        return prescriptionService.addTreatment(prescriptionTreatment,session);
+    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session) {
+        return prescriptionService.addTreatment(prescriptionTreatment, session);
 //        return new ModelAndView("redirect:/prescription/toAddTreatment");
     }
 
-    //删除检查明细
+    //删除治疗明细
     @RequestMapping(value = "/prescription/deleteTreatment")
-    public Result deleteTreatment(int treatmentId){
+    public Result deleteTreatment(int treatmentId) {
         return prescriptionService.deleteTreatment(treatmentId);
+    }
+
+    //修改已添加的处方治疗（数量）
+    @RequestMapping("/prescription/modifyPrescriptionTreatment")
+    public Result modifyPrescriptionTreatment(int detail_id, String number) {
+        return prescriptionService.modifyPrescriptionTreatment(detail_id, number);
     }
 
     //完成时计算总价
     @RequestMapping(value = "/prescription/totalPrice")
-    public ModelAndView totalPrice(HttpSession session){
+    public ModelAndView totalPrice(HttpSession session) {
         prescriptionService.totalPrice(session);
         return new ModelAndView("redirect:/prescription/1");
     }
@@ -171,16 +189,16 @@ public class PrescriptionController extends BaseController {
     //搜索所有处方
     @RequestMapping(value = "/prescription/findPrescription")
     public ModelAndView findPrescription(Model model,
-                                         @RequestParam(value = "findName", defaultValue = "") String findName){
-        List<Prescription> prescriptionList = prescriptionService.findPrescription(findName,0);
-        model.addAttribute("findName",findName);
-        model.addAttribute("prescriptionList",prescriptionList);
+                                         @RequestParam(value = "findName", defaultValue = "") String findName) {
+        List<Prescription> prescriptionList = prescriptionService.findPrescription(findName, 0);
+        model.addAttribute("findName", findName);
+        model.addAttribute("prescriptionList", prescriptionList);
         return new ModelAndView("prescriptionList");
     }
 
     //搜索提示
     @RequestMapping("/prescription/searchWord")
-    public Result searchWord(@RequestParam(value = "search_word") String search_word){
+    public Result searchWord(@RequestParam(value = "search_word") String search_word) {
         return prescriptionService.findPrescriptionByWord(search_word);
     }
 
