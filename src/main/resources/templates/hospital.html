@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
-		<link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="css/hospital.css" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/hospital.css}" />
 	</head>
 	<body>
 		<div class="content">
@@ -17,44 +18,50 @@
 			</div>-->
 			<ul>
 				<li>
-					<img src="img/1.png" alt="药品信息管理">
+					<img th:src="@{/img/1.png}" alt="药品信息管理">
 					<p>药品信息管理</p>
-					<div class="fu_tet">
-                        <h3>药品信息管理</h3>
-                        <p>包括药品的类别，规格含量，单位，厂家，库存，价格，医保名称等等</p>
-					</div>
+					<a th:href="@{drug/1}">
+						<div class="fu_tet">
+							<h3>药品信息管理</h3>
+							<p>包括药品的类别，规格含量，单位，厂家，库存，价格，医保名称等等</p>
+						</div>
+					</a>
 				</li>
-				<li><img src="img/2.png" alt="药品库存管理">
+				<li><img th:src="@{/img/2.png}" alt="药品库存管理">
 				<p>药品库存管理</p>
-                    <div class="fu_tet">
-                        <h3>药品库存管理</h3>
-                        <p>套餐难的不是打包收费，而是套餐的后续财务核算和逆流程的处理。套餐消费出现退费的处理能力才是真正考验系统经验的时候</p>
-
-                    </div>
+					<a th:href="@{/DrugInventory/1}">
+						<div class="fu_tet">
+							<h3>药品库存管理</h3>
+							<p>药品的编号，库存量，有效期和</p>
+						</div>
+					</a>
                 </li>
-				<li><img src="img/3.png" alt="处方管理">
+				<li><img th:src="@{/img/3.png}" alt="处方管理">
 				<p>处方管理</p>
-                    <div class="fu_tet">
-                        <h3>处方管理</h3>
-                        <p>商保客户是中高端诊所必争之地,系统提供的不仅是保险支付流程,更是保险理赔从授信、CPT Code设置,账单理赔全套经验</p>
-
-                    </div>
+					<a th:href="@{/prescription/1}">
+						<div class="fu_tet">
+							<h3>处方管理</h3>
+							<p>商保客户是中高端诊所必争之地,系统提供的不仅是保险支付流程,更是保险理赔从授信、CPT Code设置,账单理赔全套经验</p>
+						</div>
+					</a>
                 </li>
-				<li ><img src="img/4.png" alt="患者管理">
+				<li ><img th:src="@{/img/4.png}" alt="患者管理">
 				<p>患者管理</p>
-                    <div class="fu_tet">
-                        <h3>患者管理</h3>
-                        <p>客户关系管理（CRM）不仅是在客服部门，更贯穿在全部业务流程的客户关系管理，能够自动生成CRM任务，挖掘潜在客户</p>
-
-                    </div>
+					<a th:href="@{/patient/1}">
+						<div class="fu_tet">
+							<h3>患者管理</h3>
+							<p>客户关系管理（CRM）不仅是在客服部门，更贯穿在全部业务流程的客户关系管理，能够自动生成CRM任务，挖掘潜在客户</p>
+						</div>
+					</a>
                 </li>
-				<li><img src="img/5.png" alt="就诊记录管理">
+				<li><img th:src="@{/img/5.png}" alt="就诊记录管理">
 				<p>就诊记录管理</p>
-                    <div class="fu_tet">
-                        <h3>就诊记录管理</h3>
-                        <p>消费积分体系、代金券管理、推荐人奖励都是诊所经营利器，同样考验的是系统在功能强大背后财务核算的准确和灵活</p>
-
-                    </div>
+					<a th:href="@{/note/detailsNote}">
+						<div class="fu_tet">
+							<h3>就诊记录管理</h3>
+							<p>消费积分体系、代金券管理、推荐人奖励都是诊所经营利器，同样考验的是系统在功能强大背后财务核算的准确和灵活</p>
+						</div>
+					</a>
                 </li>
 			</ul>
 		</div>

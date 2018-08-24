@@ -21,7 +21,8 @@ public class DrugAttributeController extends BaseController {
     @GetMapping("/attribute/{distinction}/{page}")
     public ModelAndView getAttributes(Model model, @PathVariable("distinction") int distinction, @PathVariable("page") int page) {
         model.addAttribute("attributes",drugAttributeService.getAttributes(distinction, page));
-        return new ModelAndView();
+        return new ModelAndView("");
+
     }
 
     //添加药品属性（药品类别/药品单位/药品剂型）
