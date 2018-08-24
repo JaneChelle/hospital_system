@@ -8,7 +8,7 @@ $(".delete").on('click', function () {
             type: "DELETE",
             url: "/disease/" + diseaseID,
             data: {
-                disease_id: diseaseID,
+                diseaseId: diseaseID,
             },
             dataType: "JSON",
             success: function (data) {

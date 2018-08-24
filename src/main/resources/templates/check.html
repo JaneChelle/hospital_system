@@ -90,7 +90,7 @@
 				                 <tr>
 				                	<th>价格</th>
 				                	<td>
-				                		<input name="check_price" class="check_price" value="" required="required"/>
+				                		<input name="check_price" class="check_price" value="" required="required" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"/>
 				                	</td>
 				                </tr>
 							</thead>
@@ -131,7 +131,7 @@
 				                 <tr>
 				                	<th>价格</th>
 				                	<td>
-				                		<input type="text" name="checkPrice" class="price" value="" required="required"/>
+				                		<input type="text" name="checkPrice" class="price" value="" required="required" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"/>
 				                	</td>
 				                </tr>
 							</thead>

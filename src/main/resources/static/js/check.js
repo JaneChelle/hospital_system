@@ -8,7 +8,8 @@ $(".delete").on('click', function () {
             type: "DELETE",
             url: "/check/" + checkId,
             data: {
-                check_id: checkId,
+                // check_id: checkId,
+                checkId:checkId,
             },
             dataType: "JSON",
             success: function (data) {
@@ -55,7 +56,7 @@ $(".add_check").on('click', function () {
     else {
         alert("请把信息补充完整");
     }
-})
+});
 
 // 修改 显示信息
 $(".modify_add").on('click', function () {

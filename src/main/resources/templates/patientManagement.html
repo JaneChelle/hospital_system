@@ -8,7 +8,9 @@
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
 		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
 		<link rel="stylesheet" th:href="@{/css/popup.css}" />
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
 	</head>
 	<body>
 		<section>
@@ -18,8 +20,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="" method="post">
-							<input type="text" name="" id="" value="" required="required"/>
+						<form th:action="@{/patient/searchpatient}" method="post">
+							<input type="text" name="findName" value="" required="required"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -50,21 +52,21 @@
 		                </tr>
 	                </thead>
 	                <tbody>
-	                	<tr th:each="patient : ${}">
+	                	<tr th:each="patient : ${patients}">
 	                		<td>
 	                			<input type="checkbox" id="awesome2" value="1"/>
 								<label for="awesome2"></label>
 	                		</td>
-	                		<td>D133</td>
-	                		<td>叶小天</td>
-	                		<td>男</td>
-	                		<td>YXT</td>
-	                		<td>21</td>	
-	                		<td>15936571865</td>
-	                		<td>湖北省黄冈市黄州区</td>
+	                		<td class="patientId" th:text="${patient.patient_number}">D133</td>
+	                		<td class="patientName" th:text="${patient.patient_name}">叶小天</td>
+	                		<td class="patientSex" th:text="${patient.patient_gender}">男</td>
+	                		<td class="patientCode" th:text="${patient.pinyin_code}">YXT</td>
+	                		<td class="patientAge" th:text="${patient.patient_age}">21</td>
+	                		<td class="patientPhone" th:text="${patient.patient_phone}">15936571865</td>
+	                		<td class="patientAdress" th:text="${patient.home_address}">湖北省黄冈市黄州区</td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>
-	                			<button id="delete">删除</button>
+	                			<button id="delete" class="delete">删除</button>
 	                		</td>
 	                	</tr>
 	                </tbody>
@@ -75,27 +77,22 @@
 		
 		<!--添加-->
 		<div class="window1_popup">
-			<div class="add_infor">
+			<div class="add_infor" style="width: 420px;">
 				<h3>添加患者</h3>
 				<div class="popup_table">
-					<form action="" method="post">
+					<form th:action="@{/patient/patient}" method="post">
 						<table class="table table-bordered">
 							<thead>
-								<tr>
-				                    <th>患者编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
 				                <tr>
 				                	<th>患者姓名</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="patient_name" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>患者性别</th>
 				                	<td>
-				                		<select name="">
+				                		<select name="patient_gender">
 			                                <option value="">男</option>
 			                                <option value="">女</option>
 			                            </select>
@@ -104,31 +101,35 @@
 				                <tr>
 				                	<th>拼音码</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="pinyin_code" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>年龄</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="patient_age" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>电话</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="patient_phone" value="" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>家庭住址</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+										<div data-toggle="distpicker">
+											<select data-province="选择省"></select>
+											<select data-city="选择市"></select>
+											<select data-district="选择区"></select>
+										</div>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
+							<input type="reset" name="" id="reset" value="重置" />
 							<input type="submit" value="添加"/>
 							<input type="button" name="" class="cancel_1" value="取消" />
 						</div>
@@ -139,7 +140,7 @@
 		
 		<!--修改-->
 		<div class="window2_popup">
-			<div class="inform">
+			<div class="inform" style="width: 420px;">
 				<h3>修改患者</h3>
 				<div class="popup_table">
 					<form action="" method="post">
@@ -186,7 +187,11 @@
 				                <tr>
 				                	<th>家庭住址</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+										<div data-toggle="distpicker">
+											<select data-province="选择省"></select>
+											<select data-city="选择市"></select>
+											<select data-district="选择区"></select>
+										</div>
 				                	</td>
 				                </tr>
 							</thead>
@@ -201,6 +206,8 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
-	<script type="text/javascript" src="js/drug.js" ></script>
+	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/drug.js}"></script>
+	<script type="text/javascript" th:src="@{/js/patient.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/distpicker.js}" ></script>
 </html>

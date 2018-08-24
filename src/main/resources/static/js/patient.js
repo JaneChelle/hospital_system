@@ -1,15 +1,14 @@
-
 // 删除
 $(".delete").on('click', function () {
     var r = confirm("您确定要删除吗？");
     if (r == true) {
         var parent = $(this).parent().parent();
-        var prescriptionID = parent.children("td.prescriptionId").text();
+        var patientId = parent.children("td.patientId").text();
         $.ajax({
             type: "DELETE",
-            url: "/prescription/" + prescriptionID,
+            url: "/patient/patient/" + patientId,
             data: {
-                prescriptionId: prescriptionID,
+                patientId:patientId,
             },
             dataType: "JSON",
             success: function (data) {
