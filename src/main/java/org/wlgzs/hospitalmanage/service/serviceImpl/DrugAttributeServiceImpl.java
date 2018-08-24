@@ -26,9 +26,9 @@ public class DrugAttributeServiceImpl implements DrugAttributeService {
         List<DrugAttribute> drugAttributes = drugAttributeMapper.getAttribute(distinction);
         return drugAttributes;
     }
-    public List<DrugAttribute> searchAttribute(Model model, String attributeName , int page ){  //搜索属性名字
+    public List<DrugAttribute> searchAttribute(Model model,int distinction, String attributeName , int page ){  //搜索属性名字
         PageHelper.startPage(page,10);
-        List<DrugAttribute> drugAttributeList = drugAttributeMapper.searchAttribute(attributeName);
+        List<DrugAttribute> drugAttributeList = drugAttributeMapper.searchAttribute(attributeName,distinction);
         model.addAttribute("pages",Math.ceil(page/10.0));
         model.addAttribute("page",page);
         return drugAttributeList;

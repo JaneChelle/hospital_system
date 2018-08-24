@@ -23,16 +23,22 @@ public class DrugInventoryController extends BaseController {
         return result;
     }
     //删除药品库存
-    @DeleteMapping("/DrugInventory")
-    public Result deleteDrugInventory(@RequestParam("drugInventory") int drugInventory) {
-        drugInventoryService.deleteDrugInventory(drugInventory);
+    @DeleteMapping("/DrugInventory/{drugInventoryId}")
+    public Result deleteDrugInventory(@PathVariable("drugInventoryId") int drugInventoryId) {
+        drugInventoryService.deleteDrugInventory(drugInventoryId);
         return new Result(ResultCode.SUCCESS, "删除成功");
     }
+    //批量删除药品库存
+    @PostMapping("/DrugInventorys")
+    public Result deleteDrugInventorys(@RequestParam("drugInventorys") int[] drugInventorys){
+        drugInventoryService.deleteDrugInventories(drugInventorys);
+        return new Result(ResultCode.SUCCESS,"批量删除成功");
+    }
     //更新药品库存
-    @PutMapping("/DrugInventory")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @PutMapping("/DrugInventory")
     public Result updateDrugInventory(DrugInventory drugInventory,@RequestParam("date") String dateStr ){
         drugInventoryService.updateDrugInventory(drugInventory,dateStr);
-        return new Result(ResultCode.SUCCESS);
+        return new  Result(ResultCode.SUCCESS);
     }
     //查看药品库存(总库存量)
     @GetMapping("/DrugInventory/{page}")
@@ -40,6 +46,12 @@ public class DrugInventoryController extends BaseController {
       List<DrugInventory> drugInventories =  drugInventoryService.getDrugInventory(page);
       model.addAttribute("drugInventories",drugInventories);
       return new ModelAndView();
+    }
+    //查看药品库存(按有效期)
+    @GetMapping("/DrugInventoryDate/{page}")
+    public ModelAndView getDrugInventoryDate(Model model,@PathVariable("page") int page){
+          model.addAttribute("drugInventories",drugInventoryService.getDrugInventoryDate(model,page));
+          return new ModelAndView();
     }
     //查看有效期一个月内的清单
     @GetMapping("/getMonthLimit")
@@ -54,15 +66,28 @@ public class DrugInventoryController extends BaseController {
         return new ModelAndView();
     }
     //搜索库存下拉框
-    @PostMapping
+    @PostMapping("/keyword")
     public Result keyword(String drugName){
         List<DrugInventory> drugInventories = drugInventoryService.keyword(drugName);
         return new Result(ResultCode.SUCCESS,drugInventories);
     }
-    //搜索库存
+    //搜索库存下拉框（按有效期）
+    @PostMapping("/keywordDate")
+    public Result keywordDate(String drugName){
+        List<DrugInventory> drugInventories = drugInventoryService.keywordDate(drugName);
+        return new Result(ResultCode.SUCCESS,drugInventories);
+    }
+
+    //搜索总库存
     @GetMapping("/searchStorage/{page}")
     public ModelAndView searchStorage(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
-         model.addAttribute("storages",drugInventoryService.searchStorage(model,drugName,page));
+         model.addAttribute("drugInventories",drugInventoryService.searchStorage(model,drugName,page));
          return new ModelAndView();
+    }
+    //搜索库存(按有效期)
+    @GetMapping("/searchStorageDate/{page}")
+    public ModelAndView searchStorageDate(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
+        model.addAttribute("sdrugInventories",drugInventoryService.searchStorage(model,drugName,page));
+        return new ModelAndView();
     }
 }

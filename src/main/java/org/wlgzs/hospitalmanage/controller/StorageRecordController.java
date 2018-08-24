@@ -12,6 +12,7 @@ import org.wlgzs.hospitalmanage.util.ResultCode;
  * @date 2018/8/19 11:03
  */
 @RestController
+@RequestMapping("/StorageRecord")
 public class StorageRecordController extends BaseController {
     //查看入库记录
     @GetMapping("/StorageRecord/{page}")
@@ -30,6 +31,17 @@ public class StorageRecordController extends BaseController {
     public Result  deleteStorage(@RequestParam("storageIds") int[] storageIds){
         storageRecordService.deleteStorages(storageIds);
         return new Result(ResultCode.SUCCESS,"批量删除成功");
+    }
+    //搜索库存记录
+    @PostMapping("/searchStorageRecord")
+    public ModelAndView searchStorageRecord(Model model,@RequestParam("drugName") String drugName){
+            model.addAttribute("stroages",storageRecordService.searchStorageRecord(drugName));
+        return new ModelAndView("");
+    }
+    //搜索库存记录下拉框
+    @PostMapping("/keyword")
+    public Result keyword(@RequestParam("drugName") String drugName){
+        return new Result(ResultCode.SUCCESS,storageRecordService.keyword(drugName));
     }
     
 }
