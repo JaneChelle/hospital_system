@@ -55,9 +55,9 @@ public class DrugInventoryController extends BaseController {
     }
     //查看有效期一个月内的清单
     @GetMapping("/getMonthLimit")
-    public ModelAndView getMonthLimit(Model model){
+    public ModelAndView delgetMonthLimit(Model model){
         model.addAttribute("drugInventories",drugInventoryService.getMonthLimit());
-        return new ModelAndView();
+        return new ModelAndView("");
     }
     //查看未达到安全库存的清单
     @GetMapping("/getUnsafeStorage/{page}")
