@@ -11,14 +11,12 @@ $(".select_drug").on('click',function () {
             data: {
                 drug_code:drug_code,
                 drug_name:drug_name,
-                // unit_price:unit_price,
                 number:drug_num,
             },
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
                     window.location.href="/prescription/toAddDrug";
-                    // location.reload();
                 }
             },
             error: function (msg) {

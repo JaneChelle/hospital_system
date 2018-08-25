@@ -27,3 +27,167 @@ $(".delete").on('click', function () {
 
     }
 });
+// 批量删除
+$(".batchDelete").on('click', function () {
+   var x = confirm("您确定要删除吗？");
+   if (x == true){
+       $.ajax({
+           type: "POST",
+           url: "/patient/deletePatients",
+           data: {
+               patients:$('.browider').val(),
+           },
+           dataType: "JSON",
+           success: function (data) {
+               if (data.code == 0) {
+                   location.reload();
+               } else {
+
+               }
+           },
+           error: function (msg) {
+               alert("网络错误");
+           }
+       })
+   }
+});
+
+
+// 添加患者
+$(".addPatient").on('click', function () {
+
+    // 添加  --  地址
+    var address = [];
+    address.splice(0,address.length);
+    var province = $('.province').val();//省
+    var city = $('.city').val();//市
+    var district = $('.district').val();//区
+    address.push(province+"-"+city+"-"+district);
+    $('.home_address').val(address);
+    // 性别
+    var option_sex = $(".gender option:selected");
+    var option_text = option_sex.text();
+    $('.patientGender').val(option_text);
+
+    if (($(".namePatient").val() != "") && ($(".codePatient").val() != "") && ($(".agePatient").val() != "") && ($(".phonePatient").val() != "") && ($(".patient_gender").val() != "") && ($(".home_address").val() != "")){
+        $.ajax({
+            type: "POST",
+            url: "/patient/patient",
+            data: {
+                patient_name:$(".namePatient").val(),
+                patient_gender:$('.patientGender').val(),
+                pinyin_code:$(".codePatient").val(),
+                patient_age: $(".agePatient").val(),
+                patient_phone:$('.phonePatient').val(),
+                home_address: $('.home_address').val()
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    location.reload();
+                } else {
+
+                }
+            },
+            error: function (msg) {
+                alert("网络错误");
+            }
+        })
+    }
+    else {
+        alert("请把患者信息补充完整");
+    }
+});
+
+// 修改 显示信息
+$(".modify_add").on('click', function () {
+    var parent = $(this).parent().parent();
+    var patientId = parent.children("td.patientId").text();
+    var patientName = parent.children("td.patientName").text();
+    var patientSex = parent.children("td.patientSex").text();
+    var patientCode = parent.children("td.patientCode").text();
+    var patientAge = parent.children("td.patientAge").text();
+    var patientPhone = parent.children("td.patientPhone").text();
+    $(".patient_number").val(patientId);
+    $(".patient_name").val(patientName);
+    $(".pinyin_code").val(patientCode);
+    $(".patient_age").val(patientAge);
+    $('.patient_phone').val(patientPhone);
+
+    // 性别
+    var options = $('.patient_Sex option');
+    for (var i = 0; i < options.length; i++) {
+        if ($(options[i]).text() == patientSex) {
+            $(options[i]).attr("selected", true);
+        } else {
+            $(options[i]).attr("selected", false);
+        }
+    }
+
+    // 地区
+    // var address_province = $('.address_province option');
+    // // var address_city = $('.address_city option');
+    // // var address_district = $('.address_district option');
+    // for (var i = 0; i < address_province.length; i++) {
+    //     if ($(address_province[i]).text() == province) {
+    //         $(address_province[i]).attr("selected", true);
+    //     } else {
+    //         $(address_province[i]).attr("selected", false);
+    //     }
+    //
+    // }
+    // var str = node.location;
+    // var strs = new Array();
+    // strs = str.split("-");
+    // $('.provinces').val(strs[0]);
+    // $('.provinces').trigger("change");
+    // $('.citys').val(strs[1]);
+    // $('.citys').trigger("change");
+    // $('.districts').val(strs[2]);
+});
+
+// 修改患者
+$(".modify_patient").on('click', function () {
+    var map = [];
+    map.splice(0,map.length);
+    var provinces = $('.provinces').val();//省
+    var citys = $('.citys').val();//市
+    var districts = $('.districts').val();//区
+    map.push(provinces+"-"+citys+"-"+districts);
+    $('.home_add').val(map);
+
+    // 性别
+    var optioned=$(".patient_Sex option:selected");
+    var option_texts = optioned.val();
+    $('.patient_sex').val(option_texts);
+
+    if (($(".patient_name").val() != "") && ($(".pinyin_code").val() != "") && ($(".patient_age").val() != "") && ($(".patient_phone").val() != "")){
+        $.ajax({
+            type: "PUT",
+            url: "/patient/patient",
+            data: {
+                patient_number:$(".patient_number").val(),
+                patient_name:$(".patient_name").val(),
+                patient_gender:$('.patient_sex').val(),
+                pinyin_code:$(".pinyin_code").val(),
+                patient_age: $(".patient_age").val(),
+                patient_phone:$('.patient_phone').val(),
+                home_address: $('.home_add').val()
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    location.reload();
+                } else {
+
+                }
+            },
+            error: function (msg) {
+                alert("网络错误");
+            }
+        })
+    }
+    else {
+        alert("请把患者信息补充完整");
+    }
+});

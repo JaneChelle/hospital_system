@@ -28,6 +28,30 @@ $(".delete").on('click', function () {
     }
 });
 
+// 批量删除
+$(".batchDelete").on('click', function () {
+    var x = confirm("您确定要删除吗？");
+    if(x == true){
+        $.ajax({
+            url: "/deleteDiseaseByIds",
+            data: {
+                DiseaseIds:$('.browider').val(),
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    location.reload();
+                } else {
+
+                }
+            },
+            error: function (msg) {
+                alert("网络错误");
+            }
+        })
+    }
+});
+
 // 添加
 $(".add_check").on('click', function () {
     if($(".disease_name").val() != ""){

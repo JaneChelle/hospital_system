@@ -20,8 +20,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form th:action="@{/patient/searchpatient}" method="post">
-							<input type="text" name="findName" value="" required="required"/>
+						<form th:action="@{/patient/searchpatient/1}" method="get">
+							<input type="text" name="findName" value="" required="required" placeholder="名字/拼音码/手机号"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -29,7 +29,8 @@
 						<input type="button" value="全选" id="selectAll">
 						<!--<input type="button" value="全不选" id="unSelect">-->  
 						<input type="button" value="反选" id="reverse"> 
-						<input type="button" value="批量删除">
+						<input type="button" value="批量删除" class="batchDelete">
+						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
 					<button class="label-info add_item"><b>添加</b></button>
@@ -54,8 +55,8 @@
 	                <tbody>
 	                	<tr th:each="patient : ${patients}">
 	                		<td>
-	                			<input type="checkbox" id="awesome2" value="1"/>
-								<label for="awesome2"></label>
+	                			<input type="checkbox" th:id="${patient.patient_number}" th:value="${patient.patient_number}" class="selectall"/>
+								<label th:for="${patient.patient_number}"></label>
 	                		</td>
 	                		<td class="patientId" th:text="${patient.patient_number}">D133</td>
 	                		<td class="patientName" th:text="${patient.patient_name}">叶小天</td>
@@ -80,60 +81,62 @@
 			<div class="add_infor" style="width: 420px;">
 				<h3>添加患者</h3>
 				<div class="popup_table">
-					<form th:action="@{/patient/patient}" method="post">
+					<!--<form th:action="@{/patient/patient}" method="post">-->
 						<table class="table table-bordered">
 							<thead>
 				                <tr>
 				                	<th>患者姓名</th>
 				                	<td>
-				                		<input type="" name="patient_name" value="" required="required"/>
+				                		<input type="text" name="patient_name" value="" class="namePatient" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>患者性别</th>
 				                	<td>
-				                		<select name="patient_gender">
-			                                <option value="">男</option>
-			                                <option value="">女</option>
+										<input type="hidden" name="patient_gender" class="patientGender">
+				                		<select name="patient_gender" class="gender">
+											<!--<option value="">请选择</option>-->
+			                                <option value="男">男</option>
+			                                <option value="女">女</option>
 			                            </select>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>拼音码</th>
 				                	<td>
-				                		<input type="" name="pinyin_code" value="" required="required"/>
+				                		<input type="" name="pinyin_code" value="" class="codePatient" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>年龄</th>
 				                	<td>
-				                		<input type="" name="patient_age" value="" required="required"/>
+				                		<input type="" name="patient_age" value="" class="agePatient" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>电话</th>
 				                	<td>
-				                		<input type="" name="patient_phone" value="" required="required"/>
+				                		<input type="" name="patient_phone" value="" class="phonePatient" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>家庭住址</th>
 				                	<td>
+										<input type="hidden" name="home_address" class="home_address">
 										<div data-toggle="distpicker">
-											<select data-province="选择省"></select>
-											<select data-city="选择市"></select>
-											<select data-district="选择区"></select>
+											<select class="province" data-province="选择省"></select>
+											<select class="city" data-city="选择市"></select>
+											<select class="district" data-district="选择区"></select>
 										</div>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" id="reset" value="重置" />
-							<input type="submit" value="添加"/>
+							<input type="submit" value="添加" class="addPatient"/>
 							<input type="button" name="" class="cancel_1" value="取消" />
 						</div>
-					</form>
+					<!--</form>-->
 				</div>
 			</div>
 		</div>
@@ -143,65 +146,62 @@
 			<div class="inform" style="width: 420px;">
 				<h3>修改患者</h3>
 				<div class="popup_table">
-					<form action="" method="post">
+					<!--<form th:action="@{/patient/patient}" method="">-->
 						<table class="table table-bordered">
 							<thead>
-								<tr>
-				                    <th>患者编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
+							<input type="hidden" class="patient_number">
 				                <tr>
 				                	<th>患者姓名</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="patient_name" class="patient_name" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>患者性别</th>
 				                	<td>
-				                		<select name="">
-			                                <option value="">男</option>
-			                                <option value="">女</option>
+										<input type="hidden" name="patient_gender" class="patient_sex">
+				                		<select name="" class="patient_Sex">
+			                                <option value="男" class="option_sex">男</option>
+			                                <option value="女" class="option_sex">女</option>
 			                            </select>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>拼音码</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="pinyin_code" class="pinyin_code" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>年龄</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="patient_age" class="patient_age" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>电话</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="" name="patient_phone" class="patient_phone" required="required"/>
 				                	</td>
 				                </tr>
 				                <tr>
 				                	<th>家庭住址</th>
-				                	<td>
+									<td>
+										<input type="hidden" name="home_address" class="home_add">
 										<div data-toggle="distpicker">
-											<select data-province="选择省"></select>
-											<select data-city="选择市"></select>
-											<select data-district="选择区"></select>
+											<select class="provinces" data-province="选择省"></select>
+											<select class="citys" data-city="选择市"></select>
+											<select class="districts" data-district="选择区"></select>
 										</div>
-				                	</td>
+									</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
-							<input type="submit" value="修改"/>
+							<input type="submit" value="修改" class="modify_patient"/>
 							<input type="button" name="" class="cancel_2" value="取消" />
 						</div>
-					</form>
+					<!--</form>-->
 				</div>
 			</div>
 		</div>

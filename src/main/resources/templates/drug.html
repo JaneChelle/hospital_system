@@ -60,8 +60,8 @@
 	                <tbody>
 	                	<tr th:each="drug : ${drugs}">
 	                		<td>
-	                			<input type="checkbox" id="awesome2" value="1"/>
-								<label for="awesome2"></label>
+	                			<input type="checkbox" th:value="${drug.drug_code}" th:id="${drug.drug_code}"/>
+								<label th:for="${drug.drug_code}"></label>
 	                		</td>
 	                		<td th:text="${drug.drug_code}">A133</td>
 	                		<td th:text="${drug.drug_name}"></td>

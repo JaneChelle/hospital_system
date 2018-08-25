@@ -27,7 +27,8 @@
 					<div class="input_btn">
 						<input type="button" value="全选" id="selectAll">
 						<input type="button" value="反选" id="reverse"> 
-						<input type="button" value="批量删除">
+						<input type="button" value="批量删除" class="batchDelete">
+						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
 					<button class="label-info add_item"><b>添加</b></button>
@@ -49,8 +50,8 @@
 	                <tbody>
 	                	<tr th:each="check : ${checkList}">
 	                		<td>
-	                			<input type="checkbox" id="awesome2" value="1"/>
-								<label for="awesome2"></label>
+	                			<input type="checkbox" th:id="${check.check_id}" th:value="${check.check_id}" class="selectall"/>
+								<label th:for="${check.check_id}"></label>
 	                		</td>
 	                		<td class="checkId" th:text="${check.check_id}">D133</td>
 	                		<td class="checkName" th:text="${check.check_name}"></td>
