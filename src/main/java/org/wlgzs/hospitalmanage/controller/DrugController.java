@@ -49,9 +49,15 @@ public class DrugController extends BaseController {
         drugService.updateDrug(drug);
         return new Result(ResultCode.SUCCESS, "更改成功");
     }
-    //查看详情/修改药物信息
+    //查看详情
     @GetMapping("/toView/{drugId}")
     public ModelAndView toView(Model model, @PathVariable("drugId") int drugId ){
+        model.addAttribute("drug",drugService.toView(drugId));
+        return new ModelAndView("");
+    }
+    //修改药物信息
+    @GetMapping("/viewUpdate/{drugId}")
+    public ModelAndView viewUpdate(Model model, @PathVariable("drugId") int drugId ){
         model.addAttribute("drug",drugService.toView(drugId));
         return new ModelAndView("");
     }

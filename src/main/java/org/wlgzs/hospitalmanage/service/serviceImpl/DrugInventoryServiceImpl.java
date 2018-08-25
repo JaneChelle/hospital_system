@@ -167,8 +167,10 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         long currentTime = System.currentTimeMillis();
         for (DrugInventory drugInventory : drugInventoryList) {
             long valid_period = drugInventory.getValid_period().getTime();
-            long result = valid_period = currentTime;
-            if (result <= 2678400L) {
+            long result = valid_period-currentTime;
+            System.out.println(valid_period);
+            System.out.println(currentTime);
+            if (result <= 2678400*1000L) {
                 monthLimit.add(drugInventory);
             }
         }
