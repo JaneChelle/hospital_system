@@ -181,9 +181,9 @@ public class PrescriptionController extends BaseController {
 
     //完成时计算总价
     @RequestMapping(value = "/prescription/totalPrice")
-    public ModelAndView totalPrice(HttpSession session) {
-        prescriptionService.totalPrice(session);
-        return new ModelAndView("redirect:/prescription/1");
+    public ModelAndView totalPrice(@RequestParam(value = "prescription_id") int prescription_id) {
+        prescriptionService.totalPrice(prescription_id);
+        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescription_id="+prescription_id);
     }
 
     //搜索所有处方

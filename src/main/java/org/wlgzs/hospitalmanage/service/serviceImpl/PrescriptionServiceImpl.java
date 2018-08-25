@@ -360,46 +360,42 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //计算总价格
     @Override
-    public void totalPrice(HttpSession session) {
-        int prescription_id;
-        if (session.getAttribute("prescription_id") != null) {
-            String prescriptionId = (String) session.getAttribute("prescription_id");
-            prescription_id = Integer.parseInt(prescriptionId);
-            System.out.println("prescription_id:" + prescription_id);
-            Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+    public void totalPrice(int prescription_id) {
+        System.out.println("prescription_id:" + prescription_id);
+        Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 
-            BigDecimal priceDrug = BigDecimal.ZERO;
-            List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
-            for (int i = 0; i < prescriptionDrugList.size(); i++) {
-                priceDrug = priceDrug.add(prescriptionDrugList.get(i).getPrice_one());
-                System.out.println(prescriptionDrugList.get(i).getPrice_one());
-                System.out.println("priceDrug:" + priceDrug);
-            }
-
-            BigDecimal priceCheck = BigDecimal.ZERO;
-            List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
-            for (int i = 0; i < prescriptionCheckList.size(); i++) {
-                priceCheck = priceCheck.add(prescriptionCheckList.get(i).getPrice_one());
-                System.out.println(prescriptionCheckList.get(i).getPrice_one());
-                System.out.println("priceCheck:" + priceCheck);
-            }
-
-            BigDecimal priceTreatment = BigDecimal.ZERO;
-            List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
-            for (int i = 0; i < prescriptionTreatmentList.size(); i++) {
-
-                priceTreatment = priceTreatment.add(prescriptionTreatmentList.get(i).getPrice_one());
-            }
+        BigDecimal priceDrug = BigDecimal.ZERO;
+        List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
+        for (int i = 0; i < prescriptionDrugList.size(); i++) {
+            priceDrug = priceDrug.add(prescriptionDrugList.get(i).getPrice_one());
+            System.out.println(prescriptionDrugList.get(i).getPrice_one());
             System.out.println("priceDrug:" + priceDrug);
-
-            System.out.println("priceTreatment:" + priceTreatment);
-
-            BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
-            prescription.setPrice_all(priceAll);
-            System.out.println("priceAll:" + priceAll);
-            prescriptionMapper.updateByPrimaryKey(prescription);
         }
+
+        BigDecimal priceCheck = BigDecimal.ZERO;
+        List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
+        for (int i = 0; i < prescriptionCheckList.size(); i++) {
+            priceCheck = priceCheck.add(prescriptionCheckList.get(i).getPrice_one());
+            System.out.println(prescriptionCheckList.get(i).getPrice_one());
+            System.out.println("priceCheck:" + priceCheck);
+        }
+
+        BigDecimal priceTreatment = BigDecimal.ZERO;
+        List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescription_id);
+        for (int i = 0; i < prescriptionTreatmentList.size(); i++) {
+
+            priceTreatment = priceTreatment.add(prescriptionTreatmentList.get(i).getPrice_one());
+        }
+        System.out.println("priceDrug:" + priceDrug);
+
+        System.out.println("priceTreatment:" + priceTreatment);
+
+        BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
+        prescription.setPrice_all(priceAll);
+        System.out.println("priceAll:" + priceAll);
+        prescriptionMapper.updateByPrimaryKey(prescription);
     }
+
 
     //搜索处方
     @Override
