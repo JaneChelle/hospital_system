@@ -211,6 +211,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session) {
         if (prescriptionCheck != null && session.getAttribute("prescription_id") != null) {
+
             Check check = checkMapper.selectByPrimaryKey(prescriptionCheck.getCheck_id());
             int prescription_id;
             String prescriptionId = (String) session.getAttribute("prescription_id");
@@ -225,12 +226,22 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescriptionMapper.updateByPrimaryKey(prescription);
             }
 
+            PrescriptionCheck prescriptionCheck1 = prescriptionCheckMapper.findPrescriptionChe(prescription_id, prescriptionCheck.getCheck_id());
             //查询检查表，添加价格
-            BigDecimal temp = new BigDecimal(prescriptionCheck.getNumber());
-            BigDecimal bigDecimal = check.getCheck_price().multiply(temp);
-            prescriptionCheck.setPrice_one(bigDecimal);
-            prescriptionCheck.setCheck_name(check.getCheck_name());
-            prescriptionCheckMapper.insert(prescriptionCheck);
+            if (prescriptionCheck1 == null) {
+                BigDecimal temp = new BigDecimal(prescriptionCheck.getNumber());
+                BigDecimal bigDecimal = check.getCheck_price().multiply(temp);
+                prescriptionCheck.setPrice_one(bigDecimal);
+                prescriptionCheck.setCheck_name(check.getCheck_name());
+                prescriptionCheckMapper.insert(prescriptionCheck);
+            }else{
+                BigDecimal temp = new BigDecimal(prescriptionCheck1.getNumber() + prescriptionCheck.getNumber());
+                BigDecimal bigDecimal = check.getCheck_price().multiply(temp);
+                prescriptionCheck1.setPrice_one(bigDecimal);
+                prescriptionCheck1.setNumber(prescriptionCheck1.getNumber() + prescriptionCheck.getNumber());
+                prescriptionCheck1.setCheck_name(check.getCheck_name());
+                prescriptionCheckMapper.updateByPrimaryKey(prescriptionCheck1);
+            }
             return new Result(ResultCode.SUCCESS);
         } else {
             return new Result(ResultCode.FAIL);
@@ -305,12 +316,23 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescription.setIs_treatment(1);
                 prescriptionMapper.updateByPrimaryKey(prescription);
             }
+
+            PrescriptionTreatment prescriptionTreatment1 = prescriptionTreatmentMapper.findPrescriptionTreat(prescription_id,prescriptionTreatment.getTreatment_id());
             //查询检查表，添加价格
-            BigDecimal temp = new BigDecimal(prescriptionTreatment.getNumber());
-            BigDecimal bigDecimal = treatment.getTreatment_price().multiply(temp);
-            prescriptionTreatment.setPrice_one(bigDecimal);
-            prescriptionTreatment.setTreatment_name(treatment.getTreatment_name());
-            prescriptionTreatmentMapper.insert(prescriptionTreatment);
+            if(prescriptionTreatment1 == null){
+                BigDecimal temp = new BigDecimal(prescriptionTreatment.getNumber());
+                BigDecimal bigDecimal = treatment.getTreatment_price().multiply(temp);
+                prescriptionTreatment.setPrice_one(bigDecimal);
+                prescriptionTreatment.setTreatment_name(treatment.getTreatment_name());
+                prescriptionTreatmentMapper.insert(prescriptionTreatment);
+            }else{
+                BigDecimal temp = new BigDecimal(prescriptionTreatment1.getNumber() + prescriptionTreatment.getNumber());
+                BigDecimal bigDecimal = treatment.getTreatment_price().multiply(temp);
+                prescriptionTreatment1.setPrice_one(bigDecimal);
+                prescriptionTreatment1.setNumber(prescriptionTreatment1.getNumber() + prescriptionTreatment.getNumber());
+                prescriptionTreatment.setTreatment_name(treatment.getTreatment_name());
+                prescriptionTreatmentMapper.updateByPrimaryKey(prescriptionTreatment1);
+            }
             return new Result(ResultCode.SUCCESS);
         } else {
             return new Result(ResultCode.FAIL);

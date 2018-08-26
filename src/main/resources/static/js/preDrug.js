@@ -4,6 +4,7 @@ $(".select_drug").on('click',function () {
     var drug_code = parent.children("td.drug_code").text();
     var drug_name = parent.children("td.drug_name").text();
     var drug_num = $(this).parent().prev().children('input').val();
+    var isModify = document.getElementById("test").value;
     console.log(drug_num);
     if(drug_num != ""){
         $.ajax({
@@ -16,7 +17,8 @@ $(".select_drug").on('click',function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    window.location.href="/prescription/toAddDrug?isModify=is";
+                    alert(isModify);
+                    window.location.href="/prescription/toAddDrug?isModify="+isModify;
                 }
             },
             error: function (msg) {
