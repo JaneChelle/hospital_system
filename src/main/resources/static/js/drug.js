@@ -5,16 +5,16 @@
 $(document).ready(function(){
 	$('.modify_add').click(function(){
 		$('.window2_popup').fadeIn();
-		var height=$(".inform").height()
+		var height=$(".inform").height();
 		console.log(height);
 		if(height<=326){
 			$('.inform').animate({
-				top:"135px",
+				top:"135px"
 			})
 		}
 		else{
 			$('.inform').animate({
-				top:"64px",
+				top:"64px"
 			})
 		}
 		
@@ -22,7 +22,7 @@ $(document).ready(function(){
 	$('.cancel_2').click(function(){
 		$('.window2_popup').fadeOut();
 		$('.inform').animate({
-			top:"-32px",
+			top:"-32px"
 		})
 	})
 })
@@ -31,16 +31,16 @@ $(document).ready(function(){
 //	添加
 	$('.add_item').click(function(){
 		$(".window1_popup").fadeIn();
-		var height=$(".add_infor").height()
+		var height=$(".add_infor").height();
 		console.log(height);
 		if(height<=326){
 			$('.add_infor').animate({
-				top:"115px",
+				top:"115px"
 			})
 		}
 		else{
 			$('.add_infor').animate({
-				top:"64px",
+				top:"64px"
 			})
 		}
 	})
@@ -51,7 +51,7 @@ $(document).ready(function(){
 			top:"-32px",
 		})
 	})
-})	   
+});
 
 $(function () {
 	//全选或全不选

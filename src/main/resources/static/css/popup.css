@@ -69,7 +69,6 @@ body{
     padding: 5px;
     border-radius: 5px;
     width: 90px;
-    margin-left: -112px;
 }
 
 .popup_bottom input{
@@ -373,6 +372,12 @@ p{
 }
 .prescript_p{
 	overflow: hidden;
+}
+.add_2 a{
+	float: right;
+	display: inline-block;
+	width: 64px;
+	height: 36px;
 }
 .add_2 button, .prescript_p button{
 	width: 64px;

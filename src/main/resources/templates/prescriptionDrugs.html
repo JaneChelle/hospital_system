@@ -34,9 +34,14 @@
 					<p>
 						<span>处方药品</span>
 						<button class="item_lists">
-							<b>
+							<b th:if="${isModify} ne 'is'">
 								<a th:href="@{/prescription/toAddCheck}">
 									<b>下一步</b>
+								</a>
+							</b>
+							<b th:if="${isModify} eq 'is'">
+								<a th:href="@{/prescription/totalPrice}">
+									<b>确定</b>
 								</a>
 							</b>
 						</button>
