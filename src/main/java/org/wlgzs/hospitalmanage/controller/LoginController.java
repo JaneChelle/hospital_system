@@ -6,6 +6,7 @@ package org.wlgzs.hospitalmanage.controller;
  */
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,11 +26,12 @@ public class LoginController extends BaseController {
     private UserProperties userProperties;
     @RequestMapping("/toLogin")
     public ModelAndView toLogin(){
-        return new ModelAndView("");
+        return new ModelAndView("login");
     }
     @RequestMapping("/login")
     public Result login(HttpSession session, @RequestParam("userAccount") String userAccount, @RequestParam("userPassword") String userPassword) {
         List<String> userAccounts = userProperties.getUserAccounts();
+        System.out.println("fftghdfht");
         List<String> userPasswords = userProperties.getUserPasswords();
        // List<String> userNames = userProperties.getUserNames();
         List<Integer> userCodes = userProperties.getOperatorCodes();
@@ -38,12 +40,24 @@ public class LoginController extends BaseController {
                 String password = userPasswords.get(i);
                 if (password.equals(userPassword)) {
                     session.setAttribute("user", userCodes.get(i));
+                    System.out.println("登录成功");
                     return new Result(ResultCode.SUCCESS, "登录成功");
                 }
             }
         }
-
+        System.out.println("shibai");
         return new Result(ResultCode.FAIL, "账号密码错误");
     }
 
+    //首页
+    @RequestMapping("/toHome")
+    public ModelAndView toHome(){
+        return new ModelAndView("adminIndex");
+    }
+
+    //首页
+    @RequestMapping("/toHospital")
+    public ModelAndView toHospital(){
+        return new ModelAndView("hospital");
+    }
 }

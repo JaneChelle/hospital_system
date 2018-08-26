@@ -8,7 +8,7 @@ $(".delete").on('click', function () {
             type: "DELETE",
             url: "/disease/" + diseaseID,
             data: {
-                disease_id: diseaseID,
+                diseaseId: diseaseID,
             },
             dataType: "JSON",
             success: function (data) {
@@ -25,6 +25,30 @@ $(".delete").on('click', function () {
     }
     else {
 
+    }
+});
+
+// 批量删除
+$(".batchDelete").on('click', function () {
+    var x = confirm("您确定要删除吗？");
+    if(x == true){
+        $.ajax({
+            url: "/deleteDiseaseByIds",
+            data: {
+                DiseaseIds:$('.browider').val(),
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    location.reload();
+                } else {
+
+                }
+            },
+            error: function (msg) {
+                alert("网络错误");
+            }
+        })
     }
 });
 

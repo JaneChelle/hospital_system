@@ -7,7 +7,7 @@ import java.util.List;
 
 @org.apache.ibatis.annotations.Mapper
 public interface PatientMapper extends Mapper<Patient>{
-    @Update("UPDATE tb_patient SET patient_name=#{patientName},pinyin_code=#{pinyinCode},patient_gender=#{patientGender}, patient_age=#{patientAge},patient_phone=#{patientPhone},home_address=#{homeAddress} WHERE patient_number=#{patientNumber}" )
+    @Update("UPDATE tb_patient SET patient_name=#{patient_name},pinyin_code=#{pinyin_code},patient_gender=#{patient_gender}, patient_age=#{patient_age},patient_phone=#{patient_phone},home_address=#{home_address} WHERE patient_number=#{patient_number}" )
     void update(Patient patient);
    /* @Select("SELECT * FROM tb_patient WHERE patient_phone LIKE CONCAT('%',#{0},'%') limit 8 ")
     List<Patient> phoneKeyWord(String patientPhone);*/

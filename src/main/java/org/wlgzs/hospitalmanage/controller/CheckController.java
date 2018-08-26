@@ -26,6 +26,7 @@ public class CheckController extends BaseController {
     //查看所有检查
     @RequestMapping(value = "/check/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
+        System.out.println("116165641");
         List<Check> checkList = checkService.selectAll(page);
         model.addAttribute("checkList", checkList);
         System.out.println(checkList.get(0));

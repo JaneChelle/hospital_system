@@ -3,6 +3,8 @@ package org.wlgzs.hospitalmanage.controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.method.annotation.ViewNameMethodReturnValueHandler;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.DrugAttribute;
 import org.wlgzs.hospitalmanage.util.Result;
@@ -22,11 +24,11 @@ public class DrugAttributeController extends BaseController {
     public ModelAndView getAttributes(Model model, @PathVariable("distinction") int distinction, @PathVariable("page") int page) {
         model.addAttribute("attributes",drugAttributeService.getAttributes(distinction, page));
         if(distinction==1) {
-            return new ModelAndView();
+        return new ModelAndView("drugCategory");
         }else if (distinction==2){
-            return new ModelAndView();
+            return new ModelAndView("drugUnit");
         }else {
-            return new ModelAndView();
+            return new ModelAndView("drugDosageSorm");
         }
     }
 

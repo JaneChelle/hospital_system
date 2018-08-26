@@ -23,7 +23,7 @@ public class PatientController extends BaseController {
     public ModelAndView getPatients(Model model, @PathVariable("page") int page) {
         List<Patient> patients = patientService.getPatients(page);
         model.addAttribute("patients",patients);
-        return new ModelAndView();
+        return new ModelAndView("patientManagement");
 
     }
     //添加患者
@@ -63,6 +63,6 @@ public class PatientController extends BaseController {
     @GetMapping("/searchpatient/{page}")
     public ModelAndView searchPatient(Model model,@PathVariable("page") int page, @RequestParam("patientAttribute") String patientAttribute) {
         model.addAttribute("patients",patientService.searchPatient(model,patientAttribute,page));
-        return new ModelAndView();
+        return new ModelAndView("patientManagement");
     }
 }
