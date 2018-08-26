@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
 	<head>
 		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
-		<link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css" />
-		<link rel="stylesheet" href="css/popup.css" />
+		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+		<link rel="stylesheet" th:href="@{/css/popup.css}" />
 	</head>
 	<body>
 		<section>
@@ -25,11 +27,14 @@
 					<div class="input_btn">
 						<input type="button" value="全选" id="selectAll">
 						<!--<input type="button" value="全不选" id="unSelect">-->  
-						<input type="button" value="反选" id="reverse"> 
-						<input type="button" value="批量删除">
+						<input type="button" value="反选" id="reverse">
+						<input type="button" value="批量删除" class="batchDelete">
+						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
-					<button class="label-info add_item"><b>添加</b></button>
+					<button class="label-info add_item">
+						<b>添加</b>
+					</button>
 				</div>
 			</div>
 			<div class="same_fixed"></div>
@@ -44,16 +49,16 @@
 		                </tr>
 	                </thead>
 	                <tbody>
-	                	<tr>
+	                	<tr th:each="drugUnit : ${attributes}">
 	                		<td>
-	                			<input type="checkbox" id="awesome2" value="1"/>
-								<label for="awesome2"></label>
+	                			<input type="checkbox" th:id="${drugUnit.attribute_number}" th:value="${drugUnit.attribute_number}" class="selectall"/>
+								<label th:for="${drugUnit.attribute_number}"></label>
 	                		</td>
-	                		<td>B133</td>
-	                		<td></td>
+	                		<td class="drugUnit_number" th:text="${drugUnit.attribute_number}">B133</td>
+	                		<td class="drugUnit_name" th:text="${drugUnit.attribute_name}"></td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>
-	                			<button id="delete">删除</button>
+	                			<button id="delete" class="delete">删除</button>
 	                		</td>
 	                	</tr>
 	                </tbody>
@@ -67,28 +72,23 @@
 			<div class="add_infor">
 				<h3>添加药品单位</h3>
 				<div class="popup_table">
-					<form action="" method="post">
+					<!--<form action="" method="post">-->
 						<table class="table table-bordered">
 							<thead>
-								<tr>
-				                    <th>单位编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
 				                <tr>
 				                	<th>单位名称</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="text" name="" class="unitName" value="" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
-							<input type="submit" value="添加"/>
+							<!--<input type="reset" name="" id="" value="重置" />-->
+							<input type="submit" value="添加" class="add_unit"/>
 							<input type="button" name="" class="cancel_1" value="取消" />
 						</div>
-					</form>
+					<!--</form>-->
 				</div>
 			</div>
 		</div>
@@ -101,22 +101,17 @@
 					<form action="" method="post">
 						<table class="table table-bordered">
 							<thead>
-								<tr>
-				                    <th>单位编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
+							<input type="hidden" class="unit_number">
 				                <tr>
 				                	<th>单位名称</th>
 				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
+				                		<input type="text" name="" class="unit_name" value="" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
-							<input type="submit" value="修改"/>
+							<input type="submit" value="修改" class="unit_modify"/>
 							<input type="button" name="" class="cancel_2" value="取消" />
 						</div>
 					</form>
@@ -124,6 +119,7 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js" ></script>
-	<script type="text/javascript" src="js/drug.js" ></script>
+	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/drugUnit.js}" ></script>
 </html>

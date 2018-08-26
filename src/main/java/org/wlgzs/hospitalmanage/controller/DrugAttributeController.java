@@ -22,11 +22,11 @@ public class DrugAttributeController extends BaseController {
     public ModelAndView getAttributes(Model model, @PathVariable("distinction") int distinction, @PathVariable("page") int page) {
         model.addAttribute("attributes",drugAttributeService.getAttributes(distinction, page));
         if(distinction==1) {
-            return new ModelAndView();
+            return new ModelAndView("drugCategory");
         }else if (distinction==2){
-            return new ModelAndView();
+            return new ModelAndView("drugUnit");
         }else {
-            return new ModelAndView();
+            return new ModelAndView("drugDosageSorm");
         }
     }
 

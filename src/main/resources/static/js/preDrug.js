@@ -16,7 +16,7 @@ $(".select_drug").on('click',function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    window.location.href="/prescription/toAddDrug";
+                    window.location.href="/prescription/toAddDrug?isModify=is";
                 }
             },
             error: function (msg) {
@@ -71,6 +71,25 @@ $(".select_therapy").on('click',function () {
         success: function (data) {
             if (data.code == 0) {
                 window.location.href="/prescription/toAddTreatment";
+            }
+        },
+        error: function (msg) {
+            alert("网络故障");
+        }
+    })
+});
+
+//完成时计算总价
+$(".price_all").on("click",function () {
+    $.ajax({
+        url: "/prescription/totalPrice",
+        data: {
+            // prescription_id:
+        },
+        dataType: "JSON",
+        success: function (data) {
+            if (data.code == 0) {
+                // window.location.href="/prescription/findPrescriptionById?prescriptionId";
             }
         },
         error: function (msg) {

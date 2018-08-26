@@ -65,7 +65,8 @@
 				<div th:if="${prescription.is_drug}==1">
 					<div class="prescript_p">
 						<p>处方药品
-							<a th:href="@{/prescription/toAddDrug}">
+							<a th:href="@{/prescription/toAddDrug(isModify=is)}">
+
 								<button class="modify_8">添加</button>
 							</a>
 						</p>

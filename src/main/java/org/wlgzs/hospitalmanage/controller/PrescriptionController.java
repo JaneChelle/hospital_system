@@ -1,5 +1,6 @@
 package org.wlgzs.hospitalmanage.controller;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,8 +53,8 @@ public class PrescriptionController extends BaseController {
 
     //按id查询(修改和查看详情)
     @RequestMapping(value = "/prescription/findPrescriptionById")
-    public ModelAndView findPrescriptionById(Model model, @RequestParam("prescriptionId") int prescriptionId) {
-
+    public ModelAndView findPrescriptionById(Model model, @RequestParam("prescriptionId") int prescriptionId, HttpSession session) {
+        session.setAttribute("prescription_id", prescriptionId + "");
         Prescription prescription = prescriptionService.findPrescriptionById(prescriptionId);//处方
         List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(prescriptionId);
         List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(prescriptionId);
@@ -76,7 +77,7 @@ public class PrescriptionController extends BaseController {
     //跳转到添加药品明细(搜索)
     @RequestMapping(value = "/prescription/toAddDrug")
     public ModelAndView toAddDrug(Model model, HttpSession session,
-                                  @RequestParam(value = "findName", defaultValue = "") String findName) {
+                                  @RequestParam(value = "findName", defaultValue = "") String findName, @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Drug> drugList = drugService.searchDrug(model, findName, 0);
 
         //搜索已经加入的药品
@@ -87,6 +88,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("drugList" + drugList);
         System.out.println("findName" + findName);
         model.addAttribute("drugList", drugList);
+        model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionDrugs");
     }
 
@@ -94,6 +96,7 @@ public class PrescriptionController extends BaseController {
     @RequestMapping(value = "/prescription/addDrug")
     public Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session) {
 //        prescriptionService.addDrug(prescriptionDrug,session);
+
         return prescriptionService.addDrug(prescriptionDrug, session);
     }
 
@@ -181,9 +184,10 @@ public class PrescriptionController extends BaseController {
 
     //完成时计算总价
     @RequestMapping(value = "/prescription/totalPrice")
-    public ModelAndView totalPrice(@RequestParam(value = "prescription_id") int prescription_id) {
+    public ModelAndView totalPrice(HttpSession session) {
+        int prescription_id = Integer.parseInt((String) session.getAttribute("prescription_id"));
         prescriptionService.totalPrice(prescription_id);
-        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescription_id="+prescription_id);
+        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescriptionId=" + prescription_id);
     }
 
     //搜索所有处方
