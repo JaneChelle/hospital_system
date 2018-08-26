@@ -82,20 +82,70 @@ $(function () {
 	$(".section_table :checkbox").click(function(){
 		allchk();
 	});
-}); 
-function allchk(){
-    var listarr = [];
-    listarr.splice(0,listarr.length);
-    var list=$('.selectall');
-    for (var x = 0; x < list.length; x++) {
-        if(list[x].checked==true){
-            var del =$(list[x]).val();
-            listarr.push(del);
-            $('.browider').val(listarr);
-            console.log( $('.browider').val());
+ 
+	//获取选中选项的值
+	$("#getValue").click(function(){ 
+		var vals="";
+		$(".section_table :checkbox").each(function(){ 
+			if($(this).prop("checked")==true){ 
+				vals += $(this).val()+",";
+			} 
+		}); 
+		alert(vals); 
+	});
+});
+        function allchk(){
+            var listarr = [];
+            listarr.splice(0,listarr.length);
+            var list=$('.selectall');
+            for (var x = 0; x < list.length; x++) {
+                if(list[x].checked==true){
+                    var del =$(list[x]).val();
+                    listarr.push(del);
+                    $('.browider').val(listarr);
+                    console.log( $('.browider').val());
+                }
+            }
         }
-    }
-}
+//批量删除
+	$('.Batchdelet').on('click',function () {
+		if (confirm('确认要删除吗?')){
+            $.ajax({
+                type: "post",
+                url: "/drug/drugs",
+                data: {
+                    'drugCodes':$('.browider').val()
+                },
+                async: false,
+                success: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                    //alert(data.msg)
+                },
+                error: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+
+                    alert(data.msg)
+                }
+            });
+		}else{
+			return false;
+
+		}
+    });
 var tableCont = document.querySelector('.section_table');
   function scrollHandle (e){
    // console.log(this)
@@ -104,3 +154,44 @@ var tableCont = document.querySelector('.section_table');
   }
 
   tableCont.addEventListener('scroll',scrollHandle);
+//删除ajax
+		$('.deletes').on('click',function () {
+            if (confirm('确认要删除吗?')) {
+                var drug_code = $(this).next().val();
+                console.log(drug_code);
+                $.ajax({
+                    type: "delete",
+                    url: "/drug/drug/" + drug_code,
+                    // data: {
+                    //     'drug_code':drug_code
+                    // },
+                    async: false,
+                    success: function (data) {
+                        $('.cure').addClass('uu');
+                        $('.cure').html(data.msg);
+                        setTimeout(function () {
+                            $('.cure').css('display', 'none');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
+                        //alert(data.msg)
+                    },
+                    error: function (data) {
+                        $('.cure').addClass('uu');
+                        $('.cure').html(data.msg);
+                        setTimeout(function () {
+                            $('.cure').css('display', 'none');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
+
+                        alert(data.msg)
+                    }
+                });
+            }else{
+            	return false;
+			}
+
+        });

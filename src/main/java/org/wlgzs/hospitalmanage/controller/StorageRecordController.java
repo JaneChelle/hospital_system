@@ -18,7 +18,7 @@ public class StorageRecordController extends BaseController {
     @GetMapping("/StorageRecord/{page}")
     public ModelAndView getStorageRecord(Model model, @RequestParam("page") int page){
       model.addAttribute("storageList",storageRecordService.getStorageRecord(model,page));
-      return  new ModelAndView();
+      return  new ModelAndView("drugStorageRecord");
     }
     //删除入库记录
     @DeleteMapping("/StorageRecord/{storageId}")
