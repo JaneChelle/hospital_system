@@ -93,21 +93,59 @@ $(function () {
 		}); 
 		alert(vals); 
 	});
-}); 
-function allchk(){
-	var chknum = $(".section_table :checkbox").size();//选项总个数
-	var chk = 0;
-	$(".section_table :checkbox").each(function () {  
-        if($(this).prop("checked")==true){
-			chk++;
+});
+        function allchk(){
+            var listarr = [];
+            listarr.splice(0,listarr.length);
+            var list=$('.selectall');
+            for (var x = 0; x < list.length; x++) {
+                if(list[x].checked==true){
+                    var del =$(list[x]).val();
+                    listarr.push(del);
+                    $('.browider').val(listarr);
+                    console.log( $('.browider').val());
+                }
+            }
+        }
+//批量删除
+	$('.Batchdelet').on('click',function () {
+		if (confirm('确认要删除吗?')){
+            $.ajax({
+                type: "post",
+                url: "/drug/drugs",
+                data: {
+                    'drugCodes':$('.browider').val()
+                },
+                async: false,
+                success: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                    //alert(data.msg)
+                },
+                error: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+
+                    alert(data.msg)
+                }
+            });
+		}else{
+			return false;
+
 		}
     });
-	if(chknum==chk){//全选
-		$("#all").prop("checked",true);
-	}else{//不全选
-		$("#all").prop("checked",false);
-	}
-}
 var tableCont = document.querySelector('.section_table');
   function scrollHandle (e){
    // console.log(this)
@@ -116,96 +154,44 @@ var tableCont = document.querySelector('.section_table');
   }
 
   tableCont.addEventListener('scroll',scrollHandle);
-  //添加药品
-		$('.btn_add').on('click',function () {
-            $.ajax({
-                type: "post",
-                url: "/drug/drug",
-                data: {
-                	'drug_code':$('.drug_code').val(),
-                    "drug_category": $('.drug_category').val(),
-					'drug_name':$('.drug_name').val(),
-					'pinyin_code':$('.pinyin_code').val(),
-					'specification_content':$('.specification_content').val(),
-					'drug_unit':$('.drug_unit').val(),
-					'dosage_form':$('.dosage_form').val(),
-					'manufacturer':$('.manufacturer').val(),
-					'approval_number':$('.approval_number').val(),
-					'safety_stock':$('.safety_stock').val(),
-					'unit_price':$('.unit_price').val(),
-					'healthcare_code':$('.healthcare_code').val(),
-					'healthcare_name':$('.healthcare_name').val()
-                },
-                async: false,
-                success: function (data) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setTimeout(function () {
-                        $('.cure').css('display','none');
-                    },2000);
-                    // setTimeout(function () {
-                    //     location.reload(true);
-                    // },500);
-                     alert(data.msg)
-                },
-                error: function (data) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setTimeout(function () {
-                        $('.cure').css('display','none');
-                    },2000);
-                    // setTimeout(function () {
-                    //     location.reload(true);
-                    // },500);
+//删除ajax
+		$('.deletes').on('click',function () {
+            if (confirm('确认要删除吗?')) {
+                var drug_code = $(this).next().val();
+                console.log(drug_code);
+                $.ajax({
+                    type: "delete",
+                    url: "/drug/drug/" + drug_code,
+                    // data: {
+                    //     'drug_code':drug_code
+                    // },
+                    async: false,
+                    success: function (data) {
+                        $('.cure').addClass('uu');
+                        $('.cure').html(data.msg);
+                        setTimeout(function () {
+                            $('.cure').css('display', 'none');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
+                        //alert(data.msg)
+                    },
+                    error: function (data) {
+                        $('.cure').addClass('uu');
+                        $('.cure').html(data.msg);
+                        setTimeout(function () {
+                            $('.cure').css('display', 'none');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
 
-                    alert(data.msg)
-                }
-            });
-        });
+                        alert(data.msg)
+                    }
+                });
+            }else{
+            	return false;
+			}
 
-//修改药品信息
-		$('.modifya').on('click',function () {
-            $.ajax({
-                type: "put",
-                url: "/drug/drug",
-                data: {
-                    'drug_code':$('.drug_code').val(),
-                    "drug_category": $('.drug_category').val(),
-                    'drug_name':$('.drug_name').val(),
-                    'pinyin_code':$('.pinyin_code').val(),
-                    'specification_content':$('.specification_content').val(),
-                    'drug_unit':$('.drug_unit').val(),
-                    'dosage_form':$('.dosage_form').val(),
-                    'manufacturer':$('.manufacturer').val(),
-                    'approval_number':$('.approval_number').val(),
-                    'safety_stock':$('.safety_stock').val(),
-                    'unit_price':$('.unit_price').val(),
-                    'healthcare_code':$('.healthcare_code').val(),
-                    'healthcare_name':$('.healthcare_name').val()
-                },
-                async: false,
-                success: function (data) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setTimeout(function () {
-                        $('.cure').css('display','none');
-                    },2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    },500);
-                    alert(data.msg)
-                },
-                error: function (data) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setTimeout(function () {
-                        $('.cure').css('display','none');
-                    },2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    },500);
-
-                    alert(data.msg)
-                }
-            });
         });

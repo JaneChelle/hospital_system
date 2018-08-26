@@ -18,28 +18,12 @@
             <span>药品管理 > <b style="color: #F00;">药品信息</b></span>
         </div>
         <div class="add">
-            <div class="search">
-                <form action="" method="post">
-                    <input type="text" name="" id="" value="" required="required"/>
-                    <button type="submit"></button>
-                </form>
-            </div>
-            <div class="input_btn">
-                <input type="button" value="全选" id="selectAll">
-                <!--<input type="button" value="全不选" id="unSelect">-->
-                <input type="button" value="反选" id="reverse">
-                <input type="button" value="批量删除">
-                <input type="hidden" value="" class="btn" id="getValue">
-            </div>
-            <!--<button class="label-info">-->
-                <!--<b><a th:href="@{/drug/toAdd}">添加</a></b>-->
-            <!--</button>-->
             <a  id="modify" class="adiv modifya">修改</a>
-            <a th:href="@{/drug/drug/1}" id="delete" class="adiv">取消</a>
+            <a th:href="@{/drug/drug/1}" id="delete" class="adiv">返回</a>
         </div>
     </div>
     <div class="same_fixed"></div>
-    <form th:action="@{/drug/drug}" method="put">
+    <!--<form th:action="@{/drug/drug}" method="put">-->
         <div class="section_table">
             <table class="table table-bordered">
             <thead>
@@ -52,7 +36,13 @@
             <tr>
                 <td>药品类别</td>
                 <!--<td th:text=""></td>-->
-                <td><input type="text" th:value="${drug.drug_category}" th:title="${drug.drug_category}" class="drug_category"></td>
+                <!--<td><input type="text" th:value="${drug.drug_category}" th:title="${drug.drug_category}" class="drug_category"></td>-->
+                <td>
+                    <select name="drug_category" id="attribute_number" class="drug_category" >
+                        <option value="">请选择供</option>
+                        <option th:selected="${drug.drug_category eq drugTypes.attribute_number}" th:each="drugTypes : ${drugType}" th:value="${drugTypes.attribute_number}" th:text="${drugTypes.attribute_name}"></option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>拼音码</td>
@@ -62,18 +52,28 @@
             <tr>
                 <td>规格含量</td>
                 <!--<td th:text=""></td>-->
-                <td><input type="text" th:value="${drug.specification_content}" th:title="${drug.specification_content}" class="specification_content"></td>
+                <td><input type="text" th:value="${drug.specification_content}" th:title="${drug.specification_content}" class="specification_content" style="width: 95%;"></td>
             </tr>
             <tr>
                 <td>单位</td>
                 <td>
-                    <input type="text" th:value="${drug.drug_unit}" th:title="${drug.drug_unit}" class="drug_unit">
+                    <!--<input type="text" th:value="${drug.drug_unit}" th:title="${drug.drug_unit}" class="drug_unit">-->
+                        <select name="drug_unit" class="drug_unit">
+                            <option value="">请选择供</option>
+                            <option th:selected="${drug.drug_unit eq drugUnits.attribute_number}" th:each="drugUnits : ${drugUnit}" th:value="${drugUnits.attribute_number}" th:text="${drugUnits.attribute_name}"></option>
+                        </select>
                 </td>
             </tr>
             <tr>
                 <td>剂型</td>
                 <!--<td th:text=""></td>-->
-                <td><input type="text" th:value="${drug.dosage_form}" th:title="${drug.dosage_form}" class="dosage_form"></td>
+                <td>
+                    <!--<input type="text" th:value="${drug.dosage_form}" th:title="${drug.dosage_form}" class="dosage_form">-->
+                    <select name="dosage_form" class="dosage_form" >
+                        <option value="">请选择供</option>
+                        <option th:selected="${drug.dosage_form eq dosageForms.attribute_number}" th:each="dosageForms : ${dosageForm}" th:value="${dosageForms.attribute_number}" th:text="${dosageForms.attribute_name}"></option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td>厂家 </td>
@@ -113,5 +113,5 @@
 </section>
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
+<script type="text/javascript" th:src="@{/js/drug1.js}" ></script>
 </html>
