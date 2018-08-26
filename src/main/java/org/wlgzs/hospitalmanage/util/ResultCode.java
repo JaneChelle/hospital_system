@@ -2,6 +2,7 @@ package org.wlgzs.hospitalmanage.util;
 
 public enum ResultCode {
     SUCCESS(0, "请求成功"),
+    isModify(2,"修改"),
     FAIL(-1,"操作失败"),
     ADMIN(1,"管理员");
     public int code;

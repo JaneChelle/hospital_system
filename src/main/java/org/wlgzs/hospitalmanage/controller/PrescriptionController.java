@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.util.Result;
+import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
@@ -181,9 +182,14 @@ public class PrescriptionController extends BaseController {
 
     //完成时计算总价
     @RequestMapping(value = "/prescription/totalPrice")
-    public ModelAndView totalPrice(@RequestParam(value = "prescription_id") int prescription_id) {
+    public Result totalPrice(@RequestParam(value = "prescription_id") int prescription_id,
+                             @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         prescriptionService.totalPrice(prescription_id);
-        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescription_id="+prescription_id);
+        if(isModify.equals("is")){
+            return new Result(ResultCode.SUCCESS);
+        }
+        return new Result(ResultCode.isModify);
+//        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescription_id="+prescription_id);
     }
 
     //搜索所有处方
