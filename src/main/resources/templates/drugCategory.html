@@ -19,8 +19,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="" method="post">
-							<input type="text" name="" id="" value="" required="required"/>
+						<form th:action="@{/attribute/searchAttribute/1/1}" method="get">
+							<input type="text" name="attributeName" class="attributeName" value="" required="required" placeholder="请输入类别信息"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -29,9 +29,16 @@
 						<!--<input type="button" value="全不选" id="unSelect">-->  
 						<input type="button" value="反选" id="reverse"> 
 						<input type="button" value="批量删除">
+						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
 					<button class="label-info add_item"><b>添加</b></button>
+				</div>
+				<div class="spin">
+					<div class="spinners">
+						<!--<a href="">dhfbdh</a>-->
+						<!--<a href="">ddvkn</a>-->
+					</div>
 				</div>
 			</div>
 			<div class="same_fixed"></div>

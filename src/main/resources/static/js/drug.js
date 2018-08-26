@@ -108,44 +108,44 @@ $(function () {
             }
         }
 //批量删除
-	$('.Batchdelet').on('click',function () {
-		if (confirm('确认要删除吗?')){
-            $.ajax({
-                type: "post",
-                url: "/drug/drugs",
-                data: {
-                    'drugCodes':$('.browider').val()
-                },
-                async: false,
-                success: function (data) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setTimeout(function () {
-                        $('.cure').css('display', 'none');
-                    }, 2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
-                    //alert(data.msg)
-                },
-                error: function (data) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setTimeout(function () {
-                        $('.cure').css('display', 'none');
-                    }, 2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
+        $('.Batchdelet').on('click',function () {
+            if (confirm('确认要删除吗?')){
+                $.ajax({
+                    type: "post",
+                    url: "/drug/drugs",
+                    data: {
+                        'drugCodes':$('.browider').val()
+                    },
+                    async: false,
+                    success: function (data) {
+                        $('.cure').addClass('uu');
+                        $('.cure').html(data.msg);
+                        setTimeout(function () {
+                            $('.cure').css('display', 'none');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
+                        //alert(data.msg)
+                    },
+                    error: function (data) {
+                        $('.cure').addClass('uu');
+                        $('.cure').html(data.msg);
+                        setTimeout(function () {
+                            $('.cure').css('display', 'none');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
 
-                    alert(data.msg)
-                }
-            });
-		}else{
-			return false;
+                        alert(data.msg)
+                    }
+                });
+            }else{
+                return false;
 
-		}
-    });
+            }
+        });
 var tableCont = document.querySelector('.section_table');
   function scrollHandle (e){
    // console.log(this)
@@ -162,9 +162,9 @@ var tableCont = document.querySelector('.section_table');
                 $.ajax({
                     type: "delete",
                     url: "/drug/drug/" + drug_code,
-                    // data: {
-                    //     'drug_code':drug_code
-                    // },
+                    data: {
+                        'drug_code':drug_code
+                    },
                     async: false,
                     success: function (data) {
                         $('.cure').addClass('uu');

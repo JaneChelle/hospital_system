@@ -58,11 +58,11 @@ public class DrugAttributeController extends BaseController {
         List<DrugAttribute> drugAttributes = drugAttributeService.searchAttribute(model,distinction,attributeName,page);
         model.addAttribute("attributes",drugAttributes);
         if (distinction==1){
-            return new ModelAndView();
+            return new ModelAndView("drugCategory");
         }else if(distinction==2){
-            return new ModelAndView();
+            return new ModelAndView("drugUnit");
         }else {
-            return new ModelAndView();
+            return new ModelAndView("drugDosageSorm");
         }
     }
     //搜索药品下拉框
