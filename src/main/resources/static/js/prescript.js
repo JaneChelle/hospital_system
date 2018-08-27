@@ -1,6 +1,6 @@
 
 // 删除
-$(".delete").on('click', function () {
+$(".deletePre").on('click', function () {
     var r = confirm("您确定要删除吗？");
     if (r == true) {
         var parent = $(this).parent().parent();
@@ -9,7 +9,7 @@ $(".delete").on('click', function () {
             type: "DELETE",
             url: "/prescription/" + prescriptionID,
             data: {
-                prescriptionId: prescriptionID,
+                prescription_id: prescriptionID,
             },
             dataType: "JSON",
             success: function (data) {
@@ -35,11 +35,11 @@ $(".modifyPrescription").on('click', function () {
     var prescription_ID = parent.children("td.prescriptionId").text();
     var prescription_name = parent.children("td.prescription_name").text();
     var pinyin_code = parent.children("td.pinyin_code").text();
-    var price_all = parent.children("td.price_all").text();
+    // var price_all = parent.children("td.price_all").text();
     $(".pre_id").val(prescription_ID);
     $(".pre_name").val(prescription_name);
     $(".pre_code").val(pinyin_code);
-    $(".pre_price").val(price_all);
+    // $(".pre_price").val(price_all);
 })
 
 
