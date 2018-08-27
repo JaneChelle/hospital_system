@@ -78,7 +78,8 @@ public class PrescriptionController extends BaseController {
     //跳转到添加药品明细(搜索)
     @RequestMapping(value = "/prescription/toAddDrug")
     public ModelAndView toAddDrug(Model model, HttpSession session,
-                                  @RequestParam(value = "findName", defaultValue = "") String findName, @RequestParam(value = "isModify", defaultValue = "") String isModify) {
+                                  @RequestParam(value = "findName", defaultValue = "") String findName,
+                                  @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Drug> drugList = drugService.searchDrug(model, findName, 0);
 
         //搜索已经加入的药品
@@ -89,6 +90,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("drugList" + drugList);
         System.out.println("findName" + findName);
         model.addAttribute("drugList", drugList);
+        System.out.println("isModify"+isModify);
         model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionDrugs");
     }
@@ -97,7 +99,6 @@ public class PrescriptionController extends BaseController {
     @RequestMapping(value = "/prescription/addDrug")
     public Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session) {
 //        prescriptionService.addDrug(prescriptionDrug,session);
-
         return prescriptionService.addDrug(prescriptionDrug, session);
     }
 
@@ -116,7 +117,8 @@ public class PrescriptionController extends BaseController {
     //跳转到添加检查明细(搜索)
     @RequestMapping(value = "/prescription/toAddCheck")
     public ModelAndView toAddCheck(Model model, HttpSession session,
-                                   @RequestParam(value = "findName", defaultValue = "") String findName) {
+                                   @RequestParam(value = "findName", defaultValue = "") String findName,
+                                   @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Check> checkList = checkService.findCheck(findName, 0);
         //搜索已经加入的检查
         List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(session);
@@ -126,6 +128,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("checkList" + checkList);
         System.out.println("findName" + findName);
         model.addAttribute("checkList", checkList);
+        model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionCheck");
     }
 

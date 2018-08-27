@@ -4,15 +4,18 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.wlgzs.hospitalmanage.dao.DrugAttributeMapper;
 import org.wlgzs.hospitalmanage.dao.DrugInventoryMapper;
 import org.wlgzs.hospitalmanage.dao.DrugMapper;
 import org.wlgzs.hospitalmanage.dao.StorageRecordMapper;
 import org.wlgzs.hospitalmanage.entity.Drug;
+import org.wlgzs.hospitalmanage.entity.DrugAttribute;
 import org.wlgzs.hospitalmanage.entity.DrugInventory;
 import org.wlgzs.hospitalmanage.entity.StorageRecord;
 import org.wlgzs.hospitalmanage.service.DrugService;
 
 import javax.annotation.Resource;
+import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
 import javax.sound.midi.Soundbank;
 import java.math.BigDecimal;
@@ -29,6 +32,8 @@ public class DrugServiceImpl implements DrugService {
     DrugMapper drugMapper;
     @Resource
     HttpSession session;
+    @Resource
+    DrugAttributeMapper drugAttributeMapper;
     @Resource
     DrugInventoryMapper drugInventoryMapper;
    public List<Drug> getDrugs(Model model,int page){
@@ -87,8 +92,14 @@ public class DrugServiceImpl implements DrugService {
        model.addAttribute("page",page);
            return drugList;
    }
-   public Drug toView(int drugId ) {
+   public Drug toView(Model model, int drugId ) {
        Drug drug = drugMapper.selectByPrimaryKey(drugId);
+       DrugAttribute categoryDrugAttribute = drugAttributeMapper.selectByPrimaryKey(drug.getDrug_category());
+       DrugAttribute unitDrugAttribute = drugAttributeMapper.selectByPrimaryKey(drug.getDrug_unit());
+       DrugAttribute dosageformDrugAttribute = drugAttributeMapper.selectByPrimaryKey(drug.getDosage_form());
+       model.addAttribute("category",categoryDrugAttribute.getAttribute_name());
+       model.addAttribute("unit",categoryDrugAttribute.getAttribute_name());
+       model.addAttribute("dosageform",dosageformDrugAttribute.getAttribute_name());
        return drug;
    }
    //批量删除药物
