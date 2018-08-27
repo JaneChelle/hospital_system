@@ -20,8 +20,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="" method="post">
-							<input type="text" name="" id="" value="" required="required"/>
+						<form action="/attribute/searchAttribute/2/1" method="get">
+							<input type="text" name="attributeName" class="attributeName" value="" required="required" placeholder="请输入类别信息" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -36,6 +36,12 @@
 					<button class="label-info add_item">
 						<b>添加</b>
 					</button>
+				</div>
+				<div class="spin">
+					<div class="spinners">
+						<!--<a href="">dhfbdh</a>-->
+						<!--<a href="">ddvkn</a>-->
+					</div>
 				</div>
 			</div>
 			<div class="same_fixed"></div>
@@ -55,7 +61,7 @@
 	                			<input type="checkbox" th:id="${drugUnit.attribute_number}" th:value="${drugUnit.attribute_number}" class="selectall"/>
 								<label th:for="${drugUnit.attribute_number}"></label>
 	                		</td>
-	                		<td class="drugUnit_number" th:text="${drugUnit.attribute_number}">B133</td>
+	                		<td class="leibie" th:text="${drugUnit.attribute_number}">B133</td>
 	                		<td class="drugUnit_name" th:text="${drugUnit.attribute_name}"></td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>
@@ -119,6 +125,7 @@
 				</div>
 			</div>
 		</div>
+<div class="cure"></div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/drug.js}" ></script>

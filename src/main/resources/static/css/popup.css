@@ -473,3 +473,19 @@ select{
 	box-shadow: 0 0 0 2px #4337f1;
 	position: fixed;
 }
+.fen{
+	display: inline-block;
+	padding: 8px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #0e90d2;
+	text-decoration: none;
+	float: right;
+	margin-right: 95px;
+	margin-top: 3px;
+
+}
+.fen:hover{
+	text-decoration: none;
+	color: #fff;
+}

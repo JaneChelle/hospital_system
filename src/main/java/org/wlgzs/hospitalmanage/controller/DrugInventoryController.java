@@ -51,7 +51,7 @@ public class DrugInventoryController extends BaseController {
     @GetMapping("/DrugInventoryDate/{page}")
     public ModelAndView getDrugInventoryDate(Model model,@PathVariable("page") int page){
           model.addAttribute("drugInventories",drugInventoryService.getDrugInventoryDate(model,page));
-          return new ModelAndView();
+          return new ModelAndView("storageStock");
     }
     //查看有效期一个月内的清单
     @GetMapping("/getMonthLimit")
@@ -82,12 +82,12 @@ public class DrugInventoryController extends BaseController {
     @GetMapping("/searchStorage/{page}")
     public ModelAndView searchStorage(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
          model.addAttribute("drugInventories",drugInventoryService.searchStorage(model,drugName,page));
-         return new ModelAndView();
+         return new ModelAndView("drugStorage");
     }
     //搜索库存(按有效期)
     @GetMapping("/searchStorageDate/{page}")
     public ModelAndView searchStorageDate(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
         model.addAttribute("sdrugInventories",drugInventoryService.searchStorage(model,drugName,page));
-        return new ModelAndView();
+        return new ModelAndView("storageStock");
     }
 }

@@ -19,8 +19,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form th:action="@{/attribute/searchAttribute/1/1}" method="get">
-							<input type="text" name="attributeName" class="attributeName" value="" required="required" placeholder="请输入类别信息"/>
+						<form action="/attribute/searchAttribute/1/1" method="get">
+							<input type="text" name="attributeName" class="attributeName" value="" required="required" placeholder="请输入类别信息" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -34,6 +34,9 @@
 					</div>
 					<button class="label-info add_item"><b>添加</b></button>
 				</div>
+				<!--<form action="" method="get">-->
+					<!--<a th:href="@{'/attribute/drugAttributeView/'+${attribute.attribute_number}"></a>-->
+				<!--</form>-->
 				<div class="spin">
 					<div class="spinners">
 						<!--<a href="">dhfbdh</a>-->

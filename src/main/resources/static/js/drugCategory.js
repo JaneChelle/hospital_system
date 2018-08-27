@@ -137,7 +137,7 @@ $('.deletess').on('click',function () {
 });
 //搜索
 function spin(){
-    if($('#drugName').val() != ""){
+    if($('.attributeName').val() != ""){
         $('.spin').fadeIn();
     }
     else{
@@ -147,10 +147,11 @@ function spin(){
 function spainner(){
 
     $.ajax({
-        type: "get",//数据发送的方式（post 或者 get）
+        type: "post",//数据发送的方式（post 或者 get）
         url: " /attribute/keyword",//要发送的后台地址
         data: {
             attributeName:$('.attributeName').val(),
+            attribute_distinction:1
         },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
         dataType:"JSON",
         success: function (data) {//ajax请求成功后触发的方法
@@ -159,7 +160,7 @@ function spainner(){
             if(data.code==0){
                 $('.spinners').html(" ");
                 for (var i=0;i<datas.length;i++){
-                    var aa="<a href=/attribute/drugAttributeView/"+ datas[i].attribute_number+ " >"+datas[i].attributeName+ "</a>"+'</br>';
+                    var aa="<a href=/attribute/drugAttributeView/"+ datas[i].attribute_number+ " >"+datas[i].attribute_name+ "</a>"+'</br>';
                     $('.spinners').append(aa);
                 }
             }else{
