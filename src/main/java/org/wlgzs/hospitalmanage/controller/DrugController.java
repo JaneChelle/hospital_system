@@ -52,13 +52,13 @@ public class DrugController extends BaseController {
     //查看详情
     @GetMapping("/toView/{drugId}")
     public ModelAndView toView(Model model, @PathVariable("drugId") int drugId ){
-        model.addAttribute("drug",drugService.toView(drugId));
+        model.addAttribute("drug",drugService.toView(model,drugId));
         return new ModelAndView("");
     }
     //修改药物信息
     @GetMapping("/viewUpdate/{drugId}")
     public ModelAndView viewUpdate(Model model, @PathVariable("drugId") int drugId ){
-        model.addAttribute("drug",drugService.toView(drugId));
+        model.addAttribute("drug",drugService.toView(model,drugId));
         return new ModelAndView("");
     }
     //删除药物
