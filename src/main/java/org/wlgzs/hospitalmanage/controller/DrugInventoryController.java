@@ -45,7 +45,7 @@ public class DrugInventoryController extends BaseController {
     public ModelAndView getDrugInventory(Model model,@PathVariable("page") int page ){
       List<DrugInventory> drugInventories =  drugInventoryService.getDrugInventory(page);
       model.addAttribute("drugInventories",drugInventories);
-      return new ModelAndView();
+      return new ModelAndView("drugStorage");
     }
     //查看药品库存(按有效期)
     @GetMapping("/DrugInventoryDate/{page}")

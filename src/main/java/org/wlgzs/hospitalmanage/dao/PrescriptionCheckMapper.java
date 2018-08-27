@@ -15,4 +15,8 @@ public interface PrescriptionCheckMapper extends Mapper<PrescriptionCheck> {
     @Select("SELECT * FROM prescription_check WHERE prescription_id = #{prescription_id}")
     List<PrescriptionCheck> findPrescriptionCheck(@Param("prescription_id") int prescription_id);
 
+    //查询当前处方添加的检查是否已存在
+    @Select("SELECT * FROM prescription_check WHERE prescription_id = #{prescription_id} AND check_id = #{check_id}")
+    PrescriptionCheck findPrescriptionChe(@Param("prescription_id") int prescription_id,@Param("check_id") int check_id);
+
 }

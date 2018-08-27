@@ -28,7 +28,7 @@ public class DrugController extends BaseController {
     model.addAttribute("drugType",drugAttributeService.getAttribute(1)); //药品类型
     model.addAttribute("drugUnit",drugAttributeService.getAttribute(2));  //药品单位
     model.addAttribute("dosageForm",drugAttributeService.getAttribute(3)); //药品剂型
-        return new ModelAndView("");
+        return new ModelAndView("addDrug");
     }
     // 添加药物
     @PostMapping("drug")
@@ -53,13 +53,16 @@ public class DrugController extends BaseController {
     @GetMapping("/toView/{drugId}")
     public ModelAndView toView(Model model, @PathVariable("drugId") int drugId ){
         model.addAttribute("drug",drugService.toView(model,drugId));
-        return new ModelAndView("");
+        return new ModelAndView("drugDetils");
     }
     //修改药物信息
     @GetMapping("/viewUpdate/{drugId}")
     public ModelAndView viewUpdate(Model model, @PathVariable("drugId") int drugId ){
         model.addAttribute("drug",drugService.toView(model,drugId));
-        return new ModelAndView("");
+        model.addAttribute("drugType",drugAttributeService.getAttribute(1)); //药品类型
+        model.addAttribute("drugUnit",drugAttributeService.getAttribute(2));  //药品单位
+        model.addAttribute("dosageForm",drugAttributeService.getAttribute(3)); //药品剂型
+        return new ModelAndView("drugEidit");
     }
     //删除药物
     @DeleteMapping("drug/{drugCode}")
@@ -83,6 +86,6 @@ public class DrugController extends BaseController {
     @GetMapping("/searchdrug/{page}")
     public ModelAndView searchDrug(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page ) {
         model.addAttribute("drugs", drugService.searchDrug(model,drugName ,page));
-        return new ModelAndView();
+        return new ModelAndView("drug");
     }
 }

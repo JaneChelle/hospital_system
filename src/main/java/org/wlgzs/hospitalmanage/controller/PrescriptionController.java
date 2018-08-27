@@ -1,11 +1,13 @@
 package org.wlgzs.hospitalmanage.controller;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.util.Result;
+import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
@@ -52,8 +54,8 @@ public class PrescriptionController extends BaseController {
 
     //按id查询(修改和查看详情)
     @RequestMapping(value = "/prescription/findPrescriptionById")
-    public ModelAndView findPrescriptionById(Model model, @RequestParam("prescriptionId") int prescriptionId) {
-
+    public ModelAndView findPrescriptionById(Model model, @RequestParam("prescriptionId") int prescriptionId, HttpSession session) {
+        session.setAttribute("prescription_id", prescriptionId + "");
         Prescription prescription = prescriptionService.findPrescriptionById(prescriptionId);//处方
         List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(prescriptionId);
         List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(prescriptionId);
@@ -76,7 +78,8 @@ public class PrescriptionController extends BaseController {
     //跳转到添加药品明细(搜索)
     @RequestMapping(value = "/prescription/toAddDrug")
     public ModelAndView toAddDrug(Model model, HttpSession session,
-                                  @RequestParam(value = "findName", defaultValue = "") String findName) {
+                                  @RequestParam(value = "findName", defaultValue = "") String findName,
+                                  @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Drug> drugList = drugService.searchDrug(model, findName, 0);
 
         //搜索已经加入的药品
@@ -87,6 +90,8 @@ public class PrescriptionController extends BaseController {
         System.out.println("drugList" + drugList);
         System.out.println("findName" + findName);
         model.addAttribute("drugList", drugList);
+        System.out.println("isModify"+isModify);
+        model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionDrugs");
     }
 
@@ -112,7 +117,8 @@ public class PrescriptionController extends BaseController {
     //跳转到添加检查明细(搜索)
     @RequestMapping(value = "/prescription/toAddCheck")
     public ModelAndView toAddCheck(Model model, HttpSession session,
-                                   @RequestParam(value = "findName", defaultValue = "") String findName) {
+                                   @RequestParam(value = "findName", defaultValue = "") String findName,
+                                   @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Check> checkList = checkService.findCheck(findName, 0);
         //搜索已经加入的检查
         List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(session);
@@ -122,6 +128,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("checkList" + checkList);
         System.out.println("findName" + findName);
         model.addAttribute("checkList", checkList);
+        model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionCheck");
     }
 
@@ -181,9 +188,15 @@ public class PrescriptionController extends BaseController {
 
     //完成时计算总价
     @RequestMapping(value = "/prescription/totalPrice")
-    public ModelAndView totalPrice(HttpSession session) {
-        prescriptionService.totalPrice(session);
-        return new ModelAndView("redirect:/prescription/1");
+    public Result totalPrice(HttpSession session,
+                             @RequestParam(value = "isModify", defaultValue = "") String isModify) {
+        int prescription_id = Integer.parseInt((String) session.getAttribute("prescription_id"));
+        prescriptionService.totalPrice(prescription_id);
+        if(isModify.equals("is")){
+            return new Result(ResultCode.SUCCESS);
+        }
+        return new Result(ResultCode.isModify);
+//        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescription_id="+prescription_id);
     }
 
     //搜索所有处方

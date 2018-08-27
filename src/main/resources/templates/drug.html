@@ -6,6 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
 		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
 		<link rel="stylesheet" th:href="@{/css/popup.css}" />
@@ -18,21 +19,28 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="" method="post">
-							<input type="text" name="" id="" value="" required="required"/>
-							<button type="submit"></button> 
+						<form th:action="@{ /drug/searchdrug/1}" method="get">
+							<input type="text" name="drugName" class="drugName" required="required" placeholder="请输入药品名称" onkeyup="spin(),spainner()"/>
+							<button type="submit"></button>
 						</form>
 					</div>
 					<div class="input_btn">
 						<input type="button" value="全选" id="selectAll">
 						<!--<input type="button" value="全不选" id="unSelect">-->  
 						<input type="button" value="反选" id="reverse"> 
-						<input type="button" value="批量删除">
+						<input type="button" value="批量删除" class="Batchdelet">
+						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
 					<button class="label-info">
-						<b><a href="addDrug.html">添加</a></b>
+						<b><a th:href="@{/drug/toAdd}">添加</a></b>
 					</button>
+				</div>
+				<div class="spin">
+					<div class="spinners">
+						<!--<a href="">dhfbdh</a>-->
+						<!--<a href="">ddvkn</a>-->
+					</div>
 				</div>
 			</div>
 			<div class="same_fixed"></div>
@@ -45,47 +53,51 @@
 		                	<th>药品名称</th>
 		                	<th>药品类别</th>
 		                    <th>拼音码</th>
-		                    <th>规格含量</th>
-		                    <th>单位</th>
+		                    <!--<th>规格含量</th>-->
+		                    <!--<th>单位</th>-->
 		                    <th>剂型</th>
-		                    <th>厂家 </th>
-		                    <th>批准文号</th>
+		                    <!--<th>厂家 </th>-->
+		                    <!--<th>批准文号</th>-->
 		                    <th>安全存库</th>
 		                    <th>单位价格</th>
-		                    <th>医保编码</th>
-		                    <th>医保名称</th>
+		                    <!--<th>医保编码</th>-->
+		                    <!--<th>医保名称</th>-->
 		                    <th>操作</th>
 		                </tr>
 	                </thead>
 	                <tbody>
 	                	<tr th:each="drug : ${drugs}">
 	                		<td>
-	                			<input type="checkbox" id="awesome2" value="1"/>
-								<label for="awesome2"></label>
+	                			<input type="checkbox" th:id="${drug.drug_code}" th:value="${drug.drug_code}" class="selectall"/>
+								<label th:for="${drug.drug_code}"></label>
 	                		</td>
 	                		<td th:text="${drug.drug_code}">A133</td>
 	                		<td th:text="${drug.drug_name}"></td>
 	                		<td th:text="${drug.drug_category}"></td>
 	                		<td th:text="${drug.pinyin_code}"></td>
-	                		<td th:text="${drug.specification_content}"></td>
-	                		<td th:text="${drug.drug_unit}"></td>
+	                		<!--<td th:text="${drug.specification_content}"></td>-->
+	                		<!--<td th:text="${drug.drug_unit}"></td>-->
 	                		<td th:text="${drug.dosage_form}"></td>
-	                		<td th:text="${drug.manufacturer}"></td>
-	                		<td th:text="${drug.approval_number}"></td>
+	                		<!--<td th:text="${drug.manufacturer}"></td>-->
+	                		<!--<td th:text="${drug.approval_number}"></td>-->
 	                		<td th:text="${drug.safety_stock}"></td>
 	                		<td th:text="${drug.unit_price}"></td>
-	                		<td th:text="${drug.healthcare_code}"></td>
-	                		<td th:text="${drug.healthcare_name}"></td>
+	                		<!--<td th:text="${drug.healthcare_code}"></td>-->
+	                		<!--<td th:text="${drug.healthcare_name}"></td>-->
 	                		<td>
-	                			<button id="modify">修改</button>
-	                			<button id="delete">删除</button>
-	                		</td>
+								<a th:href="@{'/drug/viewUpdate/'+${drug.drug_code}}"><button id="modify">修改</button></a>
+								<a th:href="@{'/drug/toView/'+${drug.drug_code}}" class="adiv1">详情</a>
+	                			<button id="delete" class="deletes">删除</button>
+								<input type="hidden" class="drug_code" th:value="${drug.drug_code}">
+							</td>
 	                	</tr>
 	                </tbody>
 				</table>
 			</div>
 		</section>
+<div class="cure"></div>
 	</body>
 		<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
+		<script th:src="@{/js/search.js}"></script>
 </html>

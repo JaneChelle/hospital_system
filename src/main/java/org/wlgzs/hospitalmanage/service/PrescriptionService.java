@@ -79,7 +79,7 @@ public interface PrescriptionService {
     Result modifyPrescriptionTreatment(int detail_id, String number);
 
     //计算总价格
-    void totalPrice(HttpSession session);
+    void totalPrice(int prescription_id);
 
     //搜索处方
     List<Prescription> findPrescription(String findName,int page);

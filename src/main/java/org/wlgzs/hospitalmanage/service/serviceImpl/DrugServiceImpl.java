@@ -17,6 +17,7 @@ import org.wlgzs.hospitalmanage.service.DrugService;
 import javax.annotation.Resource;
 import javax.jws.WebParam;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -63,7 +64,7 @@ public class DrugServiceImpl implements DrugService {
        Drug beforeDrug = drugMapper.selectByPrimaryKey(drug.getDrug_code());
        BigDecimal beforeAmount = beforeDrug.getSafety_stock();
        BigDecimal afterAmount = drug.getSafety_stock();
-       if (beforeAmount==afterAmount) {
+       if (beforeAmount.equals(afterAmount)) {
            drugMapper.updateDrug(drug);
        }else {
            DrugInventory drugInventory = drugInventoryMapper.increase(beforeDrug.getDrug_code());

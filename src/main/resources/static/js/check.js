@@ -8,7 +8,8 @@ $(".delete").on('click', function () {
             type: "DELETE",
             url: "/check/" + checkId,
             data: {
-                check_id: checkId,
+                // check_id: checkId,
+                checkId:checkId,
             },
             dataType: "JSON",
             success: function (data) {
@@ -25,6 +26,30 @@ $(".delete").on('click', function () {
     }
     else {
 
+    }
+});
+
+// 批量删除
+$(".batchDelete").on('click', function () {
+    var x = confirm("您确定要删除吗？");
+    if (x == true){
+        $.ajax({
+            url: "/check/deleteCheckByIds",
+            data: {
+                checkIds:$('.browider').val(),
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    location.reload();
+                } else {
+
+                }
+            },
+            error: function (msg) {
+                alert("网络错误");
+            }
+        })
     }
 });
 
@@ -55,7 +80,7 @@ $(".add_check").on('click', function () {
     else {
         alert("请把信息补充完整");
     }
-})
+});
 
 // 修改 显示信息
 $(".modify_add").on('click', function () {

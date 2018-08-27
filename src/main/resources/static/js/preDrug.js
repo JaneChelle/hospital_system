@@ -4,6 +4,7 @@ $(".select_drug").on('click',function () {
     var drug_code = parent.children("td.drug_code").text();
     var drug_name = parent.children("td.drug_name").text();
     var drug_num = $(this).parent().prev().children('input').val();
+    var isModify = document.getElementById("test").value;
     console.log(drug_num);
     if(drug_num != ""){
         $.ajax({
@@ -11,14 +12,13 @@ $(".select_drug").on('click',function () {
             data: {
                 drug_code:drug_code,
                 drug_name:drug_name,
-                // unit_price:unit_price,
                 number:drug_num,
             },
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    window.location.href="/prescription/toAddDrug";
-                    // location.reload();
+                    alert(isModify);
+                    window.location.href="/prescription/toAddDrug?isModify="+isModify;
                 }
             },
             error: function (msg) {
@@ -73,6 +73,25 @@ $(".select_therapy").on('click',function () {
         success: function (data) {
             if (data.code == 0) {
                 window.location.href="/prescription/toAddTreatment";
+            }
+        },
+        error: function (msg) {
+            alert("网络故障");
+        }
+    })
+});
+
+//完成时计算总价
+$(".price_all").on("click",function () {
+    $.ajax({
+        url: "/prescription/totalPrice",
+        data: {
+            // prescription_id:
+        },
+        dataType: "JSON",
+        success: function (data) {
+            if (data.code == 0) {
+                // window.location.href="/prescription/findPrescriptionById?prescriptionId";
             }
         },
         error: function (msg) {

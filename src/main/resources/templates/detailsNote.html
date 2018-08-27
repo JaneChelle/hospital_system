@@ -58,8 +58,8 @@
 	                <tbody>
 	                	<tr>
 	                		<td>
-	                			<input type="checkbox" id="awesome" value="1"/>
-								<label for="awesome"></label>
+	                			<input type="checkbox" th:id="${note.note_id}" th:vaule="${note.note_id}"/>
+								<label th:for="${note.note_id}"></label>
 	                		</td>
 	                		<td th:text="${note.note_id}">D133</td>
 	                		<td th:text="${note.patient_id}"></td>
