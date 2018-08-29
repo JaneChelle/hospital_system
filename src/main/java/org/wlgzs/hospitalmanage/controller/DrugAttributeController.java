@@ -37,18 +37,24 @@ public class DrugAttributeController extends BaseController {
     public Result addAttribute(DrugAttribute drugAttribute) {
         System.out.println(drugAttribute);
         boolean isAdd = drugAttributeService.addAttribute(drugAttribute);
-        if (isAdd)
+        System.out.println(isAdd);
+        if (isAdd) {
+            System.out.println(isAdd+"+++++++++++++++++++++++++++++++++++");
             return new Result(ResultCode.SUCCESS, "添加成功");
-        else
-            return new Result(ResultCode.SUCCESS, "名字重复，添加失败");
+        }
+        else {
+            return new Result(ResultCode.FAIL, "名字重复，添加失败");
+        }
     }
     //删除药品属性
     @DeleteMapping("/attribute/{attributeId}")
     public Result deleteAttribute(@PathVariable("attributeId") int attributeId) {
         boolean isDelelte = drugAttributeService.deleteAttribute(attributeId);
+        System.out.println(isDelelte);
         if (isDelelte) {
             return new Result(ResultCode.SUCCESS, "删除成功");
         } else {
+            System.out.println("fdfgdgfdg");
             return new Result(ResultCode.FAIL, "删除失败，有药品与此类型关联");
         }
     }
@@ -57,12 +63,13 @@ public class DrugAttributeController extends BaseController {
     public ModelAndView searchAttribute(Model model,@PathVariable("page") int page,@PathVariable("distinction") int distinction, String  attributeName){
         List<DrugAttribute> drugAttributes = drugAttributeService.searchAttribute(model,distinction,attributeName,page);
         model.addAttribute("attributes",drugAttributes);
+        System.out.println(distinction);
         if (distinction==1){
-            return new ModelAndView();
+            return new ModelAndView("drugCategory");
         }else if(distinction==2){
-            return new ModelAndView();
+            return new ModelAndView("drugUnit");
         }else {
-            return new ModelAndView();
+            return new ModelAndView("drugDosageSorm");
         }
     }
     //搜索药品下拉框
@@ -81,7 +88,7 @@ public class DrugAttributeController extends BaseController {
     @RequestMapping("/drugAttributeView/{drugAttributeId}")
     public ModelAndView drugAttributeView(Model model,@PathVariable("drugAttributeId") int drugAttributeId  ){
           DrugAttribute drugAttribute = drugAttributeService.getDrugAttribute(drugAttributeId);
-          model.addAttribute("drugAttribute", drugAttribute);
-         return new ModelAndView();
+          model.addAttribute("attributes", drugAttribute);
+         return new ModelAndView("drugCategory");
     }
 }

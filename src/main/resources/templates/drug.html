@@ -10,6 +10,9 @@
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
 		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
 		<link rel="stylesheet" th:href="@{/css/popup.css}" />
+		<link type="text/css" rel="stylesheet" th:href="@{/css/jeDate-test.css}">
+		<link type="text/css" rel="stylesheet" th:href="@{/css/jedate.css}">
+		<script type="text/javascript" th:src="@{/js/jedate.js}"></script>
 	</head>
 	<body>
 		<section>
@@ -19,8 +22,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form th:action="@{ /drug/searchdrug/1}" method="get">
-							<input type="text" name="drugName" class="drugName" required="required" placeholder="请输入药品名称" onkeyup="spin(),spainner()"/>
+						<form th:action="@{/drug/searchdrug/1}" method="get">
+							<input type="text" name="drugName" class="drugName" required="required" placeholder="请输入药品信息" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button>
 						</form>
 					</div>
@@ -51,11 +54,11 @@
 		                	<th>选择</th>
 		                	<th>药品编码</th>
 		                	<th>药品名称</th>
-		                	<th>药品类别</th>
+		                	<!--<th>药品类别</th>-->
 		                    <th>拼音码</th>
 		                    <!--<th>规格含量</th>-->
 		                    <!--<th>单位</th>-->
-		                    <th>剂型</th>
+		                    <!--<th>剂型</th>-->
 		                    <!--<th>厂家 </th>-->
 		                    <!--<th>批准文号</th>-->
 		                    <th>安全存库</th>
@@ -71,13 +74,13 @@
 	                			<input type="checkbox" th:id="${drug.drug_code}" th:value="${drug.drug_code}" class="selectall"/>
 								<label th:for="${drug.drug_code}"></label>
 	                		</td>
-	                		<td th:text="${drug.drug_code}">A133</td>
+	                		<td th:text="${drug.drug_code}" class="drug_codes">A133</td>
 	                		<td th:text="${drug.drug_name}"></td>
-	                		<td th:text="${drug.drug_category}"></td>
+	                		<!--<td th:text="${drug.drug_category}"></td>-->
 	                		<td th:text="${drug.pinyin_code}"></td>
 	                		<!--<td th:text="${drug.specification_content}"></td>-->
 	                		<!--<td th:text="${drug.drug_unit}"></td>-->
-	                		<td th:text="${drug.dosage_form}"></td>
+	                		<!--<td th:text="${drug.dosage_form}"></td>-->
 	                		<!--<td th:text="${drug.manufacturer}"></td>-->
 	                		<!--<td th:text="${drug.approval_number}"></td>-->
 	                		<td th:text="${drug.safety_stock}"></td>
@@ -87,6 +90,7 @@
 	                		<td>
 								<a th:href="@{'/drug/viewUpdate/'+${drug.drug_code}}"><button id="modify">修改</button></a>
 								<a th:href="@{'/drug/toView/'+${drug.drug_code}}" class="adiv1">详情</a>
+								<a  class="adiv1 add_item">入库</a>
 	                			<button id="delete" class="deletes">删除</button>
 								<input type="hidden" class="drug_code" th:value="${drug.drug_code}">
 							</td>
@@ -96,8 +100,45 @@
 			</div>
 		</section>
 <div class="cure"></div>
+		<!--添加-->
+		<div class="window1_popup">
+			<div class="add_infor">
+				<h3>添加药品类别</h3>
+				<div class="popup_table">
+					<!--<form action="" method="post">-->
+					<table class="table table-bordered">
+						<thead>
+						<tr>
+							<th>库存量</th>
+							<td>
+								<input type="" name="storage_amount" class="storage_amount" value="" required="required"/>
+							</td>
+						</tr>
+						<tr>
+							<th>有效期</th>
+							<td>
+								<!--<input type="" name="valid_period" class="valid_period" value="" required="required"/>-->
+								<div class="jeitem">
+									<!--<label class="jelabel">默认初始赋值</label>-->
+									<div class="jeinpbox"><input type="text" class="jeinput" id="test15" placeholder="YYYY-MM-DD"></div>
+								</div>
+							</td>
+						</tr>
+						</thead>
+					</table>
+					<div class="cure"></div>
+					<div class="popup_bottom">
+						<!--<input type="reset"   value="重置" />-->
+						<input type="submit" value="添加" class="add1 adds"/>
+						<input type="button" name="" class="cancel_1" value="取消" />
+					</div>
+					<!--</form>-->
+				</div>
+			</div>
+		</div>
 	</body>
 		<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 		<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
 		<script th:src="@{/js/search.js}"></script>
+		<script type="text/javascript" th:src="@{/js/demo.js}"></script>
 </html>

@@ -277,6 +277,7 @@ table,tr,th,td{
 	border-radius: 0 5px 5px 0; 
 	border-top: 2px solid #ddd;
 	background: #f3f3f3;
+
 }
 /*删除 查看 修改*/
 td button{
@@ -480,4 +481,61 @@ select{
 	margin-top: -8px;
 	box-shadow: 0 0 0 2px #4337f1;
 	position: fixed;
+}
+.fen{
+	display: inline-block;
+	padding: 8px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #0e90d2;
+	text-decoration: none;
+	float: right;
+	margin-right: 15px;
+	margin-top: 3px;
+
+}
+.fen:hover{
+	text-decoration: none;
+	color: #fff;
+}
+.sty{
+	background: #ffc107;
+}
+.sty:hover{
+	background: #e0a800;
+}
+.sty:hover .warning{
+	opacity: 1;
+}
+.sty2:hover .warning2{
+	opacity: 1;
+}
+.warning{
+	left: 68%;
+}
+.warning2{
+	left: 60%;
+}
+.warning,.warning2{
+	position: absolute;
+	top: -109%;
+	padding: 5px 10px;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 0 1px #999;
+	opacity: 0;
+	color: #000;
+}
+.warning:after ,.warning2:after{
+	content: "";
+	position: absolute;
+	top: 16px;
+	right: -12px;
+	margin: 20px;
+	border-right: 15px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-left: 15px solid transparent;
+	border-top: 10px solid #999;
+	width: 10px;
+	height: 10px;
 }
