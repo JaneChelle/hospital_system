@@ -195,3 +195,49 @@ var tableCont = document.querySelector('.section_table');
 			}
 
         });
+ //添加库存
+        $('.add_item').on('click',function () {
+            var drug_code=$(this).parent().parent().children('.drug_codes').text();
+            $('.adds').on('click',function () {
+                var storage_amount=$('.storage_amount').val();
+                var valid_period=$('.jeinput').val();
+                console.log('库存量：'+storage_amount);
+                console.log('有效期：'+valid_period);
+                if(storage_amount!='' && valid_period!=''){
+                    $.ajax({
+                        type: "post",
+                        url: "/DrugInventory/DrugInventory",
+                        data: {
+                            'storage_amount':storage_amount,
+                            'date':valid_period,
+                            'drug_code':drug_code
+
+                        },
+                        async: false,
+                        success: function (data) {
+                            $('.cure').addClass('uu');
+                            $('.cure').html(data.msg);
+                            setTimeout(function () {
+                                $('.cure').css('display', 'none');
+                            }, 2000);
+                            setTimeout(function () {
+                                location.reload(true);
+                            }, 1000);
+                            //alert(data.msg)
+                        },
+                        error: function (data) {
+                            $('.cure').addClass('uu');
+                            $('.cure').html(data.msg);
+                            setTimeout(function () {
+                                $('.cure').css('display', 'none');
+                            }, 2000);
+                            setTimeout(function () {
+                                location.reload(true);
+                            }, 1000);
+
+                            alert(data.msg)
+                        }
+                    });
+                }
+            });
+        });

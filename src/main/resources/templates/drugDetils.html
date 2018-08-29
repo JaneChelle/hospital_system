@@ -18,19 +18,6 @@
             <span>药品管理 > <b style="color: #F00;">药品信息</b></span>
         </div>
         <div class="add">
-            <!--<div class="search">-->
-                <!--<form action="" method="post">-->
-            <!--<input type="text" name="" id="" value="" required="required"/>-->
-            <!--<button type="submit"></button>-->
-            <!--</form>-->
-            <!--</div>-->
-            <!--<div class="input_btn">-->
-            <!--<input type="button" value="全选" id="selectAll">-->
-            <!--&lt;!&ndash;<input type="button" value="全不选" id="unSelect">&ndash;&gt;-->
-            <!--<input type="button" value="反选" id="reverse">-->
-            <!--<input type="button" value="批量删除">-->
-            <!--<input type="hidden" value="" class="btn" id="getValue">-->
-            <!--</div>-->
             <button class="label-info">
                 <b><a th:href="@{/drug/drug/1}">返回</a></b>
             </button>
@@ -42,55 +29,55 @@
             <thead>
             <tr>
                 <!--<th>选择</th>-->
-                <th>药品编码</th>
+                <th style="width: 5%">药品编码</th>
                 <td th:text="${drug.drug_code}">A133</td>
             </tr>
             <tr>
-                <th>药品名称</th>
+                <th style="width: 5%">药品名称</th>
                 <td th:text="${drug.drug_name}"></td>
             </tr>
             <tr>
-                <th>药品类别</th>
-                <td th:text="${drug.drug_category}"></td>
+                <th style="width: 5%">药品类别</th>
+                <td th:text="${category}"></td>
             </tr>
             <tr>
-                <th>拼音码</th>
+                <th style="width: 5%">拼音码</th>
                 <td th:text="${drug.pinyin_code}"></td>
             </tr>
             <tr>
-                <th>规格含量</th>
+                <th style="width: 5%">规格含量</th>
                 <td th:text="${drug.specification_content}"></td>
             </tr>
             <tr>
-                <th>单位</th>
-                <td th:text="${drug.drug_unit}"></td>
+                <th style="width: 5%">单位</th>
+                <td th:text="${unit}"></td>
             </tr>
             <tr>
-                <th>剂型</th>
-                <td th:text="${drug.dosage_form}"></td>
+                <th style="width: 5%">剂型</th>
+                <td th:text="${dosageform}"></td>
             </tr>
             <tr>
-                <th>厂家 </th>
+                <th style="width: 5%">厂家 </th>
                 <td th:text="${drug.manufacturer}"></td>
             </tr>
             <tr>
-                <th>批准文号</th>
+                <th style="width: 5%">批准文号</th>
                 <td th:text="${drug.approval_number}"></td>
             </tr>
             <tr>
-                <th>安全存库</th>
+                <th style="width: 5%">安全存库</th>
                 <td th:text="${drug.safety_stock}"></td>
             </tr>
             <tr>
-                <th>单位价格</th>
+                <th style="width: 5%">单位价格</th>
                 <td th:text="${drug.unit_price}"></td>
             </tr>
             <tr>
-                <th>医保编码</th>
+                <th style="width: 5%">医保编码</th>
                 <td th:text="${drug.healthcare_code}"></td>
             </tr>
             <tr>
-                <th>医保名称</th>
+                <th style="width: 5%">医保名称</th>
                 <td th:text="${drug.healthcare_name}"></td>
             </tr>
             <!--<tr>-->

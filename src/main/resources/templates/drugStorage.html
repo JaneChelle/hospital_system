@@ -19,28 +19,14 @@
 			</div>
 			<div class="add">
 				<div class="search">
-					<form action="/DrugInventory/searchStorage/1" method="get">
+					<form th:action="@{/DrugInventory/searchStorage/1}" method="get">
 						<input type="text" name="drugName" class="drugName" value="" required="required" placeholder="请输入药品名称或拼音码" onkeyup="spin(),spainner()"/>
 						<button type="submit"></button>
 					</form>
 				</div>
-				<div class="input_btn">
-					<input type="button" value="全选" id="selectAll">
-					<!--<input type="button" value="全不选" id="unSelect">-->  
-					<input type="button" value="反选" id="reverse"> 
-					<input type="button" value="批量删除">
-					<input type="hidden" value="" class="btn" id="getValue">
-				</div>
-				<!--<button class="label-info">-->
-					<!--<b>-->
+
 						<a th:href="@{/DrugInventory/DrugInventoryDate/1}" class="fen">切换至分库存</a>
-					<!--</b>-->
-				<!--</button>-->
-				<button class="label-info">
-					<b>
-						<a  class="">添加</a>
-					</b>
-				</button>
+
 			</div>
 			<div class="spin">
 				<div class="spinners">
@@ -68,9 +54,11 @@
                 			<!--<input type="checkbox" th:id="${drugInventory.stock_number}" th:value="${drugInventory.stock_number}"/>-->
 							<!--<label th:for="${drugInventory.stock_number}"></label>-->
                 		<!--</td>-->
-                		<td th:text="${drugInventory.stock_number}">D133</td>
-                		<td th:text="${drugInventory.drug_name}"></td>
-                		<td th:text="${drugInventory.storage_amount}"></td>
+                		<td  th:text="${drugInventory.stock_number}">D133</td>
+
+						<td th:text="${drugInventory.drug_name}"></td>
+                		<td th:if="${drugInventory.is_safety_stock==1}" th:text="${drugInventory.storage_amount}"></td>
+						<td th:if="${drugInventory.is_safety_stock==0}" th:text="${drugInventory.storage_amount}" style="color: red;">
                 		<!--<td th:text="${drugInventory.valid_period}"></td>-->
                 		<!--<td>-->
                 			<!--<button id="modify" class="modify_add">修改</button>-->

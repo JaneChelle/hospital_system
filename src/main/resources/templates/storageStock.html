@@ -19,15 +19,18 @@
     </div>
     <div class="add">
         <div class="search">
-            <form action="/DrugInventory/searchStorageDate/1" method="get">
-                <input type="text" name="drugName" class="drugName" value="" required="required" onkeyup="spin(),spainner()"/>
+            <form th:action="@{/DrugInventory/searchStorageDate/1}" method="get">
+                <input type="text" name="drugName" class="drugName" value="" required="required" onkeyup="spin(),spainner()" placeholder="请输入药品名称或拼音码"/>
                 <button type="submit"></button>
-                <div class="view_storage">
-                    <select name="">
-                        <option value="">库存量低于安全库存的药品清单</option>
-                        <option value="">有效期一个月以内的药品清单</option>
-                    </select>
-                </div>
+                <!--<div class="view_storage">-->
+                    <!--<select name="" id='selectId' onchange="mainFrame.location.href=this.options[this.selectedIndex].value;">-->
+                        <!--<option value="0">&#45;&#45;请选择&#45;&#45;</option>-->
+                        <!--<option th:value="@{/DrugInventory/getUnsafeStorage/1}">库存量低于安全库存的药品清单</option>-->
+                        <!--<option th:value="@{/DrugInventory/getMonthLimit}">有效期一个月以内的药品清单</option>-->
+                    <!--</select>-->
+                    <!--<iframe name="mainFrame" th:src="@{/toHospital}"  frameborder="0" id="mainiframe" scrolling="no" style="display: none;"></iframe>-->
+                <!--</div>-->
+
             </form>
         </div>
         <div class="input_btn">
@@ -37,16 +40,20 @@
             <input type="button" value="批量删除">
             <input type="hidden" value="" class="btn" id="getValue">
         </div>
-        <!--<button class="label-info">-->
-            <!--<b>-->
-                <a th:href="@{/DrugInventory/DrugInventory/1}" class="fen">切换至总库存</a>
-            <!--</b>-->
-        <!--</button>-->
-        <button class="label-info">
-            <b>
-                <a  class="modify_add">添加</a>
-            </b>
-        </button>
+         <a th:href="@{/DrugInventory/DrugInventory/1}" class="fen">切换至总库存</a>
+        <a href="/DrugInventory/getUnsafeStorage/1" class="fen sty">库存量警告
+            <div class="warning">
+                库存量低于安全库存的药品清单
+            </div>
+        </a>
+        <a href="/DrugInventory/getMonthLimit" class="fen sty sty2">
+            有效期警告
+            <div class="warning2">
+                有效期一个月以内的药品清单
+            </div>
+        </a>
+
+
     </div>
     <div class="spin">
         <div class="spinners">
@@ -74,20 +81,23 @@
                 <input type="checkbox" th:id="${drugInventory.stock_number}" th:value="${drugInventory.stock_number}"/>
                 <label th:for="${drugInventory.stock_number}"></label>
             </td>
-            <td th:text="${drugInventory.stock_number}">D133</td>
+            <td th:text="${drugInventory.stock_number}" class="stock_number">D133</td>
             <td th:text="${drugInventory.drug_name}"></td>
-            <td th:text="${drugInventory.storage_amount}"></td>
-            <td th:text="${drugInventory.valid_period}"></td>
+            <td th:text="${drugInventory.storage_amount}" class="sl"></td>
+            <td th:text="${#dates.format(drugInventory.valid_period,'yyyy-MM-dd')}" class="valid_period"></td>
             <td>
-            <button id="modify" class="modify_add">修改</button>
-            <button id="delete">删除</button>
+                <button id="modify" class="modify_add">修改</button>
+                <input th:value="${drugInventory.drug_code}" style="display: none;">
+                <button id="delete" class="del">删除</button>
+
+
             </td>
         </tr>
         </tbody>
     </table>
 </div>
 <!--弹窗-->
-
+<div class="cure"></div>
 <!--修改-->
 <div class="window2_popup">
     <div class="inform">
@@ -97,28 +107,29 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>库存量</th>
+                        <th>分库存量</th>
                         <td>
-                            <input type="" name="" id="" value="" required="required"/>
+                            <input type="" name="" class="storage_amount" value="" required="required"/>
                         </td>
                     </tr>
                     <tr>
                         <th>有效期</th>
                         <td>
-                            <input type="" name="" id="" value="" required="required"/>
+                            <input type="" name="" class="write" value="" required="required"/>
                         </td>
                     </tr>
                     </thead>
                 </table>
                 <div class="popup_bottom">
                     <!--<input type="reset" name="" id="" value="重置" />-->
-                    <input type="submit" value="修改"/>
+                    <input type="submit" value="修改" class="modifys"/>
                     <input type="button" name="" class="cancel_2" value="取消" />
                 </div>
             <!--</form>-->
         </div>
     </div>
 </div>
+<div class="cure"></div>
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}" ></script>
 <script type="text/javascript" th:src="@{/js/drug.js}" ></script>

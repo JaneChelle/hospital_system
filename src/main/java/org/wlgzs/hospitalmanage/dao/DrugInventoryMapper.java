@@ -18,7 +18,7 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     List<DrugInventory> reduceInventories(int drug_code);
 
     //获取未达到安全库存的清单
-    @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is null and  is_safety_stock=0 ")
+    @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is null and  is_safety_stock = 0 ")
     List<DrugInventory> getUnsafetyStock();
 
     //获取总库存数据
@@ -36,7 +36,7 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     @Delete("DELETE FROM tb_drug_inventory WHERE stock_number=#{0} and valid_period is not null ")
     void deleteInventory(int stock_number);
 
-    @Select("SELECT COUNT(*) tb_drug_inventory WHERE is_safety_stock=0")
+    @Select("SELECT COUNT(*) FROM tb_drug_inventory WHERE is_safety_stock=0")
     int getUnsafeCount();
 
 
@@ -46,15 +46,15 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     void updatenIventory(DrugInventory drugInventory);
 
     //更新库存和是否安全库存和有效日期
-    @Update("UPDATE tb_drug_inventory set storage_amount=#{storage_amount},is_safety_stock=#{is_safety_stock},valid_period=#{valid_period}  WHERE stock_number =#{stock_number} and valid_period is  null ")
+    @Update("UPDATE tb_drug_inventory set storage_amount=#{storage_amount},is_safety_stock=#{is_safety_stock},valid_period=#{valid_period}  WHERE stock_number =#{stock_number} and valid_period is not null ")
     void update(DrugInventory drugInventory);
 
     //搜索总的药品库存
-    @Select("SELECT * FROM tb_drug_inventory WHERE  (drug_name LIKE CONCAT('%'#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is  null  ")
+    @Select("SELECT * FROM tb_drug_inventory WHERE ( drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is  null ")
     List<DrugInventory> searchStroage(String drugName);
 
     //搜索药品库存(有效期)
-    @Select("SELECT * FROM tb_drug_inventory WHERE  (drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is  null  ")
+    @Select("SELECT * FROM tb_drug_inventory WHERE  (drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is not null  ")
     List<DrugInventory> searchStroageDate(String drugName);
 
     @Select("SELECT * FROM tb_drug_inventory WHERE ( drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is  null  limit 10")
