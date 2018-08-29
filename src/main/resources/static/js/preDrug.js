@@ -141,14 +141,14 @@ $(".select_check").on('click',function () {
 // 删除检查明细
 $(".deletePre_check").on('click',function () {
     var parent = $(this).parent().parent();
-    var check_idPre = parent.children("td.check_idPre").text();
-    console.log(check_idPre);
+    var detail_idCheck = parent.children("td.detail_idCheck").text();
+    console.log(detail_idCheck);
     var y = confirm("您确定要删除吗？");
     if(y == true){
         $.ajax({
             url: "/prescription/deleteCheck",
             data: {
-                checkId:check_idPre,
+                detailId:detail_idCheck,
             },
             dataType: "JSON",
             success: function (data) {
@@ -251,14 +251,13 @@ $(".select_therapy").on('click',function () {
 // 删除治疗明细
 $(".deletePre_therapy").on('click',function () {
     var parent = $(this).parent().parent();
-    var treatmentIdPre = parent.children("td.treatmentIdPre").text();
+    var detail_idTreatment = parent.children("td.detail_idTreatment").text();
     var y = confirm("您确定要删除吗？");
     if(y == true){
         $.ajax({
             url: "/prescription/deleteTreatment",
             data: {
-                treatmentId:treatmentIdPre,
-                number:$(".number_preTreatment").val()
+                detailId:detail_idTreatment,
             },
             dataType: "JSON",
             success: function (data) {

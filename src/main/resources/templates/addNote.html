@@ -17,130 +17,85 @@
 			<div class="fixed">
 				<div class="nav">
 					<span><b>添加就诊记录</b></span>
-					<button type="submit" class="label-info label_btn add_note">添加</button>
 				</div>
 			</div>
 			<div style="width: 100%; height: 45px;"></div>
-			
-			<div class="all_inform">
-				<div class="list_item">
-					<div class="zDiv">
-						<p>
-							<span>处方名称</span>
-							<input type="text" name="" class="note_pre" value="" />
-							<small>可根据拼音码选择已存在的处方，也可以填写系统不存在的处方</small>
-						</p>
-						<div class="search search-a">
-							<form action="" method="post">
-								<input type="text" name="" id="" value="" placeholder="处方" required="required"/>
-								<button type="submit"></button> 
-							</form>
-						</div>
-						<div class="section_table">
-							<table class="table table-bordered table-hover">
-								<thead>
-					                <tr>
-					                	<th>编号</th>
-					                	<th>处方编号</th>
-					                	<th>处方名称</th>
-					                	<th>价格</th>
-					                    <th>操作</th>
-					                </tr>
-				                </thead>
-				                <tbody>
-				                	<tr>
-				                		<td>A133</td>
-				                		<td></td>
-				                		<td></td>
-				                		<td></td>
-				                		<td>
-				                			<button id="modify">选择</button>
-				                		</td>
-				                	</tr>
-				                </tbody>
-							</table>
-						</div>
+
+			<div class="add_infor" style="position: absolute; top: 15%;">
+				<h3>添加就诊记录</h3>
+				<div class="popup_table">
+					<!--<form action="" method="post">-->
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>患者名称</th>
+								<td>
+									<span th:if="${session.patient==null}">
+										<button>
+											<a th:href="@{/patient/patient/1}">选择</a>
+										</button>
+									</span>
+									<span th:if="${session.patient!=null}">
+										<input type="text" th:value="${session.patient.patient_name}" class="patient_name">
+										<input type="hidden" th:value="${session.patient.patient_number}" class="patient_number"/>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>疾病名称</th>
+								<td>
+									<span th:if="${session.disease==null}">
+										<button>
+											<a th:href="@{/disease/1}">选择</a>
+										</button>
+									</span>
+									<span th:if="${session.disease!=null}">
+										<input type="text" th:value="${session.disease.disease_name}" class="disease_name" name="disease_name">
+										<input type="hidden" th:value="${session.disease.disease_id}" class="disease_id" name="disease_id"/>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>处方编号</th>
+								<td>
+									<span th:if="${session.prescription==null}">
+										<button>
+											<a th:href="@{/prescription/1}">选择</a>
+										</button>
+									</span>
+									<span th:if="${session.prescription!=null}">
+										<input type="text" th:value="${session.prescription.prescription_name}" class="prescription_name" name="prescription_name">
+										<input type="hidden" th:value="${session.prescription.prescription_id}" class="prescription_id" name="prescription_name"/>
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<th>收费</th>
+								<td>
+									<input type="text" name="price_end" class="price_end"  required="required"/>
+								</td>
+							</tr>
+							<tr>
+								<th>就诊日期</th>
+								<td>
+									<input type="text" name="note_time" class="note_time" required="required"/>
+								</td>
+							</tr>
+						</thead>
+					</table>
+					<div class="cure"></div>
+					<div class="popup_bottom">
+						<!--<input type="reset"   value="重置" />-->
+						<input type="submit" value="添加" class="add_note"/>
+						<a th:href="@{/notefindNote}">
+							<button class="selsety">取消</button>
+						</a>
 					</div>
-					
-					<div class="zDiv">
-						<p>
-							<span>患者名称</span>
-							<input type="text" name="" value="" class="note_patient">
-							<small>可根据拼音码选择已存在的患者，也可以填写系统不存在的患者</small>
-						</p>
-						<div class="search search-a">
-							<form action="" method="post">
-								<input type="text" name="" value="" placeholder="患者" required="required"/>
-								<button type="submit"></button> 
-							</form>
-						</div>
-						<div class="section_table">
-							<table class="table table-bordered table-hover">
-								<thead>
-					                <tr>
-					                	<th>编号</th>
-					                	<th>药品编号</th>
-					                	<th>药品名称</th>
-					                	<th>价格</th>
-					                    <th>操作</th>
-					                </tr>
-				                </thead>
-				                <tbody>
-				                	<tr>
-				                		<td>A133</td>
-				                		<td></td>
-				                		<td></td>
-				                		<td></td>
-				                		<td>
-				                			<button id="modify">选择</button>
-				                		</td>
-				                	</tr>
-				                </tbody>
-							</table>
-						</div>
-					</div>
-					
-					<div class="zDiv">
-						<p>
-							<span>疾病名称</span>
-							<input type="text" name=""  value="" class="note_disease"/>
-							<small>可根据拼音码选择已存在的疾病，也可以填写系统不存在的疾病</small>
-						</p>
-						<div class="search search-a">
-							<form action="" method="post">
-								<input type="text" name="" id="" value="" placeholder="疾病" required="required"/>
-								<button type="submit"></button> 
-							</form>
-						</div>
-						<div class="section_table">
-							<table class="table table-bordered table-hover">
-								<thead>
-					                <tr>
-					                	<th>编号</th>
-					                	<th>药品编号</th>
-					                	<th>药品名称</th>
-					                	<th>价格</th>
-					                    <th>操作</th>
-					                </tr>
-				                </thead>
-				                <tbody>
-				                	<tr>
-				                		<td>A133</td>
-				                		<td></td>
-				                		<td></td>
-				                		<td></td>
-				                		<td>
-				                			<button id="modify">选择</button>
-				                		</td>
-				                	</tr>
-				                </tbody>
-							</table>
-						</div>
-					</div>
-					
+					<!--</form>-->
 				</div>
 			</div>
 		</section>
+		<div class="cure"></div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/node.js}"></script>

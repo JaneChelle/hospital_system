@@ -63,6 +63,7 @@ public class NoteController extends BaseController {
             , @RequestParam(value = "findName", defaultValue = "") String findName) {
         System.out.println("findName"+findName);
         List<Note> noteList = noteService.findNote(findName, page);
+        System.out.println(noteList);
         model.addAttribute("findName", findName);
         model.addAttribute("noteList", noteList);
         return new ModelAndView("detailsNote");
@@ -71,6 +72,7 @@ public class NoteController extends BaseController {
     //跳转到查询价格页面
     @RequestMapping("/toChargeNote")
     public ModelAndView toChargeNote(){
+
         return new ModelAndView("chargeNote");
     }
 

@@ -20,9 +20,11 @@ import java.util.List;
 public class PatientController extends BaseController {
     //查看所有患者
     @GetMapping("/patient/{page}")
-    public ModelAndView getPatients(Model model, @PathVariable("page") int page) {
+    public ModelAndView getPatients(Model model,
+                                    @PathVariable("page") int page,@RequestParam(value = "sign",defaultValue = "") String sign) {
         List<Patient> patients = patientService.getPatients(page);
         model.addAttribute("patients",patients);
+        model.addAttribute("sign",sign);
         return new ModelAndView("patientManagement");
 
     }
@@ -64,5 +66,11 @@ public class PatientController extends BaseController {
     public ModelAndView searchPatient(Model model,@PathVariable("page") int page, @RequestParam("patientAttribute") String patientAttribute) {
         model.addAttribute("patients",patientService.searchPatient(model,patientAttribute,page));
         return new ModelAndView("patientManagement");
+    }
+
+    //选择患者
+    @RequestMapping("/choicePatient")
+    public Result choicePatient(int patient_number,HttpSession session){
+        return patientService.choicePatient(patient_number,session);
     }
 }

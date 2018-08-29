@@ -20,20 +20,21 @@
 				<div class="add">
 					<div class="search">
 						<form th:action="@{/note/findNote}">
-							<input type="text" name="findName" id="findName" value="" required="required"/>
+							<input type="text" name="findName" id="findName" placeholder="患者名字" required="required"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
 					<div class="input_btn">
 						<input type="button" value="全选" id="selectAll">
 						<!--<input type="button" value="全不选" id="unSelect">-->
-						<input type="button" value="反选" id="reverse"> 
-						<input type="button" value="批量删除">
+						<input type="button" value="反选" id="reverse">
+						<input type="button" value="批量删除" class="batchDelete">
+						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
 					<button class="label-info">
 						<b>
-							<a href="generatingMedicalRecords.html">添加</a>
+							<a th:href="@{/note/toAddNote}">添加</a>
 						</b>
 					</button>
 				</div>
@@ -86,24 +87,25 @@
 			<div class="inform">
 				<h3>修改就诊记录</h3>
 				<div class="popup_table">
-					<!--<form action="" method="post">-->
+					<form th:action="@{/note/modifyNote}">
 						<table class="table table-bordered">
 							<thead>
-								<input type="hidden" class="noteId">
+								<input type="hidden" name="note_id" class="noteId">
 				                 <tr>
 				                	<th>收费</th>
 				                	<td>
-				                		<input type="" name="" class="notePrice" value="" required="required"/>
+				                		<input type="text" name="price_end" class="notePrice" value="" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="cure"></div>
 						<div class="popup_bottom">
+							<input type="reset" value="重置">
 							<input type="submit" value="修改" class="note_modify"/>
 							<input type="button" name="" class="cancel_2" value="取消" />
 						</div>
-					<!--</form>-->
+					</form>
 				</div>
 			</div>
 		</div>

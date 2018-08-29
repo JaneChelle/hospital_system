@@ -2,6 +2,7 @@ package org.wlgzs.hospitalmanage.service;
 
 import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.entity.Patient;
+import org.wlgzs.hospitalmanage.util.Result;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -26,7 +27,7 @@ public interface PatientService {
 
     void deletePatients(int[] patients);
 
-
-
+    //选择患者
+    Result choicePatient(int patient_number, HttpSession session);
 
 }

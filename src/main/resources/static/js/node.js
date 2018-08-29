@@ -13,27 +13,13 @@ $(".delete").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setTimeout(function () {
-                        $('.cure').css('display', 'none');
-                    }, 2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
+                    location.reload();
                 } else {
 
                 }
             },
             error: function (data) {
-                ('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
+                location.reload();
             }
         })
     }
@@ -42,42 +28,30 @@ $(".delete").on('click', function () {
     }
 });
 
-// 添加
-$(".add_note").on('click', function () {
-    $.ajax({
-        type: "PUT",
-        url: "/note",
-        data: {
-            disease_name:$(".note_patient").val(),
-            patient_name: $(".note_patient").val()
-        },
-        dataType: "JSON",
-        success: function (data) {
-            if (data.code == 0) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
-            } else {
 
-            }
-        },
-        error: function (data) {
-            ('.cure').addClass('uu');
-            $('.cure').html(data.msg);
-            setTimeout(function () {
-                $('.cure').css('display', 'none');
-            }, 2000);
-            setTimeout(function () {
-                location.reload(true);
-            }, 1000);
-        }
-    })
-});
+// // 批量删除
+// $(".batchDelete").on('click', function () {
+//     var x = confirm("您确定要删除吗？");
+//     if (x == true){
+//         $.ajax({
+//             url: "/check/deleteCheckByIds",
+//             data: {
+//                 checkIds:$('.browider').val(),
+//             },
+//             dataType: "JSON",
+//             success: function (data) {
+//                 if (data.code == 0) {
+//                     location.reload();
+//                 } else {
+//
+//                 }
+//             },
+//             error: function (msg) {
+//                 alert("网络错误");
+//             }
+//         })
+//     }
+// });
 
 // 修改回显
 $(".price_modify").on('click',function () {
@@ -88,38 +62,31 @@ $(".price_modify").on('click',function () {
     $(".notePrice").val(price_end);
 });
 
-// 修改
-$(".note_modify").on('click', function () {
+// 添加
+$(".add_note").on('click',function () {
     $.ajax({
-        url: "/note/modifyNote",
+        type: "PUT",
+        url: "/note",
         data: {
-            note_id:$(".noteId").val(),
-            price_end: $(".notePrice").val()
+            patient_id:$(".patient_number").val(),
+            patient_name:$(".patient_name").val(),
+            disease_id:$(".disease_id").val(),
+            disease_name:$(".disease_name").val(),
+            prescription_id:$(".prescription_id").val(),
+            price_end:$(".price_end").val(),
+            note_time:$(".note_time").val()
         },
         dataType: "JSON",
         success: function (data) {
             if (data.code == 0) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
+                window.location.href="/note/findNote";
             } else {
 
             }
         },
-        error: function (data) {
-            ('.cure').addClass('uu');
-            $('.cure').html(data.msg);
-            setTimeout(function () {
-                $('.cure').css('display', 'none');
-            }, 2000);
-            setTimeout(function () {
-                location.reload(true);
-            }, 1000);
+        error: function (msg) {
+            alert("网络错误");
         }
     })
 });
+

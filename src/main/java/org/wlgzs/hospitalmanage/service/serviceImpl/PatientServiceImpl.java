@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.PatientMapper;
 import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.service.PatientService;
+import org.wlgzs.hospitalmanage.util.Result;
+import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -55,6 +57,17 @@ public class PatientServiceImpl implements PatientService {
               patientMapper.deleteByPrimaryKey(patients[i]);
           }
     }
+
+    @Override
+    public Result choicePatient(int patient_number, HttpSession session) {
+        Patient patient = patientMapper.selectByPrimaryKey(patient_number);
+        if(patient != null){
+            session.setAttribute("patient",patient);
+            return new Result(ResultCode.SUCCESS);
+        }
+        return new Result(ResultCode.FAIL);
+    }
+
     //变更患者信息
     public void updatePatient(Patient patient) {
         System.out.println(patient);

@@ -88,10 +88,12 @@ public class NoteServiceImpl implements NoteService {
     public void modifyNote(Note note, String price_end) {
         if (note != null) {
             Note note1 = noteMapper.selectByPrimaryKey(note.getNote_id());
-            note.setNote_time(note1.getNote_time());
             BigDecimal bigDecimal = new BigDecimal(price_end);
-            note.setPrice_end(bigDecimal);
-            noteMapper.updateByPrimaryKey(note);
+            System.out.println("price_end===="+price_end);
+            System.out.println("bigDecimal===="+bigDecimal);
+            System.out.println("note===="+note);
+            note1.setPrice_end(bigDecimal);
+            noteMapper.updateByPrimaryKey(note1);
         }
     }
 
@@ -102,9 +104,11 @@ public class NoteServiceImpl implements NoteService {
         List<Patient> patientList = patientMapper.searchName(findName);
         List<Integer> listId = new ArrayList<>();
         for (int i = 0; i < patientList.size(); i++) {
+//            System.out.println(patientList.get(i).getPatient_number());
             listId.add(patientList.get(i).getPatient_number());
         }
         //根据id查询
+//        System.out.println(listId);
         List<Note> list = noteMapper.selectNoteByIds(listId);
         System.out.println(list);
         return list;

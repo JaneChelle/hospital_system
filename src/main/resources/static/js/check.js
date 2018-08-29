@@ -8,7 +8,6 @@ $(".delete").on('click', function () {
             type: "DELETE",
             url: "/check/" + checkId,
             data: {
-                // check_id: checkId,
                 checkId:checkId,
             },
             dataType: "JSON",
