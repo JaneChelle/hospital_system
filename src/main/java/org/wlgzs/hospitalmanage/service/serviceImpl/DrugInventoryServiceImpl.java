@@ -257,4 +257,8 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         List<DrugInventory> drugInventories = drugInventoryMapper.keywordDate(drugName);
         return drugInventories;
     }
+    public DrugInventory storageLink(int storageId){
+        DrugInventory drugInventory = drugInventoryMapper.selectOneDrugInventory(storageId);
+        return drugInventory;
+    }
 }

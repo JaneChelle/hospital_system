@@ -90,4 +90,12 @@ public class DrugInventoryController extends BaseController {
         model.addAttribute("sdrugInventories",drugInventoryService.searchStorage(model,drugName,page));
         return new ModelAndView();
     }
+    @GetMapping("storageLink/{storageId}")
+    //点击下拉框链接查看数据
+    public ModelAndView storageLink(Model model, @PathVariable("storageId") int storageId){
+        model.addAttribute("drugInventories",drugInventoryService.storageLink(storageId));
+        return new ModelAndView();
+
+    }
+
 }

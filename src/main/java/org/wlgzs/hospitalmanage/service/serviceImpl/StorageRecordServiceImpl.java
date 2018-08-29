@@ -50,4 +50,9 @@ public class StorageRecordServiceImpl implements StorageRecordService {
     public List<StorageRecord> keyword(String drug_name){
         return storageRecordMapper.keyword(drug_name);
     }
+
+    public StorageRecord recordLink( int recordId){
+        StorageRecord storageRecord = storageRecordMapper.selectByPrimaryKey(recordId);
+        return storageRecord;
+    }
 }

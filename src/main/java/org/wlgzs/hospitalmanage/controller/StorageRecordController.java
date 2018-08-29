@@ -43,5 +43,10 @@ public class StorageRecordController extends BaseController {
     public Result keyword(@RequestParam("drugName") String drugName){
         return new Result(ResultCode.SUCCESS,storageRecordService.keyword(drugName));
     }
-    
+    //数据下拉框链接
+    @RequestMapping("/recordLink/{recordId}")
+    public ModelAndView recordLink(Model model, @RequestParam("recordId") int recordId){
+         model.addAttribute("storageList",storageRecordService.recordLink(recordId));
+         return new ModelAndView();
+    }
 }
