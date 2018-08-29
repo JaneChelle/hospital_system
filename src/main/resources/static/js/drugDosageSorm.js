@@ -1,5 +1,5 @@
 //删除
-$('.delete').on('click',function () {
+$('.deletesss').on('click',function () {
     if (confirm('确认要删除吗?')) {
         // var attribute_number = $(this).next().text();
         var attribute_number =$(this).parent().parent().children('.leibie').text();
@@ -40,81 +40,102 @@ $('.delete').on('click',function () {
     }
 });
 // 添加
-$(".add_unit").on('click', function () {
-    if($(".unitName").val() != ""){
+$(".add3").on('click', function () {
+    if($(".drugDosageSorm_name").val() != ""){
         $.ajax({
             type: "POST",
             url: "/attribute/attribute",
             data: {
-                attribute_name:$(".unitName").val(),
-                attribute_distinction:2,
+                attribute_name: $(".drugDosageSorm_name").val(),
+                attribute_distinction: 3
             },
-            dataType: "JSON",
+            async: false,
+            // dataType: "JSON",
             success: function (data) {
-                // if (data.code == 0) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setInterval(function () {
-                        $('.cure').css('display','none');
-                    },2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    },1000)
-                   // location.reload();
+
+
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').css('display', 'none');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
+                alert(data.msg)
             },
-            error: function (msg) {
-                alert("网络错误");
+            error: function (data) {
+
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').css('display', 'none');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
+
+                alert(data.msg)
             }
         })
-    }
-    else {
-        alert("请把信息补充完整");
+        } else{
+        $('.cure').addClass('uu');
+        $('.cure').html('不能为空');
+        setTimeout(function () {
+            $('.cure').css('display', 'none');
+        }, 2000);
     }
 });
 
-// 修改回显
-$(".modify_add").on('click', function () {
-    var parent = $(this).parent().parent();
-    var drugUnitName = parent.children("td.drugUnit_name").text();
-    var drugUnitNumber = parent.children("td.drugUnit_number").text();
-    $(".unit_number").val(drugUnitNumber);
-    $(".unit_name").val(drugUnitName);
-});
-
-$(".unit_modify").on('click', function () {
-    if($(".unit_name").val() != ""){
+//修改
+$('.modify_add').on('click',function () {
+    $('.window2_popup').css('display','block');
+    var first=$(this).parent().prev();
+    $('.write').val(first.text());
+    var attribute_number=$(this).parent().parent().children('.leibie').text();
+    console.log();
+    // var questionId=$(this).parent().next().children('input.questionId').val();
+    $(".modify3").on('click', function () {
+        var attribute_name=$('.write').val();
         $.ajax({
-            type: "PUT",
+            type: "put",
             url: "/attribute/attribute",
+            async: false,
             data: {
-                attribute_number:$(".unit_number").val(),
-                attribute_name:$(".unit_name").val(),
-                attribute_distinction:2
-            },
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == 0) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setInterval(function () {
-                        $('.cure').css('display','none');
-                    },2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    },1000)
-                    //location.reload();
-                } else {
+                'attribute_name':attribute_name,
+                'attribute_distinction':3,
+                'attribute_number':attribute_number
 
-                }
             },
-            error: function (msg) {
-                alert("网络错误");
+            success: function (data) {
+                $('.modify3').click(function () {
+                    $('.window2_popup').css('display','none');
+                });
+                $('.cure').addClass('uu');
+                $('.cure').html('修改成功');
+                setInterval(function () {
+                    $('.cure').css('display','none');
+                },2000);
+                setTimeout(function () {
+                    location.reload(true);
+                },1000)
+                alert(data.msg)
+
+            },
+            error: function (data) {
+                setTimeout(function () {
+                    location.reload(true);
+                },1000)
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setInterval(function () {
+                    $('.cure').css('display','none');
+                },2000);
+
+                alert(data.msg)
             }
-        })
-    }
-    else {
-        alert("请把信息补充完整");
-    }
+        });
+    });
 });
 //搜索
 function spin(){
@@ -132,7 +153,7 @@ function spainner(){
         url: " /attribute/keyword",//要发送的后台地址
         data: {
             attributeName:$('.attributeName').val(),
-            attribute_distinction:2
+            attribute_distinction:3
         },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
         dataType:"JSON",
         success: function (data) {//ajax请求成功后触发的方法

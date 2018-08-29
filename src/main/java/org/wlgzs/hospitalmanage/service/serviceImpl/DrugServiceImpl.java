@@ -98,7 +98,7 @@ public class DrugServiceImpl implements DrugService {
        DrugAttribute unitDrugAttribute = drugAttributeMapper.selectByPrimaryKey(drug.getDrug_unit());
        DrugAttribute dosageformDrugAttribute = drugAttributeMapper.selectByPrimaryKey(drug.getDosage_form());
        model.addAttribute("category",categoryDrugAttribute.getAttribute_name());
-       model.addAttribute("unit",categoryDrugAttribute.getAttribute_name());
+       model.addAttribute("unit",unitDrugAttribute.getAttribute_name());
        model.addAttribute("dosageform",dosageformDrugAttribute.getAttribute_name());
        return drug;
    }

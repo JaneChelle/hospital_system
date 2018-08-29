@@ -34,9 +34,13 @@
 					<p>
 						<span>处方检查</span>
 						<button class="item_lists">
-							<a th:href="@{/prescription/toAddTreatment}">
-								<b>下一步</b>
-							</a>
+							<b th:if="${isModify} ne 'is'">
+								<a th:href="@{/prescription/toAddTreatment}">下一步</a>
+							</b>
+
+							<b th:if="${isModify} eq 'is'">
+								<b class="is_modifyDrug">确定</b>
+							</b>
 						</button>
 					</p>
 					<div class="section_table">
@@ -104,6 +108,7 @@
 				</div>
 			</div>
 		</section>
+		<input type="hidden" id="test_check" th:value="${isModify}">
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/preDrug.js}"></script>

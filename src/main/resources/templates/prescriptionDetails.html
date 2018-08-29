@@ -18,7 +18,7 @@
 					<span>处方管理 > <b style="color: #F00;">查看处方</b></span>
 					<button class="label-info modify_add">
 						<b>
-							<a href="prescriptionManagement.html">
+							<a th:href="@{/prescription/1}">
 								<i class="fa fa-mail-reply"></i>
 							</a>
 						</b>
@@ -54,7 +54,6 @@
 									<td class="price_all" th:text="${prescription.price_all}"></td>
 			                		<td>
 			                			<button class="modify modify_1 modifyPrescription">修改</button>
-	                					<button class="delete">删除</button>
 			                		</td>
 			                	</tr>
 			                </tbody>
@@ -66,7 +65,6 @@
 					<div class="prescript_p">
 						<p>处方药品
 							<a th:href="@{/prescription/toAddDrug(isModify=is)}">
-
 								<button class="modify_8">添加</button>
 							</a>
 						</p>
@@ -86,27 +84,26 @@
 			                </thead>
 			                <tbody>
 			                	<tr th:each="prescript : ${prescriptionDrugList}">
-			                		<td th:text="${prescript.detail_id}"></td>
+			                		<td class="detail_idDrug" th:text="${prescript.detail_id}"></td>
 			                		<td th:text="${prescript.prescription_id}"></td>
 			                		<td th:text="${prescript.drug_code}"></td>
 									<td th:text="${prescript.drug_name}"></td>
 									<td th:text="${prescript.price_one}"></td>
-			                		<td th:text="${prescript.number}"></td>
+			                		<td class="numberPreDrug" th:text="${prescript.number}"></td>
 			                		<td>
 										<button class="modify modify_2">修改</button>
-										<button class="delete">删除</button>
+										<button class="delete deletePre_drug">删除</button>
 			                		</td>
 			                	</tr>
 			                </tbody>
 						</table>
 					</div>
 				</div>
-
 				<div th:if="${prescription.is_drug}==0">
 					<div class="add_2">
 						<p>处方药品</p>
 						<b>PS：该处方暂无药品</b>
-						<a th:href="@{/prescription/toAddDrug}">
+						<a th:href="@{/prescription/toAddDrug(isModify=is)}">
 							<button class="modify_5">添加</button>
 						</a>
 					</div>
@@ -116,7 +113,7 @@
 				<div th:if="${prescription.is_check}==1">
 					<div class="prescript_p">
 						<p>处方检查
-							<a th:href="@{/prescription/toAddCheck}">
+							<a th:href="@{/prescription/toAddCheck(isModify=is)}">
 								<button class="modify_9">添加</button>
 							</a>
 						</p>
@@ -136,15 +133,15 @@
 			                </thead>
 			                <tbody>
 			                	<tr  th:each="exam : ${prescriptionCheckList}">
-			                		<td th:text="${exam.detail_id}">A133</td>
+			                		<td class="detail_idCheck" th:text="${exam.detail_id}">A133</td>
 			                		<td th:text="${exam.prescription_id}"></td>
-			                		<td th:text="${exam.check_id}">QMS</td>
+			                		<td class="check_idPre" th:text="${exam.check_id}">QMS</td>
 			                		<td th:text="${exam.check_name}"></td>
 									<td th:text="${exam.price_one}"></td>
-									<td th:text="${exam.number}"></td>
+									<td class="numberPreCheck" th:text="${exam.number}"></td>
 			                		<td>
 										<button class="modify modify_3">修改</button>
-										<button class="delete">删除</button>
+										<button class="delete deletePre_check">删除</button>
 			                		</td>
 			                	</tr>
 			                </tbody>
@@ -155,7 +152,7 @@
 					<div class="add_2">
 						<p>处方检查</p>
 						<b>PS：该处方暂无检查</b>
-						<a th:href="@{/prescription/toAddCheck}">
+						<a th:href="@{/prescription/toAddCheck(isModify=is)}">
 							<button class="modify_6">添加</button>
 						</a>
 					</div>
@@ -166,7 +163,7 @@
 					<div style="margin-bottom: 50px;">
 						<div class="prescript_p">
 							<p>处方治疗
-								<a th:href="@{/prescription/toAddTreatment}">
+								<a th:href="@{/prescription/toAddTreatment(isModify=is)}">
 									<button class="modify_10">添加</button>
 								</a>
 							</p>
@@ -186,15 +183,15 @@
 								</thead>
 								<tbody>
 									<tr th:each="therapy : ${prescriptionTreatmentList}">
-										<td th:text="${therapy.detail_id}"></td>
+										<td class="detail_idTreatment" th:text="${therapy.detail_id}"></td>
 										<td th:text="${therapy.prescription_id}"></td>
-										<td th:text="${therapy.treatment_id}"></td>
+										<td class="treatmentIdPre" th:text="${therapy.treatment_id}"></td>
 										<td th:text="${therapy.treatment_name}"></td>
 										<td th:text="${therapy.price_one}"></td>
-										<td th:text="${therapy.number}"></td>
+										<td class="numberPreTreatment" th:text="${therapy.number}"></td>
 										<td>
 											<button class="modify modify_4">修改</button>
-											<button class="delete">删除</button>
+											<button class="delete deletePre_therapy">删除</button>
 										</td>
 									</tr>
 								</tbody>
@@ -206,7 +203,7 @@
 					<div class="add_2" style="margin-bottom: 50px;">
 						<p>处方治疗</p>
 						<b>PS：该处方暂无治疗</b>
-						<a th:href="@{/prescription/toAddTreatment}">
+						<a th:href="@{/prescription/toAddTreatment(isModify=is)}">
 							<button class="modify_7">添加</button>
 						</a>
 					</div>
@@ -235,12 +232,7 @@
 									<input type="text" name="pinyin_code" value="" class="pre_code" required="required"/>
 								</td>
 							</tr>
-							<tr>
-								<th>价格</th>
-								<td>
-									<input type="text" class="pre_price">
-								</td>
-							</tr>
+							<input type="hidden" class="pre_price">
 						</thead>
 					</table>
 					<div class="popup_bottom">
@@ -257,24 +249,24 @@
 			<div class="add_infor">
 				<h3>修改处方药品</h3>
 				<div class="popup_table">
-					<form action="" method="post">
+					<!--<form action="" method="post">-->
 						<table class="table table-bordered">
 							<thead>
+								<input type="hidden" class="detailDrug">
 				                <tr>
 				                	<th>数量</th>
 				                	<td>
-				                		<input type="" name="" value="" required="required"/>
+				                		<input type="text" class="number_preDrug" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" value="重置" />
-							<input type="submit" value="修改"/>
+							<input type="submit" value="修改" class="modify_preDrug"/>
 							<input type="button" name="" class="cancel_2" value="取消" />
 						</div>
-					</form>
+					<!--</form>-->
 				</div>
 			</div>
 		</div>
@@ -284,23 +276,23 @@
 			<div class="add_infor">
 				<h3>修改处方检查</h3>
 				<div class="popup_table">
-					<form action="" method="post">
+					<!--<form action="" method="post">-->
 						<table class="table table-bordered">
 							<thead>
+								<input type="hidden" class="detailCheck">
 				                <tr>
 				                	<th>数量</th>
 				                	<td>
-				                		<input type="" name="" value="" required="required"/>
+				                		<input type="text" class="number_preCheck" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" value="重置" />
-							<input type="submit" value="修改"/>
+							<input type="submit" value="修改" class="modify_preCheck"/>
 							<input type="button" name="" class="cancel_3" value="取消" />
 						</div>
-					</form>
+					<!--</form>-->
 				</div>
 			</div>
 		</div>
@@ -310,28 +302,29 @@
 			<div class="add_infor">
 				<h3>修改处方治疗</h3>
 				<div class="popup_table">
-					<form action="" method="post">
+					<!--<form action="" method="post">-->
 						<table class="table table-bordered">
 							<thead>
+							<input type="hidden" class="detailTreatment">
 				                <tr>
 				                	<th>数量</th>
 				                	<td>
-				                		<input type="" name="" value="" required="required"/>
+				                		<input type="text" class="number_preTreatment" required="required"/>
 				                	</td>
 				                </tr>
 							</thead>
 						</table>
 						<div class="popup_bottom">
-							<input type="reset" name="" value="重置" />
-							<input type="submit" value="修改"/>
+							<input type="submit" value="修改" class="modify_preTreatment"/>
 							<input type="button" name="" class="cancel_4" value="取消" />
 						</div>
-					</form>
+					<!--</form>-->
 				</div>
 			</div>
 		</div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/prescription.js}" ></script>
-	<script type="text/javascript" th:src="@{/js/prescript.js}" ></script>
+	<script type="text/javascript" th:src="@{/js/prescription.js}" ></script><!--弹框-->
+	<script type="text/javascript" th:src="@{/js/prescript.js}" ></script><!--处方信息 删除-->
+	<script type="text/javascript" th:src="@{/js/preDrug.js}" ></script>
 </html>

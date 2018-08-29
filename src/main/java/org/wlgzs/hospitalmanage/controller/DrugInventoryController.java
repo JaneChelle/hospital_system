@@ -19,6 +19,7 @@ public class DrugInventoryController extends BaseController {
     //添加药品库存
     @PostMapping("/DrugInventory")
     public Result addDrugInventory(DrugInventory drugInventory ,@RequestParam("date") String dateStr) {
+
         Result result = drugInventoryService.addDrugInventory(drugInventory,dateStr);
         return result;
     }
@@ -35,8 +36,10 @@ public class DrugInventoryController extends BaseController {
         return new Result(ResultCode.SUCCESS,"批量删除成功");
     }
     //更新药品库存
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        @PutMapping("/DrugInventory")
+
+    @PutMapping("/DrugInventory")
     public Result updateDrugInventory(DrugInventory drugInventory,@RequestParam("date") String dateStr ){
+        System.out.println("cvdfhfghgfhgh");
         drugInventoryService.updateDrugInventory(drugInventory,dateStr);
         return new  Result(ResultCode.SUCCESS);
     }
@@ -51,19 +54,19 @@ public class DrugInventoryController extends BaseController {
     @GetMapping("/DrugInventoryDate/{page}")
     public ModelAndView getDrugInventoryDate(Model model,@PathVariable("page") int page){
           model.addAttribute("drugInventories",drugInventoryService.getDrugInventoryDate(model,page));
-          return new ModelAndView();
+          return new ModelAndView("storageStock");
     }
     //查看有效期一个月内的清单
-    @GetMapping("/getMonthLimit")
+    @RequestMapping("/getMonthLimit")
     public ModelAndView delgetMonthLimit(Model model){
         model.addAttribute("drugInventories",drugInventoryService.getMonthLimit());
-        return new ModelAndView("");
+        return new ModelAndView("aMonth");
     }
     //查看未达到安全库存的清单
-    @GetMapping("/getUnsafeStorage/{page}")
+    @RequestMapping("/getUnsafeStorage/{page}")
     public ModelAndView getUnsafeStorage(Model model,@PathVariable("page") int page){
         model.addAttribute("drugInventories",drugInventoryService.getUnsafetyStock(model,page));
-        return new ModelAndView();
+        return new ModelAndView("Below");
     }
     //搜索库存下拉框
     @PostMapping("/keyword")
@@ -82,13 +85,14 @@ public class DrugInventoryController extends BaseController {
     @GetMapping("/searchStorage/{page}")
     public ModelAndView searchStorage(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
          model.addAttribute("drugInventories",drugInventoryService.searchStorage(model,drugName,page));
-         return new ModelAndView();
+         return new ModelAndView("drugStorage");
     }
     //搜索库存(按有效期)
     @GetMapping("/searchStorageDate/{page}")
     public ModelAndView searchStorageDate(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
-        model.addAttribute("sdrugInventories",drugInventoryService.searchStorage(model,drugName,page));
-        return new ModelAndView();
+
+        model.addAttribute("drugInventories",drugInventoryService.searchStorageDate(model,drugName,page));
+        return new ModelAndView("storageStock");
     }
     @GetMapping("storageLink/{storageId}")
     //点击下拉框链接查看数据

@@ -57,13 +57,13 @@ $(".batchDelete").on('click', function () {
 $(".addPatient").on('click', function () {
 
     // 添加  --  地址
-    var address = [];
-    address.splice(0,address.length);
-    var province = $('.province').val();//省
-    var city = $('.city').val();//市
-    var district = $('.district').val();//区
-    address.push(province+"-"+city+"-"+district);
-    $('.home_address').val(address);
+    // var address = [];
+    // address.splice(0,address.length);
+    // var province = $('.province').val();//省
+    // var city = $('.city').val();//市
+    // var district = $('.district').val();//区
+    // address.push(province+"-"+city+"-"+district);
+    // $('.home_address').val(address);
     // 性别
     var option_sex = $(".gender option:selected");
     var option_text = option_sex.text();
@@ -79,7 +79,7 @@ $(".addPatient").on('click', function () {
                 pinyin_code:$(".codePatient").val(),
                 patient_age: $(".agePatient").val(),
                 patient_phone:$('.phonePatient').val(),
-                home_address: $('.home_address').val()
+                home_address: $('.home_address1').val()
             },
             dataType: "JSON",
             success: function (data) {
@@ -108,12 +108,13 @@ $(".modify_add").on('click', function () {
     var patientCode = parent.children("td.patientCode").text();
     var patientAge = parent.children("td.patientAge").text();
     var patientPhone = parent.children("td.patientPhone").text();
+    var home_address2 = parent.children("td.patientAdress").text()
     $(".patient_number").val(patientId);
     $(".patient_name").val(patientName);
     $(".pinyin_code").val(patientCode);
     $(".patient_age").val(patientAge);
     $('.patient_phone').val(patientPhone);
-
+    $('.home_address2').val(home_address2);
     // 性别
     var options = $('.patient_Sex option');
     for (var i = 0; i < options.length; i++) {
@@ -123,38 +124,17 @@ $(".modify_add").on('click', function () {
             $(options[i]).attr("selected", false);
         }
     }
-
-    // 地区
-    // var address_province = $('.address_province option');
-    // // var address_city = $('.address_city option');
-    // // var address_district = $('.address_district option');
-    // for (var i = 0; i < address_province.length; i++) {
-    //     if ($(address_province[i]).text() == province) {
-    //         $(address_province[i]).attr("selected", true);
-    //     } else {
-    //         $(address_province[i]).attr("selected", false);
-    //     }
-    //
-    // }
-    // var str = node.location;
-    // var strs = new Array();
-    // strs = str.split("-");
-    // $('.provinces').val(strs[0]);
-    // $('.provinces').trigger("change");
-    // $('.citys').val(strs[1]);
-    // $('.citys').trigger("change");
-    // $('.districts').val(strs[2]);
 });
 
 // 修改患者
 $(".modify_patient").on('click', function () {
-    var map = [];
-    map.splice(0,map.length);
-    var provinces = $('.provinces').val();//省
-    var citys = $('.citys').val();//市
-    var districts = $('.districts').val();//区
-    map.push(provinces+"-"+citys+"-"+districts);
-    $('.home_add').val(map);
+    // var map = [];
+    // map.splice(0,map.length);
+    // var provinces = $('.provinces').val();//省
+    // var citys = $('.citys').val();//市
+    // var districts = $('.districts').val();//区
+    // map.push(provinces+"-"+citys+"-"+districts);
+    // $('.home_add').val(map);
 
     // 性别
     var optioned=$(".patient_Sex option:selected");
@@ -172,7 +152,7 @@ $(".modify_patient").on('click', function () {
                 pinyin_code:$(".pinyin_code").val(),
                 patient_age: $(".patient_age").val(),
                 patient_phone:$('.patient_phone').val(),
-                home_address: $('.home_add').val()
+                home_address: $('.home_address2').val()
             },
             dataType: "JSON",
             success: function (data) {

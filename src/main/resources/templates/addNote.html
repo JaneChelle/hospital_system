@@ -7,26 +7,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>邢氏诊所患者就诊记录及电子处方系统</title>
 		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />>
+		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
 		<link rel="stylesheet" th:href="@{/css/prescription.css}" />
-		<link rel="stylesheet" th:href="@{/css/popop.css}" />
+		<link rel="stylesheet" th:href="@{/css/popup.css}" />
 	</head>
 	<body>
 		<section>
 			<div class="fixed">
 				<div class="nav">
 					<span><b>添加就诊记录</b></span>
-					<button type="submit" class="label-info label_btn">添加</button>
+					<button type="submit" class="label-info label_btn add_note">添加</button>
 				</div>
 			</div>
 			<div style="width: 100%; height: 45px;"></div>
 			
 			<div class="all_inform">
 				<div class="list_item">
-					<div>
+					<div class="zDiv">
 						<p>
 							<span>处方名称</span>
-							<input type="text" name="" id="" value="" />
+							<input type="text" name="" class="note_pre" value="" />
 							<small>可根据拼音码选择已存在的处方，也可以填写系统不存在的处方</small>
 						</p>
 						<div class="search search-a">
@@ -61,15 +62,15 @@
 						</div>
 					</div>
 					
-					<div>
+					<div class="zDiv">
 						<p>
 							<span>患者名称</span>
-							<input type="text" name="" id="" value="" disabled="disabled"/>
-							<small>根据拼音码选择已存在的患者</small>
+							<input type="text" name="" value="" class="note_patient">
+							<small>可根据拼音码选择已存在的患者，也可以填写系统不存在的患者</small>
 						</p>
 						<div class="search search-a">
 							<form action="" method="post">
-								<input type="text" name="" id="" value="" placeholder="患者" required="required"/>
+								<input type="text" name="" value="" placeholder="患者" required="required"/>
 								<button type="submit"></button> 
 							</form>
 						</div>
@@ -99,11 +100,11 @@
 						</div>
 					</div>
 					
-					<div>
+					<div class="zDiv">
 						<p>
 							<span>疾病名称</span>
-							<input type="text" name="" id="" value="" disabled="disabled"/>
-							<small>根据拼音码选择已存在的疾病</small>
+							<input type="text" name=""  value="" class="note_disease"/>
+							<small>可根据拼音码选择已存在的疾病，也可以填写系统不存在的疾病</small>
 						</p>
 						<div class="search search-a">
 							<form action="" method="post">
@@ -142,4 +143,5 @@
 		</section>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/node.js}"></script>
 </html>

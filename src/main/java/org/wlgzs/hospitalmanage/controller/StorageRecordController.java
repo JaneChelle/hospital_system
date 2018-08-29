@@ -16,7 +16,7 @@ import org.wlgzs.hospitalmanage.util.ResultCode;
 public class StorageRecordController extends BaseController {
     //查看入库记录
     @GetMapping("/StorageRecord/{page}")
-    public ModelAndView getStorageRecord(Model model, @RequestParam("page") int page){
+    public ModelAndView getStorageRecord(Model model, @PathVariable("page") int page){
       model.addAttribute("storageList",storageRecordService.getStorageRecord(model,page));
       return  new ModelAndView("drugStorageRecord");
     }

@@ -127,15 +127,15 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescriptionDrugMapper.insert(prescriptionDrug);
             } else {
                 //说明该药品已经选择过
-                if (a != -1) {
-                    //原来的数量
-                    BigDecimal decimalDrug = new BigDecimal(prescriptionDrug1.getNumber());
-                    //添加的
-                    BigDecimal newDecimalDrug = new BigDecimal(prescriptionDrug.getNumber());
+                //原来的数量
+                BigDecimal decimalDrug = new BigDecimal(prescriptionDrug1.getNumber());
+                //添加的
+                BigDecimal newDecimalDrug = new BigDecimal(prescriptionDrug.getNumber());
+                int b = bigDecimal1.compareTo(decimalDrug.add(newDecimalDrug));
+                if (b != -1) {
                     //修改的
                     prescriptionDrug1.setNumber(decimalDrug.add(newDecimalDrug).toString());
                     prescriptionDrug1.setPrice_one(decimalDrug.add(newDecimalDrug).multiply(drug.getUnit_price()));
-
                     prescriptionDrugMapper.updateByPrimaryKey(prescriptionDrug1);
                 } else {
                     return new Result(ResultCode.FAIL, "数量不应大于库存！");

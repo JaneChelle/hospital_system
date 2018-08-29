@@ -1,4 +1,4 @@
-
+// 弹框
 $(document).ready(function(){
     for(let i=1; i<=4; i++){
         $('.modify_'+i).click(function(){
@@ -23,4 +23,4 @@ $(document).ready(function(){
             })
         })
     }
-})
+});

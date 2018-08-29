@@ -52,6 +52,7 @@
 		                    <th>检查</th>
 		                    <th>治疗</th>
 		                    <th>总价</th>
+							<th>操作</th>
 		                </tr>
 	                </thead>
 	                <tbody>
@@ -66,11 +67,12 @@
 	                		<td th:text="${prescription.is_drug}">有</td>
 	                		<td th:text="${prescription.is_check}">有</td>
 	                		<td th:text="${prescription.is_treatment}">有</td>
+							<td th:text="${prescription.price_all}"></td>
 	                		<td>
 	                			<button>
 	                				<a id="see" th:href="@{/prescription/findPrescriptionById/(prescriptionId=${prescription.prescription_id})}">查看</a>
 	                			</button>
-								<button id="delete" class="delete">删除</button>
+								<button id="delete" class="delete deletePre">删除</button>
 	                		</td>
 	                	</tr>
 	                </tbody>
