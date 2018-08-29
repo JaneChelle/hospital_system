@@ -173,41 +173,65 @@ function spainner(){
     });
 }
 //批量删除
-$('.Batchdelet').on('click',function () {
-    if (confirm('确认要删除吗?')){
-        $.ajax({
-            type: "post",
-            url: "/drug/drugs",
-            data: {
-                'drugCodes':$('.browider').val()
-            },
-            async: false,
-            success: function (data) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
-                //alert(data.msg)
-            },
-            error: function (data) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
-
-                alert(data.msg)
-            }
-        });
-    }else{
-        return false;
-
+function allchk(){
+    var listarr = [];
+    listarr.splice(0,listarr.length);
+    var list=$('.selectall');
+    for (var x = 0; x < list.length; x++) {
+        if(list[x].checked==true){
+            var del =$(list[x]).val();
+            listarr.push(del);
+            $('.browider').val(listarr);
+            console.log( $('.browider').val());
+        }
     }
+}
+$('.Batchdelet').on('click',function () {
+    // alert('222');
+    // allchk();
+    // if($('.browider').val()!='') {
+       // alert('111');
+        if (confirm('确认要删除吗?')) {
+            $.ajax({
+                type: "post",
+                url: "/drug/drugs",
+                data: {
+                    'drugCodes': $('.browider').val()
+                },
+                async: false,
+                success: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                    //alert(data.msg)
+                },
+                error: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+
+                    alert(data.msg)
+                }
+            });
+        } else {
+            return false;
+
+        }
+    // }else{
+    //     $('.cure').addClass('uu');
+    //     $('.cure').html('请先选择要删除的项');
+    //     setTimeout(function () {
+    //         $('.cure').css('display', 'none');
+    //     }, 2000);
+    // }
 });

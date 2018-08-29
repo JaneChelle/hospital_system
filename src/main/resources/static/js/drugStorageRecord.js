@@ -39,41 +39,50 @@ $('.delete').on('click',function () {
 });
 //批量删除
 $('.duoshan').on('click',function () {
-    if (confirm('确认要删除吗?')){
-        $.ajax({
-            type: "post",
-            url: "/StorageRecord/StorageRecord",
-            data: {
-                'storageIds':$('.browider').val()
-            },
-            async: false,
-            success: function (data) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
-                //alert(data.msg)
-            },
-            error: function (data) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
+    allchk();
+    if($('.browider').val()!='') {
+        if (confirm('确认要删除吗?')) {
+            $.ajax({
+                type: "post",
+                url: "/StorageRecord/StorageRecord",
+                data: {
+                    'storageIds': $('.browider').val()
+                },
+                async: false,
+                success: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                    //alert(data.msg)
+                },
+                error: function (data) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').css('display', 'none');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
 
-                alert(data.msg)
-            }
-        });
+                    alert(data.msg)
+                }
+            });
+        } else {
+            return false;
+
+        }
     }else{
-        return false;
-
+        $('.cure').addClass('uu');
+        $('.cure').html('请先选择要删除的项');
+        setTimeout(function () {
+            $('.cure').css('display', 'none');
+        }, 2000);
     }
 });
 //搜索
