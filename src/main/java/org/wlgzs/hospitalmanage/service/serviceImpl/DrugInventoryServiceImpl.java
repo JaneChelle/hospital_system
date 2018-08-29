@@ -111,7 +111,8 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             totalDrugInventory.setIs_safety_stock(1);
         }
         drugInventoryMapper.deleteInventory(drugInventoryId);
-        drugInventoryMapper.update(totalDrugInventory);
+
+        drugInventoryMapper.updatenIventory(totalDrugInventory);
     }
     //批量删除库存
     public void deleteDrugInventories(int[] drugInventories){

@@ -36,7 +36,7 @@ public class StorageRecordController extends BaseController {
     @PostMapping("/searchStorageRecord")
     public ModelAndView searchStorageRecord(Model model,@RequestParam("drugName") String drugName){
             model.addAttribute("stroages",storageRecordService.searchStorageRecord(drugName));
-        return new ModelAndView("");
+        return new ModelAndView("drugStorageRecord");
     }
     //搜索库存记录下拉框
     @PostMapping("/keyword")
@@ -47,6 +47,6 @@ public class StorageRecordController extends BaseController {
     @RequestMapping("/recordLink/{recordId}")
     public ModelAndView recordLink(Model model, @RequestParam("recordId") int recordId){
          model.addAttribute("storageList",storageRecordService.recordLink(recordId));
-         return new ModelAndView();
+         return new ModelAndView("drugStorageRecord");
     }
 }

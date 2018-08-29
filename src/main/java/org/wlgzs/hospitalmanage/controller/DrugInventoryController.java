@@ -39,7 +39,6 @@ public class DrugInventoryController extends BaseController {
 
     @PutMapping("/DrugInventory")
     public Result updateDrugInventory(DrugInventory drugInventory,@RequestParam("date") String dateStr ){
-        System.out.println("cvdfhfghgfhgh");
         drugInventoryService.updateDrugInventory(drugInventory,dateStr);
         return new  Result(ResultCode.SUCCESS);
     }
@@ -98,7 +97,7 @@ public class DrugInventoryController extends BaseController {
     //点击下拉框链接查看数据
     public ModelAndView storageLink(Model model, @PathVariable("storageId") int storageId){
         model.addAttribute("drugInventories",drugInventoryService.storageLink(storageId));
-        return new ModelAndView();
+        return new ModelAndView("drugStorage");
 
     }
 

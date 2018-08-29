@@ -34,7 +34,7 @@ public class StorageRecordServiceImpl implements StorageRecordService {
     }
     //删除入库记录
     public void deleteStorage(int storageId){
-        storageRecordMapper.deleteByPrimaryKey(storageId);
+        storageRecordMapper.deleteInventory(storageId);
     }
     //批量删除库存记录
     public void deleteStorages(int[] storageIds){
