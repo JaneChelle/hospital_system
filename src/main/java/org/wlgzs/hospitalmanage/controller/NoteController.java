@@ -41,7 +41,7 @@ public class NoteController extends BaseController {
     public ModelAndView detailsNote(Model model,int note_id){
         Note note = noteService.detailsNote(note_id);
         model.addAttribute("note",note);
-        return new ModelAndView("detailsNote");
+        return new ModelAndView("viewNote");
     }
 
     //删除记录
@@ -61,10 +61,11 @@ public class NoteController extends BaseController {
     @RequestMapping(value = "/findNote")
     public ModelAndView findPrescription(Model model, @RequestParam(value = "page", defaultValue = "0") int page
             , @RequestParam(value = "findName", defaultValue = "") String findName) {
+        System.out.println("findName"+findName);
         List<Note> noteList = noteService.findNote(findName, page);
         model.addAttribute("findName", findName);
         model.addAttribute("noteList", noteList);
-        return new ModelAndView("note");
+        return new ModelAndView("detailsNote");
     }
 
     //跳转到查询价格页面

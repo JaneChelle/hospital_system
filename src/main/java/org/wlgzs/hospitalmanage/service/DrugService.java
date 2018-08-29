@@ -11,13 +11,20 @@ import java.util.List;
  * @date 2018/8/14 21:25
  */
 public interface DrugService {
-    List<Drug> getDrugs(Model model,int page);
+    List<Drug> getDrugs(Model model, int page);
+
     boolean addDrug(Drug drug);
+
     void updateDrug(Drug drug);
+
     void deleteDrug(int drugCode);
+
     List<Drug> keyword(@RequestParam("drugName") String drugName);
-    List searchDrug(Model model,@RequestParam("drugName") String drugName,int page);
-    Drug toView(int drugId);
-    void deleteDrugs(@RequestParam("drugCodes") int[] drugCodes );
+
+    List searchDrug(Model model, @RequestParam("drugName") String drugName, int page);
+
+    Drug toView(Model model, int drugId);
+
+    void deleteDrugs(@RequestParam("drugCodes") int[] drugCodes);
 
 }

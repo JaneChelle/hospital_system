@@ -141,6 +141,7 @@ public class PrescriptionController extends BaseController {
     //删除检查明细
     @RequestMapping(value = "/prescription/deleteCheck")
     public Result deleteCheck(int checkId) {
+
         return prescriptionService.deleteCheck(checkId);
     }
 
@@ -153,7 +154,8 @@ public class PrescriptionController extends BaseController {
     //跳转到添加治疗方案(搜索)
     @RequestMapping(value = "/prescription/toAddTreatment")
     public ModelAndView toAddTreatment(Model model, HttpSession session,
-                                       @RequestParam(value = "findName", defaultValue = "") String findName) {
+                                       @RequestParam(value = "findName", defaultValue = "") String findName,
+                                       @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Treatment> treatmentList = treatmentService.findTreatment(findName, 0);
         //搜索已经加入的治疗
         List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(session);
@@ -163,6 +165,7 @@ public class PrescriptionController extends BaseController {
         System.out.println("treatmentList" + treatmentList);
         System.out.println("findName" + findName);
         model.addAttribute("treatmentList", treatmentList);
+        model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionTherapy");
     }
 
@@ -176,6 +179,7 @@ public class PrescriptionController extends BaseController {
     //删除治疗明细
     @RequestMapping(value = "/prescription/deleteTreatment")
     public Result deleteTreatment(int treatmentId) {
+
         return prescriptionService.deleteTreatment(treatmentId);
     }
 
@@ -191,10 +195,12 @@ public class PrescriptionController extends BaseController {
                              @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         int prescription_id = Integer.parseInt((String) session.getAttribute("prescription_id"));
         prescriptionService.totalPrice(prescription_id);
+        System.out.println("isModify=="+isModify);
         if(isModify.equals("is")){
-            return new Result(ResultCode.SUCCESS);
+            System.out.println("prescription_id"+prescription_id);
+            return new Result(ResultCode.isModify,prescription_id);
         }
-        return new Result(ResultCode.isModify);
+        return new Result(ResultCode.SUCCESS);
 //        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescription_id="+prescription_id);
     }
 

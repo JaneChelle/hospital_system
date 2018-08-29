@@ -33,10 +33,12 @@
             <p>
                 <span>处方治疗</span>
                 <button class="item_lists">
-                    <b>
-                        <b class="add_item">
-                            <b>确认</b>
-                        </b>
+                    <b th:if="${isModify} ne 'is'">
+                        <b class="add_item">确认</b>
+                    </b>
+
+                    <b th:if="${isModify} eq 'is'">
+                        <b class="is_modifyDrug">确定</b>
                     </b>
                 </button>
             </p>
@@ -112,19 +114,18 @@
     <div class="add_infor">
         <div class="adiv1">
             <div>
-                <b>处方总价已生成</b>
+                <b style="color: #000">处方总价已生成</b>
+                <span class="cancel_1 cha"><i class="fa fa-times"></i></span>
             </div>
             <div style="height: 32px;"></div>
             <div style="margin: 18px 0;">
-                <button class="price_all" style="background-color: #5BC0DE;">下一步</button>
+                <button class="price_allPre">下一步</button>
             </div>
         </div>
         <div class="adiv2" style="display: none;">
             <h3>
                 是否生成就诊记录?
-                <span class="cancel_1 cha">
-							<i class="fa fa-times"></i>
-						</span>
+                <span class="cancel_1 cha"><i class="fa fa-times"></i></span>
             </h3>
             <div class="popup_bottom">
                 <div style="height: 32px;"></div>
@@ -140,6 +141,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="test_treatment" th:value="${isModify}">
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/preDrug.js}"></script>
