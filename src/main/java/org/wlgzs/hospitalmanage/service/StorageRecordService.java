@@ -18,4 +18,5 @@ public interface StorageRecordService {
     void deleteStorages(int[] storageIds);
     List<StorageRecord> searchStorageRecord(String drug_name);
     List<StorageRecord> keyword(String drug_name);
+    StorageRecord recordLink( int recordId);
 }
