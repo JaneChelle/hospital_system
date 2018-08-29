@@ -39,10 +39,9 @@
                             <b>下一步</b>
                         </a>
                     </b>
+
                     <b th:if="${isModify} eq 'is'">
-                        <a th:href="@{/prescription/totalPrice}">
-                            <b>确定</b>
-                        </a>
+                        <b class="is_modifyDrug">确定</b>
                     </b>
                 </button>
             </p>
@@ -111,7 +110,7 @@
         </div>
     </div>
 </section>
-<input type="hidden" id="test" th:value="${isModify}"></input>
+<input type="hidden" id="test" th:value="${isModify}">
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/preDrug.js}"></script>

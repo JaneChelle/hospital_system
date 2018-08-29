@@ -33,7 +33,7 @@ $(".batchDelete").on('click', function () {
     var x = confirm("您确定要删除吗？");
     if(x == true){
         $.ajax({
-            url: "/deleteDiseaseByIds",
+            url: "/disease/deleteDiseaseByIds",
             data: {
                 DiseaseIds:$('.browider').val(),
             },
