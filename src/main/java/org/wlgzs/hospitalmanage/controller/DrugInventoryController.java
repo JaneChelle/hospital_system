@@ -32,6 +32,7 @@ public class DrugInventoryController extends BaseController {
     //批量删除药品库存
     @PostMapping("/DrugInventorys")
     public Result deleteDrugInventorys(@RequestParam("drugInventorys") int[] drugInventorys){
+
         drugInventoryService.deleteDrugInventories(drugInventorys);
         return new Result(ResultCode.SUCCESS,"批量删除成功");
     }
@@ -45,14 +46,16 @@ public class DrugInventoryController extends BaseController {
     //查看药品库存(总库存量)
     @GetMapping("/DrugInventory/{page}")
     public ModelAndView getDrugInventory(Model model,@PathVariable("page") int page ){
-      List<DrugInventory> drugInventories =  drugInventoryService.getDrugInventory(page);
+      List<DrugInventory> drugInventories =  drugInventoryService.getDrugInventory(model,page);
       model.addAttribute("drugInventories",drugInventories);
+        model.addAttribute("isSearch",0);
       return new ModelAndView("drugStorage");
     }
     //查看药品库存(按有效期)
     @GetMapping("/DrugInventoryDate/{page}")
     public ModelAndView getDrugInventoryDate(Model model,@PathVariable("page") int page){
           model.addAttribute("drugInventories",drugInventoryService.getDrugInventoryDate(model,page));
+        model.addAttribute("isSearch",0);
           return new ModelAndView("storageStock");
     }
     //查看有效期一个月内的清单
@@ -84,13 +87,16 @@ public class DrugInventoryController extends BaseController {
     @GetMapping("/searchStorage/{page}")
     public ModelAndView searchStorage(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
          model.addAttribute("drugInventories",drugInventoryService.searchStorage(model,drugName,page));
+        model.addAttribute("isSearch",1);
+        model.addAttribute("drugName",drugName);
          return new ModelAndView("drugStorage");
     }
     //搜索库存(按有效期)
     @GetMapping("/searchStorageDate/{page}")
     public ModelAndView searchStorageDate(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page){
-
+        model.addAttribute("isSearch",1);
         model.addAttribute("drugInventories",drugInventoryService.searchStorageDate(model,drugName,page));
+        model.addAttribute("drugName",drugName);
         return new ModelAndView("storageStock");
     }
     @GetMapping("storageLink/{storageId}")

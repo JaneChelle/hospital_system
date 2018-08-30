@@ -25,11 +25,11 @@ public class StorageRecordServiceImpl implements StorageRecordService {
     }
     //查询所有入库记录
     public List<StorageRecord> getStorageRecord(Model model,int page){
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page,8);
         List<StorageRecord> storageRecordList = storageRecordMapper.getAll();
         int count = storageRecordMapper.getcount();
-        model.addAttribute("pages",Math.ceil(count/10.0));
-        model.addAttribute("page",page);
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
         return storageRecordList;
     }
     //删除入库记录
@@ -52,7 +52,8 @@ public class StorageRecordServiceImpl implements StorageRecordService {
     }
 
     public StorageRecord recordLink( int recordId){
-        StorageRecord storageRecord = storageRecordMapper.selectByPrimaryKey(recordId);
+        System.out.println("cfdf"+recordId);
+        StorageRecord storageRecord = storageRecordMapper.selectStorage(recordId);
         return storageRecord;
     }
 }

@@ -19,4 +19,7 @@ public interface StorageRecordMapper extends Mapper<StorageRecord> {
     List<StorageRecord> search(String drug_name );
     @Delete("DELETE FROM tb_storage_record WHERE record_number=#{0}")
     void deleteInventory(int record_number);
+    @Select("SELECT * FROM tb_storage_record WHERE record_number=#{0}")
+    StorageRecord selectStorage(int record_number);
+
 }

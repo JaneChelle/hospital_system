@@ -20,6 +20,7 @@ public class DrugController extends BaseController {
     // 查询药物
     public ModelAndView getDrugs(Model model, @PathVariable("page") int page) {
         model.addAttribute("drugs", drugService.getDrugs(model,page));
+        model.addAttribute("isSearch",0);
         return new ModelAndView("drug");
     }
     //进入添加药物页面
@@ -86,6 +87,8 @@ public class DrugController extends BaseController {
     @GetMapping("/searchdrug/{page}")
     public ModelAndView searchDrug(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page ) {
         model.addAttribute("drugs", drugService.searchDrug(model,drugName ,page));
+        model.addAttribute("isSearch",1);
+        model.addAttribute("drugName",drugName);
         return new ModelAndView("drug");
     }
 }

@@ -17,5 +17,7 @@ public interface DrugAttributeMapper extends Mapper<DrugAttribute> {
     List<DrugAttribute> searchAttribute(@Param("attribute_name") String attribute_name,@Param("distinction") int distinction);
     @Select("SELECT * FROM  tb_drug_attribute WHERE attribute_name  LIKE CONCAT('%',#{attribute_name},'%') limit 10   ")
     List<DrugAttribute> keyword(@Param("attribute_name") String attribute_name);
+    @Select("SELECT COUNT(*) FROM tb_drug_attribute WHERE attribute_distinction =#{distinction}")
+    int getAttributeCount(int distinction);
 
 }

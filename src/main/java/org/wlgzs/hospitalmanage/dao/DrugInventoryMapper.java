@@ -29,9 +29,12 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is not null")
     List<DrugInventory> getAllnotnull();
 
-
-    @Select(" SELECT COUNT(*) FROM  tb_drug_inventory ")
+    //获取总库存数据的数量
+    @Select(" SELECT COUNT(*) FROM  tb_drug_inventory WHERE valid_period is null ")
     int getcount();
+    //获取分库存数据的数量
+    @Select(" SELECT COUNT(*) FROM  tb_drug_inventory WHERE valid_period is null ")
+    int getcountDate();
 
     @Delete("DELETE FROM tb_drug_inventory WHERE stock_number=#{0} and valid_period is not null ")
     void deleteInventory(int stock_number);
@@ -53,10 +56,17 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     @Select("SELECT * FROM tb_drug_inventory WHERE ( drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is  null ")
     List<DrugInventory> searchStroage(String drugName);
 
+    //搜索总的药品库存总数
+    @Select("SELECT COUNT(*) FROM tb_drug_inventory WHERE ( drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is  null ")
+    int searchStroageCount(String drugName);
+
     //搜索药品库存(有效期)
     @Select("SELECT * FROM tb_drug_inventory WHERE  (drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is not null  ")
     List<DrugInventory> searchStroageDate(String drugName);
 
+    //搜索药品库存(有效期)总数
+    @Select("SELECT * FROM tb_drug_inventory WHERE  (drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is not null  ")
+    int searchStroageDateCount(String drugName);
     @Select("SELECT * FROM tb_drug_inventory WHERE ( drug_name LIKE CONCAT('%',#{0},'%') or pinyin_code  LIKE CONCAT('%',#{0},'%')) and valid_period is  null  limit 10")
     List<DrugInventory> keyword(String drugName);
 
