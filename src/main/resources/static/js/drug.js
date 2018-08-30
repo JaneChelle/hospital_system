@@ -218,7 +218,23 @@ var tableCont = document.querySelector('.section_table');
                 var valid_period=$('.jeinput').val();
                 console.log('库存量：'+storage_amount);
                 console.log('有效期：'+valid_period);
-                if(storage_amount!='' && valid_period!=''){
+                // if(storage_amount!='' && valid_period!=''){
+                if(storage_amount==''){
+                    $('.cure').addClass('uu');
+                    $('.cure').html('库存量不能为空');
+                    setTimeout(function () {
+                        $('.cure').removeClass('uu');
+                        $('.cure').html('');
+
+                    }, 2000);
+                }else if(valid_period==''){
+                    $('.cure').addClass('uu');
+                    $('.cure').html('有效期不能为空');
+                    setTimeout(function () {
+                        $('.cure').removeClass('uu');
+                        $('.cure').html('');
+                    }, 2000);
+                }else{
                     $.ajax({
                         type: "post",
                         url: "/DrugInventory/DrugInventory",
@@ -230,6 +246,7 @@ var tableCont = document.querySelector('.section_table');
                         },
                         async: false,
                         success: function (data) {
+                            $('.window1_popup').css('display','none');
                             $('.cure').addClass('uu');
                             $('.cure').html(data.msg);
                             setTimeout(function () {
@@ -242,17 +259,19 @@ var tableCont = document.querySelector('.section_table');
                         },
                         error: function (data) {
                             $('.cure').addClass('uu');
-                            $('.cure').html(data.msg);
+                            $('.cure').html('填写格式不正确');
                             setTimeout(function () {
                                 $('.cure').css('display', 'none');
                             }, 2000);
                             setTimeout(function () {
                                 location.reload(true);
-                            }, 1000);
+                            }, 1500);
 
-                            alert(data.msg)
+                            //alert(data.msg)
                         }
                     });
                 }
+
+                // }
             });
         });

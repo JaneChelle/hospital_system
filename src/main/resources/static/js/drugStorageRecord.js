@@ -109,7 +109,7 @@ function spainner(){
             if(data.code==0){
                 $('.spinners').html(" ");
                 for (var i=0;i<datas.length;i++){
-                    var aa="<a href=/StorageRecord/StorageRecord/1/"+ datas[i].drug_code+ " >"+datas[i].drug_name+ "</a>"+'</br>';
+                    var aa="<a href=/StorageRecord/recordLink/"+datas[i].record_number+">"+datas[i].drug_name+ "</a>"+'</br>';
                     $('.spinners').append(aa);
                 }
             }else{

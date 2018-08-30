@@ -37,12 +37,11 @@ public class DrugServiceImpl implements DrugService {
     @Resource
     DrugInventoryMapper drugInventoryMapper;
    public List<Drug> getDrugs(Model model,int page){
-       PageHelper.startPage(page, 10);
-       int count = drugMapper.getcount();
-       int pages = (int) Math.ceil(count/10.0);
-       model.addAttribute("page",page);
-       model.addAttribute("pages",pages);
+       PageHelper.startPage(page, 8);
        List<Drug> drugList  = drugMapper.selectAll();
+       int count = drugMapper.getcount();
+       model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+       model.addAttribute("Number",page);
        return drugList;
     }
    public boolean addDrug(Drug drug){                 //添加药品
@@ -85,11 +84,12 @@ public class DrugServiceImpl implements DrugService {
                 return drugList;
    }
    public List searchDrug(Model model, @RequestParam("drugName") String drugName, int page){
-       PageHelper.startPage(page,10);
+       PageHelper.startPage(page,8);
        List<Drug> drugList = drugMapper.searchName(drugName);
-       int count = drugMapper.getcount();
-       model.addAttribute("pages",Math.ceil(count/10.0));
-       model.addAttribute("page",page);
+       int count = drugMapper.nameCount(drugName);
+       System.out.println(count);
+       model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+       model.addAttribute("Number",page);
            return drugList;
    }
    public Drug toView(Model model, int drugId ) {
