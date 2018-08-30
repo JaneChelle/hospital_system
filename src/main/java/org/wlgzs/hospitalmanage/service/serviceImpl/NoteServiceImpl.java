@@ -127,4 +127,11 @@ public class NoteServiceImpl implements NoteService {
         return new Result(ResultCode.SUCCESS, noteList, total_price);
     }
 
+    //按时间查询某个药品的使用情况
+    @Override
+    public Result drugUsage(String time, String drugName) {
+
+        return null;
+    }
+
 }
