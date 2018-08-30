@@ -40,5 +40,7 @@ public interface DrugInventoryService {
 
      List<DrugInventory> keywordDate(String drugName);
 
+     DrugInventory storageLink(int storageId);
+
 
 }
