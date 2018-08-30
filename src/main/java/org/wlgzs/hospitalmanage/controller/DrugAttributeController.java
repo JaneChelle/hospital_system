@@ -39,7 +39,6 @@ public class DrugAttributeController extends BaseController {
         boolean isAdd = drugAttributeService.addAttribute(drugAttribute);
         System.out.println(isAdd);
         if (isAdd) {
-            System.out.println(isAdd+"+++++++++++++++++++++++++++++++++++");
             return new Result(ResultCode.SUCCESS, "添加成功");
         }
         else {

@@ -74,5 +74,10 @@ public class PatientServiceImpl implements PatientService {
         return drugList;
 
     }
+    public Patient  patinetLink(int patientId){
+        Patient patient = patientMapper.getPatient(patientId);
+        return patient;
+    }
+
 
 }

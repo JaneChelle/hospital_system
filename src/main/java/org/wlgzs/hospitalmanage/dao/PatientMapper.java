@@ -21,6 +21,8 @@ public interface PatientMapper extends Mapper<Patient>{
     List<Patient> searchName(String patientName);
     @Select(" SELECT COUNT(*) FROM  tb_patient ")
     int getcount();
+    @Select("SELECT * FROM tb_patient WHERE patient_number "  )
+    Patient getPatient(int patient_number );
 
 
 }

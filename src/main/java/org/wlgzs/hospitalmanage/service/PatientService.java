@@ -26,6 +26,8 @@ public interface PatientService {
 
     void deletePatients(int[] patients);
 
+    Patient patinetLink(int patientId);
+
 
 
 

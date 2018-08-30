@@ -65,4 +65,11 @@ public class PatientController extends BaseController {
         model.addAttribute("patients",patientService.searchPatient(model,patientAttribute,page));
         return new ModelAndView("patientManagement");
     }
+    //患者下拉框数据连接
+    @GetMapping("/patinetLink/{patientId}")
+    public ModelAndView patinetLink(Model model,@PathVariable("patientId") int patientId){
+        model.addAttribute("patients",patientService.patinetLink(patientId));
+        return new ModelAndView("patientManagement");
+    }
+
 }
