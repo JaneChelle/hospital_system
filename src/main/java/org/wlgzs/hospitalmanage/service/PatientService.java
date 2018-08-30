@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public interface PatientService {
-     List<Patient> getPatients(int page);
+     List<Patient> getPatients(Model model,int page);
 
     void savePatient(Patient patient, HttpSession session);
 

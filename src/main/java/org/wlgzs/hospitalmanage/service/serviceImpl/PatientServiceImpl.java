@@ -23,9 +23,14 @@ public class PatientServiceImpl implements PatientService {
     PatientMapper patientMapper;
 
     //查询患者
-    public List<Patient> getPatients(int page) {
-        PageHelper.startPage(page, 10);
+    public List<Patient> getPatients(Model model, int page) {
+        PageHelper.startPage(page, 8);
         List<Patient> patients = patientMapper.selectAll();
+        int count = patientMapper.getcount();
+        int pages = (int) Math.ceil(count/8.0);
+        model.addAttribute("Number",page);
+        model.addAttribute("TotalPages",pages);
+
         System.out.println(patients);
 
         return patients;
@@ -79,11 +84,12 @@ public class PatientServiceImpl implements PatientService {
     }
    //根据条件模糊搜索患者
     public List<Patient> searchPatient(Model model, String patientAttribute, int page) {
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page,8);
         List<Patient> drugList = patientMapper.searchName(patientAttribute);
-        int count = patientMapper.getcount();
-        model.addAttribute("pages",Math.ceil(count/10.0));
-        model.addAttribute("page",page);
+        int count = patientMapper.searchNameCount(patientAttribute);
+        model.addAttribute("Number",page);
+        int pages = (int) Math.ceil(count/8.0);
+        model.addAttribute("TotalPages",pages);
         return drugList;
 
     }

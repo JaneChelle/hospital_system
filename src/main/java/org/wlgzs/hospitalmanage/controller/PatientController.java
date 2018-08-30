@@ -22,9 +22,10 @@ public class PatientController extends BaseController {
     @GetMapping("/patient/{page}")
     public ModelAndView getPatients(Model model,
                                     @PathVariable("page") int page,@RequestParam(value = "sign",defaultValue = "") String sign) {
-        List<Patient> patients = patientService.getPatients(page);
+        List<Patient> patients = patientService.getPatients(model,page);
         model.addAttribute("patients",patients);
         model.addAttribute("sign",sign);
+        model.addAttribute("isSearch",0);
         return new ModelAndView("patientManagement");
 
     }
@@ -65,6 +66,8 @@ public class PatientController extends BaseController {
     @GetMapping("/searchpatient/{page}")
     public ModelAndView searchPatient(Model model,@PathVariable("page") int page, @RequestParam("patientAttribute") String patientAttribute) {
         model.addAttribute("patients",patientService.searchPatient(model,patientAttribute,page));
+        model.addAttribute("isSearch",1);
+        model.addAttribute("patientAttribute",patientAttribute);
         return new ModelAndView("patientManagement");
     }
 
