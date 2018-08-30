@@ -107,4 +107,5 @@ public class TreatmentServiceImpl implements TreatmentService {
         treatmentMapper.deleteTreatmentByIds(Ids);
         return new Result(ResultCode.SUCCESS);
     }
+
 }

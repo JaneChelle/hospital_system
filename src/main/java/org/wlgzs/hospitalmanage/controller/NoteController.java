@@ -82,11 +82,11 @@ public class NoteController extends BaseController {
     }
 
     //按时间查询某个药品的使用情况
-//    @RequestMapping("/drugUsage")
-//    public Result drugUsage(String time ,
-//                            @RequestParam(value = "drugName",defaultValue = "") String drugName){
-//
-//    }
+    @RequestMapping("/drugUsage")
+    public Result drugUsage(String time,
+                            @RequestParam(value = "drugName",defaultValue = "") String drugName){
+        return noteService.drugUsage(time,drugName);
+    }
 
 
 }
