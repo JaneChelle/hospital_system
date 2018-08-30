@@ -20,8 +20,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="" method="post">
-							<input type="text" name="" id="" value="" required="required"/>
+						<form action="/StorageRecord/searchStorageRecord" method="post">
+							<input type="text"  name="drugName" class="drugName" required="required" placeholder="请输入药品名字" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -29,14 +29,16 @@
 						<input type="button" value="全选" id="selectAll">
 						<!--<input type="button" value="全不选" id="unSelect">-->  
 						<input type="button" value="反选" id="reverse"> 
-						<input type="button" value="批量删除">
+						<input type="button" value="批量删除" class="duoshan">
+						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
-					<button class="label-info">
-						<b>
-							<a href="addDrugStorageRecord.html">添加</a>
-						</b>
-					</button>
+				</div>
+				<div class="spin">
+					<div class="spinners">
+						<!--<a href="">dhfbdh</a>-->
+						<!--<a href="">ddvkn</a>-->
+					</div>
 				</div>
 			</div>
 			<div class="same_fixed"></div>
@@ -45,9 +47,9 @@
 					<thead>
 		                <tr>
 		                	<th>选择</th>
-		                	<th>编号</th>
+		                	<th>记录编号</th>
 		                	<th>药品编码</th>
-		                    <!--<th>操作员编码</th>-->
+		                    <th>药品名称</th>
 		                    <th>入库量</th>
 		                    <th>入库日期</th>
 		                    <th>有效期</th>
@@ -55,145 +57,30 @@
 		                </tr>
 	                </thead>
 	                <tbody>
-	                	<tr>
+	                	<tr th:each="storageList:${storageList}">
 	                		<td>
-	                			<input type="checkbox" id="awesome2" value="1"/>
-								<label for="awesome2"></label>
+	                			<input type="checkbox" th:id="${storageList.record_number}" th:value="${storageList.record_number}"/>
+								<label th:for="${storageList.record_number}"></label>
 	                		</td>
-	                		<td>E133</td>
-	                		<td></td>
-	                		<!--<td></td>-->
-	                		<td></td>
-	                		<td></td>
-	                		<td></td>
+	                		<td th:text="${storageList.record_number}" class="record_number">E133</td>
+	                		<td th:text="${storageList.drug_code}"></td>
+	                		<td th:text="${storageList.drug_name}"></td>
+	                		<td th:text="${storageList.receipt}"></td>
+	                		<td th:text="${#dates.format(storageList.inbound_date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+	                		<td th:text="${#dates.format(storageList.valid_period, 'yyyy-MM-dd')}"></td>
+
 	                		<td>
-	                			<button id="modify" class="modify_add">修改</button>
-	                			<button id="delete">删除</button>
+	                			<!--<button id="modify" class="modify_add">修改</button>-->
+	                			<button id="delete" class="delete">删除</button>
 	                		</td>
 	                	</tr>
 	                </tbody>
 				</table>
 			</div>
 		</section>
-		<!--弹窗-->
-		
-		<!--添加-->
-		<div class="window1_popup">
-			<div class="add_infor">
-				<h3>添加药品入库记录</h3>
-				<div class="popup_table">
-					<form action="" method="post">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-				                    <th>编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
-				                <tr>
-				                	<th>药品编码</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-				                <!--<tr>
-				                	<th>操作员编码</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>-->
-				                 <tr>
-				                	<th>入	库	量</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-				                <tr>
-				                	<th>库	存	量</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-				               
-				                <tr>
-				                	<th>入库日期</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-				                <tr>
-				                	<th>有	效	期</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-							</thead>
-						</table>
-						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
-							<input type="submit" value="添加"/>
-							<input type="button" name="" class="cancel_1" value="取消" />
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-		
-		<!--修改-->
-		<div class="window2_popup">
-			<div class="inform">
-				<h3>修改药品入库记录</h3>
-				<div class="popup_table">
-					<form action="" method="post">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-				                    <th>编号</th>
-				                    <td>
-				                    	<input type="" name="" id="" value="" required="required"/>
-				                    </td>
-				                <tr>
-				                	<th>药品编码</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-				                <!--<tr>
-				                	<th>操作员编码</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>-->
-				                 <tr>
-				                	<th>入	库	量</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-				                <tr>
-				                	<th>入库日期</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-				                <tr>
-				                	<th>有	效	期</th>
-				                	<td>
-				                		<input type="" name="" id="" value="" required="required"/>
-				                	</td>
-				                </tr>
-							</thead>
-						</table>
-						<div class="popup_bottom">
-							<input type="reset" name="" id="" value="重置" />
-							<input type="submit" value="修改"/>
-							<input type="button" name="" class="cancel_2" value="取消" />
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
+<div class="cure"></div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}" ></script>
 	<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
+	<script th:src="@{/js/drugStorageRecord.js}"></script>
 </html>

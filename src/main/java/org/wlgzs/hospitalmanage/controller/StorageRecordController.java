@@ -16,7 +16,7 @@ import org.wlgzs.hospitalmanage.util.ResultCode;
 public class StorageRecordController extends BaseController {
     //查看入库记录
     @GetMapping("/StorageRecord/{page}")
-    public ModelAndView getStorageRecord(Model model, @RequestParam("page") int page){
+    public ModelAndView getStorageRecord(Model model, @PathVariable("page") int page){
       model.addAttribute("storageList",storageRecordService.getStorageRecord(model,page));
       return  new ModelAndView("drugStorageRecord");
     }
@@ -36,12 +36,17 @@ public class StorageRecordController extends BaseController {
     @PostMapping("/searchStorageRecord")
     public ModelAndView searchStorageRecord(Model model,@RequestParam("drugName") String drugName){
             model.addAttribute("stroages",storageRecordService.searchStorageRecord(drugName));
-        return new ModelAndView("");
+        return new ModelAndView("drugStorageRecord");
     }
     //搜索库存记录下拉框
     @PostMapping("/keyword")
     public Result keyword(@RequestParam("drugName") String drugName){
         return new Result(ResultCode.SUCCESS,storageRecordService.keyword(drugName));
     }
-    
+    //数据下拉框链接
+    @RequestMapping("/recordLink/{recordId}")
+    public ModelAndView recordLink(Model model, @RequestParam("recordId") int recordId){
+         model.addAttribute("storageList",storageRecordService.recordLink(recordId));
+         return new ModelAndView("drugStorageRecord");
+    }
 }

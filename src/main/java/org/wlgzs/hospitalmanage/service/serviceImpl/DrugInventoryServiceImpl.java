@@ -44,9 +44,13 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     public Result addDrugInventory(DrugInventory drugInventory, String dateStr) {
         boolean isAdd;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        int drugCode = drugInventory.getDrug_code();
+        Drug drug = drugMapper.selectByPrimaryKey(drugCode);
         try {
             Date date = df.parse(dateStr);
             drugInventory.setValid_period(date);
+            drugInventory.setPinyin_code(drug.getPinyin_code());
+            drugInventory.setDrug_name(drug.getDrug_name());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -58,7 +62,6 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         }
         if (isAdd) {
             BigDecimal storageAmount = drugInventory.getStorage_amount();
-            int drugCode = drugInventory.getDrug_code();
             Date validPeriodDate = drugInventory.getValid_period();
             Date currentDate = new Date();
             /*if (session.getAttribute("user") == null) {
@@ -73,7 +76,6 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             DrugInventory currentDrugInventory = drugInventoryMapper.increase(drugCode);
             BigDecimal receipt = drugInventory.getStorage_amount();
             BigDecimal currentReceipt = currentDrugInventory.getStorage_amount().add(receipt);
-            Drug drug = drugMapper.selectByPrimaryKey(drugCode);
             BigDecimal safeStorage = drug.getSafety_stock();                //药品安全库存
             if (currentReceipt.compareTo(safeStorage) < 0) {
                 currentDrugInventory.setIs_safety_stock(0);
@@ -109,7 +111,8 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             totalDrugInventory.setIs_safety_stock(1);
         }
         drugInventoryMapper.deleteInventory(drugInventoryId);
-        drugInventoryMapper.update(totalDrugInventory);
+
+        drugInventoryMapper.updatenIventory(totalDrugInventory);
     }
     //批量删除库存
     public void deleteDrugInventories(int[] drugInventories){
@@ -200,6 +203,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     }
    //更改库存信息（只能改分库存的）
     public void updateDrugInventory(DrugInventory drugInventory, String dateStr) {
+        System.out.println(drugInventory);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = df.parse(dateStr);
@@ -213,21 +217,23 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         BigDecimal gapAmount = currentAmount.subtract(beforAmount);
         DrugInventory totalDrugInventory = drugInventoryMapper.increase(drugInventory.getDrug_code());
         BigDecimal currenttotalAmount = totalDrugInventory.getStorage_amount().add(gapAmount);  //同步修改总库存量
-        totalDrugInventory.setStorage_amount(currentAmount);
-        drugInventoryMapper.update(totalDrugInventory);
+        totalDrugInventory.setStorage_amount(currenttotalAmount);
+        drugInventoryMapper.update(drugInventory);
         Drug drug = drugMapper.selectByPrimaryKey(drugInventory.getDrug_code());
         BigDecimal safeAmount = drug.getSafety_stock();
-        if (currentAmount.compareTo(safeAmount) <= 0) {
-            drugInventory.setIs_safety_stock(0);
+        if (currenttotalAmount.compareTo(safeAmount) <= 0) {
+            totalDrugInventory.setIs_safety_stock(0);
         } else {
-            drugInventory.setIs_safety_stock(1);
+            totalDrugInventory.setIs_safety_stock(1);
         }
-        drugInventoryMapper.update(drugInventory);
+        drugInventoryMapper.update(totalDrugInventory);
     }
 
     public List<DrugInventory> searchStorage(Model model, String drugName, int page) {
-        PageHelper.startPage(page, 10);
+        System.out.println(drugName);
+       // PageHelper.startPage(page, 10);
         List<DrugInventory> drugInventories = drugInventoryMapper.searchStroage(drugName);
+        System.out.println(drugInventories);
         int pages = (int) Math.ceil(drugInventories.size() / 10.0);
         model.addAttribute("pages", pages);
         model.addAttribute("page", page);
@@ -256,5 +262,9 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     public List<DrugInventory> keywordDate(String drugName) {
         List<DrugInventory> drugInventories = drugInventoryMapper.keywordDate(drugName);
         return drugInventories;
+    }
+    public DrugInventory storageLink(int storageId){
+        DrugInventory drugInventory = drugInventoryMapper.selectOneDrugInventory(storageId);
+        return drugInventory;
     }
 }

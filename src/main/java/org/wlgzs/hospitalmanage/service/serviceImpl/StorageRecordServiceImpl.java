@@ -34,7 +34,7 @@ public class StorageRecordServiceImpl implements StorageRecordService {
     }
     //删除入库记录
     public void deleteStorage(int storageId){
-        storageRecordMapper.deleteByPrimaryKey(storageId);
+        storageRecordMapper.deleteInventory(storageId);
     }
     //批量删除库存记录
     public void deleteStorages(int[] storageIds){
@@ -49,5 +49,10 @@ public class StorageRecordServiceImpl implements StorageRecordService {
     //搜索库存记录下拉框
     public List<StorageRecord> keyword(String drug_name){
         return storageRecordMapper.keyword(drug_name);
+    }
+
+    public StorageRecord recordLink( int recordId){
+        StorageRecord storageRecord = storageRecordMapper.selectByPrimaryKey(recordId);
+        return storageRecord;
     }
 }

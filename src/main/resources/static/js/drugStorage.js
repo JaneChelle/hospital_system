@@ -10,7 +10,7 @@ function spainner(){
 
     $.ajax({
         type: "POST",//数据发送的方式（post 或者 get）
-        url: "/drug/keyword",//要发送的后台地址
+        url: "/DrugInventory/keyword",//要发送的后台地址
         data: {
             drugName:$('.drugName').val(),
         },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
@@ -21,7 +21,7 @@ function spainner(){
             if(data.code==0){
                 $('.spinners').html(" ");
                 for (var i=0;i<datas.length;i++){
-                    var aa="<a href=/drug/toView/"+ datas[i].drug_code+ " >"+datas[i].drug_name+ "</a>"+'</br>';
+                    var aa="<a href=/DrugInventory/DrugInventory/1/"+ datas[i].pinyin_code+ " >"+datas[i].drug_name+ "</a>"+'</br>';
                     $('.spinners').append(aa);
                 }
             }else{
