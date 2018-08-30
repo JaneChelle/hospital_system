@@ -52,9 +52,8 @@ public class DiseaseController extends BaseController {
 
     //选择疾病存入session
     @RequestMapping("/selectDisease")
-    public ModelAndView selectDisease(int disease_id,HttpSession session){
-        diseaseService.selectDisease(disease_id,session);
-        return new ModelAndView("addNote");
+    public Result selectDisease(int disease_id,HttpSession session){
+        return diseaseService.selectDisease(disease_id,session);
     }
 
     //批量删除

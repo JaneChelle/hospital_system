@@ -69,12 +69,13 @@ public class DiseaseServiceImpl implements DiseaseService {
 
     //选择疾病存入session
     @Override
-    public void selectDisease(int disease_id, HttpSession session) {
+    public Result selectDisease(int disease_id, HttpSession session) {
         Disease disease = diseaseMapper.selectByPrimaryKey(disease_id);
         if(disease != null){
             session.setAttribute("disease",disease);
-            session.setMaxInactiveInterval(30 * 60);
+            return new Result(ResultCode.SUCCESS);
         }
+        return new Result(ResultCode.FAIL);
     }
 
     @Override

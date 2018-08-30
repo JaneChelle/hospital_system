@@ -30,25 +30,30 @@ $(".delete").on('click', function () {
 
 // 批量删除
 $(".batchDelete").on('click', function () {
-    var x = confirm("您确定要删除吗？");
-    if (x == true){
-        $.ajax({
-            url: "/check/deleteCheckByIds",
-            data: {
-                checkIds:$('.browider').val(),
-            },
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == 0) {
-                    location.reload();
-                } else {
+    if($('.browider').val() != ""){
+        var x = confirm("您确定要删除吗？");
+        if (x == true){
+            $.ajax({
+                url: "/check/deleteCheckByIds",
+                data: {
+                    checkIds:$('.browider').val()
+                },
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.code == 0) {
+                        location.reload();
+                    } else {
 
+                    }
+                },
+                error: function (msg) {
+                    alert("网络错误");
                 }
-            },
-            error: function (msg) {
-                alert("网络错误");
-            }
-        })
+            })
+        }
+    }
+    else {
+        alert("请选择要删除的选项");
     }
 });
 

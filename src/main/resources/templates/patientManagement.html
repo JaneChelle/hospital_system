@@ -21,7 +21,7 @@
 				<div class="add">
 					<div class="search">
 						<form th:action="@{/patient/searchpatient/1}" method="get">
-							<input type="text" name="findName" value="" required="required" placeholder="名字/拼音码/手机号"/>
+							<input type="text" class="patientAttribute" name="patientAttribute" value="" required="required" placeholder="名字/拼音码/手机号" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -33,7 +33,15 @@
 						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
-					<button class="label-info add_item"><b>添加</b></button>
+					<button class="label-info add_item">
+						<b>添加</b>
+					</button>
+				</div>
+				<div class="spin">
+					<div class="spinners">
+						<!--<a href="">dhfbdh</a>-->
+						<!--<a href="">ddvkn</a>-->
+					</div>
 				</div>
 			</div>
 			<div class="same_fixed"></div>

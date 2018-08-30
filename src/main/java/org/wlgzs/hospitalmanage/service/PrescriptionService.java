@@ -88,5 +88,5 @@ public interface PrescriptionService {
     Result findPrescriptionByWord(String search_word);
 
     //选择处方
-    void choicePrescription(int prescription_id,HttpSession session);
+    Result choicePrescription(int prescription_id,HttpSession session);
 }

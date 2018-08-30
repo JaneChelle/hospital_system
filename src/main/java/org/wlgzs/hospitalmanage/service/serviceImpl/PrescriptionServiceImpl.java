@@ -465,11 +465,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     }
 
     @Override
-    public void choicePrescription(int prescription_id, HttpSession session) {
+    public Result choicePrescription(int prescription_id, HttpSession session) {
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
         if(prescription != null){
             session.setAttribute("prescription",prescription);
+            return new Result(ResultCode.SUCCESS);
         }
+        return new Result(ResultCode.FAIL);
     }
 
 }

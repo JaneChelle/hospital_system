@@ -74,7 +74,7 @@ $(".add_note").on('click',function () {
             disease_name:$(".disease_name").val(),
             prescription_id:$(".prescription_id").val(),
             price_end:$(".price_end").val(),
-            note_time:$(".note_time").val()
+            timeStr:$(".note_time").val()
         },
         dataType: "JSON",
         success: function (data) {

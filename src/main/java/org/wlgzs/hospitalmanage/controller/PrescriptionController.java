@@ -221,9 +221,8 @@ public class PrescriptionController extends BaseController {
 
     //选择处方
     @RequestMapping("/choicePrescription")
-    public ModelAndView choicePrescription(int prescription_id,HttpSession session){
-        prescriptionService.choicePrescription(prescription_id,session);
-        return new ModelAndView("addNote");
+    public Result choicePrescription(int prescription_id,HttpSession session){
+        return prescriptionService.choicePrescription(prescription_id,session);
     }
 
 }
