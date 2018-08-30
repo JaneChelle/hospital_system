@@ -18,7 +18,7 @@ public interface DrugInventoryService {
 
     boolean updateDrugInventory(DrugInventory drugInventory);
 
-    List<DrugInventory> getDrugInventory(int page);
+    List<DrugInventory> getDrugInventory(Model model, int page);
 
     List<DrugInventory> getMonthLimit();
 

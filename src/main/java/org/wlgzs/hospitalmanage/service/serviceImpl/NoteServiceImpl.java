@@ -132,4 +132,26 @@ public class NoteServiceImpl implements NoteService {
         return new Result(ResultCode.SUCCESS, noteList, total_price);
     }
 
+    //按时间查询某个药品的使用情况
+    @Override
+    public Result drugUsage(String time, String drugName) {
+        //从记录查询出相依相应时间的处方id
+        String time_start = time.substring(0,19);
+        String time_end = time.substring(time.length() - 19,time.length());
+        List<Integer> noteList = noteMapper.prescriptionNote(time_start, time_end);
+
+        //处方id查询药品去重
+        List<Integer> drugIdList = noteMapper.drugIdList(noteList);
+
+        //存放结果
+        List<DrugNumber> drugNumberList = new ArrayList<DrugNumber>();
+        //循环查询
+        for (int aDrugId : drugIdList) {
+            DrugNumber priceAll = noteMapper.drugIdLists(noteList,aDrugId);
+            drugNumberList.add(priceAll);
+            System.out.println(priceAll);
+        }
+        return new Result(ResultCode.SUCCESS,drugNumberList);
+    }
+
 }

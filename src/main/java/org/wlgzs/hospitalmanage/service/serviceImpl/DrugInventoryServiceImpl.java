@@ -159,8 +159,13 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     }
 
     //获得所有总库存
-    public List<DrugInventory> getDrugInventory(int page) {
-        return drugInventoryMapper.getAll();
+    public List<DrugInventory> getDrugInventory(Model model,int page) {
+        PageHelper.startPage(page,8);
+        List<DrugInventory> drugInventoryList =  drugInventoryMapper.getAll();
+        int count = drugInventoryMapper.getcount();
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
+        return drugInventoryList;
     }
 
     //获得有效期一个月的药品
@@ -183,11 +188,11 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     //获取低于安全库存的药品清单
     public List<DrugInventory> getUnsafetyStock(Model model, int page) {
         //  List<DrugInventory> drugInventoryList = drugInventoryMapper.getAll();
-        PageHelper.startPage(page, 10);
+        PageHelper.startPage(page, 8);
         List<DrugInventory> unSafetyStock = drugInventoryMapper.getUnsafetyStock();
         int count = drugInventoryMapper.getUnsafeCount();
-        model.addAttribute("pages", Math.ceil(count / 10.0));
-        model.addAttribute("page", page);
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
 
       /*  for (DrugInventory drugInventory:drugInventoryList
              ) {
@@ -230,28 +235,33 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     }
 
     public List<DrugInventory> searchStorage(Model model, String drugName, int page) {
-        System.out.println(drugName);
-       // PageHelper.startPage(page, 10);
+        PageHelper.startPage(page, 8);
         List<DrugInventory> drugInventories = drugInventoryMapper.searchStroage(drugName);
-        System.out.println(drugInventories);
-        int pages = (int) Math.ceil(drugInventories.size() / 10.0);
-        model.addAttribute("pages", pages);
-        model.addAttribute("page", page);
+        int count =  drugInventoryMapper.searchStroageCount(drugName);
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
+        model.addAttribute("name",drugName);
         return drugInventories;
     }
 
     public List<DrugInventory> searchStorageDate(Model model, String drugName, int page) {
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page,8);
         List<DrugInventory> drugInventories = drugInventoryMapper.searchStroageDate(drugName);
-        int count= drugInventories.size();
-        int pages = (int) Math.ceil((count/10.0));
-        model.addAttribute("page",page);
-        model.addAttribute("pages",pages);
+        int count= drugInventoryMapper.searchStroageDateCount(drugName);
+        int pages = (int) Math.ceil((count/8.0));
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
+        model.addAttribute("name",drugName);
         return drugInventories;
     }
 
     public List<DrugInventory> getDrugInventoryDate(Model model, int page) {
+        PageHelper.startPage(page,8);
         List<DrugInventory> drugInventoryList = drugInventoryMapper.getAllnotnull();
+        int count= drugInventoryMapper.getcountDate();
+        int pages = (int) Math.ceil((count/8.0));
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
         return drugInventoryList;
     }
 

@@ -22,22 +22,14 @@
             <form th:action="@{/DrugInventory/searchStorageDate/1}" method="get">
                 <input type="text" name="drugName" class="drugName" value="" required="required" onkeyup="spin(),spainner()" placeholder="请输入药品名称或拼音码"/>
                 <button type="submit"></button>
-                <!--<div class="view_storage">-->
-                    <!--<select name="" id='selectId' onchange="mainFrame.location.href=this.options[this.selectedIndex].value;">-->
-                        <!--<option value="0">&#45;&#45;请选择&#45;&#45;</option>-->
-                        <!--<option th:value="@{/DrugInventory/getUnsafeStorage/1}">库存量低于安全库存的药品清单</option>-->
-                        <!--<option th:value="@{/DrugInventory/getMonthLimit}">有效期一个月以内的药品清单</option>-->
-                    <!--</select>-->
-                    <!--<iframe name="mainFrame" th:src="@{/toHospital}"  frameborder="0" id="mainiframe" scrolling="no" style="display: none;"></iframe>-->
-                <!--</div>-->
-
             </form>
         </div>
         <div class="input_btn">
             <input type="button" value="全选" id="selectAll">
             <!--<input type="button" value="全不选" id="unSelect">-->
             <input type="button" value="反选" id="reverse">
-            <input type="button" value="批量删除">
+            <input type="button" value="批量删除" class="duoshan">
+            <input type="hidden" class="browider">
             <input type="hidden" value="" class="btn" id="getValue">
         </div>
          <a th:href="@{/DrugInventory/DrugInventory/1}" class="fen">切换至总库存</a>
@@ -132,6 +124,6 @@
 <div class="cure"></div>
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}" ></script>
-<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
+<!--<script type="text/javascript" th:src="@{/js/drug.js}" ></script>-->
 <script th:src="@{/js/storageStock.js}"></script>
 </html>

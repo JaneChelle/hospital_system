@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2018/8/16 10:50
  */
 public interface DrugAttributeService {
-    List<DrugAttribute> getAttributes( int distinction,int page );
+    List<DrugAttribute> getAttributes( Model model,int distinction,int page );
     boolean addAttribute(DrugAttribute drugAttribute);
     boolean deleteAttribute(int drugAttributeId);
     void updateAttribute(DrugAttribute drugAttribute);

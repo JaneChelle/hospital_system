@@ -52,17 +52,14 @@ $(".add3").on('click', function () {
             async: false,
             // dataType: "JSON",
             success: function (data) {
-
-
+                $('.window1_popup').css('display','none');
                 $('.cure').addClass('uu');
                 $('.cure').html(data.msg);
                 setTimeout(function () {
                     $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
                     location.reload(true);
-                }, 1000);
-                alert(data.msg)
+                }, 2000);
+                //alert(data.msg)
             },
             error: function (data) {
 

@@ -32,4 +32,7 @@ public interface NoteService {
 
     //按时间段查询记录和总价
     Result chargeNote(String time);
+
+    //按时间查询某个药品的使用情况
+    Result drugUsage(String time,String drugName);
 }

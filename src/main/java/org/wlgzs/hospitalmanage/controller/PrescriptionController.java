@@ -140,7 +140,6 @@ public class PrescriptionController extends BaseController {
     //删除检查明细
     @RequestMapping(value = "/prescription/deleteCheck")
     public Result deleteCheck(int detailId) {
-
         return prescriptionService.deleteCheck(detailId);
     }
 

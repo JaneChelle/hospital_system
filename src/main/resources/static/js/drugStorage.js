@@ -21,7 +21,7 @@ function spainner(){
             if(data.code==0){
                 $('.spinners').html(" ");
                 for (var i=0;i<datas.length;i++){
-                    var aa="<a href=/DrugInventory/DrugInventory/1/"+ datas[i].pinyin_code+ " >"+datas[i].drug_name+ "</a>"+'</br>';
+                    var aa="<a href=/DrugInventory/storageLink/"+ datas[i].stock_number+ " >"+datas[i].drug_name+ "</a>"+'</br>';
                     $('.spinners').append(aa);
                 }
             }else{
