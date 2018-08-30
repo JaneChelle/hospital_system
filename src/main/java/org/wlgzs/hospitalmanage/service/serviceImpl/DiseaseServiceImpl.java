@@ -3,6 +3,7 @@ package org.wlgzs.hospitalmanage.service.serviceImpl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.wlgzs.hospitalmanage.dao.DiseaseMapper;
+import org.wlgzs.hospitalmanage.entity.Check;
 import org.wlgzs.hospitalmanage.entity.Disease;
 import org.wlgzs.hospitalmanage.service.DiseaseService;
 import org.wlgzs.hospitalmanage.util.IdsUtil;
@@ -11,6 +12,7 @@ import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,6 +67,19 @@ public class DiseaseServiceImpl implements DiseaseService {
         List<Disease> diseaseList = diseaseMapper.findDisease(findName);
         System.out.println(diseaseList);
         return diseaseList;
+    }
+
+    @Override
+    public Result findDiseaseByWord(String search_word) {
+        if(search_word != null && !search_word.equals("")){
+            List<Check> checkList = diseaseMapper.findDiseaseByWord(search_word);
+            List<String> list = new ArrayList<String>();
+            for (Check aCheckList : checkList) {
+                list.add(aCheckList.getCheck_name());
+            }
+            return new Result(ResultCode.SUCCESS,list);
+        }
+        return new Result(ResultCode.FAIL);
     }
 
     //选择疾病存入session

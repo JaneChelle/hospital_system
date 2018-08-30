@@ -50,6 +50,13 @@ public class DiseaseController extends BaseController {
         return new ModelAndView("diseaseList");
     }
 
+    //疾病搜索提示
+    @RequestMapping(value = "/searchWord")
+    public Result searchWord(@RequestParam(value = "search_word") String search_word){
+        return diseaseService.findDiseaseByWord(search_word);
+    }
+
+
     //选择疾病存入session
     @RequestMapping("/selectDisease")
     public Result selectDisease(int disease_id,HttpSession session){

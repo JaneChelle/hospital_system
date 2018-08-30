@@ -200,7 +200,7 @@ function spainner(){
             if(data.code==0){
                 $('.spinners').html(" ");
                 for (var i=0;i<datas.length;i++){
-                    var aa="<a href=/patient/patient/1"+ datas[i].patient_number+ " >"+datas[i].patient_name+ "</a>"+'</br>';
+                    var aa="<a href=/patient/patientLink/"+ datas[i].patient_number+ " >"+datas[i].patient_name+ "</a>"+'</br>';
                     $('.spinners').append(aa);
                 }
             }else{

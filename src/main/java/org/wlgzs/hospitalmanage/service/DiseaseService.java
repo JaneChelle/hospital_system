@@ -25,6 +25,8 @@ public interface DiseaseService {
     //搜索疾病
     List<Disease> findDisease(String findName,int page);
 
+    Result findDiseaseByWord(String search_word);
+
     //选择疾病存入session
     Result selectDisease(int disease_id, HttpSession session);
 
