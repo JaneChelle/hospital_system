@@ -12,15 +12,11 @@
 	</head>
 	<body>
 		<div class="content">
-			<!--<div class="font">
-				<h3>不只是诊所软件，更是成功者经营之道</h3>
-				<p>他山之石，可以攻玉，站在行业巨人们的肩上，少走弯路，直击成功。软件只是载体，更看重的是沉淀了多少成功者的智慧。</p>
-			</div>-->
 			<ul>
 				<li>
 					<img th:src="@{/img/1.png}" alt="药品信息管理">
 					<p>药品信息管理</p>
-					<a th:href="@{drug/1}">
+					<a th:href="@{/drug/drug/1}">
 						<div class="fu_tet">
 							<h3>药品信息管理</h3>
 							<p>包括药品的类别，规格含量，单位，厂家，库存，价格，医保名称等等</p>
@@ -29,7 +25,7 @@
 				</li>
 				<li><img th:src="@{/img/2.png}" alt="药品库存管理">
 				<p>药品库存管理</p>
-					<a th:href="@{/DrugInventory/1}">
+					<a th:href="@{/DrugInventory/DrugInventory/1}">
 						<div class="fu_tet">
 							<h3>药品库存管理</h3>
 							<p>药品的编号，库存量，有效期和</p>
@@ -47,7 +43,7 @@
                 </li>
 				<li ><img th:src="@{/img/4.png}" alt="患者管理">
 				<p>患者管理</p>
-					<a th:href="@{/patient/1}">
+					<a th:href="@{/patient/patient/1}">
 						<div class="fu_tet">
 							<h3>患者管理</h3>
 							<p>客户关系管理（CRM）不仅是在客服部门，更贯穿在全部业务流程的客户关系管理，能够自动生成CRM任务，挖掘潜在客户</p>
@@ -56,7 +52,7 @@
                 </li>
 				<li><img th:src="@{/img/5.png}" alt="就诊记录管理">
 				<p>就诊记录管理</p>
-					<a th:href="@{/note/detailsNote}">
+					<a th:href="@{/note/findNote}">
 						<div class="fu_tet">
 							<h3>就诊记录管理</h3>
 							<p>消费积分体系、代金券管理、推荐人奖励都是诊所经营利器，同样考验的是系统在功能强大背后财务核算的准确和灵活</p>

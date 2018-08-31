@@ -20,7 +20,7 @@
 			<div class="add">
 				<div class="search">
 					<form th:action="@{/DrugInventory/searchStorage/1}" method="get">
-						<input type="text" name="drugName" class="drugName" value="" required="required" placeholder="请输入药品名称或拼音码" onkeyup="spin(),spainner()"/>
+						<input type="text" name="drugName" class="drugName" autoComplete="off" required="required" placeholder="请输入药品名称或拼音码" onkeyup="spin(),spainner()"/>
 						<button type="submit"></button>
 					</form>
 				</div>

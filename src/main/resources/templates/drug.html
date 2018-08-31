@@ -23,7 +23,7 @@
 				<div class="add">
 					<div class="search">
 						<form th:action="@{/drug/searchdrug/1}" method="get">
-							<input type="text" name="drugName" class="drugName" required="required" placeholder="请输入药品信息" onkeyup="spin(),spainner()"/>
+							<input type="text" name="drugName" class="drugName" required="required" placeholder="请输入药品信息" onkeyup="spin(),spainner()" autoComplete="off"/>
 							<button type="submit"></button>
 						</form>
 					</div>

@@ -20,7 +20,7 @@
 				<div class="add">
 					<div class="search">
 						<form th:action="@{/prescription/findPrescription/1}" method="post">
-							<input type="text" name="findName" value="" required="required" th:text="${findName}" />
+							<input type="text" name="findName" value="" required="required" autoComplete="off" th:text="${findName}" />
 							<button type="submit"></button> 
 						</form>
 					</div>
