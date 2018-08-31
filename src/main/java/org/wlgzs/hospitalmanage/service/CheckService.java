@@ -1,5 +1,6 @@
 package org.wlgzs.hospitalmanage.service;
 
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.entity.Check;
 import org.wlgzs.hospitalmanage.util.Result;
 
@@ -15,7 +16,7 @@ public interface CheckService {
     Result addCheck(Check check);
 
     //查找全部分页
-    List<Check> selectAll(int page);
+    List<Check> selectAll(int page , Model model);
 
     //按id删除
     Result deleteCheck(int checkId);
@@ -27,7 +28,7 @@ public interface CheckService {
     Result modifyCheck(Check check);
 
     //搜索检查
-    List<Check> findCheck(String findName,int page);
+    List<Check> findCheck(String findName,int page,Model model);
 
     //搜索提示
     Result findCheckByWord(String search_word);
