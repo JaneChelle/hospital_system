@@ -75,7 +75,7 @@ public class PatientController extends BaseController {
     }
 
     //患者下拉框数据连接
-    @GetMapping("/patinetLink/{patientId}")
+    @GetMapping("/patientLink/{patientId}")
     public ModelAndView patinetLink(Model model,@PathVariable("patientId") int patientId){
         model.addAttribute("patients",patientService.patinetLink(patientId));
         return new ModelAndView("patientManagement");

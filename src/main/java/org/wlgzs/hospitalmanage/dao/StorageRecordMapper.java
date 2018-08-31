@@ -17,7 +17,7 @@ public interface StorageRecordMapper extends Mapper<StorageRecord> {
     int getcountByDrugName(String drug_name);
     @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') limit 10")
     List<StorageRecord> keyword(String drug_name );
-    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') limit 10")
+    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') ")
     List<StorageRecord> search(String drug_name );
     @Delete("DELETE FROM tb_storage_record WHERE record_number=#{0}")
     void deleteInventory(int record_number);
