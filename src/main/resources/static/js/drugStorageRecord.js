@@ -81,7 +81,8 @@ $('.duoshan').on('click',function () {
         $('.cure').addClass('uu');
         $('.cure').html('请先选择要删除的项');
         setTimeout(function () {
-            $('.cure').css('display', 'none');
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
         }, 2000);
     }
 });

@@ -13,12 +13,29 @@ $(".delete").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    location.reload();
+                    $('.cure').addClass('uu');
+                    $('.cure').html("删除成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                 } else {
 
                 }
             },
             error: function (msg) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu")
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
                 alert("网络错误");
             }
         })
@@ -41,19 +58,41 @@ $(".batchDelete").on('click', function () {
                 dataType: "JSON",
                 success: function (data) {
                     if (data.code == 0) {
-                        location.reload();
+                        $('.cure').addClass('uu');
+                        $('.cure').html("删除成功");
+                        setTimeout(function () {
+                            $('.cure').removeClass("uu")
+                            $('.cure').html('');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
                     } else {
 
                     }
                 },
                 error: function (msg) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu");
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                     alert("网络错误");
                 }
             })
         }
     }
     else {
-        alert("请选择要删除的选项");
+        $('.cure').addClass('uu');
+        $('.cure').html('请先选择要删除的项');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
 
@@ -71,18 +110,40 @@ $(".add_check").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    location.reload();
+                    $('.cure').addClass('uu');
+                    $('.cure').html("添加成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                 } else {
 
                 }
             },
             error: function (msg) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu");
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
                 alert("网络错误");
             }
         })
     }
     else {
-        alert("请把信息补充完整");
+        $('.cure').addClass('uu');
+        $('.cure').html('请把信息补充完整');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
 
@@ -114,18 +175,40 @@ $(".modify").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    window.location.href="/check/findCheck";
+                    $('.cure').addClass('uu');
+                    $('.cure').html("修改成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        window.location.href="/check/findCheck/1";
+                    }, 1000);
                 } else {
 
                 }
             },
             error: function (msg) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu");
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
                 alert("网络错误");
             }
         })
     }
     else {
-        alert("请把信息补充完整");
+        $('.cure').addClass('uu');
+        $('.cure').html('请把信息补充完整');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
 // 下拉框提示

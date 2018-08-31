@@ -25,12 +25,11 @@
 						</form>
 					</div>
 					<div class="input_btn">
-						<input type="button" value="全选" id="selectAll">
-						<!--<input type="button" value="全不选" id="unSelect">-->  
-						<input type="button" value="反选" id="reverse">
-						<input type="button" value="批量删除" class="batchDelete">
-						<input type="hidden" class="browider">
-						<input type="hidden" value="" class="btn" id="getValue">
+						<!--<input type="button" value="全选" id="selectAll">-->
+						<!--<input type="button" value="反选" id="reverse">-->
+						<!--<input type="button" value="批量删除" class="batchDelete">-->
+						<!--<input type="hidden" class="browider">-->
+						<!--<input type="hidden" value="" class="btn" id="getValue">-->
 					</div>
 					<button class="label-info">
 						<b>
@@ -113,7 +112,7 @@
 
 			</div>
 			<!--搜索分页-->
-			<h1 th:text="${isSearch}">tuhu</h1>
+			<!--<h1 th:text="${isSearch}">tuhu</h1>-->
 			<div class="fenye" th:if="${TotalPages > 0 and isSearch==1}">
 				<ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">
 					<!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
@@ -146,7 +145,7 @@
 				</ul>
 
 			</div>
-
+			<div class="cure"></div>
 		</section>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>

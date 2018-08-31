@@ -25,12 +25,13 @@
             </form>
         </div>
         <div class="input_btn">
-            <input type="button" value="全选" id="selectAll">
-            <!--<input type="button" value="全不选" id="unSelect">-->
-            <input type="button" value="反选" id="reverse">
-            <input type="button" value="批量删除" class="duoshan">
-            <input type="hidden" class="browider">
-            <input type="hidden" value="" class="btn" id="getValue">
+            <div class="input_btn">
+                <input type="button" value="全选" id="selectAll">
+                <input type="button" value="反选" id="reverse">
+                <input type="button" value="批量删除" class="batchDelete">
+                <input type="hidden" class="browider">
+                <input type="hidden" value="" class="btn" id="getValue">
+            </div>
         </div>
          <a th:href="@{/DrugInventory/DrugInventory/1}" class="fen">切换至总库存</a>
         <a href="/DrugInventory/getUnsafeStorage/1" class="fen sty">库存量警告
@@ -70,7 +71,7 @@
         <tbody>
         <tr th:each="drugInventory :${drugInventories}">
             <td>
-                <input type="checkbox" th:id="${drugInventory.stock_number}" th:value="${drugInventory.stock_number}"/>
+                <input type="checkbox" th:id="${drugInventory.stock_number}" th:value="${drugInventory.stock_number}" class="selectall"/>
                 <label th:for="${drugInventory.stock_number}"></label>
             </td>
             <td th:text="${drugInventory.stock_number}" class="stock_number">D133</td>
@@ -124,6 +125,6 @@
 <div class="cure"></div>
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}" ></script>
-<!--<script type="text/javascript" th:src="@{/js/drug.js}" ></script>-->
+<script type="text/javascript" th:src="@{/js/drug.js}" ></script>
 <script th:src="@{/js/storageStock.js}"></script>
 </html>
