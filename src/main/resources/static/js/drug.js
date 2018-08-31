@@ -108,11 +108,9 @@ $(function () {
             }
         }
 //批量删除
-
             $('.Batchdelet').on('click', function () {
                 allchk();
                 if($('.browider').val()!='') {
-                   // console.log('fhdjkhdjkghdfgh'+$('.browider').val());
                     if (confirm('确认要删除吗?')) {
                         $.ajax({
                             type: "post",

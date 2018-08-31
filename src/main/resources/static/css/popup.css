@@ -24,9 +24,7 @@ input,button{
 body{
 	overflow-x:hidden ;
 }
-.window1_popup,.window2_popup,.window3_popup,.window4_popup,
-.window5_popup,.window6_popup,.window7_popup,
-.window8_popup,.window9_popup,.window10_popup{
+.window1_popup,.window2_popup,.window3_popup,.window4_popup{
 	display: none;
 	position: absolute;
 	left: 0;
@@ -35,7 +33,7 @@ body{
 	height: 100%;
 	color: #000;
 	font-weight: 600;
-	z-index: 999;
+	z-index: 99;
 	background-color: rgba(0,0,0,.4);
 }
 /*弹框*/
@@ -443,6 +441,7 @@ p{
 	border-radius: 5px;
 	transition: all 0.3s;
 	animation: aa 1s ease-out;
+	z-index: 9999999;
 }
 @keyframes aa {
 	0%{
@@ -540,4 +539,24 @@ select{
 }
 .fenye{
 	text-align: center;
+}
+.tip_popup{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin: -35px 0 0  -100px;
+	background-color: #1a1a1a;
+	color: #fff;
+	width: 200px;
+	height: 70px;
+	line-height: 70px;
+	text-align: center;
+	font-size: 16px;
+	z-index: 9999;
+}
+.tip_none{
+	display: none;
+}
+.tip_block{
+	display: block;
 }

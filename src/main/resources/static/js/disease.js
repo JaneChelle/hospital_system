@@ -13,12 +13,29 @@ $(".delete").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    location.reload();
+                    $('.cure').addClass('uu');
+                    $('.cure').html("删除成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                 } else {
 
                 }
             },
             error: function (msg) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu")
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
                 alert("网络错误");
             }
         })
@@ -30,25 +47,52 @@ $(".delete").on('click', function () {
 
 // 批量删除
 $(".batchDelete").on('click', function () {
-    var x = confirm("您确定要删除吗？");
-    if(x == true){
-        $.ajax({
-            url: "/disease/deleteDiseaseByIds",
-            data: {
-                DiseaseIds:$('.browider').val(),
-            },
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == 0) {
-                    location.reload();
-                } else {
+    if($('.browider').val() != ""){
+        var x = confirm("您确定要删除吗？");
+        if(x == true){
+            $.ajax({
+                url: "/disease/deleteDiseaseByIds",
+                data: {
+                    DiseaseIds:$('.browider').val()
+                },
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.code == 0) {
+                        $('.cure').addClass('uu');
+                        $('.cure').html("删除成功");
+                        setTimeout(function () {
+                            $('.cure').removeClass("uu")
+                            $('.cure').html('');
+                        }, 2000);
+                        setTimeout(function () {
+                            location.reload(true);
+                        }, 1000);
+                    } else {
 
+                    }
+                },
+                error: function (msg) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu");
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                    alert("网络错误");
                 }
-            },
-            error: function (msg) {
-                alert("网络错误");
-            }
-        })
+            })
+        }
+    }
+    else{
+        $('.cure').addClass('uu');
+        $('.cure').html('请先选择要删除的项');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
 
@@ -64,18 +108,40 @@ $(".add_check").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    location.reload();
+                    $('.cure').addClass('uu');
+                    $('.cure').html("添加成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                 } else {
 
                 }
             },
             error: function (msg) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu");
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
                 alert("网络错误");
             }
         })
     }
     else {
-        alert("请把信息补充完整");
+        $('.cure').addClass('uu');
+        $('.cure').html('请把信息补充完整');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
 
