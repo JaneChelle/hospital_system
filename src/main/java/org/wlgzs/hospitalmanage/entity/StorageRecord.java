@@ -27,6 +27,8 @@ public class StorageRecord {
     private Date valid_period;      // 有效期
 
     private String  drug_name;     //药品名字
+
+   // private String  pinyin_code;  //药品拼音码
     public StorageRecord(){
 
     }

@@ -66,11 +66,13 @@ public class DrugServiceImpl implements DrugService {
    }
    public void updateDrug(Drug drug){
        int drug_code = drug.getDrug_code();
+       String drug_name = drug.getDrug_name();
        Drug beforeDrug = drugMapper.selectByPrimaryKey(drug_code);
        BigDecimal beforeAmount = beforeDrug.getSafety_stock();
        BigDecimal afterAmount = drug.getSafety_stock();
        if (!beforeDrug.getDrug_name().equals(drug.getDrug_name())){
-         drugInventoryMapper.getDrugInventoryByDrug_code(drug_code,drug.getDrug_name(),drug.getPinyin_code());
+         drugInventoryMapper.getDrugInventoryByDrug_code(drug_code,drug_name,drug.getPinyin_code());
+         storageRecordMapper.updateStorageRecordByDrug_code(drug_code,drug_name);
        }
        if (beforeAmount.equals(afterAmount)) {
            drugMapper.updateDrug(drug);
