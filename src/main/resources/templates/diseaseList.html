@@ -20,7 +20,7 @@
 				<div class="add">
 					<div class="search">
 						<form th:action="@{/disease/findDisease}" method="post">
-							<input type="text" name="findName" id="findName" value="" required="required" placeholder="疾病名称" onkeyup="spin(),spainner()"/>
+							<input type="text" name="findName" id="findName" value="" required="required" placeholder="疾病名称" onkeyup="spin(),spainner()" autoComplete="off"/>
 							<button type="submit"></button> 
 						</form>
 					</div>

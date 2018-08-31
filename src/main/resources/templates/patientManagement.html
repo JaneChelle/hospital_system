@@ -21,7 +21,7 @@
 				<div class="add">
 					<div class="search">
 						<form th:action="@{/patient/searchpatient/1}" method="get">
-							<input type="text" class="patientAttribute" name="patientAttribute" value="" required="required" placeholder="名字/拼音码/手机号" onkeyup="spin(),spainner()"/>
+							<input type="text" class="patientAttribute" name="patientAttribute" autoComplete="off" required="required" placeholder="名字/拼音码/手机号" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
