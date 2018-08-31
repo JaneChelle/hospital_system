@@ -19,7 +19,6 @@ public class DrugInventoryController extends BaseController {
     //添加药品库存
     @PostMapping("/DrugInventory")
     public Result addDrugInventory(DrugInventory drugInventory ,@RequestParam("date") String dateStr) {
-
         Result result = drugInventoryService.addDrugInventory(drugInventory,dateStr);
         return result;
     }
