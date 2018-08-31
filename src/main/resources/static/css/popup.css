@@ -406,10 +406,10 @@ p{
 .selsety{
 	width: 83px;
 	transition: .5s ease;
-	background-color: #5bc0de;
+	background-color: #75CDF6;
 }
 .selsety:hover{
-	box-shadow: 2px 2px 7px #5bc0de;
+	box-shadow: 2px 2px 7px #75CDF6;
 }
 .adiv{
 	display: inline-block;

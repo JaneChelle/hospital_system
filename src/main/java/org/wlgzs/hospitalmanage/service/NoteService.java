@@ -1,5 +1,6 @@
 package org.wlgzs.hospitalmanage.service;
 
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.entity.Note;
 import org.wlgzs.hospitalmanage.util.Result;
 
@@ -28,7 +29,7 @@ public interface NoteService {
     void modifyNote(Note note,String price_end);
 
     //按用户搜索记录
-    List<Note> findNote(String findName,int page);
+    List<Note> findNote(String findName,int page,Model model);
 
     //按时间段查询记录和总价
     Result chargeNote(String time);
