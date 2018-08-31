@@ -186,7 +186,7 @@ $(".modify").on('click', function () {
                         $('.cure').html('');
                     }, 2000);
                     setTimeout(function () {
-                        window.location.href="/treatment/findTreatment";
+                        window.location.href="/treatment/findTreatment/1";
                     }, 1000);
                 } else {
 

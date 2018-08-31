@@ -182,7 +182,7 @@ $(".modify").on('click', function () {
                         $('.cure').html('');
                     }, 2000);
                     setTimeout(function () {
-                        window.location.href="/check/findCheck";
+                        window.location.href="/check/findCheck/1";
                     }, 1000);
                 } else {
 

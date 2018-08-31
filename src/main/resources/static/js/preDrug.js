@@ -16,17 +16,38 @@ $(".select_drug").on('click',function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    alert(isModify);
-                    window.location.href="/prescription/toAddDrug?isModify="+isModify;
+                    $('.cure').addClass('uu');
+                    $('.cure').html("添加成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        window.location.href="/prescription/toAddDrug?isModify="+isModify;
+                    }, 1000);
                 }
             },
             error: function (msg) {
-                alert("网络故障");
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu");
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
+                alert("网络错误");
             }
         })
     }
     else {
-        alert("请选择数量");
+        $('.cure').addClass('uu');
+        $('.cure').html('请填写数量');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
 
@@ -52,7 +73,15 @@ $(".deletePre_drug").on('click',function () {
                         dataType: "JSON",
                         success: function (data) {
                             if(data.code == 2){
-                                location.reload();
+                                $('.cure').addClass('uu');
+                                $('.cure').html("删除成功");
+                                setTimeout(function () {
+                                    $('.cure').removeClass("uu")
+                                    $('.cure').html('');
+                                }, 2000);
+                                setTimeout(function () {
+                                    location.reload(true);
+                                }, 1000);
                             }
                         },
                         error: function (msg) {
@@ -96,7 +125,15 @@ $(".modify_preDrug").on('click',function () {
                     dataType: "JSON",
                     success: function (data) {
                         if(data.code == 2){
-                            location.reload();
+                            $('.cure').addClass('uu');
+                            $('.cure').html("修改成功");
+                            setTimeout(function () {
+                                $('.cure').removeClass("uu")
+                                $('.cure').html('');
+                            }, 2000);
+                            setTimeout(function () {
+                                location.reload(true);
+                            }, 1000);
                         }
                     },
                     error: function (msg) {
@@ -118,24 +155,50 @@ $(".select_check").on('click',function () {
     var check_name = parent.children("td.check_name").text();
     var check_num = $(this).parent().prev().children('input').val();
     var isModify = document.getElementById("test_check").value;
-    $.ajax({
-        url: "/prescription/addCheck",
-        data: {
-            check_id:check_id,
-            check_name:check_name,
-            number:check_num,
-        },
-        dataType: "JSON",
-        success: function (data) {
-            if (data.code == 0) {
-                alert(isModify);
-                window.location.href="/prescription/toAddCheck?isModify="+isModify;
+    if(check_num != ""){
+        $.ajax({
+            url: "/prescription/addCheck",
+            data: {
+                check_id:check_id,
+                check_name:check_name,
+                number:check_num,
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html("添加成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        window.location.href="/prescription/toAddCheck?isModify="+isModify;
+                    }, 1000);
+                }
+            },
+                error: function (msg) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html(data.msg);
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu");
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
+                    alert("网络错误");
             }
-        },
-        error: function (msg) {
-            alert("网络故障");
-        }
-    })
+        })
+    }
+    else {
+        $('.cure').addClass('uu');
+        $('.cure').html('请填写数量');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
+    }
 });
 
 // 删除检查明细
@@ -161,7 +224,15 @@ $(".deletePre_check").on('click',function () {
                         dataType: "JSON",
                         success: function (data) {
                             if(data.code == 2){
-                                location.reload();
+                                $('.cure').addClass('uu');
+                                $('.cure').html("删除成功");
+                                setTimeout(function () {
+                                    $('.cure').removeClass("uu")
+                                    $('.cure').html('');
+                                }, 2000);
+                                setTimeout(function () {
+                                    location.reload(true);
+                                }, 1000);
                             }
                         },
                         error: function (msg) {
@@ -205,7 +276,15 @@ $(".modify_preCheck").on('click',function () {
                     dataType: "JSON",
                     success: function (data) {
                         if(data.code == 2){
-                            location.reload();
+                            $('.cure').addClass('uu');
+                            $('.cure').html("修改成功");
+                            setTimeout(function () {
+                                $('.cure').removeClass("uu")
+                                $('.cure').html('');
+                            }, 2000);
+                            setTimeout(function () {
+                                location.reload(true);
+                            }, 1000);
                         }
                     },
                     error: function (msg) {
@@ -228,24 +307,50 @@ $(".select_therapy").on('click',function () {
     var treatment_name = parent.children("td.treatment_name").text();
     var treatment_num = $(this).parent().prev().children('input').val();
     var isModify = document.getElementById("test_treatment").value;
-    $.ajax({
-        url: "/prescription/addTreatment",
-        data: {
-            treatment_id:treatment_id,
-            treatment_name:treatment_name,
-            number:treatment_num,
-        },
-        dataType: "JSON",
-        success: function (data) {
-            if (data.code == 0) {
-                alert(isModify);
-                window.location.href="/prescription/toAddTreatment?isModify="+isModify;
+    if(treatment_num != ""){
+        $.ajax({
+            url: "/prescription/addTreatment",
+            data: {
+                treatment_id:treatment_id,
+                treatment_name:treatment_name,
+                number:treatment_num,
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html("添加成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        window.location.href="/prescription/toAddTreatment?isModify="+isModify;
+                    }, 1000);
+                }
+            },
+            error: function (msg) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu");
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
+                alert("网络错误");
             }
-        },
-        error: function (msg) {
-            alert("网络故障");
-        }
-    })
+        })
+    }
+    else {
+        $('.cure').addClass('uu');
+        $('.cure').html('请填写数量');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
+    }
 });
 
 // 删除治疗明细
@@ -270,7 +375,15 @@ $(".deletePre_therapy").on('click',function () {
                         dataType: "JSON",
                         success: function (data) {
                             if(data.code == 2){
-                                location.reload();
+                                $('.cure').addClass('uu');
+                                $('.cure').html("删除成功");
+                                setTimeout(function () {
+                                    $('.cure').removeClass("uu")
+                                    $('.cure').html('');
+                                }, 2000);
+                                setTimeout(function () {
+                                    location.reload(true);
+                                }, 1000);
                             }
                         },
                         error: function (msg) {
@@ -314,7 +427,15 @@ $(".modify_preTreatment").on('click',function () {
                     dataType: "JSON",
                     success: function (data) {
                         if(data.code == 2){
-                            location.reload();
+                            $('.cure').addClass('uu');
+                            $('.cure').html("修改成功");
+                            setTimeout(function () {
+                                $('.cure').removeClass("uu")
+                                $('.cure').html('');
+                            }, 2000);
+                            setTimeout(function () {
+                                location.reload(true);
+                            }, 1000);
                         }
                     },
                     error: function (msg) {
@@ -343,7 +464,6 @@ $(".price_allPre").on("click",function () {
                 $(".adiv1").hide();
                 $(".adiv2").fadeIn();
             }else if(data.code == 2){
-                alert(data.count);
                 window.location.href="/prescription/findPrescriptionById?prescriptionId"+data.count;
             }
         },

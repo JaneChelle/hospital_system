@@ -61,7 +61,7 @@
 	                <tbody>
 	                	<tr th:each="storageList:${storageList}">
 	                		<td>
-	                			<input type="checkbox" th:id="${storageList.record_number}" th:value="${storageList.record_number}"/>
+	                			<input type="checkbox" th:id="${storageList.record_number}" th:value="${storageList.record_number}" class="selectall"/>
 								<label th:for="${storageList.record_number}"></label>
 	                		</td>
 	                		<td th:text="${storageList.record_number}" class="record_number">E133</td>
