@@ -31,7 +31,7 @@ public interface PrescriptionService {
     Prescription findPrescriptionById(int prescriptionId);
 
     //修改
-    void modifyPrescription(Prescription prescription);
+    Result modifyPrescription(Prescription prescription);
 
     //添加药品明细
     Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session);
@@ -58,7 +58,7 @@ public interface PrescriptionService {
     List<PrescriptionCheck> queryPrescriptionCheck(int prescriptionId);
 
     //删除已添加的处方检查
-    Result deleteCheck(int checkId);
+    Result deleteCheck(int detailId);
 
     //修改已添加的处方检查（数量）
     Result modifyPrescriptionCheck(int detail_id, String number);
@@ -73,7 +73,7 @@ public interface PrescriptionService {
     List<PrescriptionTreatment> queryPrescriptionTreatment(int prescriptionId);
 
     //删除已添加的处方治疗
-    Result deleteTreatment(int treatmentId);
+    Result deleteTreatment(int detailId);
 
     //修改已添加的处方治疗（数量）
     Result modifyPrescriptionTreatment(int detail_id, String number);
@@ -86,4 +86,7 @@ public interface PrescriptionService {
 
     //搜索提示
     Result findPrescriptionByWord(String search_word);
+
+    //选择处方
+    Result choicePrescription(int prescription_id,HttpSession session);
 }

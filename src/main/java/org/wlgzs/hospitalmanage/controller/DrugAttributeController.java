@@ -10,6 +10,7 @@ import org.wlgzs.hospitalmanage.entity.DrugAttribute;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
+import java.lang.ref.SoftReference;
 import java.util.List;
 
 /**
@@ -22,7 +23,8 @@ public class DrugAttributeController extends BaseController {
     //查询对应的药品属性的全部（ distinction=1药品类别  =2药品单位 =3药品剂型）
     @GetMapping("/attribute/{distinction}/{page}")
     public ModelAndView getAttributes(Model model, @PathVariable("distinction") int distinction, @PathVariable("page") int page) {
-        model.addAttribute("attributes",drugAttributeService.getAttributes(distinction, page));
+        model.addAttribute("attributes",drugAttributeService.getAttributes(model,distinction, page));
+        model.addAttribute("isSearch",0);
         if(distinction==1) {
         return new ModelAndView("drugCategory");
         }else if (distinction==2){
@@ -62,12 +64,18 @@ public class DrugAttributeController extends BaseController {
     public ModelAndView searchAttribute(Model model,@PathVariable("page") int page,@PathVariable("distinction") int distinction, String  attributeName){
         List<DrugAttribute> drugAttributes = drugAttributeService.searchAttribute(model,distinction,attributeName,page);
         model.addAttribute("attributes",drugAttributes);
+        model.addAttribute("isSearch",1);
+        System.out.println(drugAttributes );
         System.out.println(distinction);
         if (distinction==1){
+            model.addAttribute("attributeName",attributeName);
             return new ModelAndView("drugCategory");
         }else if(distinction==2){
+            model.addAttribute("attributeName",attributeName);
             return new ModelAndView("drugUnit");
         }else {
+            System.out.println(attributeName+"--------");
+            model.addAttribute("attributeName",attributeName);
             return new ModelAndView("drugDosageSorm");
         }
     }

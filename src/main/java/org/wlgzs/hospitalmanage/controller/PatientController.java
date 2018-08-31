@@ -20,9 +20,12 @@ import java.util.List;
 public class PatientController extends BaseController {
     //查看所有患者
     @GetMapping("/patient/{page}")
-    public ModelAndView getPatients(Model model, @PathVariable("page") int page) {
-        List<Patient> patients = patientService.getPatients(page);
+    public ModelAndView getPatients(Model model,
+                                    @PathVariable("page") int page,@RequestParam(value = "sign",defaultValue = "") String sign) {
+        List<Patient> patients = patientService.getPatients(model,page);
         model.addAttribute("patients",patients);
+        model.addAttribute("sign",sign);
+        model.addAttribute("isSearch",0);
         return new ModelAndView("patientManagement");
 
     }
@@ -63,13 +66,23 @@ public class PatientController extends BaseController {
     @GetMapping("/searchpatient/{page}")
     public ModelAndView searchPatient(Model model,@PathVariable("page") int page, @RequestParam("patientAttribute") String patientAttribute) {
         model.addAttribute("patients",patientService.searchPatient(model,patientAttribute,page));
+        model.addAttribute("isSearch",1);
+        model.addAttribute("patientAttribute",patientAttribute);
         return new ModelAndView("patientManagement");
     }
+
     //患者下拉框数据连接
     @GetMapping("/patinetLink/{patientId}")
     public ModelAndView patinetLink(Model model,@PathVariable("patientId") int patientId){
         model.addAttribute("patients",patientService.patinetLink(patientId));
         return new ModelAndView("patientManagement");
+    }
+
+
+    //选择患者
+    @RequestMapping("/choicePatient")
+    public Result choicePatient(int patient_number,HttpSession session){
+        return patientService.choicePatient(patient_number,session);
     }
 
 }

@@ -51,6 +51,7 @@ $(".add_unit").on('click', function () {
             },
             dataType: "JSON",
             success: function (data) {
+                $('.window1_popup').css('display','none');
                 // if (data.code == 0) {
                     $('.cure').addClass('uu');
                     $('.cure').html(data.msg);

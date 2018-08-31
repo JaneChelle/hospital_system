@@ -83,10 +83,17 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //修改
     @Override
-    public void modifyPrescription(Prescription prescription) {
+    public Result modifyPrescription(Prescription prescription) {
         if (prescription != null) {
+            Prescription prescription1 = prescriptionMapper.selectByPrimaryKey(prescription.getPrescription_id());
+            System.out.println(prescription1);
+            prescription.setIs_drug(prescription1.getIs_drug());
+            prescription.setIs_check(prescription1.getIs_check());
+            prescription.setIs_treatment(prescription1.getIs_treatment());
             prescriptionMapper.updateByPrimaryKeySelective(prescription);
+            return new Result(ResultCode.SUCCESS);
         }
+        return new Result(ResultCode.FAIL);
     }
 
     //添加药品明细
@@ -190,7 +197,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 System.out.println(number);
                 System.out.println(prescriptionDrug.getPrice_one());
                 System.out.println(drug.getUnit_price().multiply(bigDecimal));
-                prescriptionDrug.setPrice_one(prescriptionDrug.getPrice_one().add(drug.getUnit_price().multiply(bigDecimal)));
+                prescriptionDrug.setPrice_one(drug.getUnit_price().multiply(bigDecimal));
                 System.out.println(prescriptionDrug.getPrice_one());
                 prescriptionDrugMapper.updateByPrimaryKey(prescriptionDrug);
                 return new Result(ResultCode.SUCCESS);
@@ -269,10 +276,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //删除已添加的处方检查
     @Override
-    public Result deleteCheck(int checkId) {
-        PrescriptionCheck prescriptionCheck = prescriptionCheckMapper.selectByPrimaryKey(checkId);
+    public Result deleteCheck(int detailId) {
+        PrescriptionCheck prescriptionCheck = prescriptionCheckMapper.selectByPrimaryKey(detailId);
+        System.out.println("prescriptionCheck"+prescriptionCheck);
         if (prescriptionCheck != null) {
-            prescriptionCheckMapper.deleteByPrimaryKey(checkId);
+            prescriptionCheckMapper.deleteByPrimaryKey(detailId);
             List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescriptionCheck.getPrescription_id());
             if (prescriptionCheckList.size() == 0) {
                 //修改处方表
@@ -360,10 +368,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //删除已添加的处方治疗
     @Override
-    public Result deleteTreatment(int treatmentId) {
-        PrescriptionTreatment prescriptionTreatment = prescriptionTreatmentMapper.selectByPrimaryKey(treatmentId);
+    public Result deleteTreatment(int detailId) {
+        PrescriptionTreatment prescriptionTreatment = prescriptionTreatmentMapper.selectByPrimaryKey(detailId);
         if (prescriptionTreatment != null) {
-            prescriptionTreatmentMapper.deleteByPrimaryKey(treatmentId);
+            prescriptionTreatmentMapper.deleteByPrimaryKey(detailId);
             List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionTreatmentMapper.findPrescriptionTreatment(prescriptionTreatment.getPrescription_id());
             if (prescriptionTreatmentList.size() == 0) {
                 //修改处方表
@@ -452,6 +460,16 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 list.add(aPrescriptionList.getPrescription_name());
             }
             return new Result(ResultCode.SUCCESS, list);
+        }
+        return new Result(ResultCode.FAIL);
+    }
+
+    @Override
+    public Result choicePrescription(int prescription_id, HttpSession session) {
+        Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+        if(prescription != null){
+            session.setAttribute("prescription",prescription);
+            return new Result(ResultCode.SUCCESS);
         }
         return new Result(ResultCode.FAIL);
     }

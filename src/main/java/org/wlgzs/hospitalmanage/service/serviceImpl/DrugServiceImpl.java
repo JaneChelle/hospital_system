@@ -1,6 +1,7 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,21 +32,24 @@ public class DrugServiceImpl implements DrugService {
     @Resource
     DrugMapper drugMapper;
     @Resource
+    StorageRecordMapper storageRecordMapper;
+    @Resource
     HttpSession session;
     @Resource
     DrugAttributeMapper drugAttributeMapper;
     @Resource
     DrugInventoryMapper drugInventoryMapper;
+    //查询所有药物
    public List<Drug> getDrugs(Model model,int page){
-       PageHelper.startPage(page, 10);
-       int count = drugMapper.getcount();
-       int pages = (int) Math.ceil(count/10.0);
-       model.addAttribute("page",page);
-       model.addAttribute("pages",pages);
+       PageHelper.startPage(page, 8);
        List<Drug> drugList  = drugMapper.selectAll();
+       int count = drugMapper.getcount();
+       model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+       model.addAttribute("Number",page);
        return drugList;
     }
-   public boolean addDrug(Drug drug){                 //添加药品
+    //添加药品
+   public boolean addDrug(Drug drug){
     Drug isDrug=drugMapper.jundgeName(drug.getDrug_name());
     if (isDrug==null){
         drugMapper.insert(drug);
@@ -61,9 +65,13 @@ public class DrugServiceImpl implements DrugService {
     }
    }
    public void updateDrug(Drug drug){
-       Drug beforeDrug = drugMapper.selectByPrimaryKey(drug.getDrug_code());
+       int drug_code = drug.getDrug_code();
+       Drug beforeDrug = drugMapper.selectByPrimaryKey(drug_code);
        BigDecimal beforeAmount = beforeDrug.getSafety_stock();
        BigDecimal afterAmount = drug.getSafety_stock();
+       if (!beforeDrug.getDrug_name().equals(drug.getDrug_name())){
+         drugInventoryMapper.getDrugInventoryByDrug_code(drug_code,drug.getDrug_name(),drug.getPinyin_code());
+       }
        if (beforeAmount.equals(afterAmount)) {
            drugMapper.updateDrug(drug);
        }else {
@@ -85,11 +93,12 @@ public class DrugServiceImpl implements DrugService {
                 return drugList;
    }
    public List searchDrug(Model model, @RequestParam("drugName") String drugName, int page){
-       PageHelper.startPage(page,10);
+       PageHelper.startPage(page,8);
        List<Drug> drugList = drugMapper.searchName(drugName);
-       int count = drugMapper.getcount();
-       model.addAttribute("pages",Math.ceil(count/10.0));
-       model.addAttribute("page",page);
+       int count = drugMapper.nameCount(drugName);
+       System.out.println(count);
+       model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+       model.addAttribute("Number",page);
            return drugList;
    }
    public Drug toView(Model model, int drugId ) {

@@ -17,9 +17,12 @@ public class DrugAttributeServiceImpl implements DrugAttributeService {
     @Resource
     DrugAttributeMapper drugAttributeMapper;
 
-    public List<DrugAttribute> getAttributes(int distinction, int page) {
-        PageHelper.startPage(page, 10);
+    public List<DrugAttribute> getAttributes(Model model,int distinction, int page) {
+        PageHelper.startPage(page, 8);
         List<DrugAttribute> drugAttributes = drugAttributeMapper.getAttribute(distinction);
+        int count = drugAttributeMapper.getAttributeCount(distinction);
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
         return drugAttributes;
     }
     public List<DrugAttribute> getAttribute(int distinction) { //不分页查看全部
@@ -27,10 +30,12 @@ public class DrugAttributeServiceImpl implements DrugAttributeService {
         return drugAttributes;
     }
     public List<DrugAttribute> searchAttribute(Model model,int distinction, String attributeName , int page ){  //搜索属性名字
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page,8);
         List<DrugAttribute> drugAttributeList = drugAttributeMapper.searchAttribute(attributeName,distinction);
-        model.addAttribute("pages",Math.ceil(page/10.0));
-        model.addAttribute("page",page);
+        int count = drugAttributeMapper.getAttributeCount(distinction);
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);;
+        model.addAttribute("name",attributeName);
         return drugAttributeList;
     }
     public List<DrugAttribute> keyword(String attributeName){

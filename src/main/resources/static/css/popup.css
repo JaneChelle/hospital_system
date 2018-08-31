@@ -247,10 +247,9 @@ input[type=button]:hover{
 }
 /*表格*/
 .section_table{
-	/*padding: 12px;*/
-	max-height: 536px;
-	overflow: auto;
-	margin: 20px 10px;
+	max-height: 470px;
+	overflow: hidden;
+	margin: 20px 5px;
 	box-shadow: 0 0 1px 3px #ddd;
 }
 table,tr,th,td{
@@ -406,6 +405,14 @@ p{
 .modify:hover{
 	box-shadow: 2px 2px 7px #5CB85C;
 }
+.selsety{
+	width: 83px;
+	transition: .5s ease;
+	background-color: #5bc0de;
+}
+.selsety:hover{
+	box-shadow: 2px 2px 7px #5bc0de;
+}
 .adiv{
 	display: inline-block;
 	padding: 7px 15px;
@@ -416,7 +423,7 @@ p{
 }
 .adiv1{
 	display: inline-block;
-	padding: 7px 15px;
+	padding: 5px 15px;
 	border-radius: 5px;
 	color: #fff;
 	margin: 0 10px;
@@ -530,4 +537,7 @@ select{
 	border-top: 10px solid #999;
 	width: 10px;
 	height: 10px;
+}
+.fenye{
+	text-align: center;
 }

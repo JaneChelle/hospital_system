@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.PatientMapper;
 import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.service.PatientService;
+import org.wlgzs.hospitalmanage.util.Result;
+import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -21,9 +23,14 @@ public class PatientServiceImpl implements PatientService {
     PatientMapper patientMapper;
 
     //查询患者
-    public List<Patient> getPatients(int page) {
-        PageHelper.startPage(page, 10);
+    public List<Patient> getPatients(Model model, int page) {
+        PageHelper.startPage(page, 8);
         List<Patient> patients = patientMapper.selectAll();
+        int count = patientMapper.getcount();
+        int pages = (int) Math.ceil(count/8.0);
+        model.addAttribute("Number",page);
+        model.addAttribute("TotalPages",pages);
+
         System.out.println(patients);
 
         return patients;
@@ -55,6 +62,17 @@ public class PatientServiceImpl implements PatientService {
               patientMapper.deleteByPrimaryKey(patients[i]);
           }
     }
+
+    @Override
+    public Result choicePatient(int patient_number, HttpSession session) {
+        Patient patient = patientMapper.selectByPrimaryKey(patient_number);
+        if(patient != null){
+            session.setAttribute("patient",patient);
+            return new Result(ResultCode.SUCCESS);
+        }
+        return new Result(ResultCode.FAIL);
+    }
+
     //变更患者信息
     public void updatePatient(Patient patient) {
         System.out.println(patient);
@@ -66,11 +84,12 @@ public class PatientServiceImpl implements PatientService {
     }
    //根据条件模糊搜索患者
     public List<Patient> searchPatient(Model model, String patientAttribute, int page) {
-        PageHelper.startPage(page,10);
+        PageHelper.startPage(page,8);
         List<Patient> drugList = patientMapper.searchName(patientAttribute);
-        int count = patientMapper.getcount();
-        model.addAttribute("pages",Math.ceil(count/10.0));
-        model.addAttribute("page",page);
+        int count = patientMapper.searchNameCount(patientAttribute);
+        model.addAttribute("Number",page);
+        int pages = (int) Math.ceil(count/8.0);
+        model.addAttribute("TotalPages",pages);
         return drugList;
 
     }

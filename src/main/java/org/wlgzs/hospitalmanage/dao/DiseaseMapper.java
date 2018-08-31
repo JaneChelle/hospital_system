@@ -2,6 +2,7 @@ package org.wlgzs.hospitalmanage.dao;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+import org.wlgzs.hospitalmanage.entity.Check;
 import org.wlgzs.hospitalmanage.entity.Disease;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -38,4 +39,6 @@ public interface DiseaseMapper extends Mapper<Disease> {
     })
     void deleteDiseaseByIds(@Param("Ids")int[] Ids);
 
+    @Select("SELECT * FROM tb_disease WHERE disease_name LIKE '%${search_word}%' or pinyin_code LIKE '%${search_word}%' limit 0,8")
+    List<Check> findDiseaseByWord(@Param("search_word") String search_word);
 }

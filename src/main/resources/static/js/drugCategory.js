@@ -23,7 +23,7 @@ $('.modify_add').on('click',function () {
                     $('.window2_popup').css('display','none');
                 });
                 $('.cure').addClass('uu');
-                $('.cure').html('修改成功');
+                $('.cure').html(data.msg);
                 setInterval(function () {
                     $('.cure').css('display','none');
                 },2000);
@@ -61,15 +61,16 @@ $('.add1').on('click',function () {
             },
             async: false,
             success: function (data) {
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
+                $('.window1_popup').css('display','none');
                 $('.cure').addClass('uu');
                 $('.cure').html(data.msg);
                 setTimeout(function () {
                     $('.cure').css('display', 'none');
-                }, 2000);
 
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                },1000)
                 // alert(data.msg)
             },
             error: function (data) {
@@ -77,11 +78,13 @@ $('.add1').on('click',function () {
                     location.reload(true);
                 }, 1000);
                 $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
+                $('.cure').html('网络故障');
                 setTimeout(function () {
                     $('.cure').css('display', 'none');
                 }, 2000);
-
+                setTimeout(function () {
+                    location.reload(true);
+                },1000)
 
                 alert(data.msg)
             }
@@ -172,42 +175,5 @@ function spainner(){
         }
     });
 }
-//批量删除
-$('.Batchdelet').on('click',function () {
-    if (confirm('确认要删除吗?')){
-        $.ajax({
-            type: "post",
-            url: "/drug/drugs",
-            data: {
-                'drugCodes':$('.browider').val()
-            },
-            async: false,
-            success: function (data) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
-                //alert(data.msg)
-            },
-            error: function (data) {
-                $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
-                setTimeout(function () {
-                    $('.cure').css('display', 'none');
-                }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
 
-                alert(data.msg)
-            }
-        });
-    }else{
-        return false;
 
-    }
-});

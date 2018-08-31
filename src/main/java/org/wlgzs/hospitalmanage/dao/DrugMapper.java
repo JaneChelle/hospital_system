@@ -21,6 +21,8 @@ public interface DrugMapper extends Mapper<Drug> {
     List<Drug> searchDrugCode(String drugName);                  //搜索药品编码结果*/
    @Select(" SELECT COUNT(*) FROM  tb_drug")
     int getcount();
+    @Select("SELECT COUNT(*) FROM tb_drug WHERE drug_name LIKE CONCAT('%',#{0},'%') or drug_code LIKE CONCAT('%',#{0},'%') ")
+    int nameCount(String drugName);
 
 
 

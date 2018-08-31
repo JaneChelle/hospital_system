@@ -18,6 +18,7 @@ public class StorageRecordController extends BaseController {
     @GetMapping("/StorageRecord/{page}")
     public ModelAndView getStorageRecord(Model model, @PathVariable("page") int page){
       model.addAttribute("storageList",storageRecordService.getStorageRecord(model,page));
+        model.addAttribute("isSearch",0);
       return  new ModelAndView("drugStorageRecord");
     }
     //删除入库记录
@@ -33,19 +34,22 @@ public class StorageRecordController extends BaseController {
         return new Result(ResultCode.SUCCESS,"批量删除成功");
     }
     //搜索库存记录
-    @PostMapping("/searchStorageRecord")
-    public ModelAndView searchStorageRecord(Model model,@RequestParam("drugName") String drugName){
-            model.addAttribute("stroages",storageRecordService.searchStorageRecord(drugName));
+    @PostMapping("/searchStorageRecord/{page}")
+    public ModelAndView searchStorageRecord(Model model,@PathVariable("page")int page,@RequestParam("drugName") String drugName){
+            model.addAttribute("stroages",storageRecordService.searchStorageRecord(model,page,drugName));
+            model.addAttribute("drugName",drugName);
         return new ModelAndView("drugStorageRecord");
     }
     //搜索库存记录下拉框
     @PostMapping("/keyword")
     public Result keyword(@RequestParam("drugName") String drugName){
+        System.out.println(storageRecordService.keyword(drugName));
         return new Result(ResultCode.SUCCESS,storageRecordService.keyword(drugName));
     }
     //数据下拉框链接
     @RequestMapping("/recordLink/{recordId}")
-    public ModelAndView recordLink(Model model, @RequestParam("recordId") int recordId){
+    public ModelAndView recordLink(Model model, @PathVariable("recordId") int recordId){
+        System.out.println(storageRecordService.recordLink(recordId));
          model.addAttribute("storageList",storageRecordService.recordLink(recordId));
          return new ModelAndView("drugStorageRecord");
     }
