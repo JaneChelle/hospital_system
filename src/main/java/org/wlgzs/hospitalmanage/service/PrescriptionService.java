@@ -1,5 +1,6 @@
 package org.wlgzs.hospitalmanage.service;
 
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.entity.Prescription;
 import org.wlgzs.hospitalmanage.entity.PrescriptionCheck;
 import org.wlgzs.hospitalmanage.entity.PrescriptionDrug;
@@ -22,7 +23,7 @@ public interface PrescriptionService {
     Result addPrescription(Prescription prescription,HttpSession session);
 
     //查找全部分页
-    List<Prescription> selectAll(int page);
+    List<Prescription> selectAll(int page,Model model);
 
     //按id删除
     Result deletePrescription(int prescriptionId);
@@ -82,7 +83,7 @@ public interface PrescriptionService {
     void totalPrice(int prescription_id);
 
     //搜索处方
-    List<Prescription> findPrescription(String findName,int page);
+    List<Prescription> findPrescription(String findName,int page,Model model);
 
     //搜索提示
     Result findPrescriptionByWord(String search_word);

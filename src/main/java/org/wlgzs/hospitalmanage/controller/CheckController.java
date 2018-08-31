@@ -26,10 +26,10 @@ public class CheckController extends BaseController {
     //查看所有检查
     @RequestMapping(value = "/check/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
-        System.out.println("116165641");
-        List<Check> checkList = checkService.selectAll(page);
+        List<Check> checkList = checkService.selectAll(page,model);
+        System.out.println("checkList"+checkList);
         model.addAttribute("checkList", checkList);
-        System.out.println(checkList.get(0));
+        model.addAttribute("isSearch",1);
         return new ModelAndView("check");
     }
 
@@ -52,12 +52,15 @@ public class CheckController extends BaseController {
     }
 
     //搜索检查
-    @RequestMapping(value = "/check/findCheck")
+    @RequestMapping(value = "/check/findCheck/{page}")
     public ModelAndView findCheck(Model model,
-                                  @RequestParam(value = "findName", defaultValue = "") String findName){
-        List<Check> checkList = checkService.findCheck(findName,0);
+                                  @RequestParam(value = "findName", defaultValue = "") String findName,
+                                  @PathVariable("page") int page){
+        System.out.println(findName);
+        List<Check> checkList = checkService.findCheck(findName,page,model);
         model.addAttribute("findName",findName);
         model.addAttribute("checkList",checkList);
+        model.addAttribute("isSearch",1);
         return new ModelAndView("check");
     }
 

@@ -1,7 +1,9 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.*;
 import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.service.PrescriptionService;
@@ -54,9 +56,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //查找全部分页
     @Override
-    public List<Prescription> selectAll(int page) {
-        PageHelper.startPage(page, 10);
+    public List<Prescription> selectAll(int page,Model model) {
+        Page page2 = PageHelper.startPage(page, 8, true);
         List<Prescription> list = prescriptionMapper.selectAll();
+        System.out.println(page2);
+        System.out.println(page2.getPages());
+        System.out.println(page);
+        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("Number", page);//查询的当前第几页
         return list;
     }
 
@@ -440,9 +447,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //搜索处方
     @Override
-    public List<Prescription> findPrescription(String findName, int page) {
-        PageHelper.startPage(page, 10);
+    public List<Prescription> findPrescription(String findName, int page,Model model) {
+        Page page2 = PageHelper.startPage(page, 8, true);
         List<Prescription> list = prescriptionMapper.findPrescription(findName);
+        System.out.println(page2);
+        System.out.println(page2.getPages());
+        System.out.println(page);
+        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("Number", page);//查询的当前第几页
         System.out.println(list);
         if (list != null) {
             return list;
