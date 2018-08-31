@@ -135,7 +135,7 @@
 			                	<tr  th:each="exam : ${prescriptionCheckList}">
 			                		<td class="detail_idCheck" th:text="${exam.detail_id}">A133</td>
 			                		<td th:text="${exam.prescription_id}"></td>
-			                		<td class="check_idPre" th:text="${exam.check_id}">QMS</td>
+			                		<td th:text="${exam.check_id}">QMS</td>
 			                		<td th:text="${exam.check_name}"></td>
 									<td th:text="${exam.price_one}"></td>
 									<td class="numberPreCheck" th:text="${exam.number}"></td>
@@ -185,7 +185,7 @@
 									<tr th:each="therapy : ${prescriptionTreatmentList}">
 										<td class="detail_idTreatment" th:text="${therapy.detail_id}"></td>
 										<td th:text="${therapy.prescription_id}"></td>
-										<td class="treatmentIdPre" th:text="${therapy.treatment_id}"></td>
+										<td th:text="${therapy.treatment_id}"></td>
 										<td th:text="${therapy.treatment_name}"></td>
 										<td th:text="${therapy.price_one}"></td>
 										<td class="numberPreTreatment" th:text="${therapy.number}"></td>

@@ -70,9 +70,8 @@ public class PrescriptionController extends BaseController {
 
     //修改处方
     @RequestMapping(value = "/prescription", method = RequestMethod.POST)
-    public ModelAndView modifyPrescription(Prescription prescription) {
-        prescriptionService.modifyPrescription(prescription);
-        return new ModelAndView("redirect:/prescription/findPrescription");
+    public Result modifyPrescription(Prescription prescription) {
+        return prescriptionService.modifyPrescription(prescription);
     }
 
     //跳转到添加药品明细(搜索)
@@ -141,8 +140,8 @@ public class PrescriptionController extends BaseController {
 
     //删除检查明细
     @RequestMapping(value = "/prescription/deleteCheck")
-    public Result deleteCheck(int checkId) {
-        return prescriptionService.deleteCheck(checkId);
+    public Result deleteCheck(int detailId) {
+        return prescriptionService.deleteCheck(detailId);
     }
 
     //修改已添加的处方检查（数量）
@@ -178,9 +177,9 @@ public class PrescriptionController extends BaseController {
 
     //删除治疗明细
     @RequestMapping(value = "/prescription/deleteTreatment")
-    public Result deleteTreatment(int treatmentId) {
+    public Result deleteTreatment(int detailId) {
 
-        return prescriptionService.deleteTreatment(treatmentId);
+        return prescriptionService.deleteTreatment(detailId);
     }
 
     //修改已添加的处方治疗（数量）
@@ -220,6 +219,12 @@ public class PrescriptionController extends BaseController {
     @RequestMapping("/prescription/searchWord")
     public Result searchWord(@RequestParam(value = "search_word") String search_word) {
         return prescriptionService.findPrescriptionByWord(search_word);
+    }
+
+    //选择处方
+    @RequestMapping("/choicePrescription")
+    public Result choicePrescription(int prescription_id,HttpSession session){
+        return prescriptionService.choicePrescription(prescription_id,session);
     }
 
 }

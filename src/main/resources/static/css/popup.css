@@ -405,6 +405,14 @@ p{
 .modify:hover{
 	box-shadow: 2px 2px 7px #5CB85C;
 }
+.selsety{
+	width: 83px;
+	transition: .5s ease;
+	background-color: #5bc0de;
+}
+.selsety:hover{
+	box-shadow: 2px 2px 7px #5bc0de;
+}
 .adiv{
 	display: inline-block;
 	padding: 7px 15px;

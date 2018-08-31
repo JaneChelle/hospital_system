@@ -126,7 +126,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     }
 
     public boolean reduceInventories(int drugCode, String num) {
-        BigDecimal drugAmount = new BigDecimal("num"); //处方要减数量
+        BigDecimal drugAmount = new BigDecimal(num); //处方要减数量
         DrugInventory drugInventory = drugInventoryMapper.increase(drugCode); //总库存量
         List<DrugInventory> drugInventories = drugInventoryMapper.reduceInventories(drugCode); //按有效期的分库存量
         if (drugInventory.getStorage_amount().compareTo(drugAmount) < 0) {

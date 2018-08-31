@@ -30,25 +30,30 @@ $(".delete").on('click', function () {
 // 批量删除
 $(".batchDelete").on('click', function () {
    var x = confirm("您确定要删除吗？");
-   if (x == true){
-       $.ajax({
-           type: "POST",
-           url: "/patient/deletePatients",
-           data: {
-               patients:$('.browider').val(),
-           },
-           dataType: "JSON",
-           success: function (data) {
-               if (data.code == 0) {
-                   location.reload();
-               } else {
+   if ($('.browider').val() != ""){
+       if (x == true){
+           $.ajax({
+               type: "POST",
+               url: "/patient/deletePatients",
+               data: {
+                   patients:$('.browider').val()
+               },
+               dataType: "JSON",
+               success: function (data) {
+                   if (data.code == 0) {
+                       location.reload();
+                   } else {
 
+                   }
+               },
+               error: function (msg) {
+                   alert("网络错误");
                }
-           },
-           error: function (msg) {
-               alert("网络错误");
-           }
-       })
+           })
+       }
+   }
+   else {
+       alert("请选择要删除的选项");
    }
 });
 
@@ -171,3 +176,39 @@ $(".modify_patient").on('click', function () {
         alert("请把患者信息补充完整");
     }
 });
+
+// 下拉框提示
+function spin(){
+    if($('.patientAttribute').val() != ""){
+        $('.spin').fadeIn();
+    }
+    else{
+        $('.spin').fadeOut();
+    }
+}
+function spainner(){
+    $.ajax({
+        type: "POST",//数据发送的方式（post 或者 get）
+        url: "/patient/keyword",//要发送的后台地址
+        data: {
+            patientAttribute:$('.patientAttribute').val(),
+        },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
+        dataType:"JSON",
+        success: function (data) {//ajax请求成功后触发的方法
+            var datas=data.data;
+            console.log(datas);
+            if(data.code==0){
+                $('.spinners').html(" ");
+                for (var i=0;i<datas.length;i++){
+                    var aa="<a href=/patient/patientLink/"+ datas[i].patient_number+ " >"+datas[i].patient_name+ "</a>"+'</br>';
+                    $('.spinners').append(aa);
+                }
+            }else{
+                alert(data.msg);
+            }
+        },
+        error: function (msg) {//ajax请求失败后触发的方法
+            alert("网络故障");//弹出错误信息
+        }
+    });
+}

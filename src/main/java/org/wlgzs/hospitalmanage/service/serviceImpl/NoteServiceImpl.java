@@ -46,13 +46,11 @@ public class NoteServiceImpl implements NoteService {
     DrugInventoryService drugInventoryService;
     //添加记录
     @Override
-    public void addNote(Note note, String price_end, HttpSession session) throws ParseException {
+    public Result addNote(Note note, String price_end, String timeStr,HttpSession session) throws ParseException {
         if (note != null) {
             BigDecimal bigDecimal = new BigDecimal(price_end);
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");    // 这里填写的是想要进行转换的时间格式
-            Date date = new Date();
-            String str = format.format(date);
-            date = format.parse(str);
+            Date date = format.parse(timeStr);
             System.out.println(note.getPatient_name());
             note.setPrice_end(bigDecimal);
             note.setNote_time(date);
@@ -61,9 +59,12 @@ public class NoteServiceImpl implements NoteService {
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
             for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
                 String number = aPrescriptionDrugList.getNumber()+"";
+                System.out.println(number);
                 drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
             }
+            return new Result(ResultCode.SUCCESS);
         }
+        return new Result(ResultCode.FAIL);
     }
 
     //查看记录详情(id查询)
@@ -88,10 +89,12 @@ public class NoteServiceImpl implements NoteService {
     public void modifyNote(Note note, String price_end) {
         if (note != null) {
             Note note1 = noteMapper.selectByPrimaryKey(note.getNote_id());
-            note.setNote_time(note1.getNote_time());
             BigDecimal bigDecimal = new BigDecimal(price_end);
-            note.setPrice_end(bigDecimal);
-            noteMapper.updateByPrimaryKey(note);
+            System.out.println("price_end===="+price_end);
+            System.out.println("bigDecimal===="+bigDecimal);
+            System.out.println("note===="+note);
+            note1.setPrice_end(bigDecimal);
+            noteMapper.updateByPrimaryKey(note1);
         }
     }
 
@@ -102,9 +105,11 @@ public class NoteServiceImpl implements NoteService {
         List<Patient> patientList = patientMapper.searchName(findName);
         List<Integer> listId = new ArrayList<>();
         for (int i = 0; i < patientList.size(); i++) {
+//            System.out.println(patientList.get(i).getPatient_number());
             listId.add(patientList.get(i).getPatient_number());
         }
         //根据id查询
+//        System.out.println(listId);
         List<Note> list = noteMapper.selectNoteByIds(listId);
         System.out.println(list);
         return list;

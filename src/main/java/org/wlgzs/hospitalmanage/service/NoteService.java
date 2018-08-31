@@ -16,7 +16,7 @@ import java.util.List;
 public interface NoteService {
 
     //添加记录
-    void addNote(Note note,String price_end,HttpSession session) throws ParseException;
+    Result addNote(Note note,String price_end,String timeStr,HttpSession session) throws ParseException;
 
     //查看记录详情(id查询)
     Note detailsNote(int note_id);

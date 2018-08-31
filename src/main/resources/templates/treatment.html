@@ -20,7 +20,7 @@
 				<div class="add">
 					<div class="search">
 						<form th:action="@{/treatment/findTreatment/1}" method="post">
-							<input type="text" name="findName" class="findName" id="findName" value="" required="required" th:text="${findName}" />
+							<input type="text" name="findName" class="findName" id="findName" value="" required="required" th:text="${findName}" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
@@ -32,7 +32,9 @@
 						<input type="hidden" class="browider">
 						<input type="hidden" value="" class="btn" id="getValue">
 					</div>
-					<button class="label-info add_item"><b>添加</b></button>
+					<button class="label-info add_item">
+						<b>添加</b>
+					</button>
 				</div>
 				<div class="spin">
 					<div class="spinners">
