@@ -1,8 +1,11 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.TreatmentMapper;
+import org.wlgzs.hospitalmanage.entity.Check;
 import org.wlgzs.hospitalmanage.entity.Treatment;
 import org.wlgzs.hospitalmanage.service.TreatmentService;
 import org.wlgzs.hospitalmanage.util.IdsUtil;
@@ -36,9 +39,14 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     //查找全部分页
     @Override
-    public List<Treatment> selectAll(int page) {
-        PageHelper.startPage(page,10);
+    public List<Treatment> selectAll(int page,Model model) {
+        Page page2 = PageHelper.startPage(page, 8, true);
         List<Treatment> list = treatmentMapper.selectAll();
+        System.out.println(page2);
+        System.out.println(page2.getPages());
+        System.out.println(page);
+        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("Number", page);//查询的当前第几页
         return list;
     }
 
@@ -78,9 +86,14 @@ public class TreatmentServiceImpl implements TreatmentService {
 
     //搜索治疗
     @Override
-    public List<Treatment> findTreatment(String findName, int page) {
-        PageHelper.startPage(page,10);
+    public List<Treatment> findTreatment(String findName, int page,Model model) {
+        Page page2 = PageHelper.startPage(page, 8, true);
         List<Treatment> treatmentList = treatmentMapper.findTreatment(findName);
+        System.out.println(page2);
+        System.out.println(page2.getPages());
+        System.out.println(page);
+        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("Number", page);//查询的当前第几页
         System.out.println(treatmentList);
         return treatmentList;
     }

@@ -1,6 +1,7 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,11 +32,14 @@ public class DrugServiceImpl implements DrugService {
     @Resource
     DrugMapper drugMapper;
     @Resource
+    StorageRecordMapper storageRecordMapper;
+    @Resource
     HttpSession session;
     @Resource
     DrugAttributeMapper drugAttributeMapper;
     @Resource
     DrugInventoryMapper drugInventoryMapper;
+    //查询所有药物
    public List<Drug> getDrugs(Model model,int page){
        PageHelper.startPage(page, 8);
        List<Drug> drugList  = drugMapper.selectAll();
@@ -44,7 +48,8 @@ public class DrugServiceImpl implements DrugService {
        model.addAttribute("Number",page);
        return drugList;
     }
-   public boolean addDrug(Drug drug){                 //添加药品
+    //添加药品
+   public boolean addDrug(Drug drug){
     Drug isDrug=drugMapper.jundgeName(drug.getDrug_name());
     if (isDrug==null){
         drugMapper.insert(drug);
@@ -60,9 +65,13 @@ public class DrugServiceImpl implements DrugService {
     }
    }
    public void updateDrug(Drug drug){
-       Drug beforeDrug = drugMapper.selectByPrimaryKey(drug.getDrug_code());
+       int drug_code = drug.getDrug_code();
+       Drug beforeDrug = drugMapper.selectByPrimaryKey(drug_code);
        BigDecimal beforeAmount = beforeDrug.getSafety_stock();
        BigDecimal afterAmount = drug.getSafety_stock();
+       if (!beforeDrug.getDrug_name().equals(drug.getDrug_name())){
+         drugInventoryMapper.getDrugInventoryByDrug_code(drug_code,drug.getDrug_name(),drug.getPinyin_code());
+       }
        if (beforeAmount.equals(afterAmount)) {
            drugMapper.updateDrug(drug);
        }else {

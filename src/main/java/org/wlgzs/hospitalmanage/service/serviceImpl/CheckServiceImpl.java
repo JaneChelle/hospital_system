@@ -1,7 +1,10 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.CheckMapper;
 import org.wlgzs.hospitalmanage.entity.Check;
 import org.wlgzs.hospitalmanage.service.CheckService;
@@ -35,9 +38,14 @@ public class CheckServiceImpl implements CheckService {
 
     //查找全部分页
     @Override
-    public List<Check> selectAll(int page) {
-        PageHelper.startPage(page,10);
+    public List<Check> selectAll(int page, Model model) {
+        Page page2 = PageHelper.startPage(page, 8, true);
         List<Check> list = checkMapper.selectAll();
+        System.out.println(page2);
+        System.out.println(page2.getPages());
+        System.out.println(page);
+        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("Number", page);//查询的当前第几页
         return list;
     }
 
@@ -77,9 +85,14 @@ public class CheckServiceImpl implements CheckService {
 
     //搜索检查
     @Override
-    public List<Check> findCheck(String findName, int page) {
-        PageHelper.startPage(page,10);
+    public List<Check> findCheck(String findName, int page,Model model) {
+        Page page2 = PageHelper.startPage(page, 8, true);
         List<Check> checkList = checkMapper.findCheck(findName);
+        System.out.println(page2);
+        System.out.println(page2.getPages());
+        System.out.println(page);
+        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("Number", page);//查询的当前第几页
         System.out.println(checkList);
         return checkList;
     }

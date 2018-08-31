@@ -28,6 +28,7 @@ public class PatientController extends BaseController {
         model.addAttribute("isSearch",0);
         return new ModelAndView("patientManagement");
 
+
     }
     //添加患者
     @PostMapping("/patient")
@@ -71,9 +72,18 @@ public class PatientController extends BaseController {
         return new ModelAndView("patientManagement");
     }
 
+    //患者下拉框数据连接
+    @GetMapping("/patinetLink/{patientId}")
+    public ModelAndView patinetLink(Model model,@PathVariable("patientId") int patientId){
+        model.addAttribute("patients",patientService.patinetLink(patientId));
+        return new ModelAndView("patientManagement");
+    }
+
+
     //选择患者
     @RequestMapping("/choicePatient")
     public Result choicePatient(int patient_number,HttpSession session){
         return patientService.choicePatient(patient_number,session);
     }
+
 }

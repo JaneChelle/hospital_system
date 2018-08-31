@@ -43,9 +43,15 @@ public class StorageRecordServiceImpl implements StorageRecordService {
         }
     }
     //搜索库存记录
-    public List<StorageRecord> searchStorageRecord(String drug_name){
-        return storageRecordMapper.search(drug_name);
+    public List<StorageRecord> searchStorageRecord(Model model,int page,String drug_name){
+        PageHelper.startPage(page, 8);
+        List<StorageRecord> storageRecordList = storageRecordMapper.search(drug_name);
+        int count = storageRecordMapper.getcountByDrugName(drug_name);
+        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+        model.addAttribute("Number",page);
+        return storageRecordList;
     }
+
     //搜索库存记录下拉框
     public List<StorageRecord> keyword(String drug_name){
         return storageRecordMapper.keyword(drug_name);

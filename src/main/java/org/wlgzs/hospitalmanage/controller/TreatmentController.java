@@ -26,9 +26,10 @@ public class TreatmentController extends BaseController {
     //查看所有治疗
     @RequestMapping(value = "/treatment/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
-        List<Treatment> treatmentList = treatmentService.selectAll(page);
+        List<Treatment> treatmentList = treatmentService.selectAll(page,model);
         System.out.println(treatmentList);
         model.addAttribute("treatmentList", treatmentList);
+        model.addAttribute("isSearch",0);
         System.out.println(treatmentList.get(0));
         return new ModelAndView("treatment");
     }
@@ -52,12 +53,14 @@ public class TreatmentController extends BaseController {
     }
 
     //搜索治疗
-    @RequestMapping(value = "/treatment/findTreatment")
+    @RequestMapping(value = "/treatment/findTreatment/{page}")
     public ModelAndView findTreatment(Model model,
+                                      @PathVariable("page") int page,
                                   @RequestParam(value = "findName", defaultValue = "") String findName){
-        List<Treatment> treatmentList = treatmentService.findTreatment(findName,0);
+        List<Treatment> treatmentList = treatmentService.findTreatment(findName,page,model);
         model.addAttribute("findName",findName);
         model.addAttribute("treatmentList",treatmentList);
+        model.addAttribute("isSearch",1);
         return new ModelAndView("treatment");
     }
 

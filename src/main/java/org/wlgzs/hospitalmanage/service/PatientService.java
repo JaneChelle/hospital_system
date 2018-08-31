@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public interface PatientService {
-     List<Patient> getPatients(Model model,int page);
+    List<Patient> getPatients(Model model, int page);
 
     void savePatient(Patient patient, HttpSession session);
 
@@ -21,11 +21,13 @@ public interface PatientService {
 
     void updatePatient(Patient patient);
 
-    List<Patient> keyWordsearchPatient (String patientPhone);
+    List<Patient> keyWordsearchPatient(String patientPhone);
 
     List<Patient> searchPatient(Model model, String patientAttribute, int page);
 
     void deletePatients(int[] patients);
+
+    Patient patinetLink(int patientId);
 
     //选择患者
     Result choicePatient(int patient_number, HttpSession session);

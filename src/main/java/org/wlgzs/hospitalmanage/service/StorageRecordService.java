@@ -16,7 +16,7 @@ public interface StorageRecordService {
     List<StorageRecord> getStorageRecord(Model model,int page);
     void deleteStorage(int storageId);
     void deleteStorages(int[] storageIds);
-    List<StorageRecord> searchStorageRecord(String drug_name);
+    List<StorageRecord> searchStorageRecord(Model model,int page,String drug_name);
     List<StorageRecord> keyword(String drug_name);
     StorageRecord recordLink( int recordId);
 }

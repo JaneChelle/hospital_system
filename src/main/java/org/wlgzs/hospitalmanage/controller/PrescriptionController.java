@@ -39,8 +39,9 @@ public class PrescriptionController extends BaseController {
     //查看所有处方
     @RequestMapping(value = "/prescription/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
-        List<Prescription> prescriptionList = prescriptionService.selectAll(page);
+        List<Prescription> prescriptionList = prescriptionService.selectAll(page,model);
         model.addAttribute("prescriptionList", prescriptionList);
+        model.addAttribute("isSearch",0);
         System.out.println(prescriptionList);
         return new ModelAndView("prescriptionList");
     }
@@ -117,7 +118,7 @@ public class PrescriptionController extends BaseController {
     public ModelAndView toAddCheck(Model model, HttpSession session,
                                    @RequestParam(value = "findName", defaultValue = "") String findName,
                                    @RequestParam(value = "isModify", defaultValue = "") String isModify) {
-        List<Check> checkList = checkService.findCheck(findName, 0);
+        List<Check> checkList = checkService.findCheck(findName, 0,model);
         //搜索已经加入的检查
         List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(session);
         System.out.println("prescriptionCheckList" + prescriptionCheckList);
@@ -154,7 +155,7 @@ public class PrescriptionController extends BaseController {
     public ModelAndView toAddTreatment(Model model, HttpSession session,
                                        @RequestParam(value = "findName", defaultValue = "") String findName,
                                        @RequestParam(value = "isModify", defaultValue = "") String isModify) {
-        List<Treatment> treatmentList = treatmentService.findTreatment(findName, 0);
+        List<Treatment> treatmentList = treatmentService.findTreatment(findName, 0,model);
         //搜索已经加入的治疗
         List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(session);
         System.out.println("prescriptionCheckList" + prescriptionTreatmentList);
@@ -203,12 +204,14 @@ public class PrescriptionController extends BaseController {
     }
 
     //搜索所有处方
-    @RequestMapping(value = "/prescription/findPrescription")
+    @RequestMapping(value = "/prescription/findPrescription/{page}")
     public ModelAndView findPrescription(Model model,
+                                         @PathVariable("page") int page,
                                          @RequestParam(value = "findName", defaultValue = "") String findName) {
-        List<Prescription> prescriptionList = prescriptionService.findPrescription(findName, 0);
+        List<Prescription> prescriptionList = prescriptionService.findPrescription(findName,page,model);
         model.addAttribute("findName", findName);
         model.addAttribute("prescriptionList", prescriptionList);
+        model.addAttribute("isSearch",1);
         return new ModelAndView("prescriptionList");
     }
 

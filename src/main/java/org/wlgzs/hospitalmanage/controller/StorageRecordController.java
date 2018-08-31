@@ -34,9 +34,10 @@ public class StorageRecordController extends BaseController {
         return new Result(ResultCode.SUCCESS,"批量删除成功");
     }
     //搜索库存记录
-    @PostMapping("/searchStorageRecord")
-    public ModelAndView searchStorageRecord(Model model,@RequestParam("drugName") String drugName){
-            model.addAttribute("stroages",storageRecordService.searchStorageRecord(drugName));
+    @PostMapping("/searchStorageRecord/{page}")
+    public ModelAndView searchStorageRecord(Model model,@PathVariable("page")int page,@RequestParam("drugName") String drugName){
+            model.addAttribute("stroages",storageRecordService.searchStorageRecord(model,page,drugName));
+            model.addAttribute("drugName",drugName);
         return new ModelAndView("drugStorageRecord");
     }
     //搜索库存记录下拉框
