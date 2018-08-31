@@ -19,8 +19,8 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form th:action="@{/disease/findDisease/1}" method="post">
-							<input type="text" name="findName" id="findName" value="" required="required" th:text="${findName}" placeholder="疾病名称" onkeyup="spin(),spainner()"/>
+						<form th:action="@{/disease/findDisease}" method="post">
+							<input type="text" name="findName" id="findName" value="" required="required" th:text="${findName}" placeholder="疾病名称" autoComplete="off" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
 					</div>
