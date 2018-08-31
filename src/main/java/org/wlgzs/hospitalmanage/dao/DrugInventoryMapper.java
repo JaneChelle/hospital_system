@@ -1,6 +1,7 @@
 package org.wlgzs.hospitalmanage.dao;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.wlgzs.hospitalmanage.entity.DrugInventory;
@@ -77,6 +78,6 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     @Select("SELECT * FROM tb_drug_inventory WHERE stock_number = #{stock_number} ")
     DrugInventory selectOneDrugInventory(int stock_number);
     //更新药品名字------库存
-    @Update("UPDATE FROM  tb_drug_inventory set drug_name=#{drug_name},pinyin_code=#{pinyin_code} WHERE drug_code=#{drug_code}")
-    void getDrugInventoryByDrug_code(int drug_code,String drug_name,String pinyin_code);
+    @Update("UPDATE tb_drug_inventory set drug_name=#{drug_name},pinyin_code=#{pinyin_code} WHERE drug_code=#{drug_code}")
+    void getDrugInventoryByDrug_code( @Param("drug_code")int drug_code, @Param("drug_name") String drug_name, @Param("pinyin_code")String pinyin_code);
 }

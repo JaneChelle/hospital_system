@@ -118,7 +118,7 @@
 				</ul>
 
 				<ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
-					<li><a th:href="@{/attribute/searchAttribute(page=1,attributeName=${attributeName})}">首页</a></li><!--//跳转至第一页-->
+					<li><a th:href="@{/attribute/searchAttribute/3/1(attributeName=${attributeName})}">首页</a></li><!--//跳转至第一页-->
 					<li><a th:href="@{'/attribute/searchAttribute/3/'+${Number-1}(attributeName=${attributeName})}">上一页</a></li><!--//请求页数-1-->
 					<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
 						<!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->

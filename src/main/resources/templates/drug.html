@@ -118,7 +118,7 @@
 			<div class="fenye" th:if="${TotalPages > 0 and isSearch==1}">
 				<ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">
 					<!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
-					<li><a th:href="@{/drug/searchdrug/1}">首页</a></li>
+					<li><a th:href="@{/drug/searchdrug/1(drugName=${drugName})}">首页</a></li>
 					<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
 						<!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
 						<a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
@@ -131,7 +131,7 @@
 				</ul>
 
 				<ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
-					<li><a th:href="@{/drug/searchdrug(page=1,drugName=${drugName})}">首页</a></li><!--//跳转至第一页-->
+					<li><a th:href="@{/drug/searchdrug/1(drugName=${drugName})}">首页</a></li><!--//跳转至第一页-->
 					<li><a th:href="@{'/drug/searchdrug/'+${Number-1}(drugName=${drugName})}">上一页</a></li><!--//请求页数-1-->
 					<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
 						<!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->

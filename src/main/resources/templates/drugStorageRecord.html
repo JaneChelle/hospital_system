@@ -20,7 +20,7 @@
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="/StorageRecord/searchStorageRecord" method="post">
+						<form action="/StorageRecord/searchStorageRecord/1" method="get">
 							<input type="text"  name="drugName" class="drugName" required="required" placeholder="请输入药品名字" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button> 
 						</form>
@@ -110,39 +110,39 @@
 				</ul>
 
 			</div>
-			<!--&lt;!&ndash;搜索分页&ndash;&gt;-->
-			<!--<div class="fenye" th:if="${TotalPages > 0 and isSearch==1}">-->
-				<!--<ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">-->
-					<!--&lt;!&ndash;//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页&ndash;&gt;-->
-					<!--<li><a th:href="@{/StorageRecord/searchStorage/1(drugName=${drugName})}">首页</a></li>-->
-					<!--<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">-->
-						<!--&lt;!&ndash;//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数&ndash;&gt;-->
-						<!--<a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>-->
-						<!--&lt;!&ndash;//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击&ndash;&gt;-->
-						<!--<a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"-->
-						   <!--th:href="@{'/DrugInventory/searchStorage/'+${i}(drugName=${drugName})}" th:text="${i}"-->
-						   <!--style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a>&lt;!&ndash;//限制显示页数的条数  4到6个页数&ndash;&gt;-->
-					<!--</li>-->
-					<!--<li><a th:href="@{/attribute/searchAttribute(page=${Number+1},drugName=${drugName})}">下一页</a></li>&lt;!&ndash;//请求页数+1&ndash;&gt;-->
-				<!--</ul>-->
+			<!--搜索分页-->
+			<div class="fenye" th:if="${TotalPages > 0 and isSearch==1}">
+				<ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">
+					<!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
+					<li><a th:href="@{/StorageRecord/searchStorageRecord/1(drugName=${drugName})}">首页</a></li>
+					<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+						<!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+						<!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+						   th:href="@{'/StorageRecord/searchStorageRecord/'+${i}(drugName=${drugName})}" th:text="${i}"
+						   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+					</li>
+					<li><a th:href="@{'/StorageRecord/searchStorageRecord/'+${Number+1}(drugName=${drugName})}">下一页</a></li><!--//请求页数+1-->
+				</ul>
 
-				<!--<ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}">&lt;!&ndash;//显示上一页&ndash;&gt;-->
-					<!--<li><a th:href="@{/DrugInventory/searchStorage(page=1,drugName=${drugName})}">首页</a></li>&lt;!&ndash;//跳转至第一页&ndash;&gt;-->
-					<!--<li><a th:href="@{'/DrugInventory/searchStorage/'+${Number-1}(drugName=${drugName})}">上一页</a></li>&lt;!&ndash;//请求页数-1&ndash;&gt;-->
-					<!--<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">-->
-						<!--&lt;!&ndash;//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数&ndash;&gt;-->
-						<!--<a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>-->
-						<!--&lt;!&ndash;//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击&ndash;&gt;-->
-						<!--<a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"-->
-						   <!--th:href="@{'/DrugInventory/searchStorage/'+${i}(drugName=${drugName})}" th:text="${i}"-->
-						   <!--style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a>&lt;!&ndash;//限制显示页数的条数  4到6个页数&ndash;&gt;-->
-					<!--</li>-->
-					<!--<li th:if="${Number != TotalPages}"><a-->
-							<!--th:href="@{'/DrugInventory/searchStorage/'+${Number+1}(drugName=${drugName})}">下一页</a></li>&lt;!&ndash;//请求页数+1&ndash;&gt;-->
-					<!--<li><a th:href="@{'/DrugInventory/searchStorage/'+${TotalPages}(drugName=${drugName})}">尾页</a></li>&lt;!&ndash;//跳转至第Number页&ndash;&gt;-->
-				<!--</ul>-->
+				<ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
+					<li><a th:href="@{/StorageRecord/searchStorageRecord/1(drugName=${drugName})}">首页</a></li><!--//跳转至第一页-->
+					<li><a th:href="@{'/StorageRecord/searchStorageRecord/'+${Number-1}(drugName=${drugName})}">上一页</a></li><!--//请求页数-1-->
+					<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+						<!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+						<!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+						   th:href="@{'/StorageRecord/searchStorageRecord/'+${i}(drugName=${drugName})}" th:text="${i}"
+						   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+					</li>
+					<li th:if="${Number != TotalPages}"><a
+							th:href="@{'/StorageRecord/searchStorageRecord/'+${Number+1}(drugName=${drugName})}">下一页</a></li><!--//请求页数+1-->
+					<li><a th:href="@{'/StorageRecord/searchStorageRecord/'+${TotalPages}(drugName=${drugName})}">尾页</a></li><!--//跳转至第Number页-->
+				</ul>
 
-			<!--</div>-->
+			</div>
 		</section>
 <div class="cure"></div>
 
