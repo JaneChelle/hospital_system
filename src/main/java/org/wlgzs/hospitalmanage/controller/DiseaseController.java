@@ -35,18 +35,21 @@ public class DiseaseController extends BaseController {
     //查找所有疾病(分页)
     @RequestMapping(value = "/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
-        List<Disease> diseaseList = diseaseService.selectAll(page);
+        List<Disease> diseaseList = diseaseService.selectAll(page,model);
         model.addAttribute("diseaseList", diseaseList);
+        model.addAttribute("isSearch",0);
         return new ModelAndView("diseaseList");
     }
 
     //搜索疾病(分页)
-    @RequestMapping(value = "/findDisease")
+    @RequestMapping(value = "/findDisease/{page}")
     public ModelAndView findDisease(Model model,
+                                    @PathVariable("page") int page,
                                     @RequestParam(value = "findName", defaultValue = "") String findName) {
-        List<Disease> diseaseList = diseaseService.findDisease(findName,0);
+        List<Disease> diseaseList = diseaseService.findDisease(findName,page,model);
         model.addAttribute("diseaseList",diseaseList);
         model.addAttribute("findName",findName);
+        model.addAttribute("isSearch",1);
         return new ModelAndView("diseaseList");
     }
 
