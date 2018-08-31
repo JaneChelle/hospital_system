@@ -1,7 +1,10 @@
 package org.wlgzs.hospitalmanage.service.serviceImpl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.wlgzs.hospitalmanage.dao.*;
 import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.service.DrugInventoryService;
@@ -100,7 +103,7 @@ public class NoteServiceImpl implements NoteService {
 
     //按用户搜索记录(findName是查找用户)
     @Override
-    public List<Note> findNote(String findName, int page) {
+    public List<Note> findNote(String findName, int page,Model model) {
         //查询用户表
         List<Patient> patientList = patientMapper.searchName(findName);
         List<Integer> listId = new ArrayList<>();
@@ -110,7 +113,13 @@ public class NoteServiceImpl implements NoteService {
         }
         //根据id查询
 //        System.out.println(listId);
+        Page page2 = PageHelper.startPage(page, 8, true);
         List<Note> list = noteMapper.selectNoteByIds(listId);
+        System.out.println(page2);
+        System.out.println(page2.getPages());
+        System.out.println(page);
+        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("Number", page);//查询的当前第几页
         System.out.println(list);
         return list;
     }

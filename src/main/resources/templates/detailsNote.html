@@ -25,12 +25,12 @@
 						</form>
 					</div>
 					<div class="input_btn">
-						<input type="button" value="全选" id="selectAll">
-						<!--<input type="button" value="全不选" id="unSelect">-->
-						<input type="button" value="反选" id="reverse">
-						<input type="button" value="批量删除" class="batchDelete">
-						<input type="hidden" class="browider">
-						<input type="hidden" value="" class="btn" id="getValue">
+						<!--<input type="button" value="全选" id="selectAll">-->
+						<!--&lt;!&ndash;<input type="button" value="全不选" id="unSelect">&ndash;&gt;-->
+						<!--<input type="button" value="反选" id="reverse">-->
+						<!--<input type="button" value="批量删除" class="batchDelete">-->
+						<!--<input type="hidden" class="browider">-->
+						<!--<input type="hidden" value="" class="btn" id="getValue">-->
 					</div>
 					<button class="label-info">
 						<b>
@@ -79,6 +79,42 @@
 	                </tbody>
 				</table>
 			</div>
+
+			<!--搜索分页-->
+			<div class="fenye" th:if="${TotalPages > 0}">
+				<!--<h1 th:text="${isSearch}">tuhu</h1>-->
+				<ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">
+					<!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
+					<li><a th:href="@{/note/findNote/1}">首页</a></li>
+					<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+						<!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+						<!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+						   th:href="@{'/note/findNote/'+${i}(findName=${findName})}" th:text="${i}"
+						   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+					</li>
+					<li><a th:href="@{'/note/findNote/'+${Number+1}(findName=${findName})}">下一页</a></li><!--//请求页数+1-->
+				</ul>
+
+				<ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
+					<li><a th:href="@{'/note/findNote/'+1(findName=${findName})}">首页</a></li><!--//跳转至第一页-->
+					<li><a th:href="@{'/note/findNote/'+${Number-1}(findName=${findName})}">上一页</a></li><!--//请求页数-1-->
+					<li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+						<!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+						<!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+						<a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+						   th:href="@{'/note/findNote/'+${i}(findName=${findName})}" th:text="${i}"
+						   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+					</li>
+					<li th:if="${Number != TotalPages}"><a
+							th:href="@{'/note/findNote/'+${Number+1}(findName=${findName})}">下一页</a></li><!--//请求页数+1-->
+					<li><a th:href="@{'/note/findNote/'+${TotalPages}(findName=${findName})}">尾页</a></li><!--//跳转至第Number页-->
+				</ul>
+
+			</div>
+
 		</section>
 		<!--弹窗-->
 		
@@ -109,6 +145,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="cure"></div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/drug.js}" ></script>

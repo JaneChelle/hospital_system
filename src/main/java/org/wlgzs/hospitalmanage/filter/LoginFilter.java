@@ -26,14 +26,12 @@ public class LoginFilter implements Filter {
         String url = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
         System.out.println(url);
         HttpSession session = httpRequest.getSession();
-        String user = (String) session.getAttribute("user");
-        if (user != null) {
+        if (session.getAttribute("user") != null) {
             System.out.println("前台通过");
             filterChain.doFilter(httpRequest, httpResponse);
             return;
         } else {
-            filterChain.doFilter(httpRequest, httpResponse);
-//            httpResponse.sendRedirect("../toLogin");
+            httpResponse.sendRedirect("../toLogin");
             return;
         }
     }

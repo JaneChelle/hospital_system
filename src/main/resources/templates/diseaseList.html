@@ -102,7 +102,7 @@
 
 			</div>
 			<!--搜索分页-->
-			<h1 th:text="${isSearch}">tuhu</h1>
+			<!--<h1 th:text="${isSearch}">tuhu</h1>-->
 			<div class="fenye" th:if="${TotalPages > 0 and isSearch==1}">
 				<ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">
 					<!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
@@ -143,7 +143,7 @@
 			<div class="add_infor">
 				<h3>添加疾病</h3>
 				<div class="popup_table">
-					<form action="" method="post">
+					<!--<form action="" method="post">-->
 						<table class="table table-bordered">
 							<thead>
 				                <tr>
@@ -158,10 +158,11 @@
 							<input type="submit" value="添加" class="add_check"/>
 							<input type="button" name="" class="cancel_1" value="取消">
 						</div>
-					</form>
+					<!--</form>-->
 				</div>
 			</div>
 		</div>
+		<div class="cure"></div>	
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 	<script type="text/javascript" th:src="@{/js/drug.js}" ></script>

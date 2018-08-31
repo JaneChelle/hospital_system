@@ -66,11 +66,11 @@ public class NoteController extends BaseController {
     }
 
     //搜索记录
-    @RequestMapping(value = "/findNote")
-    public ModelAndView findPrescription(Model model, @RequestParam(value = "page", defaultValue = "0") int page
+    @RequestMapping(value = "/findNote/{page}")
+    public ModelAndView findPrescription(Model model, @PathVariable(value = "page") int page
             , @RequestParam(value = "findName", defaultValue = "") String findName) {
         System.out.println("findName"+findName);
-        List<Note> noteList = noteService.findNote(findName, page);
+        List<Note> noteList = noteService.findNote(findName, page,model);
         System.out.println(noteList);
         model.addAttribute("findName", findName);
         model.addAttribute("noteList", noteList);

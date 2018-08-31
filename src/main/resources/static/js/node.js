@@ -13,13 +13,30 @@ $(".delete").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    location.reload();
+                    $('.cure').addClass('uu');
+                    $('.cure').html("删除成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                 } else {
 
                 }
             },
             error: function (data) {
-                location.reload();
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu")
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
+                alert("网络错误");
             }
         })
     }
@@ -64,30 +81,49 @@ $(".price_modify").on('click',function () {
 
 // 添加
 $(".add_note").on('click',function () {
-    $.ajax({
-        type: "PUT",
-        url: "/note",
-        data: {
-            patient_id:$(".patient_number").val(),
-            patient_name:$(".patient_name").val(),
-            disease_id:$(".disease_id").val(),
-            disease_name:$(".disease_name").val(),
-            prescription_id:$(".prescription_id").val(),
-            price_end:$(".price_end").val(),
-            timeStr:$(".note_time").val()
-        },
-        dataType: "JSON",
-        success: function (data) {
-            if (data.code == 0) {
-                window.location.href="/note/findNote";
-            } else {
+    if(($(".patient_number").val() != "") && ($(".patient_name").val() != "") && ($(".disease_id").val() != "") && ($(".disease_name").val() != "") && ($(".prescription_id").val() != "") && ($(".price_end").val() != "") && ($(".patient_number").val() != "") && ($(".note_time").val() != "")){
+        $.ajax({
+            type: "PUT",
+            url: "/note",
+            data: {
+                patient_id:$(".patient_number").val(),
+                patient_name:$(".patient_name").val(),
+                disease_id:$(".disease_id").val(),
+                disease_name:$(".disease_name").val(),
+                prescription_id:$(".prescription_id").val(),
+                price_end:$(".price_end").val(),
+                timeStr:$(".note_time").val()
+            },
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == 0) {
+                    $('.cure').addClass('uu');
+                    $('.cure').html("添加成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        window.location.href="/note/findNote";
+                    }, 1000);
+                } else {
 
+                }
+            },
+            error: function (msg) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass("uu");
+                    $('.cure').html('');
+                }, 2000);
+                setTimeout(function () {
+                    location.reload(true);
+                }, 1000);
+                alert("网络错误");
             }
-        },
-        error: function (msg) {
-            alert("网络错误");
-        }
-    })
+        })
+    }
 });
 
 // // 下拉框提示

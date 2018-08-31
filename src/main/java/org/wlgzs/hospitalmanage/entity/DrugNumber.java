@@ -23,6 +23,6 @@ public class DrugNumber {
 
     private BigDecimal number;         //总价
 
-    private String drug_name;       //药品编号
+    private String drug_name;       //药品名字
 
 }
