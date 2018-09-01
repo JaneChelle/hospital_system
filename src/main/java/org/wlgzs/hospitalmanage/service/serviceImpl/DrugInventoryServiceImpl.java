@@ -46,11 +46,13 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         int drugCode = drugInventory.getDrug_code();
         Drug drug = drugMapper.selectByPrimaryKey(drugCode);
+        String drugName = drug.getDrug_name();
+        String pinyin_code = drug.getPinyin_code();
         try {
             Date date = df.parse(dateStr);
             drugInventory.setValid_period(date);
             drugInventory.setPinyin_code(drug.getPinyin_code());
-            drugInventory.setDrug_name(drug.getDrug_name());
+            drugInventory.setDrug_name(drugName);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -64,16 +66,20 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             BigDecimal storageAmount = drugInventory.getStorage_amount();
             Date validPeriodDate = drugInventory.getValid_period();
             Date currentDate = new Date();
-            /*if (session.getAttribute("user") == null) {
+            if (session.getAttribute("user") == null) {
                 return new Result(ResultCode.FAIL, "请先登录");
-            }*/
-            //    int operator_code = (int) session.getAttribute("user");
+            }
+                int operator_code = (int) session.getAttribute("user");
             if (storageAmount.compareTo(new BigDecimal("0")) <= 0 && validPeriodDate == null) {
                 return new Result(ResultCode.FAIL, "请将信息填写正确");
             }
-            StorageRecord storageRecord = new StorageRecord(drugCode,drugInventory.getDrug_name(), 001, storageAmount.intValue(), currentDate, validPeriodDate);
+            StorageRecord storageRecord = new StorageRecord(drugCode,drugInventory.getDrug_name(), operator_code, storageAmount.intValue(), currentDate, validPeriodDate);
             storageRecordService.record(storageRecord);
             DrugInventory currentDrugInventory = drugInventoryMapper.increase(drugCode);
+            if (currentDrugInventory==null){
+                DrugInventory inventory = new DrugInventory(drugCode,drugName,pinyin_code, new BigDecimal(0), null,0);
+                drugInventoryMapper.insert(inventory);
+            }
             BigDecimal receipt = drugInventory.getStorage_amount();
             BigDecimal currentReceipt = currentDrugInventory.getStorage_amount().add(receipt);
             BigDecimal safeStorage = drug.getSafety_stock();                //药品安全库存

@@ -60,4 +60,10 @@ public class LoginController extends BaseController {
     public ModelAndView toHospital(){
         return new ModelAndView("hospital");
     }
+    //退出登录
+    @RequestMapping("/outLogin")
+    public ModelAndView outLogin(){
+        session.removeAttribute("user");
+        return new ModelAndView("login");
+    }
 }
