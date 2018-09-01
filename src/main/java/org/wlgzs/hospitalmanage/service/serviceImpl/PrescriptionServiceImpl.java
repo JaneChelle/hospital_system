@@ -47,8 +47,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result addPrescription(Prescription prescription, HttpSession session) {
         if (prescription != null) {
             prescriptionMapper.insert(prescription);
-            String prescription_id = prescription.getPrescription_id() + "";
-            session.setAttribute("prescription_id", prescription_id);
+            session.setAttribute("prescription", prescription);
             return new Result(ResultCode.SUCCESS);
         }
         return new Result(ResultCode.FAIL);

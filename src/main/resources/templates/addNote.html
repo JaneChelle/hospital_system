@@ -84,7 +84,12 @@
 							<tr>
 								<th>收费</th>
 								<td>
-									<input type="text" name="price_end" class="price_end"  required="required"/>
+									<span th:if="${session.prescription==null}">
+										<input type="text" name="price_end" class="price_end"  required="required"/>
+									</span>
+									<span th:if="${session.prescription!=null}">
+										<input type="text" name="price_end" th:value="${session.prescription.price_all}"  class="price_end"  required="required"/>
+									</span>
 								</td>
 							</tr>
 							<tr>

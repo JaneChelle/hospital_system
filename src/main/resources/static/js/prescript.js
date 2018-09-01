@@ -14,7 +14,15 @@ $(".deletePre").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    location.reload();
+                    $('.cure').addClass('uu');
+                    $('.cure').html("删除成功");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                 } else {
 
                 }
@@ -70,6 +78,11 @@ $(".pre_modify").on('click', function () {
         })
     }
     else {
-        alert("请把信息补充完整!");
+        $('.cure').addClass('uu');
+        $('.cure').html('请把信息补充完整');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
