@@ -406,7 +406,7 @@ p{
 .selsety{
 	width: 83px;
 	transition: .5s ease;
-	background-color: #75CDF6;
+	background-color: #fc5656;
 }
 .selsety:hover{
 	box-shadow: 2px 2px 7px #75CDF6;
@@ -419,11 +419,19 @@ p{
 	float: right;
 	margin: 0 10px;
 }
+.adiv_4{
+	display: inline-block;
+	padding: 5px 15px;
+	border-radius: 5px;
+	color: #fff;
+	background-color: #6AA3EF;
+}
 .adiv1{
 	display: inline-block;
 	padding: 5px 15px;
 	border-radius: 5px;
 	color: #fff;
+	background-color: #6AA3EF;
 }
 .adiv:hover,.adiv1:hover{
 	color: #fff;
@@ -557,4 +565,15 @@ select{
 }
 .tip_block{
 	display: block;
+}
+/*添加就诊记录*/
+.note_all{
+	position: absolute;
+	top: 15%;
+	left: 20%;
+	width: 466px;
+	background-color: rgba(184, 220, 152, 0.2);
+}
+.note_all tr{
+	margin: 12px 0;
 }
