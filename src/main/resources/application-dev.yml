@@ -9,9 +9,13 @@ spring:
       suffix: .html
   datasource:
     druid:
+<<<<<<< HEAD
       url: jdbc:mysql://localhost:3306/hospital?autoReconnect=true&useUnicode=true&characterEncoding=utf8
+=======
+      url: jdbc:mysql://wkyhky.site:3306/hospital?autoReconnect=true&useUnicode=true&characterEncoding=utf8
+>>>>>>> 8e9f3c5819ffc801565297c95dd04b4d171446c7
       username: root
-      password: root
+      password: wky123
       driver-class-name: com.mysql.jdbc.Driver
 mybatis:
     type-aliases-package: org.wlgzs.hospitalmanage.entity

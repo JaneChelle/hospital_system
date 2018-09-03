@@ -10,7 +10,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @MapperScan(basePackages= {"org.wlgzs.hospitalmanage.dao"})
 public class HospitalmanageApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(HospitalmanageApplication.class, args);
     }

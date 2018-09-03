@@ -31,7 +31,6 @@ public class LoginController extends BaseController {
     @RequestMapping("/login")
     public Result login(HttpSession session, @RequestParam("userAccount") String userAccount, @RequestParam("userPassword") String userPassword) {
         List<String> userAccounts = userProperties.getUserAccounts();
-        System.out.println("fftghdfht");
         List<String> userPasswords = userProperties.getUserPasswords();
        // List<String> userNames = userProperties.getUserNames();
         List<Integer> userCodes = userProperties.getOperatorCodes();
@@ -45,7 +44,6 @@ public class LoginController extends BaseController {
                 }
             }
         }
-        System.out.println("shibai");
         return new Result(ResultCode.FAIL, "账号密码错误");
     }
 
@@ -59,5 +57,11 @@ public class LoginController extends BaseController {
     @RequestMapping("/toHospital")
     public ModelAndView toHospital(){
         return new ModelAndView("hospital");
+    }
+    //退出登录
+    @RequestMapping("/outLogin")
+    public ModelAndView outLogin(){
+        session.removeAttribute("user");
+        return new ModelAndView("login");
     }
 }

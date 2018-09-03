@@ -28,8 +28,6 @@ public class PatientController extends BaseController {
         model.addAttribute("sign",sign);
         model.addAttribute("isSearch",0);
         return new ModelAndView("patientManagement");
-
-
     }
     //添加患者
     @PostMapping("/patient")
