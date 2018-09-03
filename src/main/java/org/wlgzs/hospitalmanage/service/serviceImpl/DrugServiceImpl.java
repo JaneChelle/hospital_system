@@ -42,7 +42,7 @@ public class DrugServiceImpl implements DrugService {
     //查询所有药物
    public List<Drug> getDrugs(Model model,int page){
        PageHelper.startPage(page, 8);
-       List<Drug> drugList  = drugMapper.selectAll();
+       List<Drug> drugList  = drugMapper.selectDrugs();
        int count = drugMapper.getcount();
        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
        model.addAttribute("Number",page);
@@ -67,12 +67,14 @@ public class DrugServiceImpl implements DrugService {
    public void updateDrug(Drug drug){
        int drug_code = drug.getDrug_code();
        String drug_name = drug.getDrug_name();
+       String pinyin_code = drug.getPinyin_code();
        Drug beforeDrug = drugMapper.selectByPrimaryKey(drug_code);
        BigDecimal beforeAmount = beforeDrug.getSafety_stock();
        BigDecimal afterAmount = drug.getSafety_stock();
-       if (!beforeDrug.getDrug_name().equals(drug.getDrug_name())){
+       if (!beforeDrug.getDrug_name().equals(drug.getDrug_name()) || !beforeDrug.getPinyin_code().equals(pinyin_code)){
          drugInventoryMapper.getDrugInventoryByDrug_code(drug_code,drug_name,drug.getPinyin_code());
-         storageRecordMapper.updateStorageRecordByDrug_code(drug_code,drug_name);
+           System.out.println(pinyin_code);
+         storageRecordMapper.updateStorageRecordByDrug_code(drug_code,drug_name,pinyin_code);
        }
        if (beforeAmount.equals(afterAmount)) {
            drugMapper.updateDrug(drug);

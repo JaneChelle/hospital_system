@@ -73,7 +73,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             if (storageAmount.compareTo(new BigDecimal("0")) <= 0 && validPeriodDate == null) {
                 return new Result(ResultCode.FAIL, "请将信息填写正确");
             }
-            StorageRecord storageRecord = new StorageRecord(drugCode,drugInventory.getDrug_name(), operator_code, storageAmount.intValue(), currentDate, validPeriodDate);
+            StorageRecord storageRecord = new StorageRecord(drugCode,drugInventory.getDrug_name(),pinyin_code, operator_code, storageAmount.intValue(), currentDate, validPeriodDate);
             storageRecordService.record(storageRecord);
             DrugInventory currentDrugInventory = drugInventoryMapper.increase(drugCode);
             if (currentDrugInventory==null){
