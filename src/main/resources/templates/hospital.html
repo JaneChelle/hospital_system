@@ -1,69 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>邢氏诊所患者就诊记录及电子处方系统</title>
-		<link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
-		<link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
-		<link rel="stylesheet" th:href="@{/css/hospital.css}" />
-	</head>
-	<body>
-		<div class="content">
-			<!--<div class="font" style="text-align: center">-->
-				<!--<h3>不只是诊所软件，更是成功者经营之道</h3>-->
-				<!--<p>他山之石，可以攻玉，站在行业巨人们的肩上，少走弯路，直击成功</p>-->
-			<!--</div>-->
-			<ul>
-				<li>
-					<img th:src="@{/img/1.png}" alt="药品信息管理">
-					<p>药品信息管理</p>
-					<a th:href="@{/drug/drug/1}">
-						<div class="fu_tet">
-							<h3>药品信息管理</h3>
-							<p>包括药品的类别，规格含量，单位，厂家，库存，价格，医保名称等等</p>
-						</div>
-					</a>
-				</li>
-				<li><img th:src="@{/img/2.png}" alt="药品库存管理">
-				<p>药品库存管理</p>
-					<a th:href="@{/DrugInventory/DrugInventory/1}">
-						<div class="fu_tet">
-							<h3>药品库存管理</h3>
-							<p>库存查询、报损报溢、库存盘点、仓库调拨、过期查询、库存报警、库存变动等查询。</p>
-						</div>
-					</a>
-                </li>
-				<li><img th:src="@{/img/3.png}" alt="处方管理">
-				<p>处方管理</p>
-					<a th:href="@{/prescription/1}">
-						<div class="fu_tet">
-							<h3>处方管理</h3>
-							<p>商保客户是中高端诊所必争之地,系统提供的不仅是保险支付流程,更是保险理赔从授信、CPT Code设置,账单理赔全套经验</p>
-						</div>
-					</a>
-                </li>
-				<li ><img th:src="@{/img/4.png}" alt="患者管理">
-				<p>患者管理</p>
-					<a th:href="@{/patient/patient/1}">
-						<div class="fu_tet">
-							<h3>患者管理</h3>
-							<p>客户关系管理（CRM）不仅是在客服部门，更贯穿在全部业务流程的客户关系管理，能够自动生成CRM任务，挖掘潜在客户</p>
-						</div>
-					</a>
-                </li>
-				<li><img th:src="@{/img/5.png}" alt="就诊记录管理">
-				<p>就诊记录管理</p>
-					<a th:href="@{/note/findNote}">
-						<div class="fu_tet">
-							<h3>就诊记录管理</h3>
-							<p>消费积分体系、代金券管理、推荐人奖励都是诊所经营利器，同样考验的是系统在功能强大背后财务核算的准确和灵活</p>
-						</div>
-					</a>
-                </li>
-			</ul>
-		</div>
-	</body>
+<head>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>邢氏诊所患者就诊记录及电子处方系统</title>
+        <link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+        <link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+        <link rel="stylesheet" th:href="@{/css/prescription.css}"/>
+        <link rel="stylesheet" th:href="@{/css/popup.css}"/>
+    </head>
+<body>
+<section>
+    <div class="fixed">
+        <div class="nav">
+            <span><b>添加就诊记录</b></span>
+        </div>
+    </div>
+    <div style="width: 100%; height: 45px;"></div>
+
+    <div class="add_infor note_all">
+        <div class="popup_table">
+            <div class="item_label">
+                <label>患者名称</label>
+                <input type="text" name="" value="" placeholder="患者名称" autoComplete="off"/>
+            </div>
+            <div class="item_label">
+                <label>疾病名称</label>
+                <input type="text" name="" value="" placeholder="疾病名称" autoComplete="off">
+            </div>
+            <div class="item_label">
+                <label>处方名称</label>
+                <input type="text" name="" value="" placeholder="处方名称" autoComplete="off">
+            </div>
+            <div class="item_label">
+                <label>收费</label>
+                <input type="text" name="" value="" placeholder="收费" autoComplete="off"/>
+            </div>
+            <div class="popup_bottom">
+                <!--<input type="reset"   value="重置" />-->
+                <input type="reset" value="添加" class="add_note"/>
+                <a th:href="@{/note/findNote/1}">
+                    <button class="selsety">取消</button>
+                </a>
+            </div>
+            <!--</form>-->
+        </div>
+    </div>
+</section>
+<div class="cure"></div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 </html>

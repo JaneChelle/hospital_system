@@ -8,10 +8,11 @@
 
 // 删除
 $(".delete").on('click', function () {
-    var r = confirm("您确定要删除吗？");
+    var parent = $(this).parent().parent();
+    var treatmentId = parent.children("td.treatmentId").text();
+    var inform = "您确定要删除治疗编号为 " + treatmentId + " 的治疗信息吗？";
+    var r = confirm(inform);
     if (r == true) {
-        var parent = $(this).parent().parent();
-        var treatmentId = parent.children("td.treatmentId").text();
         $.ajax({
             type: "DELETE",
             url: "/treatment/" + treatmentId,

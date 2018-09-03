@@ -20,7 +20,12 @@ $(".add_pre").on('click',function () {
         })
     }
     else {
-        alert("请把信息补充完整");
+        $('.cure').addClass('uu');
+        $('.cure').html('请把信息补充完整');
+        setTimeout(function () {
+            $('.cure').removeClass("uu")
+            $('.cure').html('');
+        }, 2000);
     }
 });
 
