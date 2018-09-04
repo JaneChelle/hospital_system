@@ -64,7 +64,7 @@
 				<div th:if="${prescription.is_drug}==1">
 					<div class="prescript_p">
 						<p>处方药品
-							<a th:href="@{/prescription/toAddDrug(isModify=is)}">
+							<a th:href="@{/prescription/toAddDrug(isModify='is',prescriptionId=${prescription.prescription_id})}">
 								<button class="modify_8">添加</button>
 							</a>
 						</p>
@@ -103,7 +103,7 @@
 					<div class="add_2">
 						<p>处方药品</p>
 						<b>PS：该处方暂无药品</b>
-						<a th:href="@{/prescription/toAddDrug(isModify=is)}">
+						<a th:href="@{/prescription/toAddDrug(isModify='is',prescriptionId=${prescription.prescription_id})}">
 							<button class="modify_5">添加</button>
 						</a>
 					</div>
@@ -113,7 +113,7 @@
 				<div th:if="${prescription.is_check}==1">
 					<div class="prescript_p">
 						<p>处方检查
-							<a th:href="@{/prescription/toAddCheck(isModify=is)}">
+							<a th:href="@{/prescription/toAddCheck(isModify='is',prescriptionId=${prescription.prescription_id})}">
 								<button class="modify_9">添加</button>
 							</a>
 						</p>
@@ -152,7 +152,7 @@
 					<div class="add_2">
 						<p>处方检查</p>
 						<b>PS：该处方暂无检查</b>
-						<a th:href="@{/prescription/toAddCheck(isModify=is)}">
+						<a th:href="@{/prescription/toAddCheck(isModify='is',prescriptionId=${prescription.prescription_id})}">
 							<button class="modify_6">添加</button>
 						</a>
 					</div>
@@ -163,7 +163,7 @@
 					<div style="margin-bottom: 50px;">
 						<div class="prescript_p">
 							<p>处方治疗
-								<a th:href="@{/prescription/toAddTreatment(isModify=is)}">
+								<a th:href="@{/prescription/toAddTreatment(isModify='is',prescriptionId=${prescription.prescription_id})}">
 									<button class="modify_10">添加</button>
 								</a>
 							</p>
@@ -203,7 +203,7 @@
 					<div class="add_2" style="margin-bottom: 50px;">
 						<p>处方治疗</p>
 						<b>PS：该处方暂无治疗</b>
-						<a th:href="@{/prescription/toAddTreatment(isModify=is)}">
+						<a th:href="@{/prescription/toAddTreatment(isModify='is',prescriptionId=${prescription.prescription_id})}">
 							<button class="modify_7">添加</button>
 						</a>
 					</div>

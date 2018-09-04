@@ -27,10 +27,8 @@ public class TreatmentController extends BaseController {
     @RequestMapping(value = "/treatment/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
         List<Treatment> treatmentList = treatmentService.selectAll(page,model);
-        System.out.println(treatmentList);
         model.addAttribute("treatmentList", treatmentList);
         model.addAttribute("isSearch",0);
-        System.out.println(treatmentList.get(0));
         return new ModelAndView("treatment");
     }
 

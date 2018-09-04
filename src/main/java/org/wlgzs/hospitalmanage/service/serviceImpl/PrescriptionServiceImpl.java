@@ -55,13 +55,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //查找全部分页
     @Override
-    public List<Prescription> selectAll(int page,Model model) {
+    public List<Prescription> selectAll(int page, Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Prescription> list = prescriptionMapper.selectAll();
-        System.out.println(page2);
-        System.out.println(page2.getPages());
-        System.out.println(page);
-        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("TotalPages", page2.getPages());//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
         return list;
     }
@@ -69,11 +66,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     //按id删除
     @Override
     public Result deletePrescription(int prescriptionId) {
-        System.out.println(prescriptionId);
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescriptionId);
-        System.out.println(prescription);
         if (prescription != null) {
-            System.out.println("存在");
             prescriptionMapper.delete(prescription);
             return new Result(ResultCode.SUCCESS);
         }
@@ -92,7 +86,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result modifyPrescription(Prescription prescription) {
         if (prescription != null) {
             Prescription prescription1 = prescriptionMapper.selectByPrimaryKey(prescription.getPrescription_id());
-            System.out.println(prescription1);
             prescription.setIs_drug(prescription1.getIs_drug());
             prescription.setIs_check(prescription1.getIs_check());
             prescription.setIs_treatment(prescription1.getIs_treatment());
@@ -104,21 +97,24 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加药品明细
     @Override
-    public Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session) {
+    public Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session, String isModify) {
         if (prescriptionDrug != null) {
             Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
             BigDecimal bigDecimal2 = new BigDecimal(prescriptionDrug.getNumber());//数量
             BigDecimal bigDecimal1 = drug.getSafety_stock();//库存
             int prescription_id;
-            if (session.getAttribute("prescription_id") != null) {
-                String prescriptionId = (String) session.getAttribute("prescription_id");
-                prescription_id = Integer.parseInt(prescriptionId);
-                System.out.println(prescription_id);
+            if (session.getAttribute("prescription_id") != null || session.getAttribute("prescription") != null) {
+                if (isModify.equals("")) {//是添加，不是修改
+                    Prescription prescription = (Prescription) session.getAttribute("prescription");
+                    prescription_id = prescription.getPrescription_id();
+                } else {
+                    String prescriptionId = (String) session.getAttribute("prescription_id");
+                    prescription_id = Integer.parseInt(prescriptionId);
+                }
             } else {
                 return new Result(ResultCode.FAIL, "请选择一个处方!");
             }
             int a = bigDecimal1.compareTo(bigDecimal2);
-            System.out.println();
             PrescriptionDrug prescriptionDrug1 = prescriptionDrugMapper.findPrescriptionDru(prescription_id, prescriptionDrug.getDrug_code());
             if (prescriptionDrug1 == null) {
                 if (a != -1) {
@@ -200,11 +196,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             int a = bigDecimal1.compareTo(bigDecimal);
             if (a != -1) {
                 prescriptionDrug.setNumber(number);
-                System.out.println(number);
-                System.out.println(prescriptionDrug.getPrice_one());
-                System.out.println(drug.getUnit_price().multiply(bigDecimal));
                 prescriptionDrug.setPrice_one(drug.getUnit_price().multiply(bigDecimal));
-                System.out.println(prescriptionDrug.getPrice_one());
                 prescriptionDrugMapper.updateByPrimaryKey(prescriptionDrug);
                 return new Result(ResultCode.SUCCESS);
             } else {
@@ -222,14 +214,17 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加检查明细
     @Override
-    public Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session) {
-        if (prescriptionCheck != null && session.getAttribute("prescription_id") != null) {
-
+    public Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session, String isModify) {
+        if (prescriptionCheck != null) {
             Check check = checkMapper.selectByPrimaryKey(prescriptionCheck.getCheck_id());
             int prescription_id;
-            String prescriptionId = (String) session.getAttribute("prescription_id");
-            prescription_id = Integer.parseInt(prescriptionId);
-            System.out.println(prescription_id);
+            if (isModify.equals("")) {//是添加，不是修改
+                Prescription prescription = (Prescription) session.getAttribute("prescription");
+                prescription_id = prescription.getPrescription_id();
+            } else {
+                String prescriptionId = (String) session.getAttribute("prescription_id");
+                prescription_id = Integer.parseInt(prescriptionId);
+            }
             prescriptionCheck.setPrescription_id(prescription_id);
 
             //修改处方表
@@ -247,7 +242,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescriptionCheck.setPrice_one(bigDecimal);
                 prescriptionCheck.setCheck_name(check.getCheck_name());
                 prescriptionCheckMapper.insert(prescriptionCheck);
-            }else{
+            } else {
                 BigDecimal temp = new BigDecimal(prescriptionCheck1.getNumber() + prescriptionCheck.getNumber());
                 BigDecimal bigDecimal = check.getCheck_price().multiply(temp);
                 prescriptionCheck1.setPrice_one(bigDecimal);
@@ -284,7 +279,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public Result deleteCheck(int detailId) {
         PrescriptionCheck prescriptionCheck = prescriptionCheckMapper.selectByPrimaryKey(detailId);
-        System.out.println("prescriptionCheck"+prescriptionCheck);
         if (prescriptionCheck != null) {
             prescriptionCheckMapper.deleteByPrimaryKey(detailId);
             List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescriptionCheck.getPrescription_id());
@@ -316,13 +310,17 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加治疗明细
     @Override
-    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session) {
-        if (prescriptionTreatment != null && session.getAttribute("prescription_id") != null) {
+    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session,String isModify) {
+        if (prescriptionTreatment != null) {
             Treatment treatment = treatmentMapper.selectByPrimaryKey(prescriptionTreatment.getTreatment_id());
             int prescription_id;
-            String prescriptionId = (String) session.getAttribute("prescription_id");
-            prescription_id = Integer.parseInt(prescriptionId);
-            System.out.println(prescription_id);
+            if (isModify.equals("")) {//是添加，不是修改
+                Prescription prescription = (Prescription) session.getAttribute("prescription");
+                prescription_id = prescription.getPrescription_id();
+            } else {
+                String prescriptionId = (String) session.getAttribute("prescription_id");
+                prescription_id = Integer.parseInt(prescriptionId);
+            }
             prescriptionTreatment.setPrescription_id(prescription_id);
             //修改处方表
             Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
@@ -331,15 +329,15 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescriptionMapper.updateByPrimaryKey(prescription);
             }
 
-            PrescriptionTreatment prescriptionTreatment1 = prescriptionTreatmentMapper.findPrescriptionTreat(prescription_id,prescriptionTreatment.getTreatment_id());
+            PrescriptionTreatment prescriptionTreatment1 = prescriptionTreatmentMapper.findPrescriptionTreat(prescription_id, prescriptionTreatment.getTreatment_id());
             //查询检查表，添加价格
-            if(prescriptionTreatment1 == null){
+            if (prescriptionTreatment1 == null) {
                 BigDecimal temp = new BigDecimal(prescriptionTreatment.getNumber());
                 BigDecimal bigDecimal = treatment.getTreatment_price().multiply(temp);
                 prescriptionTreatment.setPrice_one(bigDecimal);
                 prescriptionTreatment.setTreatment_name(treatment.getTreatment_name());
                 prescriptionTreatmentMapper.insert(prescriptionTreatment);
-            }else{
+            } else {
                 BigDecimal temp = new BigDecimal(prescriptionTreatment1.getNumber() + prescriptionTreatment.getNumber());
                 BigDecimal bigDecimal = treatment.getTreatment_price().multiply(temp);
                 prescriptionTreatment1.setPrice_one(bigDecimal);
@@ -408,23 +406,18 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     //计算总价格
     @Override
     public void totalPrice(int prescription_id) {
-        System.out.println("prescription_id:" + prescription_id);
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 
         BigDecimal priceDrug = BigDecimal.ZERO;
         List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(prescription_id);
         for (int i = 0; i < prescriptionDrugList.size(); i++) {
             priceDrug = priceDrug.add(prescriptionDrugList.get(i).getPrice_one());
-            System.out.println(prescriptionDrugList.get(i).getPrice_one());
-            System.out.println("priceDrug:" + priceDrug);
         }
 
         BigDecimal priceCheck = BigDecimal.ZERO;
         List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.findPrescriptionCheck(prescription_id);
         for (int i = 0; i < prescriptionCheckList.size(); i++) {
             priceCheck = priceCheck.add(prescriptionCheckList.get(i).getPrice_one());
-            System.out.println(prescriptionCheckList.get(i).getPrice_one());
-            System.out.println("priceCheck:" + priceCheck);
         }
 
         BigDecimal priceTreatment = BigDecimal.ZERO;
@@ -433,10 +426,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
             priceTreatment = priceTreatment.add(prescriptionTreatmentList.get(i).getPrice_one());
         }
-        System.out.println("priceDrug:" + priceDrug);
-
-        System.out.println("priceTreatment:" + priceTreatment);
-
         BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
         prescription.setPrice_all(priceAll);
         System.out.println("priceAll:" + priceAll);
@@ -446,15 +435,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //搜索处方
     @Override
-    public List<Prescription> findPrescription(String findName, int page,Model model) {
+    public List<Prescription> findPrescription(String findName, int page, Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Prescription> list = prescriptionMapper.findPrescription(findName);
-        System.out.println(page2);
-        System.out.println(page2.getPages());
-        System.out.println(page);
-        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("TotalPages", page2.getPages());//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
-        System.out.println(list);
         if (list != null) {
             return list;
         }
@@ -478,8 +463,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public Result choicePrescription(int prescription_id, HttpSession session) {
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
-        if(prescription != null){
-            session.setAttribute("prescription",prescription);
+        if (prescription != null) {
+            session.setAttribute("prescription", prescription);
             return new Result(ResultCode.SUCCESS);
         }
         return new Result(ResultCode.FAIL);

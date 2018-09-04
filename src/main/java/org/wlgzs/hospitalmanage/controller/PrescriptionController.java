@@ -1,6 +1,5 @@
 package org.wlgzs.hospitalmanage.controller;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,9 +8,6 @@ import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -32,7 +28,6 @@ public class PrescriptionController extends BaseController {
     //新增处方
     @RequestMapping(value = "/prescription", method = RequestMethod.PUT)
     public Result addPrescription(Prescription prescription, HttpSession session) {
-        System.out.println(prescription);
         return prescriptionService.addPrescription(prescription, session);
     }
 
@@ -42,7 +37,6 @@ public class PrescriptionController extends BaseController {
         List<Prescription> prescriptionList = prescriptionService.selectAll(page,model);
         model.addAttribute("prescriptionList", prescriptionList);
         model.addAttribute("isSearch",0);
-        System.out.println(prescriptionList);
         return new ModelAndView("prescriptionList");
     }
 
@@ -80,25 +74,27 @@ public class PrescriptionController extends BaseController {
                                   @RequestParam(value = "findName", defaultValue = "") String findName,
                                   @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Drug> drugList = drugService.searchDrug(model, findName, 0);
-
+        List<PrescriptionDrug> prescriptionDrugList = null;
         //搜索已经加入的药品
-        List<PrescriptionDrug> prescriptionDrugList = prescriptionService.queryPrescriptionDrug(session);
-        System.out.println("prescriptionDrugList" + prescriptionDrugList);
+        if(isModify.equals("")){
+            Prescription prescription = (Prescription)session.getAttribute("prescription") ;
+            prescriptionDrugList = prescriptionService.queryPrescriptionDrug(prescription.getPrescription_id());
+        }else{
+            prescriptionDrugList = prescriptionService.queryPrescriptionDrug(session);
+        }
         model.addAttribute("prescriptionDrugList", prescriptionDrugList);
         model.addAttribute("findName", findName);
-        System.out.println("drugList" + drugList);
-        System.out.println("findName" + findName);
         model.addAttribute("drugList", drugList);
-        System.out.println("isModify"+isModify);
         model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionDrugs");
     }
 
     //添加药品明细
     @RequestMapping(value = "/prescription/addDrug")
-    public Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session) {
-//        prescriptionService.addDrug(prescriptionDrug,session);
-        return prescriptionService.addDrug(prescriptionDrug, session);
+    public Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session,
+                          @RequestParam(value = "isModify", defaultValue = "") String isModify) {
+        List<PrescriptionDrug> prescriptionDrugList = null;
+        return prescriptionService.addDrug(prescriptionDrug,session,isModify);
     }
 
     //删除药品明细
@@ -120,12 +116,15 @@ public class PrescriptionController extends BaseController {
                                    @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Check> checkList = checkService.findCheck(findName, 0,model);
         //搜索已经加入的检查
-        List<PrescriptionCheck> prescriptionCheckList = prescriptionService.queryPrescriptionCheck(session);
-        System.out.println("prescriptionCheckList" + prescriptionCheckList);
+        List<PrescriptionCheck> prescriptionCheckList = null;
+        if(isModify.equals("")){
+            Prescription prescription = (Prescription)session.getAttribute("prescription") ;
+            prescriptionCheckList = prescriptionService.queryPrescriptionCheck(prescription.getPrescription_id());
+        }else{
+            prescriptionCheckList = prescriptionService.queryPrescriptionCheck(session);
+        }
         model.addAttribute("prescriptionCheckList", prescriptionCheckList);
         model.addAttribute("findName", findName);
-        System.out.println("checkList" + checkList);
-        System.out.println("findName" + findName);
         model.addAttribute("checkList", checkList);
         model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionCheck");
@@ -133,8 +132,9 @@ public class PrescriptionController extends BaseController {
 
     //添加检查明细
     @RequestMapping(value = "/prescription/addCheck")
-    public Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session) {
-        return prescriptionService.addCheck(prescriptionCheck, session);
+    public Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session,
+                           @RequestParam(value = "isModify", defaultValue = "") String isModify) {
+        return prescriptionService.addCheck(prescriptionCheck, session,isModify);
 //        return new ModelAndView("redirect:/prescription/toAddCheck");
     }
 
@@ -157,12 +157,15 @@ public class PrescriptionController extends BaseController {
                                        @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         List<Treatment> treatmentList = treatmentService.findTreatment(findName, 0,model);
         //搜索已经加入的治疗
-        List<PrescriptionTreatment> prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(session);
-        System.out.println("prescriptionCheckList" + prescriptionTreatmentList);
+        List<PrescriptionTreatment> prescriptionTreatmentList = null;
+        if(isModify.equals("")){
+            Prescription prescription = (Prescription)session.getAttribute("prescription") ;
+            prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(prescription.getPrescription_id());
+        }else{
+            prescriptionTreatmentList = prescriptionService.queryPrescriptionTreatment(session);
+        }
         model.addAttribute("prescriptionCheckList", prescriptionTreatmentList);
         model.addAttribute("findName", findName);
-        System.out.println("treatmentList" + treatmentList);
-        System.out.println("findName" + findName);
         model.addAttribute("treatmentList", treatmentList);
         model.addAttribute("isModify", isModify);
         return new ModelAndView("prescriptionTherapy");
@@ -170,15 +173,15 @@ public class PrescriptionController extends BaseController {
 
     //添加治疗明细
     @RequestMapping(value = "/prescription/addTreatment")
-    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session) {
-        return prescriptionService.addTreatment(prescriptionTreatment, session);
+    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session,
+                               @RequestParam(value = "isModify", defaultValue = "") String isModify) {
+        return prescriptionService.addTreatment(prescriptionTreatment, session,isModify);
 //        return new ModelAndView("redirect:/prescription/toAddTreatment");
     }
 
     //删除治疗明细
     @RequestMapping(value = "/prescription/deleteTreatment")
     public Result deleteTreatment(int detailId) {
-
         return prescriptionService.deleteTreatment(detailId);
     }
 
@@ -192,15 +195,16 @@ public class PrescriptionController extends BaseController {
     @RequestMapping(value = "/prescription/totalPrice")
     public Result totalPrice(HttpSession session,
                              @RequestParam(value = "isModify", defaultValue = "") String isModify) {
-        int prescription_id = Integer.parseInt((String) session.getAttribute("prescription_id"));
-        prescriptionService.totalPrice(prescription_id);
-        System.out.println("isModify=="+isModify);
         if(isModify.equals("is")){
-            System.out.println("prescription_id"+prescription_id);
+            int prescription_id = Integer.parseInt((String) session.getAttribute("prescription_id"));
+            prescriptionService.totalPrice(prescription_id);
             return new Result(ResultCode.isModify,prescription_id);
+        }else{
+            Prescription prescription = (Prescription)session.getAttribute("prescription") ;
+            int prescription_id = prescription.getPrescription_id();
+            prescriptionService.totalPrice(prescription_id);
+            return new Result(ResultCode.SUCCESS);
         }
-        return new Result(ResultCode.SUCCESS);
-//        return new ModelAndView("redirect:/prescription/findPrescriptionById?prescription_id="+prescription_id);
     }
 
     //搜索所有处方

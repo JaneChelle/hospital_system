@@ -27,7 +27,6 @@ public class CheckController extends BaseController {
     @RequestMapping(value = "/check/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
         List<Check> checkList = checkService.selectAll(page,model);
-        System.out.println("checkList"+checkList);
         model.addAttribute("checkList", checkList);
         model.addAttribute("isSearch",1);
         return new ModelAndView("check");
@@ -56,7 +55,6 @@ public class CheckController extends BaseController {
     public ModelAndView findCheck(Model model,
                                   @RequestParam(value = "findName", defaultValue = "") String findName,
                                   @PathVariable("page") int page){
-        System.out.println(findName);
         List<Check> checkList = checkService.findCheck(findName,page,model);
         model.addAttribute("findName",findName);
         model.addAttribute("checkList",checkList);

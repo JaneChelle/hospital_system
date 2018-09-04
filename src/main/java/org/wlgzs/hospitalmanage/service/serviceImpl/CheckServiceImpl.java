@@ -41,9 +41,6 @@ public class CheckServiceImpl implements CheckService {
     public List<Check> selectAll(int page, Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Check> list = checkMapper.selectAll();
-        System.out.println(page2);
-        System.out.println(page2.getPages());
-        System.out.println(page);
         model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
         return list;
@@ -52,11 +49,8 @@ public class CheckServiceImpl implements CheckService {
     //按id删除
     @Override
     public Result deleteCheck(int checkId) {
-        System.out.println(checkId);
         Check check = checkMapper.selectByPrimaryKey(checkId);
-        System.out.println(check);
         if(check != null){
-            System.out.println("存在");
             checkMapper.delete(check);
             return new Result(ResultCode.SUCCESS);
         }
@@ -88,12 +82,8 @@ public class CheckServiceImpl implements CheckService {
     public List<Check> findCheck(String findName, int page,Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Check> checkList = checkMapper.findCheck(findName);
-        System.out.println(page2);
-        System.out.println(page2.getPages());
-        System.out.println(page);
         model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
-        System.out.println(checkList);
         return checkList;
     }
 

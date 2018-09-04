@@ -35,7 +35,7 @@ public interface PrescriptionService {
     Result modifyPrescription(Prescription prescription);
 
     //添加药品明细
-    Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session);
+    Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session,String isModify);
 
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session);
@@ -50,7 +50,7 @@ public interface PrescriptionService {
     List<PrescriptionDrug> queryPrescriptionDrug(int prescriptionId);
 
     //添加检查明细
-    Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session);
+    Result addCheck(PrescriptionCheck prescriptionCheck, HttpSession session,String isModify);
 
     //搜索已添加的处方检查
     List<PrescriptionCheck> queryPrescriptionCheck(HttpSession session);
@@ -65,7 +65,7 @@ public interface PrescriptionService {
     Result modifyPrescriptionCheck(int detail_id, String number);
 
     //添加治疗明细
-    Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session);
+    Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session,String isModify);
 
     //搜索已添加的处方治疗
     List<PrescriptionTreatment> queryPrescriptionTreatment(HttpSession session);
