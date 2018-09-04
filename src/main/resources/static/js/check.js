@@ -1,9 +1,10 @@
 // 删除
 $(".delete").on('click', function () {
-    var r = confirm("您确定要删除吗？");
+    var parent = $(this).parent().parent();
+    var checkId = parent.children("td.checkId").text();
+    var inform = "您确定要删除检查编号为 " + checkId + " 的检查信息吗？";
+    var r = confirm(inform);
     if (r == true) {
-        var parent = $(this).parent().parent();
-        var checkId = parent.children("td.checkId").text();
         $.ajax({
             type: "DELETE",
             url: "/check/" + checkId,

@@ -43,7 +43,6 @@ public class DrugController extends BaseController {
 
         }
     }
-
     // 更新药物信息
     @PutMapping("drug")
     public Result updateDrug(Drug drug) {
@@ -82,7 +81,6 @@ public class DrugController extends BaseController {
     public Result keyword(@RequestParam("drugName") String drugName) {
         return new Result(ResultCode.SUCCESS, drugService.keyword(drugName));
     }
-
     //搜索药物
     @GetMapping("/searchdrug/{page}")
     public ModelAndView searchDrug(Model model, @RequestParam("drugName") String drugName,@PathVariable("page") int page ) {

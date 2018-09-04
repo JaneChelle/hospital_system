@@ -1,9 +1,10 @@
 // 删除
 $(".delete").on('click', function () {
-    var r = confirm("您确定要删除吗？");
+    var parent = $(this).parent().parent();
+    var diseaseID = parent.children("td.diseaseID").text();
+    var inform = "您确定要删除疾病编号为 " + diseaseID + " 的疾病信息吗？";
+    var r = confirm(inform);
     if (r == true) {
-        var parent = $(this).parent().parent();
-        var diseaseID = parent.children("td.diseaseID").text();
         $.ajax({
             type: "DELETE",
             url: "/disease/" + diseaseID,

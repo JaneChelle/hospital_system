@@ -23,11 +23,11 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     List<DrugInventory> getUnsafetyStock();
 
     //获取总库存数据
-    @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is null")
+    @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is null ORDER BY (stock_number) DESC")
     List<DrugInventory> getAll();
 
     //获取总库存数据(有效不为空的)
-    @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is not null")
+    @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is not null ORDER BY (stock_number) DESC")
     List<DrugInventory> getAllnotnull();
 
     //获取总库存数据的数量

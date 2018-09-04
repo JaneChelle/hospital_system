@@ -1,7 +1,9 @@
 package org.wlgzs.hospitalmanage.dao;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.wlgzs.hospitalmanage.entity.StorageRecord;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -13,15 +15,18 @@ public interface StorageRecordMapper extends Mapper<StorageRecord> {
     List<StorageRecord> getAll();
     @Select(" SELECT COUNT(*) FROM   tb_storage_record")
     int getcount();
-    @Select(" SELECT COUNT(*) FROM  tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') ")
+    @Select(" SELECT COUNT(*) FROM  tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') or  pinyin_code  LIKE CONCAT('%',#{0},'%')  ")
     int getcountByDrugName(String drug_name);
-    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') limit 10")
+    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') or  pinyin_code  LIKE CONCAT('%',#{0},'%')  limit 10")
     List<StorageRecord> keyword(String drug_name );
-    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') ")
+    @Select("SELECT * FROM tb_storage_record WHERE drug_name  LIKE CONCAT('%',#{0},'%') or  pinyin_code  LIKE CONCAT('%',#{0},'%') ")
     List<StorageRecord> search(String drug_name );
     @Delete("DELETE FROM tb_storage_record WHERE record_number=#{0}")
     void deleteInventory(int record_number);
     @Select("SELECT * FROM tb_storage_record WHERE record_number=#{0}")
     StorageRecord selectStorage(int record_number);
+    @Update("UPDATE tb_storage_record set drug_name=#{drug_name},pinyin_code=#{pinyin_code} WHERE drug_code=#{drug_code}")
+    void updateStorageRecordByDrug_code(@Param("drug_code")int drug_code, @Param("drug_name") String drug_name,@Param("pinyin_code") String pinyin_code);
+
 
 }
