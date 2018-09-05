@@ -54,7 +54,6 @@ public class NoteServiceImpl implements NoteService {
             BigDecimal bigDecimal = new BigDecimal(price_end);
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");    // 这里填写的是想要进行转换的时间格式
             Date date = format.parse(timeStr);
-            System.out.println(note.getPatient_name());
             note.setPrice_end(bigDecimal);
             note.setNote_time(date);
             noteMapper.insert(note);
@@ -62,7 +61,6 @@ public class NoteServiceImpl implements NoteService {
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
             for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
                 String number = aPrescriptionDrugList.getNumber()+"";
-                System.out.println(number);
                 drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
             }
             return new Result(ResultCode.SUCCESS);
@@ -93,9 +91,6 @@ public class NoteServiceImpl implements NoteService {
         if (note != null) {
             Note note1 = noteMapper.selectByPrimaryKey(note.getNote_id());
             BigDecimal bigDecimal = new BigDecimal(price_end);
-            System.out.println("price_end===="+price_end);
-            System.out.println("bigDecimal===="+bigDecimal);
-            System.out.println("note===="+note);
             note1.setPrice_end(bigDecimal);
             noteMapper.updateByPrimaryKey(note1);
         }
@@ -108,19 +103,13 @@ public class NoteServiceImpl implements NoteService {
         List<Patient> patientList = patientMapper.searchName(findName);
         List<Integer> listId = new ArrayList<>();
         for (int i = 0; i < patientList.size(); i++) {
-//            System.out.println(patientList.get(i).getPatient_number());
             listId.add(patientList.get(i).getPatient_number());
         }
         //根据id查询
-//        System.out.println(listId);
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Note> list = noteMapper.selectNoteByIds(listId);
-        System.out.println(page2);
-        System.out.println(page2.getPages());
-        System.out.println(page);
         model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
-        System.out.println(list);
         return list;
     }
 
@@ -129,10 +118,7 @@ public class NoteServiceImpl implements NoteService {
     public Result chargeNote(String time) {
         String time_start = time.substring(0,19);
         String time_end = time.substring(time.length() - 19,time.length());
-        System.out.println(time_start);
-        System.out.println(time_end);
         List<Note> noteList = noteMapper.chargeNote(time_start, time_end);
-        System.out.println(noteList);
         BigDecimal totalPrice = new BigDecimal("0");
         for (Note aNoteList : noteList) {
             totalPrice = totalPrice.add(aNoteList.getPrice_end());
@@ -158,7 +144,6 @@ public class NoteServiceImpl implements NoteService {
         for (int aDrugId : drugIdList) {
             DrugNumber priceAll = noteMapper.drugIdLists(noteList,aDrugId);
             drugNumberList.add(priceAll);
-            System.out.println(priceAll);
         }
         return new Result(ResultCode.SUCCESS,drugNumberList);
     }

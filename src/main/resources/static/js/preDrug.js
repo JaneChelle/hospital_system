@@ -12,6 +12,7 @@ $(".select_drug").on('click',function () {
                 drug_code:drug_code,
                 drug_name:drug_name,
                 number:drug_num,
+                isModify:isModify,
             },
             dataType: "JSON",
             success: function (data) {
@@ -464,6 +465,7 @@ $(".price_allPre").on("click",function () {
                 $(".adiv1").hide();
                 $(".adiv2").fadeIn();
             }else if(data.code == 2){
+                alert("data.count");
                 window.location.href="/prescription/findPrescriptionById?prescriptionId"+data.count;
             }
         },

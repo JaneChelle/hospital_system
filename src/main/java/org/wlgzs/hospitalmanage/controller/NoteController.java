@@ -80,7 +80,6 @@ public class NoteController extends BaseController {
     //跳转到查询价格页面
     @RequestMapping("/toChargeNote")
     public ModelAndView toChargeNote(){
-
         return new ModelAndView("chargeNote");
     }
 

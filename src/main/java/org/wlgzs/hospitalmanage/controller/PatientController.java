@@ -86,4 +86,15 @@ public class PatientController extends BaseController {
         return patientService.choicePatient(patient_number,session);
     }
 
+    //查看某个患者是否存在
+    @RequestMapping("/checkPatient")
+    public Result checkPatient(int patient_number){
+        Patient patient = patientService.patinetLink(patient_number);
+        if(patient != null){
+            return new Result(ResultCode.SUCCESS,"存在！");
+        }else{
+            return new Result(ResultCode.FAIL,"不存在！");
+        }
+    }
+
 }

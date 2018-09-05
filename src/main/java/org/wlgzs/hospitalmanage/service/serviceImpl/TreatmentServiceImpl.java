@@ -42,9 +42,6 @@ public class TreatmentServiceImpl implements TreatmentService {
     public List<Treatment> selectAll(int page,Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Treatment> list = treatmentMapper.selectAll();
-        System.out.println(page2);
-        System.out.println(page2.getPages());
-        System.out.println(page);
         model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
         return list;
@@ -53,11 +50,8 @@ public class TreatmentServiceImpl implements TreatmentService {
     //按id删除
     @Override
     public Result deleteTreatment(int treatmentId) {
-        System.out.println(treatmentId);
         Treatment treatment = treatmentMapper.selectByPrimaryKey(treatmentId);
-        System.out.println(treatment);
         if(treatment != null){
-            System.out.println("存在");
             treatmentMapper.delete(treatment);
             return new Result(ResultCode.SUCCESS);
         }
@@ -89,12 +83,8 @@ public class TreatmentServiceImpl implements TreatmentService {
     public List<Treatment> findTreatment(String findName, int page,Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Treatment> treatmentList = treatmentMapper.findTreatment(findName);
-        System.out.println(page2);
-        System.out.println(page2.getPages());
-        System.out.println(page);
         model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
-        System.out.println(treatmentList);
         return treatmentList;
     }
 
