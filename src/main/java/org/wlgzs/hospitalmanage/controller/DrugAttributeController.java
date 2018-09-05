@@ -23,13 +23,13 @@ public class DrugAttributeController extends BaseController {
     //查询对应的药品属性的全部（ distinction=1药品类别  =2药品单位 =3药品剂型）
     @GetMapping("/attribute/{distinction}/{page}")
     public ModelAndView getAttributes(Model model, @PathVariable("distinction") int distinction, @PathVariable("page") int page) {
-        model.addAttribute("attributes",drugAttributeService.getAttributes(model,distinction, page));
-        model.addAttribute("isSearch",0);
-        if(distinction==1) {
-        return new ModelAndView("drugCategory");
-        }else if (distinction==2){
+        model.addAttribute("attributes", drugAttributeService.getAttributes(model, distinction, page));
+        model.addAttribute("isSearch", 0);
+        if (distinction == 1) {
+            return new ModelAndView("drugCategory");
+        } else if (distinction == 2) {
             return new ModelAndView("drugUnit");
-        }else {
+        } else {
             return new ModelAndView("drugDosageSorm");
         }
     }
@@ -42,11 +42,11 @@ public class DrugAttributeController extends BaseController {
         System.out.println(isAdd);
         if (isAdd) {
             return new Result(ResultCode.SUCCESS, "添加成功");
-        }
-        else {
+        } else {
             return new Result(ResultCode.FAIL, "名字重复，添加失败");
         }
     }
+
     //删除药品属性
     @DeleteMapping("/attribute/{attributeId}")
     public Result deleteAttribute(@PathVariable("attributeId") int attributeId) {
@@ -59,43 +59,47 @@ public class DrugAttributeController extends BaseController {
             return new Result(ResultCode.FAIL, "删除失败，有药品与此类型关联");
         }
     }
+
     //搜索药品属性
     @GetMapping("/searchAttribute/{distinction}/{page}")
-    public ModelAndView searchAttribute(Model model,@PathVariable("page") int page,@PathVariable("distinction") int distinction, String  attributeName){
-        List<DrugAttribute> drugAttributes = drugAttributeService.searchAttribute(model,distinction,attributeName,page);
-        model.addAttribute("attributes",drugAttributes);
-        model.addAttribute("isSearch",1);
-        System.out.println(drugAttributes );
+    public ModelAndView searchAttribute(Model model, @PathVariable("page") int page, @PathVariable("distinction") int distinction, String attributeName) {
+        List<DrugAttribute> drugAttributes = drugAttributeService.searchAttribute(model, distinction, attributeName, page);
+        model.addAttribute("attributes", drugAttributes);
+        model.addAttribute("isSearch", 1);
+        System.out.println(drugAttributes);
         System.out.println(distinction);
-        if (distinction==1){
-            model.addAttribute("attributeName",attributeName);
+        if (distinction == 1) {
+            model.addAttribute("attributeName", attributeName);
             return new ModelAndView("drugCategory");
-        }else if(distinction==2){
-            model.addAttribute("attributeName",attributeName);
+        } else if (distinction == 2) {
+            model.addAttribute("attributeName", attributeName);
             return new ModelAndView("drugUnit");
-        }else {
-            System.out.println(attributeName+"--------");
-            model.addAttribute("attributeName",attributeName);
+        } else {
+            System.out.println(attributeName + "--------");
+            model.addAttribute("attributeName", attributeName);
             return new ModelAndView("drugDosageSorm");
         }
     }
+
     //搜索药品下拉框
     @PostMapping("/keyword")
-    public Result keyword(String attributeName){
-      List<DrugAttribute> drugAttributes =  drugAttributeService.keyword(attributeName);
-      return new Result(ResultCode.SUCCESS,drugAttributes) ;
+    public Result keyword(String attributeName) {
+        List<DrugAttribute> drugAttributes = drugAttributeService.keyword(attributeName);
+        return new Result(ResultCode.SUCCESS, drugAttributes);
     }
+
     //更新药品属性
     @PutMapping("/attribute")
     public Result updateAttribute(DrugAttribute drugAttribute) {
         drugAttributeService.updateAttribute(drugAttribute);
         return new Result(ResultCode.SUCCESS, "更改成功");
     }
+
     //下拉框数据链接
     @RequestMapping("/drugAttributeView/{drugAttributeId}")
-    public ModelAndView drugAttributeView(Model model,@PathVariable("drugAttributeId") int drugAttributeId  ){
-          DrugAttribute drugAttribute = drugAttributeService.getDrugAttribute(drugAttributeId);
-          model.addAttribute("attributes", drugAttribute);
-         return new ModelAndView("drugCategory");
+    public ModelAndView drugAttributeView(Model model, @PathVariable("drugAttributeId") int drugAttributeId) {
+        DrugAttribute drugAttribute = drugAttributeService.getDrugAttribute(drugAttributeId);
+        model.addAttribute("attributes", drugAttribute);
+        return new ModelAndView("drugCategory");
     }
 }

@@ -451,11 +451,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result findPrescriptionByWord(String search_word) {
         if (search_word != null && !search_word.equals("")) {
             List<Prescription> prescriptionList = prescriptionMapper.findPrescriptionByWord(search_word);
-            List<String> list = new ArrayList<String>();
-            for (Prescription aPrescriptionList : prescriptionList) {
-                list.add(aPrescriptionList.getPrescription_name());
-            }
-            return new Result(ResultCode.SUCCESS, list);
+//            List<String> list = new ArrayList<String>();
+//            for (Prescription aPrescriptionList : prescriptionList) {
+//                list.add(aPrescriptionList.getPrescription_name());
+//            }
+            return new Result(ResultCode.SUCCESS, prescriptionList);
         }
         return new Result(ResultCode.FAIL);
     }

@@ -85,11 +85,11 @@ public class DiseaseServiceImpl implements DiseaseService {
     public Result findDiseaseByWord(String search_word) {
         if(search_word != null && !search_word.equals("")){
             List<Check> checkList = diseaseMapper.findDiseaseByWord(search_word);
-            List<String> list = new ArrayList<String>();
-            for (Check aCheckList : checkList) {
-                list.add(aCheckList.getCheck_name());
-            }
-            return new Result(ResultCode.SUCCESS,list);
+//            List<String> list = new ArrayList<String>();
+//            for (Check aCheckList : checkList) {
+//                list.add(aCheckList.getCheck_name());
+//            }
+            return new Result(ResultCode.SUCCESS,checkList);
         }
         return new Result(ResultCode.FAIL);
     }
@@ -111,6 +111,11 @@ public class DiseaseServiceImpl implements DiseaseService {
         int[] Ids = idsUtil.IdsUtils(DiseaseIds);
         diseaseMapper.deleteDiseaseByIds(Ids);
         return new Result(ResultCode.SUCCESS);
+    }
+
+    @Override
+    public Disease checkDisease(int diseaseId) {
+        return diseaseMapper.selectByPrimaryKey(diseaseId);
     }
 
 //    public Disease findByName (String name) {

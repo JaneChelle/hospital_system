@@ -21,7 +21,9 @@ public class PrescriptionController extends BaseController {
 
     //跳转到新增处方
     @RequestMapping(value = "/prescription/toAddPrescription")
-    public ModelAndView toAddPrescription() {
+    public ModelAndView toAddPrescription(Model model
+                                          ,@RequestParam(value = "prescriptionName", defaultValue = "") String prescriptionName) {
+        model.addAttribute("prescriptionName",prescriptionName);
         return new ModelAndView("addAPrescription");
     }
 

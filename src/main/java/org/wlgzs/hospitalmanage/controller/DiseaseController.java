@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.Disease;
+import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.util.Result;
+import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -70,6 +72,17 @@ public class DiseaseController extends BaseController {
     @RequestMapping("/deleteDiseaseByIds")
     public Result deleteDiseaseByIds(String DiseaseIds){
         return diseaseService.deleteDiseaseByIds(DiseaseIds);
+    }
+
+    //查看某个疾病是否存在
+    @RequestMapping("/checkDisease")
+        public Result checkDisease(int patient_number){
+        Disease disease = diseaseService.checkDisease(patient_number);
+        if(disease != null){
+            return new Result(ResultCode.SUCCESS,"存在！");
+        }else{
+            return new Result(ResultCode.FAIL,"不存在！");
+        }
     }
 
 }
