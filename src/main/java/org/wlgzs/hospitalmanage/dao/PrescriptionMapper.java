@@ -18,4 +18,7 @@ public interface PrescriptionMapper extends Mapper<Prescription> {
     @Select("SELECT * FROM tb_prescription WHERE prescription_name LIKE '%${search_word}%' or pinyin_code LIKE '%${search_word}%' limit 0,8")
     List<Prescription> findPrescriptionByWord(@Param("search_word") String search_word);
 
+    //查询所有处方
+    @Select("SELECT * FROM tb_prescription WHERE is_show = 1")
+    List<Prescription> selectAllPrescription();
 }

@@ -66,4 +66,8 @@ public interface NoteMapper extends Mapper<Note> {
     })
     DrugNumber drugIdLists(@Param("listId") List<Integer> listId, @Param("drug_code")int drug_code);
 
+    //根据处方ID查询是否存在有记录
+    @Select("SELECT * FROM tb_note WHERE prescription_id = #{prescription_id}")
+    List<Note> selectNotesByPrescriptionId(@Param("prescription_id") int prescription_id);
+
 }

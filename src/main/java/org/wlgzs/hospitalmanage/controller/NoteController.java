@@ -97,5 +97,4 @@ public class NoteController extends BaseController {
         return noteService.drugUsage(time,drugName);
     }
 
-
 }

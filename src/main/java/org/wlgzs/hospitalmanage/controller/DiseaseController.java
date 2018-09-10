@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.Disease;
-import org.wlgzs.hospitalmanage.entity.Patient;
 import org.wlgzs.hospitalmanage.util.Result;
 import org.wlgzs.hospitalmanage.util.ResultCode;
 

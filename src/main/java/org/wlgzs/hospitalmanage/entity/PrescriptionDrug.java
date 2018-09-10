@@ -35,4 +35,5 @@ public class PrescriptionDrug implements Serializable {
 
     @Column(name = "drug_name")
     private String drug_name;              //药品名字
+
 }
