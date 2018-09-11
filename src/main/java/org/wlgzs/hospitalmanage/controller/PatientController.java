@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("patient")
-public class PatientController extends BaseController {
+public class PatientController extends BaseController{
     //查看所有患者
     @GetMapping("/patient/{page}")
     public ModelAndView getPatients(Model model,
