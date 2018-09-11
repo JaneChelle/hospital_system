@@ -9,8 +9,7 @@
         <link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}"/>
         <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}"/>
         <link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
-        <link rel="stylesheet" th:href="@{/css/prescription.css}"/>
-        <link rel="stylesheet" th:href="@{/css/popup.css}"/>
+        <link rel="stylesheet" th:href="@{/css/hospitals.css}"/>
     </head>
 <body>
 <section>
@@ -21,25 +20,53 @@
     </div>
     <div style="width: 100%; height: 45px;"></div>
 
-    <div class="add_infor note_all">
+    <div class="note_all">
         <div class="popup_table">
+            <!---------------------------------------------------------------------------------->
             <div class="item_label">
+                <div class="font"></div>
                 <label>患者名称</label>
-                <input type="text" name="" value="" placeholder="患者名称" autoComplete="off" class="patient_name"/>
-                <font class="font fontsty"></font>
-                <div class="btnn"></div>
+                <input type="hidden" th:each="patient :${patients}" th:value="${patient.patient_number}">
+                <input type="text" name="" value="" placeholder="患者名称" autoComplete="off" class="patient_name ipt" onkeyup="spin(),spainner()" />
+                <div class="btnn btnsty btnpatient add_item">添加</div>
             </div>
+
+            <div class="spin2 spintwo">
+                <div class="spinners">
+                    <!--<a href="">dhfbdh</a>-->
+                    <!--<a href="">ddvkn</a>-->
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------->
             <div class="item_label">
                 <label>疾病名称</label>
-                <input type="text" name="" value="" placeholder="疾病名称" autoComplete="off">
+                <input type="hidden" th:each="diseaseLists :${diseaseList}" th:value="${diseaseLists.disease_id}">
+                <input type="text" name="" value=""  class="ipt" id="findName" placeholder="疾病名称" autoComplete="off" onkeyup="spin3(),spainner3()">
+                <div class="btnn btnsty add_item2">添加</div>
             </div>
+            <div class="spin2 spin3">
+                <div class="spinners3">
+                    <!--<a href="">dhfbdh</a>-->
+                    <!--<a href="">ddvkn</a>-->
+                </div>
+            </div>
+            <!------------------------------------------------------------------------------------>
             <div class="item_label">
                 <label>处方名称</label>
-                <input type="text" name="" value="" placeholder="处方名称" autoComplete="off">
+                <input type="hidden" th:each="prescriptionLists : ${prescriptionList}" th:value="${prescriptionLists.prescription_id}">
+                <input type="text" name="" value="" class="prescription_name ipt" placeholder="处方名称" autoComplete="off" onkeyup="spin4(),spainner4()">
+                <div class="btnn btnsty"><a th:href="@{/prescription/toAddPrescription}" style="color: #fff;" class="fff">添加</a></div>
+            </div>
+            <div class="spin2 spin4">
+                <div class="spinners4">
+                    <!--<a href="">dhfbdh</a>-->
+                    <!--<a href="">ddvkn</a>-->
+                </div>
             </div>
             <div class="item_label">
-                <label>收费</label>
-                <input type="text" name="" value="" placeholder="收费" autoComplete="off"/>
+                <label>收&nbsp;&nbsp;费</label>
+                <input type="text" name="" value="" class="price_end ipt" placeholder="收费" autoComplete="off"/>
+                <div class="btnn btnsty1">添加</div>
             </div>
             <div class="popup_bottom">
                 <!--<input type="reset"   value="重置" />-->
@@ -52,8 +79,99 @@
         </div>
     </div>
 </section>
+<!--添加患者-->
+<div class="window1_popup">
+    <div class="add_infor" style="width: 420px;">
+        <h3>添加患者</h3>
+        <div class="popup_table">
+            <!--<form th:action="@{/patient/patient}" method="post">-->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>患者姓名</th>
+                    <td>
+                        <input type="text" name="patient_name" value="" class="namePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>患者性别</th>
+                    <td>
+                        <input type="hidden" name="patient_gender" class="patientGender">
+                        <select name="patient_gender" class="gender">
+                            <!--<option value="">请选择</option>-->
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>拼音码</th>
+                    <td>
+                        <input type="" name="pinyin_code" value="" class="codePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>年龄</th>
+                    <td>
+                        <input type="" name="patient_age" value="" class="agePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>电话</th>
+                    <td>
+                        <input type="" name="patient_phone" value="" class="phonePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>家庭住址</th>
+                    <td>
+                        <input type="text" name="home_address" class="home_address1">
+                        <!--<input type="hidden" name="home_address" class="home_address">-->
+                        <!--<div data-toggle="distpicker">-->
+                        <!--<select class="province" data-province="选择省"></select>-->
+                        <!--<select class="city" data-city="选择市"></select>-->
+                        <!--<select class="district" data-district="选择区"></select>-->
+                        <!--</div>-->
+                    </td>
+                </tr>
+                </thead>
+            </table>
+            <div class="popup_bottom">
+                <input type="submit" value="添加" class="addPatient"/>
+                <input type="button" name="" class="cancel_1" value="取消"/>
+            </div>
+            <!--</form>-->
+        </div>
+    </div>
+</div>
+<!--添加疾病-->
+<div class="window2_popup">
+    <div class="add_infor" style="top: 200px;">
+        <h3>添加疾病</h3>
+        <div class="popup_table">
+            <!--<form action="" method="post">-->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>疾病名称</th>
+                    <td>
+                        <input type="text" name="disease_name" class="disease_name" value="" required="required"/>
+                    </td>
+                </tr>
+                </thead>
+            </table>
+            <div class="popup_bottom">
+                <input type="submit" value="添加" class="add_check"/>
+                <input type="button" name="" class="cancel_2" value="取消">
+            </div>
+            <!--</form>-->
+        </div>
+    </div>
+</div>
+
 <div class="cure"></div>
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/drug.js}"></script>
 <script th:src="@{/js/hospital.js}"></script>
 </html>

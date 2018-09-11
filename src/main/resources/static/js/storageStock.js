@@ -178,25 +178,25 @@ $('.del').on('click',function () {
 
 //修改
 //日期的正则表达式
-var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
-var regExp = new RegExp(reg);
+// var reg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+//var regExp = new RegExp(reg);
 $('.modify_add').on('click',function () {
     var drug_code=$(this).next().val();
     //console.log(drug_code);
-    var first=$(this).parent().prev();
+    // var first=$(this).parent().prev();
     var stock_number=$(this).parent().parent().children('.stock_number').text();
-    //console.log(stock_number);
-    $('.write').val(first.text());
+    console.log(stock_number);
+    // $('.write').val(first.text());
     var storage=$(this).parent().parent().children('.sl').text();
     $('.storage_amount').val(storage);
-    //console.log(storage_amount);
+    console.log(storage_amount);
    // console.log($('.write').val());
     $(".modifys").on('click', function () {
-        var valid_period=$('.write').val();
+        // var valid_period=$('.write').val();
         //console.log(valid_period);
         var storage_amount= $('.storage_amount').val();
         //console.log(storage_amount);
-        if(regExp.test(valid_period)) {
+        if(storage_amount!='') {
             // alert("日期格式不正确，正确格式为：2014-01-01");
             //return false;
 
@@ -205,7 +205,7 @@ $('.modify_add').on('click',function () {
                 url: "/DrugInventory/DrugInventory",
                 async: false,
                 data: {
-                    'date': valid_period,
+                    // 'date': valid_period,
                     'storage_amount': storage_amount,
                     'stock_number': stock_number,
                     'drug_code': drug_code
@@ -241,7 +241,8 @@ $('.modify_add').on('click',function () {
             });
         }else{
             $('.cure').addClass('uu');
-            $('.cure').html('"日期格式不正确，正确格式为：2014-01-01"');
+            // $('.cure').html('"日期格式不正确，正确格式为：2014-01-01"');
+            $('.cure').html('不能为空哦！');
             setInterval(function () {
                 $('.cure').css('display', 'none');
             }, 2000);

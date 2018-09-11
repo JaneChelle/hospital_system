@@ -37,9 +37,9 @@ public class DiseaseController extends BaseController {
     //查找所有疾病(分页)
     @RequestMapping(value = "/{page}", method = RequestMethod.GET)
     public ModelAndView selectAll(Model model, @PathVariable("page") int page) {
-        List<Disease> diseaseList = diseaseService.selectAll(page,model);
+        List<Disease> diseaseList = diseaseService.selectAll(page, model);
         model.addAttribute("diseaseList", diseaseList);
-        model.addAttribute("isSearch",0);
+        model.addAttribute("isSearch", 0);
         return new ModelAndView("diseaseList");
     }
 
@@ -48,41 +48,36 @@ public class DiseaseController extends BaseController {
     public ModelAndView findDisease(Model model,
                                     @PathVariable("page") int page,
                                     @RequestParam(value = "findName", defaultValue = "") String findName) {
-        List<Disease> diseaseList = diseaseService.findDisease(findName,page,model);
-        model.addAttribute("diseaseList",diseaseList);
-        model.addAttribute("findName",findName);
-        model.addAttribute("isSearch",1);
+        List<Disease> diseaseList = diseaseService.findDisease(findName, page, model);
+        model.addAttribute("diseaseList", diseaseList);
+        model.addAttribute("findName", findName);
+        model.addAttribute("isSearch", 1);
         return new ModelAndView("diseaseList");
     }
 
     //疾病搜索提示
     @RequestMapping(value = "/searchWord")
-    public Result searchWord(@RequestParam(value = "search_word") String search_word){
+    public Result searchWord(@RequestParam(value = "search_word") String search_word) {
         return diseaseService.findDiseaseByWord(search_word);
     }
 
 
     //选择疾病存入session
     @RequestMapping("/selectDisease")
-    public Result selectDisease(int disease_id,HttpSession session){
-        return diseaseService.selectDisease(disease_id,session);
+    public Result selectDisease(int disease_id, HttpSession session) {
+        return diseaseService.selectDisease(disease_id, session);
     }
 
     //批量删除
     @RequestMapping("/deleteDiseaseByIds")
-    public Result deleteDiseaseByIds(String DiseaseIds){
+    public Result deleteDiseaseByIds(String DiseaseIds) {
         return diseaseService.deleteDiseaseByIds(DiseaseIds);
     }
 
     //查看某个疾病是否存在
     @RequestMapping("/checkDisease")
-        public Result checkDisease(int patient_number){
-        Disease disease = diseaseService.checkDisease(patient_number);
-        if(disease != null){
-            return new Result(ResultCode.SUCCESS,"存在！");
-        }else{
-            return new Result(ResultCode.FAIL,"不存在！");
-        }
+    public Result checkDisease(String disease_name) {
+        return diseaseService.checkDisease(disease_name);
     }
 
 }

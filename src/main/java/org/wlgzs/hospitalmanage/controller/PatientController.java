@@ -60,7 +60,11 @@ public class PatientController extends BaseController {
     //搜索患者下拉框提示
     @PostMapping("/keyword")
     public Result keyword(@RequestParam("patientAttribute") String patientAttribute) {
-        return new Result(ResultCode.SUCCESS, patientService.keyWordsearchPatient(patientAttribute));
+        List<Patient> patients = patientService.keyWordsearchPatient(patientAttribute);
+        if(patients.size() == 0){
+            return new Result(ResultCode.FAIL);
+        }
+        return new Result(ResultCode.SUCCESS, patients);
     }
     //搜索患者
     @GetMapping("/searchpatient/{page}")
@@ -88,13 +92,8 @@ public class PatientController extends BaseController {
 
     //查看某个患者是否存在
     @RequestMapping("/checkPatient")
-    public Result checkPatient(int patient_number){
-        Patient patient = patientService.patinetLink(patient_number);
-        if(patient != null){
-            return new Result(ResultCode.SUCCESS,"存在！");
-        }else{
-            return new Result(ResultCode.FAIL,"不存在！");
-        }
+    public Result checkPatient(String patient_name){
+        return patientService.checkPatient(patient_name);
     }
 
 }

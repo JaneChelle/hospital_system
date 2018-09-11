@@ -114,10 +114,16 @@ public class DiseaseServiceImpl implements DiseaseService {
     }
 
     @Override
-    public Disease checkDisease(int diseaseId) {
-        return diseaseMapper.selectByPrimaryKey(diseaseId);
-    }
+    public Result checkDisease(String disease_name) {
+        Disease disease = diseaseMapper.findByName(disease_name);
+        if (disease != null) {
+            return new Result(ResultCode.SUCCESS, "存在！");
+        } else {
+            return new Result(ResultCode.FAIL, "不存在！");
 
+
+        }
+    }
 //    public Disease findByName (String name) {
 //        return diseaseMapper.findByName(name);
 //    }

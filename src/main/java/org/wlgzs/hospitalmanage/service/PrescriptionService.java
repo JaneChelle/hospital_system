@@ -90,4 +90,7 @@ public interface PrescriptionService {
 
     //选择处方
     Result choicePrescription(int prescription_id,HttpSession session);
+
+    //
+    Result checkPrescription(String disease_name);
 }

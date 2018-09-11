@@ -32,4 +32,7 @@ public interface PatientService {
     //选择患者
     Result choicePatient(int patient_number, HttpSession session);
 
+    //判断患者是否存在
+    Result checkPatient(String patient_name);
+
 }

@@ -34,6 +34,6 @@ public interface DiseaseService {
     //批量删除
     Result deleteDiseaseByIds(String DiseaseIds);
 
-    //按id查询疾病是否存在
-    Disease checkDisease(int diseaseId);
+    //按名字查询疾病是否存在
+    Result checkDisease(String disease_name);
 }

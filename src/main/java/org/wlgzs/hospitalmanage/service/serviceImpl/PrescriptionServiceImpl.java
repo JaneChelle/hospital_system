@@ -470,4 +470,17 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return new Result(ResultCode.FAIL);
     }
 
+    @Override
+    public Result checkPrescription(String disease_name) {
+        Prescription prescription = prescriptionMapper.checkPrescription(disease_name);
+        if (prescription != null) {
+            return new Result(ResultCode.SUCCESS, "存在！");
+        } else {
+            return new Result(ResultCode.FAIL, "不存在！");
+
+
+        }
+
+    }
+
 }

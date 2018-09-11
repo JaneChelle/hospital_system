@@ -483,7 +483,7 @@ select{
 	z-index: 999;
 	margin-left: 15px;
 	margin-top: -8px;
-	box-shadow: 0 0 0 2px #4337f1;
+	box-shadow: 0 0 0 2px #5BC0DE;
 	position: fixed;
 }
 .fen{
@@ -571,7 +571,7 @@ select{
 	position: absolute;
 	top: 15%;
 	left: 20%;
-	width: 466px;
+	width: 544px;
 	background-color: rgba(184, 220, 152, 0.2);
 }
 .note_all tr{
@@ -589,5 +589,33 @@ select{
 	border-radius: 5px;
 	background-color: #5CB85C;
 	margin-left: 10px;
+	cursor: pointer;
+	color: #fff;
+}
+.btnsty1{
+	display: inline-block;
+	padding: 3px 10px;
+	margin-top: 5px;
+	border-radius: 5px;
+	background-color: transparent;
+	color: transparent;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.spin2{
+	background-color: #fff;
+	padding: 0 24px;
+	transition: all .5s;
+	display: none;
+	line-height: 30px;
+	z-index: 999;
+	box-shadow: 0 0 0 2px #5BC0DE;
+	position: fixed;
+	margin-left: 151px;
+	width: 265px;
+	margin-top: -38px;
+}
+.spansty{
+	color: #5BC0DE;
 	cursor: pointer;
 }
