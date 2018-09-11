@@ -481,4 +481,15 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return new Result(ResultCode.FAIL);
     }
 
+    //搜索药品是否被使用
+    @Override
+    public Result TakeUpDrug(int drug_code) {
+        List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.TakeUpDrug(drug_code);
+        if(prescriptionDrugList.size() > 0){
+            
+            return new Result(ResultCode.FAIL,"药品被使用！");
+        }
+        return new Result(ResultCode.SUCCESS,"药品没有被使用！");
+    }
+
 }

@@ -90,4 +90,8 @@ public interface PrescriptionService {
 
     //选择处方
     Result choicePrescription(int prescription_id,HttpSession session);
+
+    //搜索药品是否被使用
+    Result TakeUpDrug(int drug_code);
+
 }
