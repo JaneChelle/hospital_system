@@ -6,7 +6,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.wlgzs.hospitalmanage.base.BaseController;
 import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.util.Result;
-import org.wlgzs.hospitalmanage.util.ResultCode;
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -96,6 +95,5 @@ public class NoteController extends BaseController {
                             @RequestParam(value = "drugName",defaultValue = "") String drugName){
         return noteService.drugUsage(time,drugName);
     }
-
 
 }

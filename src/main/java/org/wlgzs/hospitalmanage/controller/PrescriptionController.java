@@ -60,7 +60,6 @@ public class PrescriptionController extends BaseController {
         model.addAttribute("prescriptionCheckList", prescriptionCheckList);
         model.addAttribute("prescriptionTreatmentList", prescriptionTreatmentList);
         model.addAttribute("prescription", prescription);
-
         return new ModelAndView("prescriptionDetails");
     }
 
@@ -107,7 +106,7 @@ public class PrescriptionController extends BaseController {
 
     //修改已添加的处方药品（数量）
     @RequestMapping("/prescription/modifyPrescriptionDrug")
-    public Result modifyPrescriptionDrug(int detail_id, String number) {
+    public Result modifyPrescriptionDrug(int detail_id, String number){
         return prescriptionService.modifyPrescriptionDrug(detail_id, number);
     }
 

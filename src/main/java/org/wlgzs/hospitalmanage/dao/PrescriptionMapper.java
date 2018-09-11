@@ -21,4 +21,7 @@ public interface PrescriptionMapper extends Mapper<Prescription> {
     @Select("SELECT * FROM tb_prescription WHERE prescription_name #{disease_name}")
     Prescription checkPrescription(String disease_name);
 
+    //查询所有处方
+    @Select("SELECT * FROM tb_prescription WHERE is_show = 1")
+    List<Prescription> selectAllPrescription();
 }

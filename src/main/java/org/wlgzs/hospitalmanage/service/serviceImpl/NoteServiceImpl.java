@@ -51,6 +51,10 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Result addNote(Note note, String price_end, String timeStr,HttpSession session) throws ParseException {
         if (note != null) {
+            //生成记录，修改处方的状态（一对一）
+            Prescription prescription = prescriptionMapper.selectByPrimaryKey(note.getPrescription_id());
+            prescription.setIs_show(0);
+            prescriptionMapper.updateByPrimaryKey(prescription);
             BigDecimal bigDecimal = new BigDecimal(price_end);
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");    // 这里填写的是想要进行转换的时间格式
             Date date = format.parse(timeStr);

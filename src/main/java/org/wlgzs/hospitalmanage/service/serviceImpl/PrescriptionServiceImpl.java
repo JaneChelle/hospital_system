@@ -41,6 +41,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     PrescriptionTreatmentMapper prescriptionTreatmentMapper;
     @Resource
     DrugMapper drugMapper;
+    @Resource
+    NoteMapper noteMapper;
 
     //新增处方
     @Override
@@ -57,7 +59,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public List<Prescription> selectAll(int page, Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
-        List<Prescription> list = prescriptionMapper.selectAll();
+        List<Prescription> list = prescriptionMapper.selectAllPrescription();
         model.addAttribute("TotalPages", page2.getPages());//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
         return list;
@@ -68,7 +70,16 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result deletePrescription(int prescriptionId) {
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescriptionId);
         if (prescription != null) {
+            //查询记录中是否有该处方
+            List<Note> noteList = noteMapper.selectNotesByPrescriptionId(prescriptionId);
+            System.out.println(noteList.size());
+            if(noteList.size() == 0){
             prescriptionMapper.delete(prescription);
+            }else{
+                //修改处方的状态
+                prescription.setIs_show(0);
+                prescriptionMapper.updateByPrimaryKey(prescription);
+            }
             return new Result(ResultCode.SUCCESS);
         }
         return new Result(ResultCode.FAIL);
@@ -107,7 +118,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 if (isModify.equals("")) {//是添加，不是修改
                     Prescription prescription = (Prescription) session.getAttribute("prescription");
                     prescription_id = prescription.getPrescription_id();
-                } else {
+                } else { 
                     String prescriptionId = (String) session.getAttribute("prescription_id");
                     prescription_id = Integer.parseInt(prescriptionId);
                 }

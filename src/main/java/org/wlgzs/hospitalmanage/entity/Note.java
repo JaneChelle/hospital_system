@@ -28,7 +28,7 @@ public class Note implements Serializable {
     private Integer disease_id;             //疾病编号
 
     @Column(name = "prescription_id")
-        private Integer prescription_id;        //处方编号
+    private Integer prescription_id;        //处方编号
 
     @Column(name = "price_end")
     private BigDecimal price_end;           //收费
