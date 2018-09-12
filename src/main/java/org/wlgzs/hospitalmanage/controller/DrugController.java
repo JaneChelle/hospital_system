@@ -89,4 +89,11 @@ public class DrugController extends BaseController {
         model.addAttribute("drugName",drugName);
         return new ModelAndView("drug");
     }
+
+    //查看药品是否被占用
+    @RequestMapping("/TakeUpDrug")
+    public Result TakeUpDrug(@RequestParam("drug_code")int drug_code){
+        return prescriptionService.TakeUpDrug(drug_code);
+    }
+
 }

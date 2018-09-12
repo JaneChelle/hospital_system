@@ -74,4 +74,10 @@ public class CheckController extends BaseController {
         return checkService.deleteCheckByIds(checkIds);
     }
 
+    //查看检查是否被占用
+    @RequestMapping("/check/TakeUpCheck")
+    public Result TakeUpCheck(@RequestParam("check_id")int check_id){
+        return prescriptionService.TakeUpCheck(check_id);
+    }
+
 }
