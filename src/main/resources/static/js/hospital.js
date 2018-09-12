@@ -167,13 +167,13 @@ function spainner3(){
                     var aa="<span class='spansty spansty3'>" + datas[i].disease_name + "</span>"+'</br>';
                     $('.spinners3').append(aa);
                     $('.spansty3').on('click',function () {
-                        findname.val($(this).text());
+                        disease_name.val($(this).text());
                         $('.spin3').fadeOut();
                     });
                 }
                 check2();
             }else{
-                alert(data.msg+'ggggg');
+                //alert(data.msg+'ggggg');
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法

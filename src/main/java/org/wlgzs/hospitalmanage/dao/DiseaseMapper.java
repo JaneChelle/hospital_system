@@ -39,6 +39,6 @@ public interface DiseaseMapper extends Mapper<Disease> {
     })
     void deleteDiseaseByIds(@Param("Ids")int[] Ids);
 
-    @Select("SELECT * FROM tb_disease WHERE disease_name LIKE '%${search_word}%' limit 0,8")
-    List<Check> findDiseaseByWord(@Param("search_word") String search_word);
+    @Select("SELECT * FROM tb_disease WHERE  disease_name LIKE CONCAT('%',#{0},'%') limit 8")
+    List<Check> findDiseaseByWord(String search_word);
 }
