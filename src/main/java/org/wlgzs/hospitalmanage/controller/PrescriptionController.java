@@ -232,4 +232,10 @@ public class PrescriptionController extends BaseController {
         return prescriptionService.choicePrescription(prescription_id,session);
     }
 
+    //查看某个处方是否存在
+    @RequestMapping("/checkPrescription")
+    public Result checkPrescription(String disease_name) {
+        return prescriptionService.checkPrescription(disease_name);
+    }
+
 }

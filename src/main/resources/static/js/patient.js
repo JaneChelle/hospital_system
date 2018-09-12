@@ -102,16 +102,6 @@ $(".batchDelete").on('click', function () {
 
 // 添加患者
 $(".addPatient").on('click', function () {
-
-    // 添加  --  地址
-    // var address = [];
-    // address.splice(0,address.length);
-    // var province = $('.province').val();//省
-    // var city = $('.city').val();//市
-    // var district = $('.district').val();//区
-    // address.push(province+"-"+city+"-"+district);
-    // $('.home_address').val(address);
-    // 性别
     var option_sex = $(".gender option:selected");
     var option_text = option_sex.text();
     $('.patientGender').val(option_text);

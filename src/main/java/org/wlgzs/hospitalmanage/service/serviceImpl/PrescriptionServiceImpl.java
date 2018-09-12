@@ -73,9 +73,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             //查询记录中是否有该处方
             List<Note> noteList = noteMapper.selectNotesByPrescriptionId(prescriptionId);
             System.out.println(noteList.size());
-            if(noteList.size() == 0){
-            prescriptionMapper.delete(prescription);
-            }else{
+            if (noteList.size() == 0) {
+                prescriptionMapper.delete(prescription);
+            } else {
                 //修改处方的状态
                 prescription.setIs_show(0);
                 prescriptionMapper.updateByPrimaryKey(prescription);
@@ -118,7 +118,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 if (isModify.equals("")) {//是添加，不是修改
                     Prescription prescription = (Prescription) session.getAttribute("prescription");
                     prescription_id = prescription.getPrescription_id();
-                } else { 
+                } else {
                     String prescriptionId = (String) session.getAttribute("prescription_id");
                     prescription_id = Integer.parseInt(prescriptionId);
                 }
@@ -321,7 +321,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //添加治疗明细
     @Override
-    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session,String isModify) {
+    public Result addTreatment(PrescriptionTreatment prescriptionTreatment, HttpSession session, String isModify) {
         if (prescriptionTreatment != null) {
             Treatment treatment = treatmentMapper.selectByPrimaryKey(prescriptionTreatment.getTreatment_id());
             int prescription_id;
@@ -485,11 +485,56 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public Result TakeUpDrug(int drug_code) {
         List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.TakeUpDrug(drug_code);
-        if(prescriptionDrugList.size() > 0){
-            
-            return new Result(ResultCode.FAIL,"药品被使用！");
+        if (prescriptionDrugList.size() > 0) {
+            //返回处方信息
+            List<Prescription> prescriptionList = new ArrayList<Prescription>();
+            for (int i = 0; i < prescriptionDrugList.size(); i++) {
+                prescriptionList.add(prescriptionMapper.selectByPrimaryKey(prescriptionDrugList.get(i).getPrescription_id()));
+            }
+            return new Result(ResultCode.FAIL, prescriptionList, "药品被使用！");
         }
-        return new Result(ResultCode.SUCCESS,"药品没有被使用！");
+        return new Result(ResultCode.SUCCESS, "药品没有被使用！");
+    }
+
+    //搜索检查是否被使用
+    @Override
+    public Result TakeUpCheck(int check_id) {
+        List<PrescriptionCheck> prescriptionCheckList = prescriptionCheckMapper.TakeUpCheck(check_id);
+        if (prescriptionCheckList.size() > 0) {
+            //返回处方信息
+            List<Prescription> prescriptionList = new ArrayList<Prescription>();
+            for (int i = 0; i < prescriptionCheckList.size(); i++) {
+                prescriptionList.add(prescriptionMapper.selectByPrimaryKey(prescriptionCheckList.get(i).getPrescription_id()));
+            }
+            return new Result(ResultCode.FAIL, prescriptionList, "检查被使用！");
+        }
+        return new Result(ResultCode.SUCCESS, "检查没有被使用！");
+    }
+
+    //搜索治疗是否被使用
+    @Override
+    public Result TakeUpTreatment(int treatment_id) {
+        List<PrescriptionTreatment> prescriptionTreatments = prescriptionTreatmentMapper.TakeUpTreatment(treatment_id);
+        if (prescriptionTreatments.size() > 0) {
+            //返回处方信息
+            List<Prescription> prescriptionList = new ArrayList<Prescription>();
+            for (int i = 0; i < prescriptionTreatments.size(); i++) {
+                prescriptionList.add(prescriptionMapper.selectByPrimaryKey(prescriptionTreatments.get(i).getPrescription_id()));
+            }
+            return new Result(ResultCode.FAIL, prescriptionList, "治疗被使用！");
+        }
+        return new Result(ResultCode.SUCCESS, "治疗没有被使用！");
+    }
+
+    //查看某个处方是否存在
+    @Override
+    public Result checkPrescription(String disease_name) {
+        Prescription prescription = prescriptionMapper.checkPrescription(disease_name);
+        if (prescription != null) {
+            return new Result(ResultCode.SUCCESS, "存在！");
+        } else {
+            return new Result(ResultCode.FAIL, "不存在！");
+        }
     }
 
 }

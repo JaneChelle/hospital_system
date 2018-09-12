@@ -73,6 +73,16 @@ public class PatientServiceImpl implements PatientService {
         return new Result(ResultCode.FAIL);
     }
 
+    @Override
+    public Result checkPatient(String patient_name) {
+        Patient patient = patientMapper.checkPatient(patient_name);
+        if(patient != null){
+            return new Result(ResultCode.SUCCESS,"存在！");
+        }else{
+            return new Result(ResultCode.FAIL,"不存在！");
+        }
+    }
+
     //变更患者信息
     public void updatePatient(Patient patient) {
         System.out.println(patient);
