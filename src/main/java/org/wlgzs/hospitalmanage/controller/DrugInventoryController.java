@@ -38,8 +38,8 @@ public class DrugInventoryController extends BaseController {
     //更新药品库存
 
     @PutMapping("/DrugInventory")
-    public Result updateDrugInventory(DrugInventory drugInventory,@RequestParam("date") String dateStr ){
-        drugInventoryService.updateDrugInventory(drugInventory,dateStr);
+    public Result updateDrugInventory(DrugInventory drugInventory){
+        drugInventoryService.updateDrugInventory(drugInventory);
         return new  Result(ResultCode.SUCCESS);
     }
     //查看药品库存(总库存量)
