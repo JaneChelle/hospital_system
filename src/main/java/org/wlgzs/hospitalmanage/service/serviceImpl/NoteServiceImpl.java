@@ -51,6 +51,18 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Result addNote(Note note, String price_end, String timeStr,HttpSession session) throws ParseException {
         if (note != null) {
+            BigDecimal zero = new BigDecimal("0");
+            if(note.getPrice_end().compareTo(zero) == 1){
+                //欠账
+                Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
+                System.out.println(patient);
+                System.out.println("欠账");
+                //修改患者状态，并记录价钱
+                patient.setIs_money(1);
+                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end()));
+                patientMapper.updateByPrimaryKey(patient);
+            }
+
             //生成记录，修改处方的状态（一对一）
             Prescription prescription = prescriptionMapper.selectByPrimaryKey(note.getPrescription_id());
             prescription.setIs_show(0);
