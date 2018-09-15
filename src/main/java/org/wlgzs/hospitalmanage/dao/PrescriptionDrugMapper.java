@@ -19,4 +19,8 @@ public interface PrescriptionDrugMapper extends Mapper<PrescriptionDrug> {
     @Select("SELECT * FROM prescription_drug WHERE prescription_id = #{prescription_id} AND drug_code = #{drug_code}")
     PrescriptionDrug findPrescriptionDru(@Param("prescription_id") int prescription_id,@Param("drug_code") int drug_code);
 
+    //搜索药品是否被使用
+    @Select("SELECT * FROM prescription_drug WHERE drug_code = #{drug_code}")
+    List<PrescriptionDrug> TakeUpDrug(@Param("drug_code") int drug_code);
+
 }

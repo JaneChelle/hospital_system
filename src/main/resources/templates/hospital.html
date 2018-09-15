@@ -26,7 +26,7 @@
             <div class="item_label">
                 <div class="font"></div>
                 <label>患者名称</label>
-                <input type="hidden" th:each="patient :${patients}" th:value="${patient.patient_number}">
+                <input type="hidden" th:each="patient :${patients}" th:value="${patient.patient_number}" class="patient_id">
                 <input type="text" name="" value="" placeholder="患者名称" autoComplete="off" class="patient_name ipt" onkeyup="spin(),spainner()" />
                 <div class="btnn btnsty btnpatient add_item">添加</div>
             </div>
@@ -39,8 +39,9 @@
             </div>
             <!--------------------------------------------------------------------------------------->
             <div class="item_label">
+                <div class="font2"></div>
                 <label>疾病名称</label>
-                <input type="hidden" th:each="diseaseLists :${diseaseList}" th:value="${diseaseLists.disease_id}">
+                <input type="hidden" th:each="diseaseLists :${diseaseList}" th:value="${diseaseLists.disease_id}" class="disease_id">
                 <input type="text" name="" value=""  class="ipt" id="findName" placeholder="疾病名称" autoComplete="off" onkeyup="spin3(),spainner3()">
                 <div class="btnn btnsty add_item2">添加</div>
             </div>
@@ -52,8 +53,9 @@
             </div>
             <!------------------------------------------------------------------------------------>
             <div class="item_label">
+                <div class="font3"></div>
                 <label>处方名称</label>
-                <input type="hidden" th:each="prescriptionLists : ${prescriptionList}" th:value="${prescriptionLists.prescription_id}">
+                <input type="hidden" th:each="prescriptionLists : ${prescriptionList}" th:value="${prescriptionLists.prescription_id}" class="prescription_id">
                 <input type="text" name="" value="" class="prescription_name ipt" placeholder="处方名称" autoComplete="off" onkeyup="spin4(),spainner4()">
                 <div class="btnn btnsty"><a th:href="@{/prescription/toAddPrescription}" style="color: #fff;" class="fff">添加</a></div>
             </div>
@@ -70,7 +72,7 @@
             </div>
             <div class="popup_bottom">
                 <!--<input type="reset"   value="重置" />-->
-                <input type="reset" value="添加" class="add_note"/>
+                <input type="reset" value="添加" class="btn_adds"/>
                 <a th:href="@{/note/findNote/1}">
                     <button class="selsety">取消</button>
                 </a>

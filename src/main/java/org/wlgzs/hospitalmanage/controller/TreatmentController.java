@@ -69,9 +69,15 @@ public class TreatmentController extends BaseController {
     }
 
     //批量删除
-    @RequestMapping("/check/deleteByIds")
+    @RequestMapping("/treatment/deleteByIds")
     public Result deleteCheckByIds(String treatmentIds){
         return treatmentService.deleteTreatmentByIds(treatmentIds);
+    }
+
+    //查看治疗是否被占用
+    @RequestMapping("/treatment/TakeUpTreatment")
+    public Result TakeUpTreatment(@RequestParam("treatment_id")int treatment_id){
+        return prescriptionService.TakeUpTreatment(treatment_id);
     }
 
 }

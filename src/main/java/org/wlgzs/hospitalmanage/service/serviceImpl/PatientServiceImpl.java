@@ -75,8 +75,8 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Result checkPatient(String patient_name) {
-        Patient patient = patientMapper.checkPatient(patient_name);
-        if(patient != null){
+        List<Patient> patients = patientMapper.checkPatient(patient_name);
+        if(patients.size() > 0){
             return new Result(ResultCode.SUCCESS,"存在！");
         }else{
             return new Result(ResultCode.FAIL,"不存在！");

@@ -29,8 +29,8 @@ public class NoteController extends BaseController {
     //添加记录
     @RequestMapping(value = "", method = RequestMethod.PUT)
     public Result addNote(Note note,String price_end,
-                                String timeStr,HttpSession session) throws ParseException {
-        return noteService.addNote(note,price_end,timeStr,session);
+                                String prescription_name,HttpSession session) throws ParseException {
+        return noteService.addNote(note,price_end,prescription_name,session);
     }
 
     //查看记录详情(id查询)

@@ -1,6 +1,7 @@
 package org.wlgzs.hospitalmanage.service;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.wlgzs.hospitalmanage.entity.Prescription;
 import org.wlgzs.hospitalmanage.entity.PrescriptionCheck;
 import org.wlgzs.hospitalmanage.entity.PrescriptionDrug;
@@ -91,6 +92,15 @@ public interface PrescriptionService {
     //选择处方
     Result choicePrescription(int prescription_id,HttpSession session);
 
-    //
-    Result checkPrescription(String disease_name);
+    //搜索药品是否被使用
+    Result TakeUpDrug(int drug_code);
+
+    //搜索检查是否被使用
+    Result TakeUpCheck(int check_id);
+
+    //搜索治疗是否被使用
+    Result TakeUpTreatment(int treatment_id);
+
+    //查看某个处方是否存在
+    Result checkPrescription(String prescription_name);
 }
