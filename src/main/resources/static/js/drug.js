@@ -167,7 +167,9 @@ var tableCont = document.querySelector('.section_table');
   }
 
   tableCont.addEventListener('scroll',scrollHandle);
-//删除ajax
+  // 判断药品是否被占用
+
+//删除药品
 		$('.deletes').on('click',function () {
             if (confirm('确认要删除吗?')) {
                 var drug_code = $(this).next().val();

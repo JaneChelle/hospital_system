@@ -244,7 +244,8 @@ $('.modify_add').on('click',function () {
             // $('.cure').html('"日期格式不正确，正确格式为：2014-01-01"');
             $('.cure').html('不能为空哦！');
             setInterval(function () {
-                $('.cure').css('display', 'none');
+                $('.cure').removeClass('uu');
+                $('.cure').html('');
             }, 2000);
             return false;
         }
