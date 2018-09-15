@@ -462,11 +462,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result findPrescriptionByWord(String search_word) {
         if (search_word != null && !search_word.equals("")) {
             List<Prescription> prescriptionList = prescriptionMapper.findPrescriptionByWord(search_word);
-//            List<String> list = new ArrayList<String>();
-//            for (Prescription aPrescriptionList : prescriptionList) {
-//                list.add(aPrescriptionList.getPrescription_name());
-//            }
-            return new Result(ResultCode.SUCCESS, prescriptionList);
+            if(prescriptionList.size() > 0){
+                return new Result(ResultCode.SUCCESS, prescriptionList);
+            }
+            return new Result(ResultCode.FAIL);
         }
         return new Result(ResultCode.FAIL);
     }
@@ -528,10 +527,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //查看某个处方是否存在
     @Override
-    public Result checkPrescription(String disease_name) {
-        Prescription prescription = prescriptionMapper.checkPrescription(disease_name);
+    public Result checkPrescription(String prescription_name) {
+        Prescription prescription = prescriptionMapper.checkPrescription(prescription_name);
         if (prescription != null) {
-            return new Result(ResultCode.SUCCESS, "存在！");
+            return new Result(ResultCode.SUCCESS, prescription,"存在！");
         } else {
             return new Result(ResultCode.FAIL, "不存在！");
         }

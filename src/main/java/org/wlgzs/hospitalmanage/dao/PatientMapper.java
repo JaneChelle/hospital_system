@@ -34,6 +34,6 @@ public interface PatientMapper extends Mapper<Patient> {
     int searchNameCount(String patientName);
 
     @Select("SELECT * FROM tb_patient WHERE patient_name = #{patient_name} ")
-    Patient checkPatient(String patient_name);
+    List<Patient> checkPatient(String patient_name);
 
 }

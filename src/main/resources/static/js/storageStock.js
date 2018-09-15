@@ -227,14 +227,14 @@ $('.modify_add').on('click',function () {
 
                 },
                 error: function (data) {
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000)
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setInterval(function () {
-                        $('.cure').css('display', 'none');
-                    }, 2000);
+                    // setTimeout(function () {
+                    //     location.reload(true);
+                    // }, 1000)
+                    // $('.cure').addClass('uu');
+                    // $('.cure').html(data.msg);
+                    // setInterval(function () {
+                    //     $('.cure').css('display', 'none');
+                    // }, 2000);
 
                     alert(data.msg)
                 }
