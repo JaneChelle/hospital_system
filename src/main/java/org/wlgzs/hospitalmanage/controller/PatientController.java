@@ -66,6 +66,15 @@ public class PatientController extends BaseController{
         }
         return new Result(ResultCode.SUCCESS, patients);
     }
+    //搜索患者下拉框提示(就诊页面)
+    @PostMapping("/keywordPage")
+    public Result keywordPage(@RequestParam("patientAttribute") String patientAttribute) {
+        List<Patient> patients = patientService.keyWordsearchPatient(patientAttribute);
+        if(patients.size() == 0){
+            return new Result(ResultCode.FAIL);
+        }
+        return new Result(ResultCode.SUCCESS, patients);
+    }
     //搜索患者
     @GetMapping("/searchpatient/{page}")
     public ModelAndView searchPatient(Model model,@PathVariable("page") int page, @RequestParam("patientAttribute") String patientAttribute) {

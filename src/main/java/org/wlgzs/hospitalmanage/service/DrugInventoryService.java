@@ -16,15 +16,13 @@ public interface DrugInventoryService {
 
     void deleteDrugInventory(@RequestParam("drugInventory") int drugInventory);
 
-    boolean updateDrugInventory(DrugInventory drugInventory);
-
     List<DrugInventory> getDrugInventory(Model model, int page);
 
     List<DrugInventory> getMonthLimit();
 
     List<DrugInventory> getUnsafetyStock(Model model, int page);
 
-    void updateDrugInventory(DrugInventory drugInventory, String dateStr);
+    void updateDrugInventory(DrugInventory drugInventory);
 
     List<DrugInventory>  searchStorage(Model model, String drugName,int page);
 
