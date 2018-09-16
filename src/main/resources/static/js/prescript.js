@@ -1,10 +1,11 @@
 
 // 删除
 $(".deletePre").on('click', function () {
-    var r = confirm("您确定要删除吗？");
+    var parent = $(this).parent().parent();
+    var prescriptionID = parent.children("td.prescriptionId").text();
+    var inform = "您确定要删除患者编号为 " + prescriptionID + " 的患者信息吗？";
+    var r = confirm(inform);
     if (r == true) {
-        var parent = $(this).parent().parent();
-        var prescriptionID = parent.children("td.prescriptionId").text();
         $.ajax({
             type: "DELETE",
             url: "/prescription/" + prescriptionID,

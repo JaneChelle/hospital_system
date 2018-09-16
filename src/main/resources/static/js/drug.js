@@ -171,43 +171,73 @@ var tableCont = document.querySelector('.section_table');
 
 //删除药品
 		$('.deletes').on('click',function () {
-            if (confirm('确认要删除吗?')) {
-                var drug_code = $(this).next().val();
-                console.log(drug_code);
-                $.ajax({
-                    type: "delete",
-                    url: "/drug/drug/" + drug_code,
-                    data: {
-                        'drug_code':drug_code
-                    },
-                    async: false,
-                    success: function (data) {
-                        $('.cure').addClass('uu');
-                        $('.cure').html(data.msg);
-                        setTimeout(function () {
-                            $('.cure').css('display', 'none');
-                        }, 2000);
-                        setTimeout(function () {
-                            location.reload(true);
-                        }, 1000);
-                        //alert(data.msg)
-                    },
-                    error: function (data) {
-                        $('.cure').addClass('uu');
-                        $('.cure').html(data.msg);
-                        setTimeout(function () {
-                            $('.cure').css('display', 'none');
-                        }, 2000);
-                        setTimeout(function () {
-                            location.reload(true);
-                        }, 1000);
+            var drug_code = $(this).next().val();
+            var inform = "您确定要删除治疗编号为 " + drug_code + " 的信息吗？";
+            var r = confirm(inform);
+            $.ajax({
+                type: "post",
+                url: "/drug/TakeUpDrug",
+                data: {
+                    'drug_code':drug_code
+                },
+                async: false,
+                success: function (data) {
+                    if(data.code==0){
+                        if (r==true) {
+                            //var drug_code = $(this).next().val();
+                            //console.log(drug_code);
+                            $.ajax({
+                                type: "delete",
+                                url: "/drug/drug/" + drug_code,
+                                data: {
+                                    'drug_code':drug_code
+                                },
+                                async: false,
+                                success: function (data) {
+                                    $('.cure').addClass('uu');
+                                    $('.cure').html(data.msg);
+                                    setTimeout(function () {
+                                        $('.cure').css('display', 'none');
+                                    }, 2000);
+                                    setTimeout(function () {
+                                        location.reload(true);
+                                    }, 1000);
+                                    //alert(data.msg)
+                                },
+                                error: function (data) {
+                                    $('.cure').addClass('uu');
+                                    $('.cure').html(data.msg);
+                                    setTimeout(function () {
+                                        $('.cure').css('display', 'none');
+                                    }, 2000);
+                                    setTimeout(function () {
+                                        location.reload(true);
+                                    }, 1000);
 
-                        alert(data.msg)
+                                    alert(data.msg)
+                                }
+                            });
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        $('.cure').addClass('uu');
+                        $('.cure').html('药品被使用,不能删除');
+                        setTimeout(function () {
+                            $('.cure').removeClass('uu');
+                            $('.cure').html('');
+
+                        }, 2000);
                     }
-                });
-            }else{
-            	return false;
-			}
+
+                },
+                error: function (data) {
+
+                    alert(data.msg)
+                }
+            });
+            //----------------------------
+
 
         });
  //添加库存

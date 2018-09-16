@@ -99,10 +99,11 @@ $('.add1').on('click',function () {
 });
 //删除
 $('.deletess').on('click',function () {
-    if (confirm('确认要删除吗?')) {
+    var attribute_number =$(this).parent().parent().children('.leibie').text();
+    var inform = "您确定要删除治疗编号为 " + attribute_number + " 的信息吗？";
+    var r = confirm(inform);
+    if (r==true) {
         // var attribute_number = $(this).next().text();
-        var attribute_number =$(this).parent().parent().children('.leibie').text();
-        console.log('s12324:---------'+attribute_number);
         $.ajax({
             type: "delete",
             url: "/attribute/attribute/" + attribute_number,

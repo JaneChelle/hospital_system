@@ -136,11 +136,12 @@ function spainner(){
 }
 //删除
 $('.del').on('click',function () {
-    if (confirm('确认要删除吗?')) {
-        // var attribute_number = $(this).next().text();
-        var drugInventoryId =$(this).parent().parent().children('.stock_number').text();
-        console.log('s12324:---------'+drugInventoryId);
-        $.ajax({
+    var drugInventoryId =$(this).parent().parent().children('.stock_number').text();
+    console.log('s12324:---------'+drugInventoryId);
+    var inform = "您确定要删除患者编号为 " + drugInventoryId + " 的患者信息吗？";
+    var r = confirm(inform);
+    if (r==true) {
+         $.ajax({
             type: "delete",
             url: "/DrugInventory/DrugInventory/" + drugInventoryId,
             data: {
