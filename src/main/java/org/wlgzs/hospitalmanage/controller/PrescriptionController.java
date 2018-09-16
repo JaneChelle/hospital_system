@@ -234,8 +234,8 @@ public class PrescriptionController extends BaseController {
 
     //查看某个处方是否存在
     @RequestMapping("/checkPrescription")
-    public Result checkPrescription(String disease_name) {
-        return prescriptionService.checkPrescription(disease_name);
+    public Result checkPrescription(String prescription_name) {
+        return prescriptionService.checkPrescription(prescription_name);
     }
 
 }

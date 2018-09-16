@@ -20,6 +20,9 @@ public class Disease implements Serializable {
     @Column(name = "disease_id")
     private int disease_id;         //疾病编号
 
+    @Column(name = "pinyin_code")            // 拼音码
+    private String pinyin_code;
+
     @Column(name = "disease_name")
     private String disease_name;     //疾病名称
 }

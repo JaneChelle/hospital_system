@@ -85,11 +85,13 @@ public class DiseaseServiceImpl implements DiseaseService {
     public Result findDiseaseByWord(String search_word) {
         if(search_word != null && !search_word.equals("")){
             List<Disease> checkList = diseaseMapper.findDiseaseByWord(search_word);
-            System.out.println(checkList);
             for(int i = 0;i < checkList.size();i++){
                 System.out.println(checkList.get(i));
             }
-            return new Result(ResultCode.SUCCESS,checkList);
+            if(checkList.size() > 0){
+                return new Result(ResultCode.SUCCESS,checkList);
+            }
+            return new Result(ResultCode.FAIL);
         }
         return new Result(ResultCode.FAIL);
     }

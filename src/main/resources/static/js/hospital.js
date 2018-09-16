@@ -8,7 +8,7 @@ function spin(){
     }
 }
 function spin3(){
-    if($('.patient_name').val() != ""){
+    if($('#findName').val() != ""){
         $('.spin3').fadeIn();
     }
     else{
@@ -16,7 +16,7 @@ function spin3(){
     }
 }
 function spin4(){
-    if($('.patient_name').val() != ""){
+    if($('.prescription_name').val() != ""){
         $('.spin4').fadeIn();
     }
     else{
@@ -46,18 +46,28 @@ function spainner(){
             console.log(data);
             if (data.code == 0) {
                 $('.spinners').html(" ");
+                $('.spintwo').removeClass('spin2');
+                $('.spintwo').addClass('spin2');
                 for (var i = 0; i < datas.length; i++) {
                     // var aa="<a href=/patient/patientLink/"+ datas[i].patient_number+ " >"+datas[i].patient_name+ "</a>"+'</br>';
-                    var aa = "<span class='spansty spansty2'>" + datas[i].patient_name + "</span>" + '</br>';
+                    var aa = "<span class='spansty spansty2'>" + datas[i].patient_name +"</span>" + '</br>';
                     $('.spinners').append(aa);
                     $('.spansty2').on('click', function () {
                         patient_name.val($(this).text());
-                        $('.spintwo').fadeOut();
+
+                        $('.spintwo').removeClass('spin2');
+                        $('.font').removeClass("fontsty");
+                        $('.spinners').html('');
+                        $('.font').text('');
 
                     });
                 }
                 check1()
             } else {
+                $('.spintwo').removeClass('spin2');
+                $('.spinners').html('');
+                $('.font').addClass('fontsty');
+                $('.font').text('该患者不存在，请添加');
             }
         },
         error: function(msg) {//ajax请求失败后触发的方法
@@ -163,21 +173,31 @@ function spainner3(){
             console.log(datas);
             if(data.code==0){
                 $('.spinners3').html("");
+                $('.spin3').removeClass('spin2');
+                $('.spin3').addClass('spin2');
                 for (var i=0;i<datas.length;i++){
                     var aa="<span class='spansty spansty3'>" + datas[i].disease_name + "</span>"+'</br>';
                     $('.spinners3').append(aa);
                     $('.spansty3').on('click',function () {
-                        findname.val($(this).text());
-                        $('.spin3').fadeOut();
+                        disease_name.val($(this).text());
+                        $('.spinners3').html('');
+                        $('.spin3').removeClass('spin2');
+                        $('.font2').removeClass("fontsty2");
+                        $('.font2').text('');
+
                     });
                 }
                 check2();
             }else{
-                alert(data.msg+'ggggg');
+                $('.spin3').removeClass('spin2');
+                $('.spinners3').html('');
+                $('.font2').addClass('fontsty2');
+                $('.font2').text('该疾病不存在，请添加');
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
             alert("网络故障");//弹出错误信息
+
         }
     });
 }
@@ -193,12 +213,12 @@ function check2() {
         dataType:"JSON",
         success: function (data) {//ajax请求成功后触发的方法
             if (data.msg=="不存在！"){
-                $('.font').addClass('fontsty');
-                $('.font').text('该疾病不存在，请添加');
+                $('.font2').addClass('fontsty2');
+                $('.font2').text('该疾病不存在，请添加');
             }else{
                 //患者存在
-                $('.font').removeClass("fontsty");
-                $('.font').text('');
+                $('.font2').removeClass("fontsty2");
+                $('.font2').text('');
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
@@ -255,9 +275,144 @@ $(".add_check").on('click', function () {
     }
 });
 //处方下拉框
+var prescription_name=$('.prescription_name');
+function spainner4(){
 
+    $.ajax({
+        url: "/prescription/searchWord",//要发送的后台地址
+        data: {
+            search_word:prescription_name.val()
+        },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
+        dataType:"JSON",
+        success: function (data) {//ajax请求成功后触发的方法
+            var datas=data.data;
+            console.log(datas);
+            if(data.code==0){
+                $('.spinners4').html("");
+                $('.spin4').removeClass('spin2');
+                $('.spin4').addClass('spin2');
+                for (var i=0;i<datas.length;i++){
+                    var aa="<span class='spansty spansty4'>" + datas[i].prescription_name + "</span>"+'</br>';
+                    $('.spinners4').append(aa);
+                    $('.spansty4').on('click',function () {
+                        prescription_name.val($(this).text());
+                        $('.spinners4').html('');
+                        $('.spin4').removeClass('spin2');
+                        $('.font3').removeClass("fontsty3");
+                        $('.font3').text('');
+                    });
+                }
+                check3();
+            }else{
+                //alert(data.msg+'ggggg');
+                $('.spin4').removeClass('spin2');
+                $('.spinners4').html('');
+                $('.font3').addClass('fontsty3');
+                $('.font3').text('该处方不存在，请添加');
+            }
+        },
+        error: function (msg) {//ajax请求失败后触发的方法
+            alert("网络故障");//弹出错误信息
+        }
+    });
+}
 //查看单个处方是否存在
-
+function check3() {
+    // var patient_name=$('.patient_name').val();
+    $.ajax({
+        type: "POST",//数据发送的方式（post 或者 get）
+        url: "/disease/checkDisease",//要发送的后台地址
+        data: {
+            prescription_name:prescription_name.val(),
+        },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
+        dataType:"JSON",
+        success: function (data) {//ajax请求成功后触发的方法
+            if (data.msg=="不存在！"){
+                $('.font3').addClass('fontsty3');
+                $('.font3').text('该处方不存在，请添加');
+            }else{
+                //患者存在
+                $('.font3').removeClass("fontsty3");
+                $('.font3').text('');
+            }
+        },
+        error: function (msg) {//ajax请求失败后触发的方法
+            alert("网络故障");//弹出错误信息
+        }
+    });
+}
 //总的提交按钮，发送ajax请求
+//添加药品
+var price_end=$('.price_end');
+$('.btn_adds').on('click',function () {
+    if(patient_name.val() ==''){
+        $('.cure').addClass('uu');
+        $('.cure').html('患者名称不能为空');
+        setTimeout(function () {
+            $('.cure').removeClass('uu');
+            $('.cure').html(' ');
+        },2000);
+    }else if(disease_name.val()==''){
+        $('.cure').addClass('uu');
+        $('.cure').html('疾病名称不能为空');
+        setTimeout(function () {
+            $('.cure').removeClass('uu');
+            $('.cure').html(' ');
+        },2000);
+    }else if(prescription_name==''){
+        $('.cure').addClass('uu');
+        $('.cure').html('处方名称不能为空');
+        setTimeout(function () {
+            $('.cure').removeClass('uu');$('.cure').html(' ');
+        },2000);
+    }else if(price_end.val()==''){
+        $('.cure').addClass('uu');
+        $('.cure').html('收费不能为空');
+        setTimeout(function () {
+            $('.cure').removeClass('uu');$('.cure').html(' ');
+        },2000);
+    } else{
+        $.ajax({
+            type: "put",
+            url: "/note",
+            data: {
+                // 'drug_code':$('.drug_code').val(),
+                "patient_name": patient_name.val(),
+                'disease_name':disease_name.val(),
+                'prescription_name':prescription_name.val(),
+                'price_end':price_end.val()
+                // 'patient_id':$('.patient_id').val(),
+                // 'disease_id':$('.disease_id').val(),
+                // 'prescription_id':$('.prescription_id').val()
 
+            },
+            async: false,
+            success: function (data) {
+                $('.cure').addClass('uu');
+                $('.cure').html(data.msg);
+                setTimeout(function () {
+                    $('.cure').removeClass('uu');
+                },2000);
+                setTimeout(function () {
+                    location.reload(true);
+                },1000);
+                //alert(data.msg)
+            },
+            error: function (data) {
+                // $('.cure').addClass('uu');
+                // $('.cure').html(data.msg);
+                // setTimeout(function () {
+                //     $('.cure').removeClass('uu');
+                // },1000);
+                // setTimeout(function () {
+                //     location.reload(true);
+                // },500);
+
+                alert(data.msg)
+            }
+        });
+        return true;
+    }
+
+});
 

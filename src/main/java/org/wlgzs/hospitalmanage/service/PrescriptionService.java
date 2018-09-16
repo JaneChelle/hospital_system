@@ -102,5 +102,5 @@ public interface PrescriptionService {
     Result TakeUpTreatment(int treatment_id);
 
     //查看某个处方是否存在
-    Result checkPrescription(String disease_name);
+    Result checkPrescription(String prescription_name);
 }

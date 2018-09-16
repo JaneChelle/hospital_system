@@ -49,7 +49,7 @@ public class NoteServiceImpl implements NoteService {
     DrugInventoryService drugInventoryService;
     //添加记录
     @Override
-    public Result addNote(Note note, String price_end, String timeStr,HttpSession session) throws ParseException {
+    public Result addNote(Note note, String price_end, String prescription_name,HttpSession session) throws ParseException {
         if (note != null) {
             BigDecimal zero = new BigDecimal("0");
             if(note.getPrice_end().compareTo(zero) == 1){
@@ -63,25 +63,53 @@ public class NoteServiceImpl implements NoteService {
                 patientMapper.updateByPrimaryKey(patient);
             }
 
+            //查询患者id是否存在
+            if(note.getPatient_id() == null){
+                List<Patient> patients = patientMapper.checkPatient(note.getPatient_name());
+                if(patients.size() > 1){
+                    return new Result(ResultCode.FAIL,"该患者可能重名，可以根据手机号查询！");
+                }else if(patients.size() == 1){
+                    //根据名字查询患者id
+                    note.setPatient_id(patients.get(0).getPatient_number());
+                }
+            }
+
+            //查询疾病id是否存在
+            if(note.getDisease_id() == null){
+                Disease disease = diseaseMapper.findByName(note.getDisease_name());
+                note.setDisease_id(disease.getDisease_id());
+            }
+
+            //查询处方id是否存在
+            if(note.getPrescription_id() == null){
+                //根据名字查询处方
+                Prescription prescription = prescriptionMapper.checkPrescription(prescription_name);
+                note.setPrescription_id(prescription.getPrescription_id());
+            }
+
             //生成记录，修改处方的状态（一对一）
             Prescription prescription = prescriptionMapper.selectByPrimaryKey(note.getPrescription_id());
+            System.out.println(note);
             prescription.setIs_show(0);
             prescriptionMapper.updateByPrimaryKey(prescription);
             BigDecimal bigDecimal = new BigDecimal(price_end);
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");    // 这里填写的是想要进行转换的时间格式
-            Date date = format.parse(timeStr);
+            Date date = new Date();
             note.setPrice_end(bigDecimal);
             note.setNote_time(date);
             noteMapper.insert(note);
             //减少相应的库存
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
-            for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
-                String number = aPrescriptionDrugList.getNumber()+"";
-                drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
+            if(prescriptionDrugList.size() > 0){
+                for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
+                    System.out.println(aPrescriptionDrugList);
+                    String number = aPrescriptionDrugList.getNumber()+"";
+                    drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
+                }
             }
             return new Result(ResultCode.SUCCESS);
         }
-        return new Result(ResultCode.FAIL);
+        return new Result(ResultCode.FAIL,"添加失败！");
     }
 
     //查看记录详情(id查询)

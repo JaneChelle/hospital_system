@@ -189,7 +189,7 @@ $('.modify_add').on('click',function () {
     // $('.write').val(first.text());
     var storage=$(this).parent().parent().children('.sl').text();
     $('.storage_amount').val(storage);
-    console.log(storage_amount);
+    //console.log(storage_amount);
    // console.log($('.write').val());
     $(".modifys").on('click', function () {
         // var valid_period=$('.write').val();
@@ -227,14 +227,14 @@ $('.modify_add').on('click',function () {
 
                 },
                 error: function (data) {
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000)
-                    $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
-                    setInterval(function () {
-                        $('.cure').css('display', 'none');
-                    }, 2000);
+                    // setTimeout(function () {
+                    //     location.reload(true);
+                    // }, 1000)
+                    // $('.cure').addClass('uu');
+                    // $('.cure').html(data.msg);
+                    // setInterval(function () {
+                    //     $('.cure').css('display', 'none');
+                    // }, 2000);
 
                     alert(data.msg)
                 }

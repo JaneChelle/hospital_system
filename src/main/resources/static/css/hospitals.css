@@ -580,7 +580,7 @@ select{
 .note_all tr{
     margin: 12px 0;
 }
-.fontsty{
+.fontsty,.fontsty2,.fontsty3{
     color: red;
     font-size: 12px;
     /* padding: 10px; */
@@ -594,7 +594,7 @@ select{
     border-radius: 5px;
     transition: all .3s;
 }
-.fontsty:after{
+.fontsty:after,.fontsty2:after,.fontsty3:after{
     content: '';
     position: absolute;
     top: 25px;
@@ -605,6 +605,18 @@ select{
     border-bottom: 10px solid transparent;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
+}
+.uu{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    color: #fff;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 5px;
+    transition: all 0.3s;
+    animation: aa 1s ease-out;
+    z-index: 9999999;
 }
 .btnsty{
     display: inline-block;

@@ -126,10 +126,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             deleteDrugInventory(drugInventories[i]);
          }
     }
-    //更改库存
-    public boolean updateDrugInventory(DrugInventory drugInventory) {
-        return true;
-    }
+
 
     public boolean reduceInventories(int drugCode, String num) {
         BigDecimal drugAmount = new BigDecimal(num); //处方要减数量
@@ -213,15 +210,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         return unSafetyStock;
     }
    //更改库存信息（只能改分库存的）
-    public void updateDrugInventory(DrugInventory drugInventory, String dateStr) {
-        System.out.println(drugInventory);
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date date = df.parse(dateStr);
-            drugInventory.setValid_period(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public void updateDrugInventory(DrugInventory drugInventory) {
         BigDecimal currentAmount = drugInventory.getStorage_amount(); //要更新的库存量
         DrugInventory beforeDrugInventory = drugInventoryMapper.selectOneDrugInventory(drugInventory.getStock_number());
         BigDecimal beforAmount = beforeDrugInventory.getStorage_amount();//之前的库存量
@@ -229,7 +218,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         DrugInventory totalDrugInventory = drugInventoryMapper.increase(drugInventory.getDrug_code());
         BigDecimal currenttotalAmount = totalDrugInventory.getStorage_amount().add(gapAmount);  //同步修改总库存量
         totalDrugInventory.setStorage_amount(currenttotalAmount);
-        drugInventoryMapper.update(drugInventory);
+        drugInventoryMapper.updatenIventory(drugInventory);
         Drug drug = drugMapper.selectByPrimaryKey(drugInventory.getDrug_code());
         BigDecimal safeAmount = drug.getSafety_stock();
         if (currenttotalAmount.compareTo(safeAmount) <= 0) {
