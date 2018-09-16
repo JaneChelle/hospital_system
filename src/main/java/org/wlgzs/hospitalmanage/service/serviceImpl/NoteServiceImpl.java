@@ -51,6 +51,18 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Result addNote(Note note, String price_end, String prescription_name,HttpSession session) throws ParseException {
         if (note != null) {
+            BigDecimal zero = new BigDecimal("0");
+            if(note.getPrice_end().compareTo(zero) == 1){
+                //欠账
+                Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
+                System.out.println(patient);
+                System.out.println("欠账");
+                //修改患者状态，并记录价钱
+                patient.setIs_money(1);
+                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end()));
+                patientMapper.updateByPrimaryKey(patient);
+            }
+
             //查询患者id是否存在
             if(note.getPatient_id() == null){
                 List<Patient> patients = patientMapper.checkPatient(note.getPatient_name());
@@ -75,7 +87,6 @@ public class NoteServiceImpl implements NoteService {
                 note.setPrescription_id(prescription.getPrescription_id());
             }
 
-
             //生成记录，修改处方的状态（一对一）
             Prescription prescription = prescriptionMapper.selectByPrimaryKey(note.getPrescription_id());
             System.out.println(note);
@@ -89,9 +100,12 @@ public class NoteServiceImpl implements NoteService {
             noteMapper.insert(note);
             //减少相应的库存
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
-            for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
-                String number = aPrescriptionDrugList.getNumber()+"";
-                drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
+            if(prescriptionDrugList.size() > 0){
+                for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
+                    System.out.println(aPrescriptionDrugList);
+                    String number = aPrescriptionDrugList.getNumber()+"";
+                    drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
+                }
             }
             return new Result(ResultCode.SUCCESS);
         }

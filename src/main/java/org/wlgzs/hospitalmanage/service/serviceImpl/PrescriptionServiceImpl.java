@@ -59,7 +59,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public List<Prescription> selectAll(int page, Model model) {
         Page page2 = PageHelper.startPage(page, 8, true);
-        List<Prescription> list = prescriptionMapper.selectAllPrescription();
+        List<Prescription> list = prescriptionMapper.selectAll();
         model.addAttribute("TotalPages", page2.getPages());//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
         return list;
