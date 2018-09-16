@@ -1,10 +1,11 @@
 
 // 删除
 $(".deletePre").on('click', function () {
-    var r = confirm("您确定要删除吗？");
+    var parent = $(this).parent().parent();
+    var prescriptionID = parent.children("td.prescriptionId").text();
+    var inform = "您确定要删除处方编号为 " + prescriptionID + " 的处方信息吗？";
+    var r = confirm(inform);
     if (r == true) {
-        var parent = $(this).parent().parent();
-        var prescriptionID = parent.children("td.prescriptionId").text();
         $.ajax({
             type: "DELETE",
             url: "/prescription/" + prescriptionID,
@@ -23,8 +24,17 @@ $(".deletePre").on('click', function () {
                     setTimeout(function () {
                         location.reload(true);
                     }, 1000);
-                } else {
-
+                }
+                else if(data.code == -1){
+                    $('.cure').addClass('uu');
+                    $('.cure').html("该处方正在使用，暂且不能删除！");
+                    setTimeout(function () {
+                        $('.cure').removeClass("uu")
+                        $('.cure').html('');
+                    }, 2000);
+                    setTimeout(function () {
+                        location.reload(true);
+                    }, 1000);
                 }
             },
             error: function (msg) {

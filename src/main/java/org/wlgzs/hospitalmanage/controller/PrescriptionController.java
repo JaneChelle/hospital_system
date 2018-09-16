@@ -98,6 +98,14 @@ public class PrescriptionController extends BaseController {
         return prescriptionService.addDrug(prescriptionDrug,session,isModify);
     }
 
+    //强制添加药品明细
+    @RequestMapping(value = "/prescription/mandatoryAddDrug")
+    public Result mandatoryAddDrug(PrescriptionDrug prescriptionDrug, HttpSession session,
+                          @RequestParam(value = "isModify", defaultValue = "") String isModify) {
+        List<PrescriptionDrug> prescriptionDrugList = null;
+        return prescriptionService.mandatoryAddDrug(prescriptionDrug,session,isModify);
+    }
+
     //删除药品明细
     @RequestMapping(value = "/prescription/deleteDrug")
     public Result deleteDrug(int detailId) {
