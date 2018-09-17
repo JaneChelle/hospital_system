@@ -1,10 +1,11 @@
 // 删除
 $(".delete").on('click', function () {
-    var r = confirm("您确定要删除吗？");
+    var parent = $(this).parent().parent();
+    var note_id = parent.children("td.note_id").text();
+    var inform = "您确定要删除治疗编号为 " + note_id + " 的信息吗？";
+    var r = confirm(inform);
     if (r == true) {
-        var parent = $(this).parent().parent();
-        var note_id = parent.children("td.note_id").text();
-        $.ajax({
+     $.ajax({
             type: "DELETE",
             url: "/note/" + note_id,
             data: {

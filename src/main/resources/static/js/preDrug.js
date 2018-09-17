@@ -56,7 +56,8 @@ $(".select_drug").on('click',function () {
 $(".deletePre_drug").on('click',function () {
     var parent = $(this).parent().parent();
     var detail_idDrug = parent.children("td.detail_idDrug").text();
-    var y = confirm("您确定要删除吗?");
+    var inform = "您确定要删除治疗编号为 " + detail_idDrug + " 的信息吗？";
+    var y = confirm(inform);
     if(y == true){
         $.ajax({
             url: "/prescription/deleteDrug",

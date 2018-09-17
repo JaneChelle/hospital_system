@@ -4,48 +4,72 @@ $(".delete").on('click', function () {
     var checkId = parent.children("td.checkId").text();
     var inform = "您确定要删除检查编号为 " + checkId + " 的检查信息吗？";
     var r = confirm(inform);
-    if (r == true) {
-        $.ajax({
-            type: "DELETE",
-            url: "/check/" + checkId,
-            data: {
-                checkId:checkId,
-            },
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == 0) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html("删除成功");
-                    setTimeout(function () {
-                        $('.cure').removeClass("uu")
-                        $('.cure').html('');
-                    }, 2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
-                } else {
+    $.ajax({
+        type: "post",
+        url: "/check/TakeUpCheck",
+        data: {
+            check_id: checkId,
+        },
+        dataType: "JSON",
+        success: function (data) {
+            if (data.code == 0) {
+                if (r == true) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/check/" + checkId,
+                        data: {
+                            check_id: checkId,
+                        },
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.code == 0) {
+                                $('.cure').addClass('uu');
+                                $('.cure').html("删除成功");
+                                setTimeout(function () {
+                                    $('.cure').removeClass("uu")
+                                    $('.cure').html('');
+                                }, 2000);
+                                setTimeout(function () {
+                                    location.reload(true);
+                                }, 1000);
+                            } else {
+
+                            }
+                        },
+                        error: function (msg) {
+                            $('.cure').addClass('uu');
+                            $('.cure').html(data.msg);
+                            setTimeout(function () {
+                                $('.cure').removeClass("uu")
+                                $('.cure').html('');
+                            }, 2000);
+                            setTimeout(function () {
+                                location.reload(true);
+                            }, 1000);
+                            alert("网络错误");
+                        }
+                    })
+                }
+                else {
 
                 }
-            },
-            error: function (msg) {
+            } else {
                 $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
+                $('.cure').html('检查被使用,不能被删除');
                 setTimeout(function () {
-                    $('.cure').removeClass("uu")
+                    $('.cure').removeClass("uu");
                     $('.cure').html('');
                 }, 2000);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 1000);
-                alert("网络错误");
+
             }
-        })
-    }
-    else {
+        },
+        error: function (msg) {
 
-    }
-});
+            alert("网络错误");
+        }
+    })
 
+})
 // 批量删除
 $(".batchDelete").on('click', function () {
     if($('.browider').val() != ""){
