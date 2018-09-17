@@ -89,10 +89,7 @@ public class NoteServiceImpl implements NoteService {
             noteMapper.insert(note);
             //减少相应的库存
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
-            for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
-                String number = aPrescriptionDrugList.getNumber()+"";
-                drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
-            }
+                drugInventoryService.reduce(prescriptionDrugList);
             return new Result(ResultCode.SUCCESS);
         }
         return new Result(ResultCode.FAIL,"添加失败！");
