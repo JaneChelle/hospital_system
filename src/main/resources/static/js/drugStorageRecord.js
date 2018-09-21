@@ -1,7 +1,9 @@
 $('.delete').on('click',function () {
     var record_number=$(this).parent().parent().children('.record_number').text();
     console.log(record_number);
-    if (confirm('确认要删除吗?')) {
+    var inform = "您确定要删除治疗编号为 " + record_number + " 的信息吗？";
+    var r = confirm(inform);
+    if (r==true) {
         $.ajax(
             {
                 type: "delete",

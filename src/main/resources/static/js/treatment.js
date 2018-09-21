@@ -12,46 +12,63 @@ $(".delete").on('click', function () {
     var treatmentId = parent.children("td.treatmentId").text();
     var inform = "您确定要删除治疗编号为 " + treatmentId + " 的治疗信息吗？";
     var r = confirm(inform);
-    if (r == true) {
-        $.ajax({
-            type: "DELETE",
-            url: "/treatment/" + treatmentId,
-            data: {
-                treatment_id: treatmentId,
-            },
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == 0) {
-                    $('.cure').addClass('uu');
-                    $('.cure').html("删除成功");
-                    setTimeout(function () {
-                        $('.cure').removeClass("uu")
-                        $('.cure').html('');
-                    }, 2000);
-                    setTimeout(function () {
-                        location.reload(true);
-                    }, 1000);
-                } else {
+    $.ajax({
+        type: "post",
+        url: "/treatment/TakeUpTreatment",
+        data: {
+            treatment_id: treatmentId,
+        },
+        dataType: "JSON",
+        success: function (data) {
+            if(data.code==0){
+                if (r == true) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/treatment/" + treatmentId,
+                        data: {
+                            treatment_id: treatmentId,
+                        },
+                        dataType: "JSON",
+                        success: function (data) {
+                            if (data.code == 0) {
+                                $('.cure').addClass('uu');
+                                $('.cure').html("删除成功");
+                                setTimeout(function () {
+                                    $('.cure').removeClass("uu")
+                                    $('.cure').html('');
+                                }, 2000);
+                                setTimeout(function () {
+                                    location.reload(true);
+                                }, 1000);
+                            } else {
+
+                            }
+                        },
+                        error: function (msg) {
+                            alert("网络错误");
+                        }
+                    })
+                }
+                else {
 
                 }
-            },
-            error: function (msg) {
+            }else{
                 $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
+                $('.cure').html('治疗被使用,不能删除');
                 setTimeout(function () {
-                    $('.cure').removeClass("uu")
+                    $('.cure').removeClass("uu");
                     $('.cure').html('');
                 }, 2000);
                 setTimeout(function () {
                     location.reload(true);
                 }, 1000);
-                alert("网络错误");
             }
-        })
-    }
-    else {
+        },
+        error: function (msg) {
+            alert("网络错误");
+        }
+    })
 
-    }
 });
 
 // 批量删除

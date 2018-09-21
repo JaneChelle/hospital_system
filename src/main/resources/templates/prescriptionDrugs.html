@@ -86,7 +86,6 @@
                         <th>药品编号</th>
                         <th>药品名称</th>
                         <th>价格</th>
-                        <th>库存</th>
                         <th>数量</th>
                         <th>操作</th>
                     </tr>
@@ -95,7 +94,6 @@
                     <tr th:each="pre : ${drugList}">
                         <td class="drug_code" th:text="${pre.drug_code}"></td>
                         <td class="drug_name" th:text="${pre.drug_name}">
-                        <td class="unit_price" th:text="${pre.unit_price}"></td>
                         <td class="safety_stock" th:text="${pre.safety_stock}"></td>
                         <td>
                             <input name="number" class="drug_num" type="text" placeholder="数量">
