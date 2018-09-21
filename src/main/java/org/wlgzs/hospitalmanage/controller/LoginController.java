@@ -47,13 +47,13 @@ public class LoginController extends BaseController {
     }
 
     //首页
-    @RequestMapping("/toHome")
+    @RequestMapping("/hospital/toHome")
     public ModelAndView toHome(){
         return new ModelAndView("adminIndex");
     }
 
     //首页
-    @RequestMapping("/toHospital")
+    @RequestMapping("/hospital/toHospital")
     public ModelAndView toHospital(){
         return new ModelAndView("hospital");
     }

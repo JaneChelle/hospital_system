@@ -52,7 +52,7 @@ public class NoteServiceImpl implements NoteService {
     public Result addNote(Note note, String price_end, String prescription_name,HttpSession session) throws ParseException {
         if (note != null) {
             BigDecimal zero = new BigDecimal("0");
-            if(note.getPrice_end().compareTo(zero) == 1){
+            if(note.getPrice_end().compareTo(zero) == -1){
                 //欠账
                 Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
                 System.out.println(patient);
@@ -102,7 +102,7 @@ public class NoteServiceImpl implements NoteService {
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
                 drugInventoryService.reduce(prescriptionDrugList);
 
-            return new Result(ResultCode.SUCCESS);
+            return new Result(ResultCode.SUCCESS,"成功");
         }
         return new Result(ResultCode.FAIL,"添加失败！");
     }

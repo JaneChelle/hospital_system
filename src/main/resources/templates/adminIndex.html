@@ -33,6 +33,11 @@
 		</header>
 			<aside class="main-sidebar">
 				<ul class="sidebar-menu">
+					<li>
+						<a th:href="@{/hospital/toHospital}" target="mainFrame" class="add_a">
+							<i class="fa fa-dashboard"></i> <span>就诊</span>
+						</a>
+					</li>
 					<!--药品管理-->
 				      <li class="treeview">
 				        <a href="#">
@@ -107,15 +112,10 @@
 					          <i class="fa fa-dashboard"></i> <span>就诊记录</span>
 					        </a>
 				        </li>
-					<li>
-						<a th:href="@{/toHospital}" target="mainFrame" class="add_a">
-							<i class="fa fa-dashboard"></i> <span>就诊</span>
-						</a>
-					</li>
 				</ul>
 	 	</aside>
 	 	<div class="wrapper">
-	 		<iframe name="mainFrame" th:src="@{/toHospital}"  frameborder="0" id="mainiframe" scrolling="no"></iframe>
+	 		<iframe name="mainFrame" th:src="@{/hospital/toHospital}"  frameborder="0" id="mainiframe" scrolling="no"></iframe>
 	 	</div>
 	</body>
 	<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}" ></script>
