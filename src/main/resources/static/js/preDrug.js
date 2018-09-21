@@ -27,15 +27,18 @@ $(".select_drug").on('click',function () {
                         window.location.href="/prescription/toAddDrug?isModify="+isModify;
                     }, 1000);
                 }else{
-                    // $('.cure').addClass('uu');
-                    // $('.cure').html("添加成功");
-                    // setTimeout(function () {
-                    //     $('.cure').removeClass("uu")
-                    //     $('.cure').html('');
-                    // }, 2000);
-                    // setTimeout(function () {
-                    //
-                    // }, 1000);
+                    if(data.code == -1){
+                        $('.cure').addClass('uu');
+                        $('.cure').html.("该药品库存不足");
+                        setTimeout(function () {
+                            $('.cure').removeClass("uu")
+                            $('.cure').html('');
+                        }, 2000);
+                        setTimeout(function () {
+
+                        }, 1000);
+
+                    }
                 }
             },
             error: function (msg) {

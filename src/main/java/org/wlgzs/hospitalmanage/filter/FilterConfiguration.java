@@ -21,11 +21,14 @@ public class FilterConfiguration {
         registration.addUrlPatterns("/check/*");
         registration.addUrlPatterns("/disease/*");
         registration.addUrlPatterns("/attribute/*");
+        registration.addUrlPatterns("/StorageRecord/*");
+        registration.addUrlPatterns("/DrugInventory/*");
         registration.addUrlPatterns("/drug/*");
         registration.addUrlPatterns("/note/*");
         registration.addUrlPatterns("/patient/*");
         registration.addUrlPatterns("/prescription/*");
         registration.addUrlPatterns("/treatment/*");
+        registration.addUrlPatterns("/hospital/*");
         //过滤器名称
         registration.setName("LoginFilter");
         //是否自动注册 false 取消Filter的自动注册

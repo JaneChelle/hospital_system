@@ -17,11 +17,15 @@ $(document).ready(function () {
                 if(data.code == 0){
                     $('.cure').addClass('uu');
                     $('.cure').html('成功');
-                    window.location.href = '/toHome';
+                    window.location.href = '/hospital/toHome';
                     setTimeout(function () {
                         $('.cure').css('display','none');
                     },2000);
 
+                }
+                else {
+                    alert('账号或密码错误');
+                    window.location.href = '/toLogin';
                 }
                 // alert(data.msg)
             },
