@@ -37,7 +37,7 @@ public class LoginController extends BaseController {
             if (userAccount.equals(userAccounts.get(i))) {
                 String password = userPasswords.get(i);
                 if (password.equals(userPassword)) {
-                    session.setAttribute("user", userCodes.get(i));
+                    session.setAttribute("user", userAccount);
                     System.out.println("登录成功");
                     return new Result(ResultCode.SUCCESS, "登录成功");
                 }
