@@ -38,6 +38,10 @@ public interface PrescriptionService {
     //添加药品明细
     Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session,String isModify);
 
+    //强制添加药品明细
+    Result mandatoryAddDrug(PrescriptionDrug prescriptionDrug, HttpSession session,String isModify);
+
+
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session);
 

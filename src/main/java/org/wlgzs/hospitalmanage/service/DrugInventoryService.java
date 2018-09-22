@@ -3,6 +3,7 @@ package org.wlgzs.hospitalmanage.service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.wlgzs.hospitalmanage.entity.DrugInventory;
+import org.wlgzs.hospitalmanage.entity.PrescriptionDrug;
 import org.wlgzs.hospitalmanage.util.Result;
 
 import java.util.List;
@@ -39,6 +40,8 @@ public interface DrugInventoryService {
      List<DrugInventory> keywordDate(String drugName);
 
      DrugInventory storageLink(int storageId);
+
+    String reduce( List<PrescriptionDrug> prescriptionDrugList);
 
 
 }

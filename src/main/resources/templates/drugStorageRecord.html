@@ -50,7 +50,7 @@
 		                <tr>
 		                	<th>选择</th>
 		                	<th>记录编号</th>
-		                	<th>药品编码</th>
+		                	<th>操作员</th>
 		                    <th>药品名称</th>
 		                    <th>入库量</th>
 		                    <th>入库日期</th>
@@ -65,7 +65,7 @@
 								<label th:for="${storageList.record_number}"></label>
 	                		</td>
 	                		<td th:text="${storageList.record_number}" class="record_number">E133</td>
-	                		<td th:text="${storageList.drug_code}"></td>
+	                		<td th:text="${storageList.operator_code}"></td>
 	                		<td th:text="${storageList.drug_name}"></td>
 	                		<td th:text="${storageList.receipt}"></td>
 	                		<td th:text="${#dates.format(storageList.inbound_date, 'yyyy-MM-dd HH:mm:ss')}"></td>

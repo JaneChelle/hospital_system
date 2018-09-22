@@ -23,6 +23,10 @@ $(document).ready(function () {
                     },2000);
 
                 }
+                else {
+                    alert('账号或密码错误');
+                    window.location.href = '/toLogin';
+                }
                 // alert(data.msg)
             },
             error: function (data) {

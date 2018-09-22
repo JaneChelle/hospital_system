@@ -50,6 +50,7 @@
 		                    <th>药品</th>
 		                    <th>检查</th>
 		                    <th>治疗</th>
+							<th>被使用</th>
 		                    <th>总价</th>
 							<th>操作</th>
 		                </tr>
@@ -66,6 +67,7 @@
 	                		<td th:text="${prescription.is_drug}">有</td>
 	                		<td th:text="${prescription.is_check}">有</td>
 	                		<td th:text="${prescription.is_treatment}">有</td>
+							<td th:text="${prescription.is_show}"></td>
 							<td th:text="${prescription.price_all}"></td>
 	                		<td>
 	                			<button>

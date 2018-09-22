@@ -76,7 +76,7 @@ public class NoteServiceImpl implements NoteService {
             }
 
             BigDecimal zero = new BigDecimal("0");
-            if(note.getPrice_end().compareTo(zero) == 1){
+            if(note.getPrice_end().compareTo(zero) == -1){
                 //欠账
                 Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
                 System.out.println(patient);
@@ -100,14 +100,9 @@ public class NoteServiceImpl implements NoteService {
             noteMapper.insert(note);
             //减少相应的库存
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
-            if(prescriptionDrugList.size() > 0){
-                for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
-                    System.out.println(aPrescriptionDrugList);
-                    String number = aPrescriptionDrugList.getNumber()+"";
-                    drugInventoryService.reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
-                }
-            }
-            return new Result(ResultCode.SUCCESS);
+                drugInventoryService.reduce(prescriptionDrugList);
+
+            return new Result(ResultCode.SUCCESS,"成功");
         }
         return new Result(ResultCode.FAIL,"添加失败！");
     }
