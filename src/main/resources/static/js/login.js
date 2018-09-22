@@ -17,7 +17,7 @@ $(document).ready(function () {
                 if(data.code == 0){
                     $('.cure').addClass('uu');
                     $('.cure').html('成功');
-                    window.location.href = '/hospital/toHome';
+                    window.location.href = '/toHome';
                     setTimeout(function () {
                         $('.cure').css('display','none');
                     },2000);
