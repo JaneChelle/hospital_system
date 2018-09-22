@@ -96,7 +96,7 @@
                         <td class="drug_name" th:text="${pre.drug_name}">
                         <td class="safety_stock" th:text="${pre.safety_stock}"></td>
                         <td>
-                            <input name="number" class="drug_num" type="text" placeholder="数量">
+                            <input name="number" class="drug_num" type="text" placeholder="数量" onkeyup="value=value.replace(/[^\d^\.]+/g,'')">
                         </td>
                         <td>
                             <button id="modify" class="select_drug">选择</button>
@@ -109,6 +109,22 @@
     </div>
     <div class="cure"></div>
 </section>
+<div class="window1_popup">
+    <div class="add_infor">
+        <h3>该药品库存不足您填写的数量是否继续?</h3>
+        <div class="popup_bottom">
+            <div style="height: 32px;"></div>
+            <div style="margin: 18px 0;">
+                <a class="con_y">
+                    <button style="background-color: #5BC0DE;">是</button>
+                </a>
+                <a class="con_n">
+                    <button style="background-color: #fc5656;">否</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" id="test" th:value="${isModify}">
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
