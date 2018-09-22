@@ -32,7 +32,11 @@ public class LoginFilter implements Filter {
             return;
         } else {
 //            filterChain.doFilter(httpRequest, httpResponse);
-            httpResponse.sendRedirect("../toLogin");
+            if(url.equals("/toHome")||url.equals("/toHospital")){
+                httpResponse.sendRedirect("/toLogin");
+            }else{
+                httpResponse.sendRedirect("../toLogin");
+            }
             return;
         }
     }

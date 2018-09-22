@@ -28,7 +28,8 @@ public class FilterConfiguration {
         registration.addUrlPatterns("/patient/*");
         registration.addUrlPatterns("/prescription/*");
         registration.addUrlPatterns("/treatment/*");
-        registration.addUrlPatterns("/hospital/*");
+        registration.addUrlPatterns("/toHome");
+        registration.addUrlPatterns("/toHospital");
         //过滤器名称
         registration.setName("LoginFilter");
         //是否自动注册 false 取消Filter的自动注册
