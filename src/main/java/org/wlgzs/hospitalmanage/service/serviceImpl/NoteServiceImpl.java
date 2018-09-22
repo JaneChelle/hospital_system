@@ -51,18 +51,6 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Result addNote(Note note, String price_end, String prescription_name,HttpSession session) throws ParseException {
         if (note != null) {
-            BigDecimal zero = new BigDecimal("0");
-            if(note.getPrice_end().compareTo(zero) == 1){
-                //欠账
-                Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
-                System.out.println(patient);
-                System.out.println("欠账");
-                //修改患者状态，并记录价钱
-                patient.setIs_money(1);
-                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end()));
-                patientMapper.updateByPrimaryKey(patient);
-            }
-
             //查询患者id是否存在
             if(note.getPatient_id() == null){
                 List<Patient> patients = patientMapper.checkPatient(note.getPatient_name());
@@ -85,6 +73,18 @@ public class NoteServiceImpl implements NoteService {
                 //根据名字查询处方
                 Prescription prescription = prescriptionMapper.checkPrescription(prescription_name);
                 note.setPrescription_id(prescription.getPrescription_id());
+            }
+
+            BigDecimal zero = new BigDecimal("0");
+            if(note.getPrice_end().compareTo(zero) == 1){
+                //欠账
+                Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
+                System.out.println(patient);
+                System.out.println("欠账");
+                //修改患者状态，并记录价钱
+                patient.setIs_money(1);
+                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end()));
+                patientMapper.updateByPrimaryKey(patient);
             }
 
             //生成记录，修改处方的状态（一对一）
@@ -181,13 +181,17 @@ public class NoteServiceImpl implements NoteService {
 
         //处方id查询药品去重
         List<Integer> drugIdList = noteMapper.drugIdList(noteList);
-
         //存放结果
         List<DrugNumber> drugNumberList = new ArrayList<DrugNumber>();
         //循环查询
         for (int aDrugId : drugIdList) {
-            DrugNumber priceAll = noteMapper.drugIdLists(noteList,aDrugId);
-            drugNumberList.add(priceAll);
+            DrugNumber drugNumber;
+            if(!drugName.equals("") && drugName != null){
+                drugNumber = noteMapper.drugIds(noteList,aDrugId,drugName);
+            }else{
+                drugNumber = noteMapper.drugIdLists(noteList,aDrugId);
+            }
+            drugNumberList.add(drugNumber);
         }
         return new Result(ResultCode.SUCCESS,drugNumberList);
     }
