@@ -72,11 +72,13 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             if (session.getAttribute("user") == null) {
                 return new Result(ResultCode.FAIL, "请先登录");
             }
-                int operator_code = (int) session.getAttribute("user");
+
+                String operator_code = (String) session.getAttribute("user");
             if (storageAmount.compareTo(new BigDecimal("0")) <= 0 && validPeriodDate == null) {
                 return new Result(ResultCode.FAIL, "请将信息填写正确");
             }
-            StorageRecord storageRecord = new StorageRecord(drugCode,drugInventory.getDrug_name(),pinyin_code, operator_code, storageAmount.intValue(), currentDate, validPeriodDate);
+            System.out.println("+++++++++++++"+drugName);
+            StorageRecord storageRecord = new StorageRecord(drugCode,drugName,pinyin_code, operator_code, storageAmount.intValue(), currentDate, validPeriodDate);
             storageRecordService.record(storageRecord);
             DrugInventory currentDrugInventory = drugInventoryMapper.increase(drugCode);
             if (currentDrugInventory==null){
