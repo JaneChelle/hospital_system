@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Update;
 import org.wlgzs.hospitalmanage.entity.DrugInventory;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @org.apache.ibatis.annotations.Mapper
@@ -14,6 +15,10 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     //获得总库存数量那条数据
     @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is null and drug_code=#{drug_code}")
     DrugInventory increase(int drug_code);
+
+    //按药品id查询库存
+    @Select("SELECT * FROM tb_drug_inventory WHERE and drug_code=#{drug_code}")
+    DrugInventory selectInventoryById(@Param("drug_code")int drug_code);
 
     @Select("SELECT * FROM tb_drug_inventory WHERE  valid_period is not null and drug_code=#{drug_code} ORDER BY(valid_period) DESC")
     List<DrugInventory> reduceInventories(int drug_code);

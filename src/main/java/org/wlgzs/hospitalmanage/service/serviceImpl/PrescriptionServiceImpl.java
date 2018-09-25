@@ -43,6 +43,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     DrugMapper drugMapper;
     @Resource
     NoteMapper noteMapper;
+    @Resource
+    DrugInventoryMapper drugInventoryMapper;
+
 
     //新增处方
     @Override
@@ -76,9 +79,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             if (noteList.size() == 0) {
                 prescriptionMapper.delete(prescription);
             } else {
-                //修改处方的状态
-//                prescription.setIs_show(0);
-//                prescriptionMapper.updateByPrimaryKey(prescription);
                 return new Result(ResultCode.FAIL);
             }
             return new Result(ResultCode.SUCCESS);
@@ -113,7 +113,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (prescriptionDrug != null) {
             Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
             BigDecimal bigDecimal2 = new BigDecimal(prescriptionDrug.getNumber());//数量
-            BigDecimal bigDecimal1 = drug.getSafety_stock();//库存
+            DrugInventory drugInventory = drugInventoryMapper.increase(prescriptionDrug.getDrug_code());
+            BigDecimal bigDecimal1 = drugInventory.getStorage_amount();//库存
             int prescription_id;
             if (session.getAttribute("prescription_id") != null || session.getAttribute("prescription") != null) {
                 if (isModify.equals("")) {//是添加，不是修改
@@ -171,8 +172,6 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result mandatoryAddDrug(PrescriptionDrug prescriptionDrug, HttpSession session, String isModify) {
         if (prescriptionDrug != null) {
             Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
-            BigDecimal bigDecimal2 = new BigDecimal(prescriptionDrug.getNumber());//数量
-            BigDecimal bigDecimal1 = drug.getSafety_stock();//库存
             int prescription_id;
             if (session.getAttribute("prescription_id") != null || session.getAttribute("prescription") != null) {
                 if (isModify.equals("")) {//是添加，不是修改
@@ -253,7 +252,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (prescriptionDrug != null) {
             Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
             BigDecimal bigDecimal = new BigDecimal(number);//数量
-            BigDecimal bigDecimal1 = drug.getSafety_stock();//库存
+            DrugInventory drugInventory = drugInventoryMapper.selectInventoryById(prescriptionDrug.getDrug_code());
+            BigDecimal bigDecimal1 = drugInventory.getStorage_amount();//库存
             int a = bigDecimal1.compareTo(bigDecimal);
             if (a != -1) {
                 prescriptionDrug.setNumber(number);
@@ -466,7 +466,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //计算总价格
     @Override
-    public void totalPrice(int prescription_id) {
+    public void totalPrice(int prescription_id,HttpSession session) {
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 
         BigDecimal priceDrug = BigDecimal.ZERO;
@@ -490,6 +490,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
         prescription.setPrice_all(priceAll);
         System.out.println("priceAll:" + priceAll);
+        session.setAttribute("prescription", prescription);
         prescriptionMapper.updateByPrimaryKey(prescription);
     }
 

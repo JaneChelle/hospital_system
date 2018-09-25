@@ -21,8 +21,10 @@ public class DrugNumber {
 
     private Integer drug_code;      //药品编号
 
-    private BigDecimal number;         //总价
+    private BigDecimal number;         //数量
 
     private String drug_name;       //药品名字
+
+    private String priceAll;       //药品总价
 
 }

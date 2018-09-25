@@ -52,9 +52,9 @@ public interface NoteMapper extends Mapper<Note> {
     })
     List<Integer> drugIdList(@Param("listId") List<Integer> listId);
 
-    //根据药品id查询总价
+    //根据药品id查询总数量
     @Select({"<script>",
-            "select drug_code,SUM(number) as number,drug_name from prescription_drug",
+            "select drug_code,SUM(number) as number,SUM(price_one) as priceAll , drug_name from prescription_drug",
             "<where>",
             "prescription_id in",
             "<foreach item='item' index='index' collection='listId' open='(' separator=',' close=')'>",
@@ -65,6 +65,22 @@ public interface NoteMapper extends Mapper<Note> {
             "</script>"
     })
     DrugNumber drugIdLists(@Param("listId") List<Integer> listId, @Param("drug_code")int drug_code);
+
+    //根据药品id查询总数量
+    @Select({"<script>",
+            "select drug_code,SUM(number) as number,SUM(price_one) as priceAll,drug_name from prescription_drug",
+            "<where>",
+            "prescription_id in",
+            "<foreach item='item' index='index' collection='listId' open='(' separator=',' close=')'>",
+            "#{item}",
+            "</foreach>",
+            "and drug_code = #{drug_code}",
+            "and drug_name = #{drug_name}",
+            "</where>",
+            "</script>"
+    })
+    DrugNumber drugIds(@Param("listId") List<Integer> listId, @Param("drug_code")int drug_code,
+                          @Param("drug_name")String drug_name);
 
     //根据处方ID查询是否存在有记录
     @Select("SELECT * FROM tb_note WHERE prescription_id = #{prescription_id}")
