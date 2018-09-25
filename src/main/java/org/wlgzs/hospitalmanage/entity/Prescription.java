@@ -40,5 +40,5 @@ public class Prescription implements Serializable {
     private BigDecimal price_all;        //总价
 
     @Column(name = "is_show")
-    private Integer is_show=1;        //是否被使用
+    private Integer is_show=0;        //是否被使用（0：没有使用）
 }

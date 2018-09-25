@@ -15,7 +15,7 @@ import java.util.List;
 public interface DiseaseService {
 
     //添加疾病
-    Result addDisease(Disease disease);
+    Result addDisease(Disease disease,HttpSession session);
 
     //通过id删除
     Result deleteDiseaseById(int diseaseId);
