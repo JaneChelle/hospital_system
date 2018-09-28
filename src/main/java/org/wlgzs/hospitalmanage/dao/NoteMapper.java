@@ -86,4 +86,8 @@ public interface NoteMapper extends Mapper<Note> {
     @Select("SELECT * FROM tb_note WHERE prescription_id = #{prescription_id}")
     List<Note> selectNotesByPrescriptionId(@Param("prescription_id") int prescription_id);
 
+    //根据患者ID查询且收费为负的记录
+    @Select("SELECT * FROM tb_note WHERE patient_id = #{patient_id} AND price_end < 0")
+    List<Note> billsDetails(@Param("patient_id") int patient_id);
+
 }
