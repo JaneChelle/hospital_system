@@ -38,6 +38,10 @@ public interface PrescriptionService {
     //添加药品明细
     Result addDrug(PrescriptionDrug prescriptionDrug, HttpSession session,String isModify);
 
+    //强制添加药品明细
+    Result mandatoryAddDrug(PrescriptionDrug prescriptionDrug, HttpSession session,String isModify);
+
+
     //搜索已添加的处方药品
     List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session);
 
@@ -81,7 +85,7 @@ public interface PrescriptionService {
     Result modifyPrescriptionTreatment(int detail_id, String number);
 
     //计算总价格
-    void totalPrice(int prescription_id);
+    void totalPrice(int prescription_id,HttpSession session);
 
     //搜索处方
     List<Prescription> findPrescription(String findName,int page,Model model);

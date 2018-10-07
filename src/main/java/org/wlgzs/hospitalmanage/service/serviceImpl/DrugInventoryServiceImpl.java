@@ -3,12 +3,15 @@ package org.wlgzs.hospitalmanage.service.serviceImpl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.wlgzs.hospitalmanage.dao.DrugInventoryMapper;
 import org.wlgzs.hospitalmanage.dao.DrugMapper;
 import org.wlgzs.hospitalmanage.entity.Drug;
 import org.wlgzs.hospitalmanage.entity.DrugInventory;
+import org.wlgzs.hospitalmanage.entity.PrescriptionDrug;
 import org.wlgzs.hospitalmanage.entity.StorageRecord;
 import org.wlgzs.hospitalmanage.service.DrugInventoryService;
 import org.wlgzs.hospitalmanage.service.StorageRecordService;
@@ -69,11 +72,13 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             if (session.getAttribute("user") == null) {
                 return new Result(ResultCode.FAIL, "请先登录");
             }
-                int operator_code = (int) session.getAttribute("user");
+
+                String operator_code = (String) session.getAttribute("user");
             if (storageAmount.compareTo(new BigDecimal("0")) <= 0 && validPeriodDate == null) {
                 return new Result(ResultCode.FAIL, "请将信息填写正确");
             }
-            StorageRecord storageRecord = new StorageRecord(drugCode,drugInventory.getDrug_name(),pinyin_code, operator_code, storageAmount.intValue(), currentDate, validPeriodDate);
+            System.out.println("+++++++++++++"+drugName);
+            StorageRecord storageRecord = new StorageRecord(drugCode,drugName,pinyin_code, operator_code, storageAmount.intValue(), currentDate, validPeriodDate);
             storageRecordService.record(storageRecord);
             DrugInventory currentDrugInventory = drugInventoryMapper.increase(drugCode);
             if (currentDrugInventory==null){
@@ -126,41 +131,66 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
             deleteDrugInventory(drugInventories[i]);
          }
     }
-
-
-    public boolean reduceInventories(int drugCode, String num) {
+    //生成处方记录时减去对应库存量
+    @Transactional
+    public String reduce( List<PrescriptionDrug> prescriptionDrugList){
+        boolean isTrue = true;
+        String str= "" ;
+        for(PrescriptionDrug aPrescriptionDrugList : prescriptionDrugList){
+            String number = aPrescriptionDrugList.getNumber()+"";
+            isTrue = reduceInventories(aPrescriptionDrugList.getDrug_code(),number);
+            if (!isTrue){
+                str = aPrescriptionDrugList.getDrug_name()+"库存已不足";
+                break;
+            }
+        }
+        if (isTrue){
+            System.out.println("不回滚");
+            return str;
+        }else {
+            System.out.println("回滚");
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return  str ;
+        }
+    }
+    public boolean  reduceInventories(int drugCode, String num) {
         BigDecimal drugAmount = new BigDecimal(num); //处方要减数量
+        System.out.println(num);
         DrugInventory drugInventory = drugInventoryMapper.increase(drugCode); //总库存量
+        System.out.println(drugInventory.getStorage_amount());
         List<DrugInventory> drugInventories = drugInventoryMapper.reduceInventories(drugCode); //按有效期的分库存量
+        System.out.println(drugInventory.getStorage_amount().compareTo(drugAmount));
         if (drugInventory.getStorage_amount().compareTo(drugAmount) < 0) {
             return false;
         }
         Drug drug = drugMapper.selectByPrimaryKey(drugCode);
         BigDecimal safeStorage = drug.getSafety_stock();                //药品安全库存
         BigDecimal currentStorage = drugInventory.getStorage_amount().subtract(drugAmount);//剩余库存量
+
         if (currentStorage.compareTo(safeStorage) < 0) {
             drugInventory.setIs_safety_stock(0);
         } else {
             drugInventory.setIs_safety_stock(1);
         }
         drugInventory.setStorage_amount(currentStorage);
-        drugInventoryMapper.updateByPrimaryKey(drugInventory); //将减过的总数库存对象存到数据库
+        drugInventoryMapper.updatenIventory(drugInventory); //将减过的总数库存对象存到数据库
         for (DrugInventory Inventory : drugInventories) {
             BigDecimal temp = Inventory.getStorage_amount();
             if (temp.compareTo(drugAmount) >= 0) {
                 BigDecimal currentAmount = temp.subtract(drugAmount);
                 Inventory.setStorage_amount(currentAmount);
-                drugInventoryMapper.updateByPrimaryKey(Inventory);
+                drugInventoryMapper.updatenIventory(Inventory);
+                System.out.println(Inventory.getDrug_name());
+                System.out.println("++++++++++++++++++++++");
                 break;
             } else {
                 drugAmount = drugAmount.subtract(temp);
                 Inventory.setStorage_amount(new BigDecimal(0));
-                drugInventoryMapper.updateByPrimaryKey(Inventory);
+                drugInventoryMapper.updatenIventory(Inventory);
             }
         }
         return true;
     }
-
     //获得所有总库存
     public List<DrugInventory> getDrugInventory(Model model,int page) {
         PageHelper.startPage(page,8);
@@ -226,7 +256,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         } else {
             totalDrugInventory.setIs_safety_stock(1);
         }
-        drugInventoryMapper.update(totalDrugInventory);
+        drugInventoryMapper.updatenIventory(totalDrugInventory);
     }
 
     public List<DrugInventory> searchStorage(Model model, String drugName, int page) {

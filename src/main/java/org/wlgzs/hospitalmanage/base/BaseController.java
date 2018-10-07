@@ -51,4 +51,6 @@ public class BaseController {
     @Autowired
     protected NoteService noteService;
 
+    @Autowired
+    protected BillNoteService billNoteService;
 }

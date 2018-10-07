@@ -23,8 +23,8 @@ public class DiseaseController extends BaseController {
 
     //添加疾病
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public Result addDisease(Disease disease) {
-        return diseaseService.addDisease(disease);
+    public Result addDisease(Disease disease,HttpSession session) {
+        return diseaseService.addDisease(disease,session);
     }
 
     //删除疾病

@@ -19,7 +19,7 @@
             <span>处方管理 > <b style="color: #F00;">添加处方</b></span>
             <button class="label-info">
                 <b>
-                    <a href="addAprescription.html">
+                    <a th:href="@{/prescription/1}">
                         <i class="fa fa-mail-reply"></i>
                     </a>
                 </b>
@@ -86,7 +86,6 @@
                         <th>药品编号</th>
                         <th>药品名称</th>
                         <th>价格</th>
-                        <th>库存</th>
                         <th>数量</th>
                         <th>操作</th>
                     </tr>
@@ -95,10 +94,9 @@
                     <tr th:each="pre : ${drugList}">
                         <td class="drug_code" th:text="${pre.drug_code}"></td>
                         <td class="drug_name" th:text="${pre.drug_name}">
-                        <td class="unit_price" th:text="${pre.unit_price}"></td>
                         <td class="safety_stock" th:text="${pre.safety_stock}"></td>
                         <td>
-                            <input name="number" class="drug_num" type="text" placeholder="数量">
+                            <input name="number" class="drug_num" type="text" placeholder="数量" onkeyup="value=value.replace(/[^\d^\.]+/g,'')">
                         </td>
                         <td>
                             <button id="modify" class="select_drug">选择</button>
@@ -111,6 +109,22 @@
     </div>
     <div class="cure"></div>
 </section>
+<div class="window1_popup">
+    <div class="add_infor">
+        <h3>该药品库存不足您填写的数量是否继续?</h3>
+        <div class="popup_bottom">
+            <div style="height: 32px;"></div>
+            <div style="margin: 18px 0;">
+                <a class="con_y">
+                    <button style="background-color: #5BC0DE;">是</button>
+                </a>
+                <a class="con_n">
+                    <button style="background-color: #fc5656;">否</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" id="test" th:value="${isModify}">
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>

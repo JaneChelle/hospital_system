@@ -43,6 +43,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     DrugMapper drugMapper;
     @Resource
     NoteMapper noteMapper;
+    @Resource
+    DrugInventoryMapper drugInventoryMapper;
+
 
     //新增处方
     @Override
@@ -76,9 +79,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             if (noteList.size() == 0) {
                 prescriptionMapper.delete(prescription);
             } else {
-                //修改处方的状态
-                prescription.setIs_show(0);
-                prescriptionMapper.updateByPrimaryKey(prescription);
+                return new Result(ResultCode.FAIL);
             }
             return new Result(ResultCode.SUCCESS);
         }
@@ -112,7 +113,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (prescriptionDrug != null) {
             Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
             BigDecimal bigDecimal2 = new BigDecimal(prescriptionDrug.getNumber());//数量
-            BigDecimal bigDecimal1 = drug.getSafety_stock();//库存
+            DrugInventory drugInventory = drugInventoryMapper.increase(prescriptionDrug.getDrug_code());
+            BigDecimal bigDecimal1 = drugInventory.getStorage_amount();//库存
             int prescription_id;
             if (session.getAttribute("prescription_id") != null || session.getAttribute("prescription") != null) {
                 if (isModify.equals("")) {//是添加，不是修改
@@ -165,6 +167,53 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         return new Result(ResultCode.SUCCESS, "成功！");
     }
 
+    //强制添加药品明细
+    @Override
+    public Result mandatoryAddDrug(PrescriptionDrug prescriptionDrug, HttpSession session, String isModify) {
+        if (prescriptionDrug != null) {
+            Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
+            int prescription_id;
+            if (session.getAttribute("prescription_id") != null || session.getAttribute("prescription") != null) {
+                if (isModify.equals("")) {//是添加，不是修改
+                    Prescription prescription = (Prescription) session.getAttribute("prescription");
+                    prescription_id = prescription.getPrescription_id();
+                } else {
+                    String prescriptionId = (String) session.getAttribute("prescription_id");
+                    prescription_id = Integer.parseInt(prescriptionId);
+                }
+            } else {
+                return new Result(ResultCode.FAIL, "请选择一个处方!");
+            }
+            PrescriptionDrug prescriptionDrug1 = prescriptionDrugMapper.findPrescriptionDru(prescription_id, prescriptionDrug.getDrug_code());
+            if (prescriptionDrug1 == null) {
+                prescriptionDrug.setPrescription_id(prescription_id);
+                //修改处方表
+                Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
+                if (prescription.getIs_drug() == 0) {
+                    prescription.setIs_drug(1);
+                    prescriptionMapper.updateByPrimaryKey(prescription);
+                }
+                //查询检查表，添加价格
+                BigDecimal temp = new BigDecimal(prescriptionDrug.getNumber());
+                BigDecimal bigDecimal = drug.getUnit_price().multiply(temp);
+                prescriptionDrug.setPrice_one(bigDecimal);
+                prescriptionDrug.setDrug_name(drug.getDrug_name());
+                prescriptionDrugMapper.insert(prescriptionDrug);
+            } else {
+                //说明该药品已经选择过
+                //原来的数量
+                BigDecimal decimalDrug = new BigDecimal(prescriptionDrug1.getNumber());
+                //添加的
+                BigDecimal newDecimalDrug = new BigDecimal(prescriptionDrug.getNumber());
+                //修改的
+                prescriptionDrug1.setNumber(decimalDrug.add(newDecimalDrug).toString());
+                prescriptionDrug1.setPrice_one(decimalDrug.add(newDecimalDrug).multiply(drug.getUnit_price()));
+                prescriptionDrugMapper.updateByPrimaryKey(prescriptionDrug1);
+            }
+        }
+        return new Result(ResultCode.SUCCESS, "成功！");
+    }
+
     //搜索已添加的处方药品
     @Override
     public List<PrescriptionDrug> queryPrescriptionDrug(HttpSession session) {
@@ -203,7 +252,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (prescriptionDrug != null) {
             Drug drug = drugMapper.selectByPrimaryKey(prescriptionDrug.getDrug_code());
             BigDecimal bigDecimal = new BigDecimal(number);//数量
-            BigDecimal bigDecimal1 = drug.getSafety_stock();//库存
+            DrugInventory drugInventory = drugInventoryMapper.selectInventoryById(prescriptionDrug.getDrug_code());
+            BigDecimal bigDecimal1 = drugInventory.getStorage_amount();//库存
             int a = bigDecimal1.compareTo(bigDecimal);
             if (a != -1) {
                 prescriptionDrug.setNumber(number);
@@ -416,7 +466,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     //计算总价格
     @Override
-    public void totalPrice(int prescription_id) {
+    public void totalPrice(int prescription_id,HttpSession session) {
         Prescription prescription = prescriptionMapper.selectByPrimaryKey(prescription_id);
 
         BigDecimal priceDrug = BigDecimal.ZERO;
@@ -440,6 +490,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         BigDecimal priceAll = priceDrug.add(priceCheck).add(priceTreatment);
         prescription.setPrice_all(priceAll);
         System.out.println("priceAll:" + priceAll);
+        session.setAttribute("prescription", prescription);
         prescriptionMapper.updateByPrimaryKey(prescription);
     }
 
@@ -462,7 +513,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result findPrescriptionByWord(String search_word) {
         if (search_word != null && !search_word.equals("")) {
             List<Prescription> prescriptionList = prescriptionMapper.findPrescriptionByWord(search_word);
-            if(prescriptionList.size() > 0){
+            if (prescriptionList.size() > 0) {
                 return new Result(ResultCode.SUCCESS, prescriptionList);
             }
             return new Result(ResultCode.FAIL);
@@ -530,7 +581,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public Result checkPrescription(String prescription_name) {
         Prescription prescription = prescriptionMapper.checkPrescription(prescription_name);
         if (prescription != null) {
-            return new Result(ResultCode.SUCCESS, prescription,"存在！");
+            return new Result(ResultCode.SUCCESS, prescription, "存在！");
         } else {
             return new Result(ResultCode.FAIL, "不存在！");
         }

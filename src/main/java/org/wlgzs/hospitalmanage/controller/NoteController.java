@@ -22,20 +22,20 @@ public class NoteController extends BaseController {
 
     //跳转到添加一条记录
     @RequestMapping("/toAddNote")
-    public ModelAndView toAddNote(){
+    public ModelAndView toAddNote() {
         return new ModelAndView("addNote");
     }
 
     //添加记录
     @RequestMapping(value = "", method = RequestMethod.PUT)
-    public Result addNote(Note note,String price_end,
-                                String prescription_name,HttpSession session) throws ParseException {
-        return noteService.addNote(note,price_end,prescription_name,session);
+    public Result addNote(Note note, String price_end,
+                          String prescription_name, HttpSession session) throws ParseException {
+        return noteService.addNote(note, price_end, prescription_name, session);
     }
 
     //查看记录详情(id查询)
     @RequestMapping("/detailsNote")
-    public ModelAndView detailsNote(Model model,int note_id){
+    public ModelAndView detailsNote(Model model, int note_id) {
         Note note = noteService.detailsNote(note_id);
         int prescriptionId = note.getPrescription_id();
         session.setAttribute("prescription_id", prescriptionId + "");
@@ -47,7 +47,7 @@ public class NoteController extends BaseController {
         model.addAttribute("prescriptionCheckList", prescriptionCheckList);
         model.addAttribute("prescriptionTreatmentList", prescriptionTreatmentList);
         model.addAttribute("prescription", prescription);
-        model.addAttribute("note",note);
+        model.addAttribute("note", note);
         return new ModelAndView("viewNote");
     }
 
@@ -59,8 +59,8 @@ public class NoteController extends BaseController {
 
     //修改记录（添加价格，疾病id）
     @RequestMapping(value = "/modifyNote")
-    public ModelAndView modifyNote(Note note,String price_end) {
-        noteService.modifyNote(note,price_end);
+    public ModelAndView modifyNote(Note note, String price_end) {
+        noteService.modifyNote(note, price_end);
         return new ModelAndView("redirect:/note/findNote");
     }
 
@@ -68,8 +68,8 @@ public class NoteController extends BaseController {
     @RequestMapping(value = "/findNote/{page}")
     public ModelAndView findPrescription(Model model, @PathVariable(value = "page") int page
             , @RequestParam(value = "findName", defaultValue = "") String findName) {
-        System.out.println("findName"+findName);
-        List<Note> noteList = noteService.findNote(findName, page,model);
+        System.out.println("findName" + findName);
+        List<Note> noteList = noteService.findNote(findName, page, model);
         System.out.println(noteList);
         model.addAttribute("findName", findName);
         model.addAttribute("noteList", noteList);
@@ -78,13 +78,13 @@ public class NoteController extends BaseController {
 
     //跳转到查询价格页面
     @RequestMapping("/toChargeNote")
-    public ModelAndView toChargeNote(){
+    public ModelAndView toChargeNote() {
         return new ModelAndView("chargeNote");
     }
 
     //按时间查询记录收费情况
     @RequestMapping("/chargeNote")
-    public Result chargeNote(String time){
+    public Result chargeNote(String time) {
         System.out.println(time);
         return noteService.chargeNote(time);
     }
@@ -92,8 +92,8 @@ public class NoteController extends BaseController {
     //按时间查询某个药品的使用情况
     @RequestMapping("/drugUsage")
     public Result drugUsage(String time,
-                            @RequestParam(value = "drugName",defaultValue = "") String drugName){
-        return noteService.drugUsage(time,drugName);
+                            @RequestParam(value = "drugName", defaultValue = "") String drugName) {
+        return noteService.drugUsage(time, drugName);
     }
 
 }

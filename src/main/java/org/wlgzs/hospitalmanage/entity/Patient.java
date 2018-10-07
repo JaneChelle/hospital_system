@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "patient_number")
     private Integer patient_number;         //患者编号
 

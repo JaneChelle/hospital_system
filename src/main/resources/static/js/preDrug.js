@@ -26,6 +26,65 @@ $(".select_drug").on('click',function () {
                     setTimeout(function () {
                         window.location.href="/prescription/toAddDrug?isModify="+isModify;
                     }, 1000);
+                }else{
+                    if(data.code == -1){
+                        $('.cure').addClass('uu');
+                        $('.cure').html("该药品库存不足");
+                        setTimeout(function () {
+                            $('.cure').removeClass("uu")
+                            $('.cure').html('');
+                        }, 2000);
+                        setTimeout(function () {
+
+                        }, 1000);
+                    }
+
+                    $('.window1_popup').fadeIn();
+                    var height=$(".add_infor").height()
+                    console.log(height);
+                    if(height<=326){
+                        $('.add_infor').animate({
+                            top:"215px",
+                        })
+                    }
+                    else{
+                        $('.add_infor').animate({
+                            top:"64px",
+                        })
+                    }
+
+                    // 是
+                    $(".con_y").on('click',function () {
+                        $.ajax({
+                            url: "/prescription/mandatoryAddDrug",
+                            data: {
+                                drug_code:drug_code,
+                                drug_name:drug_name,
+                                number:drug_num,
+                                isModify:isModify,
+                            },
+                            dataType: "JSON",
+                            success: function (data) {
+                                $('.cure').addClass('uu');
+                                $('.cure').html("添加成功");
+                                setTimeout(function () {
+                                    $('.cure').removeClass("uu")
+                                    $('.cure').html('');
+                                }, 2000);
+                                setTimeout(function () {
+                                    window.location.href="/prescription/toAddDrug?isModify="+isModify;
+                                }, 1000);
+                            }
+                        })
+                    });
+
+                    // 否
+                    $(".con_n").on('click',function () {
+                        $('.window1_popup').fadeOut();
+                        $('.add_infor').animate({
+                            top:"-32px",
+                        })
+                    })
                 }
             },
             error: function (msg) {

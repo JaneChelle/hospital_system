@@ -98,6 +98,14 @@ public class PrescriptionController extends BaseController {
         return prescriptionService.addDrug(prescriptionDrug,session,isModify);
     }
 
+    //强制添加药品明细
+    @RequestMapping(value = "/prescription/mandatoryAddDrug")
+    public Result mandatoryAddDrug(PrescriptionDrug prescriptionDrug, HttpSession session,
+                          @RequestParam(value = "isModify", defaultValue = "") String isModify) {
+        List<PrescriptionDrug> prescriptionDrugList = null;
+        return prescriptionService.mandatoryAddDrug(prescriptionDrug,session,isModify);
+    }
+
     //删除药品明细
     @RequestMapping(value = "/prescription/deleteDrug")
     public Result deleteDrug(int detailId) {
@@ -198,12 +206,12 @@ public class PrescriptionController extends BaseController {
                              @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         if(isModify.equals("is")){
             int prescription_id = Integer.parseInt((String) session.getAttribute("prescription_id"));
-            prescriptionService.totalPrice(prescription_id);
+            prescriptionService.totalPrice(prescription_id,session);
             return new Result(ResultCode.isModify,prescription_id);
         }else{
             Prescription prescription = (Prescription)session.getAttribute("prescription") ;
             int prescription_id = prescription.getPrescription_id();
-            prescriptionService.totalPrice(prescription_id);
+            prescriptionService.totalPrice(prescription_id,session);
             return new Result(ResultCode.SUCCESS);
         }
     }
