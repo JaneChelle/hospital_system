@@ -180,9 +180,14 @@ public class NoteServiceImpl implements NoteService {
     //按时间段查询记录和总价
     @Override
     public Result chargeNote(String time) {
-        String time_start = time.substring(0, 19);
-        String time_end = time.substring(time.length() - 19, time.length());
-        List<Note> noteList = noteMapper.chargeNote(time_start, time_end);
+        List<Note> noteList = null;
+        if(time != null){
+            String time_start = time.substring(0, 19);
+            String time_end = time.substring(time.length() - 19, time.length());
+            noteList = noteMapper.chargeNote(time_start, time_end);
+        }else{
+            noteList = noteMapper.selectAll();
+        }
         BigDecimal totalPrice = new BigDecimal("0");
         for (Note aNoteList : noteList) {
             totalPrice = totalPrice.add(aNoteList.getPrice_end());

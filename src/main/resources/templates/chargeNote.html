@@ -6,29 +6,90 @@
     <title>Title</title>
     <link type="text/css" rel="stylesheet" th:href="@{/test/jeDate-test.css}">
     <link type="text/css" rel="stylesheet" th:href="@{/skin/jedate.css}">
+    <link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+    <link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/popup.css}" />
     <script type="text/javascript" th:src="@{/src/jedate.js}"></script>
 </head>
 <body>
-<form th:action="@{/note/chargeNote}" method="post">
+
     <div class="jewarp">
-        <h3 class="gray">常规选择</h3>
+        <div class="popup_bottom">
+            <h3 class="gray">常规查询</h3>
+            <input type="submit" value="查询" class="btn btn-success"/>
+        </div>
         <div class="content">
             <div class="jeitem">
-                <label class="jelabel">年月日时分秒选择</label>
-                <div class="jeinpbox">
-                    <input type="text" class="jeinput" id="test04" placeholder="YYYY-MM-DD hh:mm:ss">
-                </div>
-            </div>
-            <div class="jeitem">
-                <label class="jelabel">年月日时分秒选择</label>
-                <div class="jeinpbox">
-                    <input type="text" class="jeinput" id="test03" placeholder="YYYY-MM-DD hh:mm:ss">
+                <label class="jelabel" style="width: auto">年月日时分秒选择</label>
+                <div class="jeinpbox" style="width: auto">
+                    <div class="jeinpbox" style="width: auto">
+                        <input type="text" style="width: 300px;" name="time" class="jeinput" id="testblue" placeholder="YYYY-MM-DD hh:mm:ss">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <input type="submit" value="添加" class="btn btn-success" id="add"/>
-</form>
-<script type="text/javascript" th:src="@{/test/demo.js}"></script>
+
+    <div class="jewarp">
+        <h3 class="gray">总价查询结果</h3>
+        <div class="content">
+            <span>该时间段总价为:</span>
+            <b class="total_price"></b>
+        </div>
+
+        <h3 class="gray">记录查询结果</h3>
+        <div class="content">
+            <div class="section_table">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>患者编号</th>
+                        <th>患者名称</th>
+                        <th>疾病编号</th>
+                        <th>疾病名称</th>
+                        <th>处方编号</th>
+                        <th>收费</th>
+                        <th>就诊日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="jewarp">
+        <div class="popup_bottom">
+            <h3 class="gray">常规查询</h3>
+            <input type="submit" value="查询" class="btn btn-success" id="add"/>
+        </div>
+        <div class="content">
+            <div class="jeitem">
+                <label class="jelabel" style="width: auto">年月日时分秒选择</label>
+                <div class="jeinpbox" style="width: auto">
+                    <div class="jeinpbox" style="width: auto">
+                        <input type="text" style="width: 300px;" name="time" class="jeinput" id="testblue" placeholder="YYYY-MM-DD hh:mm:ss">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cure"></div>
+    <script type="text/javascript" th:src="@{/test/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/chargeNote.js}"></script>
 </body>
 </html>
