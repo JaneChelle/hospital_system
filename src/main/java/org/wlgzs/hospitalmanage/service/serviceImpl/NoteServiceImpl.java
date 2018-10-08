@@ -221,4 +221,11 @@ public class NoteServiceImpl implements NoteService {
         return new Result(ResultCode.SUCCESS, drugNumberList);
     }
 
+    //根据患者ID查询且收费为负的记录
+    @Override
+    public List<Note> billsDetails(int patient_id) {
+        List<Note> noteList = noteMapper.billsDetails(patient_id);
+        return noteList;
+    }
+
 }

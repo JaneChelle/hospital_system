@@ -35,4 +35,9 @@ public interface PatientService {
     //判断患者是否存在
     Result checkPatient(String patient_name);
 
+    //查询欠费的患者
+    List<Patient> billsPatient();
+
+    //还账
+    Result payback(int patient_id,String price);
 }

@@ -36,4 +36,8 @@ public interface NoteService {
 
     //按时间查询某个药品的使用情况
     Result drugUsage(String time,String drugName);
+
+    //根据患者ID查询且收费为负的记录
+    List<Note> billsDetails(int patient_id);
+
 }
