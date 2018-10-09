@@ -144,6 +144,9 @@ public class PatientServiceImpl implements PatientService {
 
     public Patient patinetLink(int patientId) {
         Patient patient = patientMapper.getPatient(patientId);
+        BigDecimal one = new BigDecimal("-1");
+        BigDecimal bigDecimal = patient.getOwe_money().multiply(one);
+        patient.setOwe_money(bigDecimal);
         return patient;
     }
 
