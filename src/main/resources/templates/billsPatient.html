@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>邢氏诊所患者就诊记录及电子处方系统</title>
+        <link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+        <link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+        <link rel="stylesheet" th:href="@{/css/popup.css}" />
+        <!--<link rel="stylesheet" th:href="@{/css/main.css}" />-->
+    </head>
+<body>
+<section>
+    <div class="fixed">
+        <div class="nav">
+            <span><b>欠账管理</b></span>
+        </div>
+        <div class="add">
+            <div class="search">
+                <form th:action="@{/patient/searchpatient/1}" method="get">
+                    <input type="text" class="patientAttribute" name="patientAttribute" autoComplete="off" required="required" placeholder="名字/拼音码/手机号" onkeyup="spin(),spainner()"/>
+                    <button type="submit"></button>
+                </form>
+            </div>
+            <div class="input_btn">
+                <input type="button" value="全选" id="selectAll">
+                <!--<input type="button" value="全不选" id="unSelect">-->
+                <input type="button" value="反选" id="reverse">
+                <input type="button" value="批量删除" class="batchDelete">
+                <input type="hidden" class="browider">
+                <input type="hidden" value="" class="btn" id="getValue">
+            </div>
+            <!--<button class="label-info add_item">-->
+                <!--<b>添加</b>-->
+            <!--</button>-->
+        </div>
+        <div class="spin">
+            <div class="spinners">
+                <!--<a href="">dhfbdh</a>-->
+                <!--<a href="">ddvkn</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="same_fixed"></div>
+    <div class="section_table">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>患者编号</th>
+                <th>患者姓名</th>
+                <th>患者性别</th>
+                <th>拼音码</th>
+                <th>年龄</th>
+                <th>电话</th>
+                <th>家庭住址</th>
+                <th>欠费/元</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patientList}">
+                <td>
+                    <input type="checkbox" th:id="${patient.patient_number}" th:value="${patient.patient_number}" class="selectall"/>
+                    <label th:for="${patient.patient_number}"></label>
+                </td>
+                <td class="patientId" th:text="${patient.patient_number}">D133</td>
+                <td class="patientName" th:text="${patient.patient_name}">叶小天</td>
+                <td class="patientSex" th:text="${patient.patient_gender}">男</td>
+                <td class="patientCode" th:text="${patient.pinyin_code}">YXT</td>
+                <td class="patientAge" th:text="${patient.patient_age}">21</td>
+                <td class="patientPhone" th:text="${patient.patient_phone}">15936571865</td>
+                <td class="patientAdress" th:text="${patient.home_address}">湖北省黄冈市黄州区</td>
+                <td th:text="${patient.owe_money}"></td>
+                <td>
+                    <button id="modify"><a th:href="@{/bills/billsDetails/(patient_id=${patient.patient_number})}" style="color:#fff">详情</a></button>
+                 </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--分页-->
+    <div class="fenye" th:if="${TotalPages > 0 and isSearch==0}">
+        <ul class="pagination" th:if="${Number == 1} and ${TotalPages > 1}">
+            <!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
+            <li><a th:href="@{/patient/patient/1}">首页</a></li>
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/patient/'+${i}}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li><a th:href="@{'/patient/patient/'+${Number+1}}">下一页</a></li><!--//请求页数+1-->
+        </ul>
+
+        <ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
+            <li><a th:href="@{/patient/patient/1}">首页</a></li><!--//跳转至第一页-->
+            <li><a th:href="@{'/patient/patient/'+${Number-1}}">上一页</a></li><!--//请求页数-1-->
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/patient/'+${i}}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li th:if="${Number != TotalPages}"><a
+                    th:href="@{'/patient/patient/'+${Number+1}}">下一页</a></li><!--//请求页数+1-->
+            <li><a th:href="@{'/patient/patient/'+${TotalPages}}">尾页</a></li><!--//跳转至第Number页-->
+        </ul>
+
+    </div>
+
+    <!--搜索分页-->
+    <div class="fenye" th:if="${TotalPages > 0 and isSearch==1}">
+        <ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">
+            <!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
+            <li><a th:href="@{/patient/searchpatient/1}">首页</a></li>
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/searchpatient/'+${i}(patientAttribute=${patientAttribute})}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li><a th:href="@{/patient/searchpatient(page=${Number+1},patientAttribute=${patientAttribute})}">下一页</a></li><!--//请求页数+1-->
+        </ul>
+
+        <ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
+            <li><a th:href="@{/patient/searchpatient(page=1,patientAttribute=${patientAttribute})}">首页</a></li><!--//跳转至第一页-->
+            <li><a th:href="@{'/patient/searchpatient/'+${Number-1}(patientAttribute=${patientAttribute})}">上一页</a></li><!--//请求页数-1-->
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/searchpatient/'+${i}(patientAttribute=${patientAttribute})}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li th:if="${Number != TotalPages}"><a
+                    th:href="@{'/patient/searchpatient/'+${Number+1}(patientAttribute=${patientAttribute})}">下一页</a></li><!--//请求页数+1-->
+            <li><a th:href="@{'/patient/searchpatient/'+${TotalPages}(patientAttribute=${patientAttribute})}">尾页</a></li><!--//跳转至第Number页-->
+        </ul>
+    </div>
+    <div class="cure"></div>
+</section>
+<!--弹窗-->
+
+<!--添加-->
+<div class="window1_popup">
+    <div class="add_infor" style="width: 420px;">
+        <h3>添加患者</h3>
+        <div class="popup_table">
+            <!--<form th:action="@{/patient/patient}" method="post">-->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>患者姓名</th>
+                    <td>
+                        <input type="text" name="patient_name" value="" class="namePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>患者性别</th>
+                    <td>
+                        <input type="hidden" name="patient_gender" class="patientGender">
+                        <select name="patient_gender" class="gender">
+                            <!--<option value="">请选择</option>-->
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>拼音码</th>
+                    <td>
+                        <input type="" name="pinyin_code" value="" class="codePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>年龄</th>
+                    <td>
+                        <input type="" name="patient_age" value="" class="agePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>电话</th>
+                    <td>
+                        <input type="" name="patient_phone" value="" class="phonePatient" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>家庭住址</th>
+                    <td>
+                        <input type="text" name="home_address" class="home_address1">
+                        <!--<input type="hidden" name="home_address" class="home_address">-->
+                        <!--<div data-toggle="distpicker">-->
+                        <!--<select class="province" data-province="选择省"></select>-->
+                        <!--<select class="city" data-city="选择市"></select>-->
+                        <!--<select class="district" data-district="选择区"></select>-->
+                        <!--</div>-->
+                    </td>
+                </tr>
+                </thead>
+            </table>
+            <div class="popup_bottom">
+                <input type="submit" value="添加" class="addPatient"/>
+                <input type="button" name="" class="cancel_1" value="取消" />
+            </div>
+            <!--</form>-->
+        </div>
+    </div>
+</div>
+
+<!--修改-->
+<div class="window2_popup">
+    <div class="inform" style="width: 420px;">
+        <h3>修改患者</h3>
+        <div class="popup_table">
+            <!--<form th:action="@{/patient/patient}" method="">-->
+            <table class="table table-bordered">
+                <thead>
+                <input type="hidden" class="patient_number">
+                <tr>
+                    <th>患者姓名</th>
+                    <td>
+                        <input type="" name="patient_name" class="patient_name" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>患者性别</th>
+                    <td>
+                        <input type="hidden" name="patient_gender" class="patient_sex">
+                        <select name="" class="patient_Sex">
+                            <option value="男" class="option_sex">男</option>
+                            <option value="女" class="option_sex">女</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>拼音码</th>
+                    <td>
+                        <input type="" name="pinyin_code" class="pinyin_code" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>年龄</th>
+                    <td>
+                        <input type="" name="patient_age" class="patient_age" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>电话</th>
+                    <td>
+                        <input type="" name="patient_phone" class="patient_phone" required="required"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>家庭住址</th>
+                    <td>
+                        <input type="text" name="home_address" class="home_address2">
+                        <!--<input type="hidden" name="home_address" class="home_add">-->
+                        <!--<div data-toggle="distpicker">-->
+                        <!--<select class="provinces" data-province="选择省"></select>-->
+                        <!--<select class="citys" data-city="选择市"></select>-->
+                        <!--<select class="districts" data-district="选择区"></select>-->
+                        <!--</div>-->
+                    </td>
+                </tr>
+                </thead>
+            </table>
+            <div class="popup_bottom">
+                <input type="submit" value="修改" class="modify_patient"/>
+                <input type="button" name="" class="cancel_2" value="取消" />
+            </div>
+            <!--</form>-->
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/drug.js}"></script>
+<script type="text/javascript" th:src="@{/js/patient.js}" ></script>
+<!--<script type="text/javascript" th:src="@{/js/distpicker.js}" ></script>-->
+<script type="text/javascript" th:src="@{/js/selsect.js}" ></script>
+</html>

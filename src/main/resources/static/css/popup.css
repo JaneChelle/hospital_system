@@ -619,3 +619,9 @@ select{
 	color: #5BC0DE;
 	cursor: pointer;
 }
+.h33{
+	font-size: 18px;
+	margin-left: 15px;
+	font-family: serif;
+	font-weight: 600;
+}
