@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <head>
         <meta charset="utf-8" />
@@ -10,6 +10,7 @@
         <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
         <link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
         <link rel="stylesheet" th:href="@{/css/popup.css}" />
+        <link rel="stylesheet" th:href="@{/css/prescription.css}"/>
         <!--<link rel="stylesheet" th:href="@{/css/main.css}" />-->
     </head>
 <body>
@@ -74,10 +75,11 @@
                 <td class="patientAge" th:text="${patient.patient_age}">21</td>
                 <td class="patientPhone" th:text="${patient.patient_phone}">15936571865</td>
                 <td class="patientAdress" th:text="${patient.home_address}">湖北省黄冈市黄州区</td>
-                <td th:text="${patient.owe_money}"></td>
+                <td class="price_end" th:text="${patient.owe_money}"></td>
                 <td>
                     <button id="modify"><a th:href="@{/bills/billsDetails/(patient_id=${patient.patient_number})}" style="color:#fff">详情</a></button>
-                 </td>
+                    <button class="label-info add_item">还账</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -151,143 +153,36 @@
     </div>
     <div class="cure"></div>
 </section>
-<!--弹窗-->
-
-<!--添加-->
+<!--还账-->
 <div class="window1_popup">
-    <div class="add_infor" style="width: 420px;">
-        <h3>添加患者</h3>
-        <div class="popup_table">
-            <!--<form th:action="@{/patient/patient}" method="post">-->
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>患者姓名</th>
-                    <td>
-                        <input type="text" name="patient_name" value="" class="namePatient" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>患者性别</th>
-                    <td>
-                        <input type="hidden" name="patient_gender" class="patientGender">
-                        <select name="patient_gender" class="gender">
-                            <!--<option value="">请选择</option>-->
-                            <option value="男">男</option>
-                            <option value="女">女</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>拼音码</th>
-                    <td>
-                        <input type="" name="pinyin_code" value="" class="codePatient" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>年龄</th>
-                    <td>
-                        <input type="" name="patient_age" value="" class="agePatient" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>电话</th>
-                    <td>
-                        <input type="" name="patient_phone" value="" class="phonePatient" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>家庭住址</th>
-                    <td>
-                        <input type="text" name="home_address" class="home_address1">
-                        <!--<input type="hidden" name="home_address" class="home_address">-->
-                        <!--<div data-toggle="distpicker">-->
-                        <!--<select class="province" data-province="选择省"></select>-->
-                        <!--<select class="city" data-city="选择市"></select>-->
-                        <!--<select class="district" data-district="选择区"></select>-->
-                        <!--</div>-->
-                    </td>
-                </tr>
-                </thead>
-            </table>
+    <div class="add_infor">
+        <div class="adiv2" >
+            <h3>
+                是否还账?
+                <span class="cancel_1 cha"><i class="fa fa-times"></i></span>
+            </h3>
             <div class="popup_bottom">
-                <input type="submit" value="添加" class="addPatient"/>
-                <input type="button" name="" class="cancel_1" value="取消" />
+                <div></div>
+                <div style="margin: 18px 0;">
+                    <input type="text" class="price" style="color: #000;width: 140px;">
+                </div>
+                    <a>
+                        <button style="background-color: #5BC0DE;"  class="payback">是</button>
+                    </a>
+                    <a th:href="@{/bills/billsPatient}">
+                        <button style="background-color: #fc5656;"  class="label-info">否</button>
+                    </a>
+                </div>
             </div>
-            <!--</form>-->
         </div>
     </div>
 </div>
 
-<!--修改-->
-<div class="window2_popup">
-    <div class="inform" style="width: 420px;">
-        <h3>修改患者</h3>
-        <div class="popup_table">
-            <!--<form th:action="@{/patient/patient}" method="">-->
-            <table class="table table-bordered">
-                <thead>
-                <input type="hidden" class="patient_number">
-                <tr>
-                    <th>患者姓名</th>
-                    <td>
-                        <input type="" name="patient_name" class="patient_name" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>患者性别</th>
-                    <td>
-                        <input type="hidden" name="patient_gender" class="patient_sex">
-                        <select name="" class="patient_Sex">
-                            <option value="男" class="option_sex">男</option>
-                            <option value="女" class="option_sex">女</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>拼音码</th>
-                    <td>
-                        <input type="" name="pinyin_code" class="pinyin_code" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>年龄</th>
-                    <td>
-                        <input type="" name="patient_age" class="patient_age" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>电话</th>
-                    <td>
-                        <input type="" name="patient_phone" class="patient_phone" required="required"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>家庭住址</th>
-                    <td>
-                        <input type="text" name="home_address" class="home_address2">
-                        <!--<input type="hidden" name="home_address" class="home_add">-->
-                        <!--<div data-toggle="distpicker">-->
-                        <!--<select class="provinces" data-province="选择省"></select>-->
-                        <!--<select class="citys" data-city="选择市"></select>-->
-                        <!--<select class="districts" data-district="选择区"></select>-->
-                        <!--</div>-->
-                    </td>
-                </tr>
-                </thead>
-            </table>
-            <div class="popup_bottom">
-                <input type="submit" value="修改" class="modify_patient"/>
-                <input type="button" name="" class="cancel_2" value="取消" />
-            </div>
-            <!--</form>-->
-        </div>
-    </div>
-</div>
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/drug.js}"></script>
 <script type="text/javascript" th:src="@{/js/patient.js}" ></script>
 <!--<script type="text/javascript" th:src="@{/js/distpicker.js}" ></script>-->
 <script type="text/javascript" th:src="@{/js/selsect.js}" ></script>
+<script type="text/javascript" th:src="@{/js/billsDetails.js}"></script>
 </html>

@@ -105,7 +105,10 @@ public class PatientServiceImpl implements PatientService {
         if (bigDecimal.compareTo(zero) == -1 || bigDecimal.compareTo(zero) == 0) {//还账不能为负
             return new Result(ResultCode.FAIL,"还账不能为负或为0！");
         }else{//为正时
-            BigDecimal owe_money = patient.getOwe_money().add(bigDecimal);
+            BigDecimal owe_money = patient.getOwe_money().subtract(bigDecimal);
+            if(owe_money.compareTo(BigDecimal.ZERO) == -1){
+                return new Result(ResultCode.FAIL,"还账不能大于欠费值!");
+            }
             patient.setOwe_money(owe_money);
             if(owe_money.compareTo(zero) == 0){
                 patient.setIs_money(0);
@@ -144,8 +147,7 @@ public class PatientServiceImpl implements PatientService {
 
     public Patient patinetLink(int patientId) {
         Patient patient = patientMapper.getPatient(patientId);
-        BigDecimal one = new BigDecimal("-1");
-        BigDecimal bigDecimal = patient.getOwe_money().multiply(one);
+        BigDecimal bigDecimal = patient.getOwe_money().abs();
         patient.setOwe_money(bigDecimal);
         return patient;
     }

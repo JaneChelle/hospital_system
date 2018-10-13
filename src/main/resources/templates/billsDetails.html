@@ -61,7 +61,7 @@
                 <th>处方编号</th>
                 <th>收费</th>
                 <th>就诊日期</th>
-                <th>操作</th>
+                <!--<th>操作</th>-->
             </tr>
             </thead>
             <tbody>
@@ -78,9 +78,9 @@
                 <td th:text="${note.prescription_id}"></td>
                 <td class="price_end" th:text="${note.price_end}"></td>
                 <td th:text="${#dates.format(note.note_time, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                <td>
-                    <button class="label-info add_item">还账</button>
-                </td>
+                <!--<td>-->
+                    <!--<button class="label-info add_item">还账</button>-->
+                <!--</td>-->
             </tr>
             </tbody>
         </table>
@@ -190,28 +190,7 @@
 </section>
 <!--弹窗-->
 
-<!--添加-->
-<div class="window1_popup">
-    <div class="add_infor">
-        <div class="adiv2" >
-            <h3>
-                是否还账?
-                <span class="cancel_1 cha"><i class="fa fa-times"></i></span>
-            </h3>
-            <div class="popup_bottom">
-                <div style="height: 32px;"></div>
-                <div style="margin: 18px 0;">
-                    <a>
-                        <button style="background-color: #5BC0DE;"  class="payback">是</button>
-                    </a>
-                    <a th:href="@{/bills/billsDetails/(patient_id=${patient.patient_number})}">
-                        <button style="background-color: #fc5656;"  class="label-info">否</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 </body>
 <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/drug.js}"></script>

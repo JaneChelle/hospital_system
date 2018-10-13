@@ -84,7 +84,7 @@ public class NoteServiceImpl implements NoteService {
                 System.out.println("欠账");
                 //修改患者状态，并记录价钱
                 patient.setIs_money(1);
-                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end()));
+                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end().abs()));
                 patientMapper.updateByPrimaryKey(patient);
             }
 
