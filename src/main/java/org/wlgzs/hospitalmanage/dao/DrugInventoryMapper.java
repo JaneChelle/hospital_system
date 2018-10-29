@@ -15,10 +15,11 @@ public interface DrugInventoryMapper extends Mapper<DrugInventory> {
     @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is null and drug_code=#{drug_code}")
     DrugInventory increase(int drug_code);
 
-    @Select("SELECT * FROM tb_drug_inventory WHERE  valid_period is not null and drug_code=#{drug_code} ORDER BY(valid_period) DESC")
+        @Select("SELECT * FROM tb_drug_inventory WHERE  valid_period is not null and drug_code=#{drug_code} ORDER BY(valid_period) DESC")
     List<DrugInventory> reduceInventories(int drug_code);
 
-    //获取未达到安全库存的清单
+    //获取未达到
+    // 安全库存的清单
     @Select("SELECT * FROM tb_drug_inventory WHERE valid_period is null and  is_safety_stock = 0 ")
     List<DrugInventory> getUnsafetyStock();
 
