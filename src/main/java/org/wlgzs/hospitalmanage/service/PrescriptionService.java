@@ -85,7 +85,7 @@ public interface PrescriptionService {
     Result modifyPrescriptionTreatment(int detail_id, String number);
 
     //计算总价格
-    void totalPrice(int prescription_id);
+    void totalPrice(int prescription_id,HttpSession session);
 
     //搜索处方
     List<Prescription> findPrescription(String findName,int page,Model model);

@@ -47,44 +47,45 @@ public class NoteServiceImpl implements NoteService {
 
     @Autowired
     DrugInventoryService drugInventoryService;
+
     //添加记录
     @Override
-    public Result addNote(Note note, String price_end, String prescription_name,HttpSession session) throws ParseException {
+    public Result addNote(Note note, String price_end, String prescription_name, HttpSession session) throws ParseException {
         if (note != null) {
-            BigDecimal zero = new BigDecimal("0");
-            if(note.getPrice_end().compareTo(zero) == -1){
-                //欠账
-                Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
-                System.out.println(patient);
-                System.out.println("欠账");
-                //修改患者状态，并记录价钱
-                patient.setIs_money(1);
-                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end()));
-                patientMapper.updateByPrimaryKey(patient);
-            }
-
             //查询患者id是否存在
-            if(note.getPatient_id() == null){
+            if (note.getPatient_id() == null) {
                 List<Patient> patients = patientMapper.checkPatient(note.getPatient_name());
-                if(patients.size() > 1){
-                    return new Result(ResultCode.FAIL,"该患者可能重名，可以根据手机号查询！");
-                }else if(patients.size() == 1){
+                if (patients.size() > 1) {
+                    return new Result(ResultCode.FAIL, "该患者可能重名，可以根据手机号查询！");
+                } else if (patients.size() == 1) {
                     //根据名字查询患者id
                     note.setPatient_id(patients.get(0).getPatient_number());
                 }
             }
 
             //查询疾病id是否存在
-            if(note.getDisease_id() == null){
+            if (note.getDisease_id() == null) {
                 Disease disease = diseaseMapper.findByName(note.getDisease_name());
                 note.setDisease_id(disease.getDisease_id());
             }
 
             //查询处方id是否存在
-            if(note.getPrescription_id() == null){
+            if (note.getPrescription_id() == null) {
                 //根据名字查询处方
                 Prescription prescription = prescriptionMapper.checkPrescription(prescription_name);
                 note.setPrescription_id(prescription.getPrescription_id());
+            }
+
+            BigDecimal zero = new BigDecimal("0");
+            if (note.getPrice_end().compareTo(zero) == -1) {
+                //欠账
+                Patient patient = patientMapper.selectByPrimaryKey(note.getPatient_id());
+                System.out.println(patient);
+                System.out.println("欠账");
+                //修改患者状态，并记录价钱
+                patient.setIs_money(1);
+                patient.setOwe_money(patient.getOwe_money().add(note.getPrice_end().abs()));
+                patientMapper.updateByPrimaryKey(patient);
             }
 
             //生成记录，修改处方的状态（一对一）
@@ -100,11 +101,26 @@ public class NoteServiceImpl implements NoteService {
             noteMapper.insert(note);
             //减少相应的库存
             List<PrescriptionDrug> prescriptionDrugList = prescriptionDrugMapper.findPrescriptionDrug(note.getPrescription_id());
-                drugInventoryService.reduce(prescriptionDrugList);
+            String msg = drugInventoryService.reduce(prescriptionDrugList);
+            if(!msg.equals("")){
+                //库存不足
+                return new Result(ResultCode.FAIL, msg);
+            }
 
-            return new Result(ResultCode.SUCCESS,"成功");
+            //清除session
+            if(session.getAttribute("prescription")!= null){
+                session.removeAttribute("prescription");
+            }
+            if(session.getAttribute("disease")!= null){
+                session.removeAttribute("disease");
+            }
+            if(session.getAttribute("patient")!= null){
+                session.removeAttribute("patient");
+            }
+
+            return new Result(ResultCode.SUCCESS, "成功");
         }
-        return new Result(ResultCode.FAIL,"添加失败！");
+        return new Result(ResultCode.FAIL, "添加失败！");
     }
 
     //查看记录详情(id查询)
@@ -119,6 +135,15 @@ public class NoteServiceImpl implements NoteService {
         Note note = noteMapper.selectByPrimaryKey(noteId);
         if (note != null) {
             noteMapper.delete(note);
+            //查询记录中是否有该处方
+            List<Note> noteList = noteMapper.selectNotesByPrescriptionId(note.getPrescription_id());
+            System.out.println(noteList.size());
+            if (noteList.size() == 0) {
+                //修改处方的状态
+                Prescription prescription = prescriptionMapper.selectByPrimaryKey(note.getPrescription_id());
+                prescription.setIs_show(0);
+                prescriptionMapper.updateByPrimaryKey(prescription);
+            }
             return new Result(ResultCode.SUCCESS);
         }
         return new Result(ResultCode.FAIL);
@@ -137,7 +162,7 @@ public class NoteServiceImpl implements NoteService {
 
     //按用户搜索记录(findName是查找用户)
     @Override
-    public List<Note> findNote(String findName, int page,Model model) {
+    public List<Note> findNote(String findName, int page, Model model) {
         //查询用户表
         List<Patient> patientList = patientMapper.searchName(findName);
         List<Integer> listId = new ArrayList<>();
@@ -147,7 +172,7 @@ public class NoteServiceImpl implements NoteService {
         //根据id查询
         Page page2 = PageHelper.startPage(page, 8, true);
         List<Note> list = noteMapper.selectNoteByIds(listId);
-        model.addAttribute("TotalPages",page2.getPages() );//查询的总页数
+        model.addAttribute("TotalPages", page2.getPages());//查询的总页数
         model.addAttribute("Number", page);//查询的当前第几页
         return list;
     }
@@ -155,8 +180,8 @@ public class NoteServiceImpl implements NoteService {
     //按时间段查询记录和总价
     @Override
     public Result chargeNote(String time) {
-        String time_start = time.substring(0,19);
-        String time_end = time.substring(time.length() - 19,time.length());
+        String time_start = time.substring(0, 19);
+        String time_end = time.substring(time.length() - 19, time.length());
         List<Note> noteList = noteMapper.chargeNote(time_start, time_end);
         BigDecimal totalPrice = new BigDecimal("0");
         for (Note aNoteList : noteList) {
@@ -170,21 +195,32 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Result drugUsage(String time, String drugName) {
         //从记录查询出相依相应时间的处方id
-        String time_start = time.substring(0,19);
-        String time_end = time.substring(time.length() - 19,time.length());
+        String time_start = time.substring(0, 19);
+        String time_end = time.substring(time.length() - 19, time.length());
         List<Integer> noteList = noteMapper.prescriptionNote(time_start, time_end);
 
         //处方id查询药品去重
         List<Integer> drugIdList = noteMapper.drugIdList(noteList);
-
         //存放结果
         List<DrugNumber> drugNumberList = new ArrayList<DrugNumber>();
         //循环查询
         for (int aDrugId : drugIdList) {
-            DrugNumber priceAll = noteMapper.drugIdLists(noteList,aDrugId);
-            drugNumberList.add(priceAll);
+            DrugNumber drugNumber;
+            if (!drugName.equals("") && drugName != null) {
+                drugNumber = noteMapper.drugIds(noteList, aDrugId, drugName);
+            } else {
+                drugNumber = noteMapper.drugIdLists(noteList, aDrugId);
+            }
+            drugNumberList.add(drugNumber);
         }
-        return new Result(ResultCode.SUCCESS,drugNumberList);
+        return new Result(ResultCode.SUCCESS, drugNumberList);
+    }
+
+    //根据患者ID查询且收费为负的记录
+    @Override
+    public List<Note> billsDetails(int patient_id) {
+        List<Note> noteList = noteMapper.billsDetails(patient_id);
+        return noteList;
     }
 
 }

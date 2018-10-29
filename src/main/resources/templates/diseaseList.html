@@ -50,6 +50,7 @@
 		                	<th>选择</th>
 		                    <th>疾病编号</th>
 		                    <th>疾病名称</th>
+							<th>拼音码</th>
 		                    <th>操作</th>
 		                </tr>
 	                </thead>
@@ -61,6 +62,7 @@
 	                		</td>
 	                		<td class="diseaseID" th:text="${illNess.disease_id}">D133</td>
 	                		<td class="diseaseName" th:text="${illNess.disease_name}"></td>
+							<td class="diseaseName" th:text="${illNess.pinyin_code}"></td>
 	                		<td>
 								<button id="delete" class="delete">删除</button>
 	                		</td>
@@ -150,6 +152,10 @@
 				                	<td>
 				                		<input type="text" name="disease_name" class="disease_name" value="" required="required"/>
 				                	</td>
+									<th>拼音码</th>
+									<td>
+										<input type="text" name="pinyin_code" class="disease_name" value="" required="required"/>
+									</td>
 				                </tr>
 							</thead>
 						</table>

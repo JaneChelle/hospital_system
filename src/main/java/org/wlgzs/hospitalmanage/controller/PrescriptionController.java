@@ -206,12 +206,12 @@ public class PrescriptionController extends BaseController {
                              @RequestParam(value = "isModify", defaultValue = "") String isModify) {
         if(isModify.equals("is")){
             int prescription_id = Integer.parseInt((String) session.getAttribute("prescription_id"));
-            prescriptionService.totalPrice(prescription_id);
+            prescriptionService.totalPrice(prescription_id,session);
             return new Result(ResultCode.isModify,prescription_id);
         }else{
             Prescription prescription = (Prescription)session.getAttribute("prescription") ;
             int prescription_id = prescription.getPrescription_id();
-            prescriptionService.totalPrice(prescription_id);
+            prescriptionService.totalPrice(prescription_id,session);
             return new Result(ResultCode.SUCCESS);
         }
     }

@@ -30,9 +30,10 @@ public class DiseaseServiceImpl implements DiseaseService {
 
     //添加疾病
     @Override
-    public Result addDisease(Disease disease) {
+    public Result addDisease(Disease disease,HttpSession session) {
         if(disease != null){
             diseaseMapper.insert(disease);
+            session.setAttribute("disease",disease);
             return new Result(ResultCode.SUCCESS);
         }
         return new Result(ResultCode.FAIL);

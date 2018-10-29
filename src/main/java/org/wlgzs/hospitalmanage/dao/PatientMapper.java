@@ -36,4 +36,8 @@ public interface PatientMapper extends Mapper<Patient> {
     @Select("SELECT * FROM tb_patient WHERE patient_name = #{patient_name} ")
     List<Patient> checkPatient(String patient_name);
 
+    //查询欠费的患者
+    @Select("SELECT * FROM tb_patient WHERE is_money = 1")
+    List<Patient> billsPatient();
+
 }
