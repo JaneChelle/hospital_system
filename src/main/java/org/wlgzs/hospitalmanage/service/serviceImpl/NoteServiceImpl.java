@@ -179,7 +179,7 @@ public class NoteServiceImpl implements NoteService {
 
     //按时间段查询记录和总价
     @Override
-    public Result chargeNote(String time) {
+    public List<Note> chargeNote(String time) {
         List<Note> noteList = null;
         if(time != null){
             String time_start = time.substring(0, 19);
@@ -188,17 +188,12 @@ public class NoteServiceImpl implements NoteService {
         }else{
             noteList = noteMapper.selectAll();
         }
-        BigDecimal totalPrice = new BigDecimal("0");
-        for (Note aNoteList : noteList) {
-            totalPrice = totalPrice.add(aNoteList.getPrice_end());
-        }
-        String total_price = totalPrice.toString();
-        return new Result(ResultCode.SUCCESS, noteList, total_price);
+        return noteList;
     }
 
     //按时间查询某个药品的使用情况
     @Override
-    public Result drugUsage(String time, String drugName) {
+    public List<DrugNumber> drugUsage(String time, String drugName) {
         //从记录查询出相依相应时间的处方id
         String time_start = time.substring(0, 19);
         String time_end = time.substring(time.length() - 19, time.length());
@@ -218,7 +213,7 @@ public class NoteServiceImpl implements NoteService {
             }
             drugNumberList.add(drugNumber);
         }
-        return new Result(ResultCode.SUCCESS, drugNumberList);
+        return drugNumberList;
     }
 
     //根据患者ID查询且收费为负的记录

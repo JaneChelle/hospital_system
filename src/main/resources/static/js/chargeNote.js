@@ -5,22 +5,6 @@ $('.btn-success').on('click',function () {
             data: {
                 time:$('.jeinput').val()
             },
-            dataType: "JSON",
-            success: function (data) {
-                if (data.code == 0) {
-                    var datas = data.data;
-                    console.log(datas);
-                    $(".total_price").text(datas.total_price);
-
-
-
-                } else {
-
-                }
-            },
-            error: function (msg) {
-                alert("网络错误");
-            }
         })
     }
     else {

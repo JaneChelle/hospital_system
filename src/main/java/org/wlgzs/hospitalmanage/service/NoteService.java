@@ -1,6 +1,7 @@
 package org.wlgzs.hospitalmanage.service;
 
 import org.springframework.ui.Model;
+import org.wlgzs.hospitalmanage.entity.DrugNumber;
 import org.wlgzs.hospitalmanage.entity.Note;
 import org.wlgzs.hospitalmanage.util.Result;
 
@@ -32,10 +33,10 @@ public interface NoteService {
     List<Note> findNote(String findName,int page,Model model);
 
     //按时间段查询记录和总价
-    Result chargeNote(String time);
+    List<Note> chargeNote(String time);
 
     //按时间查询某个药品的使用情况
-    Result drugUsage(String time,String drugName);
+    List<DrugNumber> drugUsage(String time, String drugName);
 
     //根据患者ID查询且收费为负的记录
     List<Note> billsDetails(int patient_id);

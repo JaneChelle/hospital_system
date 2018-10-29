@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>按时间段查询记录和总价</title>
     <link type="text/css" rel="stylesheet" th:href="@{/test/jeDate-test.css}">
     <link type="text/css" rel="stylesheet" th:href="@{/skin/jedate.css}">
     <link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
@@ -11,22 +11,26 @@
     <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
     <link rel="stylesheet" th:href="@{/css/popup.css}" />
     <script type="text/javascript" th:src="@{/src/jedate.js}"></script>
+    <style>
+        .gray{
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
     <div class="jewarp">
         <div class="popup_bottom">
-            <h3 class="gray">常规查询</h3>
-            <input type="submit" value="查询" class="btn btn-success"/>
+            <h3 class="gray">按时间段查询记录和总价</h3>
         </div>
         <div class="content">
-            <div class="jeitem">
+            <div class="jeitem" style="width: auto">
                 <label class="jelabel" style="width: auto">年月日时分秒选择</label>
                 <div class="jeinpbox" style="width: auto">
-                    <div class="jeinpbox" style="width: auto">
-                        <input type="text" style="width: 300px;" name="time" class="jeinput" id="testblue" placeholder="YYYY-MM-DD hh:mm:ss">
-                    </div>
+                    <input type="text" style="width: 423px;" name="time" class="jeinput" id="testblue" placeholder="YYYY-MM-DD hh:mm:ss">
                 </div>
+                <input type="submit" value="查询" class="btn btn-success" style="margin: 0 0 12px 18px;"/>
             </div>
         </div>
     </div>
@@ -35,7 +39,7 @@
         <h3 class="gray">总价查询结果</h3>
         <div class="content">
             <span>该时间段总价为:</span>
-            <b class="total_price"></b>
+            <b class="total_price" th:text="${total_price}"></b>
         </div>
 
         <h3 class="gray">记录查询结果</h3>
@@ -55,15 +59,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr th:each="noteRecord : ${noteList}">
+                        <td th:text="noteRecord.note_id"></td>
+                        <td th:text="noteRecord.patient_number"></td>
+                        <td th:text="noteRecord.patient_name"></td>
+                        <td th:text="noteRecord.disease_id"></td>
+                        <td th:text="noteRecord.disease_name"></td>
+                        <td th:text="noteRecord.prescription_id"></td>
+                        <td th:text="noteRecord.price_end"></td>
+                        <td th:text="noteRecord.note_time"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -71,24 +75,25 @@
         </div>
     </div>
 
-    <div class="jewarp">
-        <div class="popup_bottom">
-            <h3 class="gray">常规查询</h3>
-            <input type="submit" value="查询" class="btn btn-success" id="add"/>
-        </div>
-        <div class="content">
-            <div class="jeitem">
-                <label class="jelabel" style="width: auto">年月日时分秒选择</label>
-                <div class="jeinpbox" style="width: auto">
-                    <div class="jeinpbox" style="width: auto">
-                        <input type="text" style="width: 300px;" name="time" class="jeinput" id="testblue" placeholder="YYYY-MM-DD hh:mm:ss">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--<div class="jewarp">-->
+        <!--<div class="popup_bottom">-->
+            <!--<h3 class="gray">常规查询</h3>-->
+            <!--<input type="submit" value="查询" class="btn btn-success" id="add"/>-->
+        <!--</div>-->
+        <!--<div class="content">-->
+            <!--<div class="jeitem">-->
+                <!--<label class="jelabel" style="width: auto">年月日时分秒选择</label>-->
+                <!--<div class="jeinpbox" style="width: auto">-->
+                    <!--<div class="jeinpbox" style="width: auto">-->
+                        <!--<input type="text" style="width: 300px;" name="time" class="jeinput" id="testblue" placeholder="YYYY-MM-DD hh:mm:ss">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <div class="cure"></div>
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/test/demo.js}"></script>
     <script type="text/javascript" th:src="@{/js/chargeNote.js}"></script>
 </body>
