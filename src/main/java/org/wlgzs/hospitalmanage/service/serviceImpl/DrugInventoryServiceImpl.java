@@ -46,6 +46,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     //添加药品库存
     public Result addDrugInventory(DrugInventory drugInventory, String dateStr) {
         boolean isAdd;
+
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         int drugCode = drugInventory.getDrug_code();
         Drug drug = drugMapper.selectByPrimaryKey(drugCode);
@@ -224,8 +225,8 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
         PageHelper.startPage(page, 8);
         List<DrugInventory> unSafetyStock = drugInventoryMapper.getUnsafetyStock();
         int count = drugInventoryMapper.getUnsafeCount();
-        model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
-        model.addAttribute("Number",page);
+            model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
+            model.addAttribute("Number",page);
 
       /*  for (DrugInventory drugInventory:drugInventoryList
              ) {
@@ -262,7 +263,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     public List<DrugInventory> searchStorage(Model model, String drugName, int page) {
         PageHelper.startPage(page, 8);
         List<DrugInventory> drugInventories = drugInventoryMapper.searchStroage(drugName);
-        int count =  drugInventoryMapper.searchStroageCount(drugName);
+        int count=  drugInventoryMapper.searchStroageCount(drugName);
         model.addAttribute("TotalPages",(int)(Math.ceil(count/8.0)));
         model.addAttribute("Number",page);
         model.addAttribute("name",drugName);
@@ -301,5 +302,7 @@ public class DrugInventoryServiceImpl implements DrugInventoryService {
     public DrugInventory storageLink(int storageId){
         DrugInventory drugInventory = drugInventoryMapper.selectOneDrugInventory(storageId);
         return drugInventory;
+
     }
 }
+

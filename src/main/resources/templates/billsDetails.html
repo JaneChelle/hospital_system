@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>邢氏诊所患者就诊记录及电子处方系统</title>
+        <link rel="stylesheet" th:href="@{/bootstrap-3.3.7/dist/css/bootstrap.min.css}" />
+        <link rel="stylesheet" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" />
+        <link rel="shortcut icon" type="img/x-icon" th:href="@{/img/favicon.ico}"/>
+        <link rel="stylesheet" th:href="@{/css/popup.css}" />
+        <link rel="stylesheet" th:href="@{/css/prescription.css}"/>
+        <!--<link rel="stylesheet" th:href="@{/css/main.css}" />-->
+    </head>
+<body>
+<section>
+    <div class="fixed">
+        <div class="nav">
+            <span><b>欠费详情</b></span>
+        </div>
+        <div class="add">
+            <div class="search">
+                <form th:action="@{/patient/searchpatient/1}" method="get">
+                    <input type="text" class="patientAttribute" name="patientAttribute" autoComplete="off" required="required" placeholder="名字/拼音码/手机号" onkeyup="spin(),spainner()"/>
+                    <button type="submit"></button>
+                </form>
+            </div>
+            <div class="input_btn">
+                <input type="button" value="全选" id="selectAll">
+                <!--<input type="button" value="全不选" id="unSelect">-->
+                <input type="button" value="反选" id="reverse">
+                <input type="button" value="批量删除" class="batchDelete">
+                <input type="hidden" class="browider">
+                <input type="hidden" value="" class="btn" id="getValue">
+            </div>
+            <!--<button class="label-info add_item">-->
+                <!--<b>添加</b>-->
+            <!--</button>-->
+        </div>
+        <div class="spin">
+            <div class="spinners">
+                <!--<a href="">dhfbdh</a>-->
+                <!--<a href="">ddvkn</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="same_fixed"></div>
+    <!--欠费记录-->
+    <h3 class="h33">欠费记录</h3>
+    <div class="section_table">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>编号</th>
+                <th>患者编号</th>
+                <th>患者名称</th>
+                <th>疾病编号</th>
+                <th>疾病名称</th>
+                <th>处方编号</th>
+                <th>收费</th>
+                <th>就诊日期</th>
+                <!--<th>操作</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note : ${noteList}">
+                <td>
+                    <input type="checkbox" th:id="${note.note_id}" th:value="${note.note_id}"/>
+                    <label th:for="${note.note_id}"></label>
+                </td>
+                <td class="note_id" th:text="${note.note_id}">D133</td>
+                <td th:text="${note.patient_id}" class="patient_id"></td>
+                <td th:text="${note.patient_name}"></td>
+                <td th:text="${note.disease_id}"></td>
+                <td th:text="${note.disease_name}"></td>
+                <td th:text="${note.prescription_id}"></td>
+                <td class="price_end" th:text="${note.price_end}"></td>
+                <td th:text="${#dates.format(note.note_time, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <!--<td>-->
+                    <!--<button class="label-info add_item">还账</button>-->
+                <!--</td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--还账记录-->
+    <h3 class="h33">还账记录</h3>
+    <div class="section_table">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>账单编号</th>
+                <th>患者编号</th>
+                <th>患者名称</th>
+                <th>价格</th>
+                <th>账单时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="billNotes : ${billNotes}">
+                <td>
+                    <input type="checkbox" th:id="${billNotes.bill_id}" th:value="${billNotes.bill_id}"/>
+                    <label th:for="${billNotes.bill_id}"></label>
+                </td>
+                <td class="note_id" th:text="${billNotes.bill_id}">D133</td>
+                <td th:text="${billNotes.patient_id}"></td>
+                <td th:text="${billNotes.patient_name}"></td>
+                <td th:text="${billNotes.price}"></td>
+                <td th:text="${#dates.format(billNotes.bill_time,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <!--<td>-->
+                    <!--<button id="modify" class="modify_add price_modify">修改</button>-->
+                    <!--<button id="delete" class="delete">删除</button>-->
+                    <!--<a th:href="@{/note/detailsNote/(note_id=${note.note_id})}" class="adiv1">查看</a>-->
+                <!--</td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--分页-->
+    <div class="fenye" th:if="${TotalPages > 0 and isSearch==0}">
+        <ul class="pagination" th:if="${Number == 1} and ${TotalPages > 1}">
+            <!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
+            <li><a th:href="@{/patient/patient/1}">首页</a></li>
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/patient/'+${i}}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li><a th:href="@{'/patient/patient/'+${Number+1}}">下一页</a></li><!--//请求页数+1-->
+        </ul>
+
+        <ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
+            <li><a th:href="@{/patient/patient/1}">首页</a></li><!--//跳转至第一页-->
+            <li><a th:href="@{'/patient/patient/'+${Number-1}}">上一页</a></li><!--//请求页数-1-->
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/patient/'+${i}}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li th:if="${Number != TotalPages}"><a
+                    th:href="@{'/patient/patient/'+${Number+1}}">下一页</a></li><!--//请求页数+1-->
+            <li><a th:href="@{'/patient/patient/'+${TotalPages}}">尾页</a></li><!--//跳转至第Number页-->
+        </ul>
+
+    </div>
+
+    <!--搜索分页-->
+    <div class="fenye" th:if="${TotalPages > 0 and isSearch==1}">
+        <ul class="pagination" th:if="${Number == 1} and ${TotalPages> 1}">
+            <!--//如果当前页等于1，总页数大于1（不显示上一页）   Number&ndash;&gt;当前页-->
+            <li><a th:href="@{/patient/searchpatient/1}">首页</a></li>
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/searchpatient/'+${i}(patientAttribute=${patientAttribute})}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li><a th:href="@{/patient/searchpatient(page=${Number+1},patientAttribute=${patientAttribute})}">下一页</a></li><!--//请求页数+1-->
+        </ul>
+
+        <ul class="pagination" th:if="${Number > 1} and ${TotalPages > 1}"><!--//显示上一页-->
+            <li><a th:href="@{/patient/searchpatient(page=1,patientAttribute=${patientAttribute})}">首页</a></li><!--//跳转至第一页-->
+            <li><a th:href="@{'/patient/searchpatient/'+${Number-1}(patientAttribute=${patientAttribute})}">上一页</a></li><!--//请求页数-1-->
+            <li class="active" th:each="i:${#numbers.sequence(1,TotalPages)}">
+                <!--//从1到总页数遍历，并赋值给i    TotalPages&ndash;&gt;总页数-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i == Number}" href="javascript:void(0);" th:text="${i}">#</a>
+                <!--//限制显示页数的条数  4到6个页数   而且等于当前页，不能点击-->
+                <a th:if="${i > Number-3} and ${i < Number+3} and ${i != Number}"
+                   th:href="@{'/patient/searchpatient/'+${i}(patientAttribute=${patientAttribute})}" th:text="${i}"
+                   style="color: #337ab7;background-color: #fff;border-color: #fff;">#</a><!--//限制显示页数的条数  4到6个页数-->
+            </li>
+            <li th:if="${Number != TotalPages}"><a
+                    th:href="@{'/patient/searchpatient/'+${Number+1}(patientAttribute=${patientAttribute})}">下一页</a></li><!--//请求页数+1-->
+            <li><a th:href="@{'/patient/searchpatient/'+${TotalPages}(patientAttribute=${patientAttribute})}">尾页</a></li><!--//跳转至第Number页-->
+        </ul>
+    </div>
+    <div class="cure"></div>
+</section>
+<!--弹窗-->
+
+
+</body>
+<script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/drug.js}"></script>
+<script type="text/javascript" th:src="@{/js/billsDetails.js}"></script>
+
+</html>

@@ -38,6 +38,7 @@ public class PatientsBillsController extends BaseController {
         List<Note> noteList = noteService.billsDetails(patient_id);
         //查询还账记录
         List<BillNote> billNotes = billNoteService.selectBillNoteById(patient_id);
+        System.out.println(patient);
         model.addAttribute("patient",patient);
         model.addAttribute("noteList",noteList);
         model.addAttribute("billNotes",billNotes);

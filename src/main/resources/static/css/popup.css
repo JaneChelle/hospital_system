@@ -326,7 +326,7 @@ td button{
 	box-shadow: 2px 2px 7px #5CB85C;
 }
 .popup_bottom{
-	margin-top: 18px;
+	margin: 18px;
 }
 /*复选框*/
 .section_table input[type="checkbox"] + label::before {
@@ -618,4 +618,16 @@ select{
 .spansty{
 	color: #5BC0DE;
 	cursor: pointer;
+}
+.h33{
+	font-size: 18px;
+	margin-left: 15px;
+	font-family: serif;
+	font-weight: 600;
+}
+.price{
+	line-height: 30px;
+	border: 1px solid #777;
+	margin-bottom: -10px;
+	padding-left: 5px;
 }
