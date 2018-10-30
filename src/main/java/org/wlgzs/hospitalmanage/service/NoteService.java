@@ -35,6 +35,9 @@ public interface NoteService {
     //按时间段查询记录和总价
     List<Note> chargeNote(String time);
 
+    //查询该时间段患者数量
+    int patientsNumber(String time);
+
     //按时间查询某个药品的使用情况
     List<DrugNumber> drugUsage(String time, String drugName);
 
