@@ -12,6 +12,16 @@ $(".add_pre").on('click',function () {
             success: function (data) {
                 if (data.code == 0) {
                     window.location.href="/prescription/toAddDrug";
+                    $.ajax({
+                        url: "/prescription/totalPrice",
+                        data: {
+                        },
+                        dataType: "JSON",
+                        success: function (data) {
+                        },
+                        error: function (msg) {
+                        }
+                    })
                 }
             },
             error: function (msg) {

@@ -13,8 +13,8 @@
     <script type="text/javascript" th:src="@{/src/jedate.js}"></script>
     <style>
         .gray{
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 20px!important;
+            font-weight: 600!important;
         }
     </style>
 </head>
@@ -35,42 +35,44 @@
         </div>
     </div>
 
-    <div class="jewarp">
-        <h3 class="gray">总价查询结果</h3>
-        <div class="content">
-            <span>该时间段总价为:</span>
-            <b class="total_price" th:text="${total_price}"></b>
-        </div>
+    <div class="popup_bottom">
+        <div class="jewarp">
+            <h3 class="gray">总价查询结果</h3>
+            <div class="content">
+                <span>该时间段总价为:</span>
+                <b class="total_price" th:text="${total_price}"></b>
+            </div>
 
-        <h3 class="gray">记录查询结果</h3>
-        <div class="content">
-            <div class="section_table">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>患者编号</th>
-                        <th>患者名称</th>
-                        <th>疾病编号</th>
-                        <th>疾病名称</th>
-                        <th>处方编号</th>
-                        <th>收费</th>
-                        <th>就诊日期</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="noteRecord : ${noteList}">
-                        <td th:text="noteRecord.note_id"></td>
-                        <td th:text="noteRecord.patient_number"></td>
-                        <td th:text="noteRecord.patient_name"></td>
-                        <td th:text="noteRecord.disease_id"></td>
-                        <td th:text="noteRecord.disease_name"></td>
-                        <td th:text="noteRecord.prescription_id"></td>
-                        <td th:text="noteRecord.price_end"></td>
-                        <td th:text="noteRecord.note_time"></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <h3 class="gray">记录查询结果</h3>
+            <div class="content">
+                <div class="section_table">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>患者编号</th>
+                            <th>患者名称</th>
+                            <th>疾病编号</th>
+                            <th>疾病名称</th>
+                            <th>处方编号</th>
+                            <th>收费</th>
+                            <th>就诊日期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="noteRecords : ${noteList}">
+                            <td th:text="${noteRecords.note_id}"></td>
+                            <td th:text="${noteRecords.patient_id}"></td>
+                            <td th:text="${noteRecords.patient_name}"></td>
+                            <td th:text="${noteRecords.disease_id}"></td>
+                            <td th:text="${noteRecords.disease_name}"></td>
+                            <td th:text="${noteRecords.prescription_id}"></td>
+                            <td th:text="${noteRecords.price_end}"></td>
+                            <td th:text="${noteRecords.note_time}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

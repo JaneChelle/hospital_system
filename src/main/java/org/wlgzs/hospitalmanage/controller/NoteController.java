@@ -103,7 +103,7 @@ public class NoteController extends BaseController {
     //跳转到查询价格页面
     @RequestMapping("/toDrugUsage")
     public ModelAndView toDrugUsage() {
-        return new ModelAndView("DrugUsage");
+        return new ModelAndView("chargeDrug");
     }
 
 
@@ -114,7 +114,7 @@ public class NoteController extends BaseController {
                             @RequestParam(value = "drugName", defaultValue = "") String drugName) {
         List<DrugNumber> drugNumberList = noteService.drugUsage(time, drugName);
         model.addAttribute("drugNumberList",drugNumberList);
-        return new ModelAndView("");
+        return new ModelAndView("chargeDrug");
     }
 
 }

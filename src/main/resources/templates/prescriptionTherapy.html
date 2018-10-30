@@ -95,7 +95,7 @@
                         <td th:text="${treat.pinyin_code}"></td>
                         <td th:text="${treat.treatment_price}"></td>
                         <td>
-                            <input type="text" placeholder="数量" name="number">
+                            <input type="text" placeholder="数量" name="number" onkeyup="this.value=this.value.replace(/\D/g,'')">
                         </td>
                         <td>
                             <button id="modify" class="select_therapy">选择</button>

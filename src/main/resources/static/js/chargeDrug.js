@@ -1,7 +1,7 @@
 $('.btn-success').on('click',function () {
     if($('.jeinput').val() != ""){
         $.ajax({
-            url: "/note/chargeNote",
+            url: "/note/drugUsage",
             data: {
                 time:$('.jeinput').val()
             },
