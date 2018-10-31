@@ -19,6 +19,20 @@ $(".select_drug").on('click',function () {
                 if (data.code == 0) {
                     $('.cure').addClass('uu');
                     $('.cure').html("添加成功");
+
+                    $.ajax({
+                        url: "/prescription/totalPrice",
+                        data: {
+                        },
+                        dataType: "JSON",
+                        success: function (data) {
+
+                        },
+                        error: function (msg) {
+                            alert("网络故障");
+                        }
+                    })
+
                     setTimeout(function () {
                         $('.cure').removeClass("uu")
                         $('.cure').html('');
@@ -229,6 +243,18 @@ $(".select_check").on('click',function () {
                 if (data.code == 0) {
                     $('.cure').addClass('uu');
                     $('.cure').html("添加成功");
+                    $.ajax({
+                        url: "/prescription/totalPrice",
+                        data: {
+                        },
+                        dataType: "JSON",
+                        success: function (data) {
+
+                        },
+                        error: function (msg) {
+                            alert("网络故障");
+                        }
+                    })
                     setTimeout(function () {
                         $('.cure').removeClass("uu")
                         $('.cure').html('');
@@ -381,6 +407,18 @@ $(".select_therapy").on('click',function () {
                 if (data.code == 0) {
                     $('.cure').addClass('uu');
                     $('.cure').html("添加成功");
+                    $.ajax({
+                        url: "/prescription/totalPrice",
+                        data: {
+                        },
+                        dataType: "JSON",
+                        success: function (data) {
+
+                        },
+                        error: function (msg) {
+                            alert("网络故障");
+                        }
+                    })
                     setTimeout(function () {
                         $('.cure').removeClass("uu")
                         $('.cure').html('');

@@ -96,7 +96,7 @@
 			                		<td th:text="${checks.pinyin_code}"></td>
 			                		<td class="check_price" th:text="${checks.check_price}"></td>
 									<td>
-										<input type="text" placeholder="数量" name="number">
+										<input type="text" placeholder="数量" name="number" onkeyup="this.value=this.value.replace(/\D/g,'')">
 									</td>
 			                		<td>
 										<button id="modify" class="select_check">选择</button>

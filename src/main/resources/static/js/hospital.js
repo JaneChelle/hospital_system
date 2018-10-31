@@ -62,7 +62,7 @@ function spainner(){
 
                     });
                 }
-                check1()
+                check1();
             } else {
                 $('.spintwo').removeClass('spin2');
                 $('.spinners').html('');
