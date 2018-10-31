@@ -32,8 +32,11 @@ public class PatientController extends BaseController{
     //添加患者
     @PostMapping("/patient")
     public Result addPatient(Model model, Patient patient){
-        patientService.savePatient(patient,session);
+       boolean isTrue = patientService.savePatient(patient,session);
+       if(isTrue)
         return new Result(ResultCode.SUCCESS, "添加成功");
+       else
+           return new Result(ResultCode.FAIL,"添加失败");
     }
     //删除患者
     @DeleteMapping("/patient/{patientId}")
@@ -104,5 +107,13 @@ public class PatientController extends BaseController{
     public Result checkPatient(String patient_name){
         return patientService.checkPatient(patient_name);
     }
-
+    //查看某个患者是否同名
+    @RequestMapping("/check")
+    public Result check(String patient_name){
+    boolean isTrue = patientService.check(patient_name);
+    if (isTrue==true){
+        return new Result(ResultCode.FAIL,"该患者与以往患者同名，请加以区别");
+    }
+        return new Result(ResultCode.SUCCESS);
+    }
 }

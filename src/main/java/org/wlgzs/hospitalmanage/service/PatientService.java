@@ -15,7 +15,9 @@ import java.util.List;
 public interface PatientService {
     List<Patient> getPatients(Model model, int page);
 
-    void savePatient(Patient patient, HttpSession session);
+    Boolean check(String patient_name);
+
+    boolean savePatient(Patient patient, HttpSession session);
 
     boolean deletePatient(int patientId);
 
