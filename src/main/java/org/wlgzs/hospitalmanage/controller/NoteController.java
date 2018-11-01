@@ -97,6 +97,7 @@ public class NoteController extends BaseController {
         model.addAttribute("noteList",noteList);
         System.out.println(noteList);
         model.addAttribute("total_price",total_price);
+        System.out.println(total_price);
         return new ModelAndView("chargeNote");
     }
 

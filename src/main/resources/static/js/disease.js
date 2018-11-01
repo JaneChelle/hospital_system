@@ -99,7 +99,7 @@ $(".batchDelete").on('click', function () {
 
 // 添加
 $(".add_check").on('click', function () {
-    if($(".disease_name").val() != ""){
+    if(($(".disease_name").val() != "") && ($(".pinyin_code").val() != "")){
         $.ajax({
             type: "PUT",
             url: "/disease",
