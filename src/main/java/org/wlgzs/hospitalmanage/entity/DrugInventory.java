@@ -33,7 +33,9 @@ public class DrugInventory {
     public DrugInventory(){
 
     }
-
+    public int numberPraes(BigDecimal bigDecimal){
+        return bigDecimal.intValue();
+    }
     public DrugInventory(Integer drug_code,String drug_name,String pinyin_code, BigDecimal storage_amount, Date valid_period,int is_safety_stock) {
         this.drug_code = drug_code;
         this.storage_amount = storage_amount;

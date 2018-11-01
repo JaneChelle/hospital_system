@@ -83,21 +83,22 @@ public class NoteController extends BaseController {
         return new ModelAndView("chargeNote");
     }
 
-    //按时间查询记录收费情况
+    //按时间查询记录收费情况，患者
     @RequestMapping("/chargeNote")
     public ModelAndView chargeNote(String time,Model model) {
         System.out.println(time);
+        //查询该时间段患者数量
+        int patientsNumber = noteService.patientsNumber(time);
         List<Note> noteList = noteService.chargeNote(time);
         BigDecimal totalPrice = new BigDecimal("0");
         for (Note aNoteList : noteList) {
             totalPrice = totalPrice.add(aNoteList.getPrice_end());
         }
         String total_price = totalPrice.toString();
-
         model.addAttribute("noteList",noteList);
-        System.out.println(noteList);
         model.addAttribute("total_price",total_price);
         System.out.println(total_price);
+        model.addAttribute("patientsNumber",patientsNumber);//患者数量
         return new ModelAndView("chargeNote");
     }
 

@@ -39,7 +39,7 @@
         <thead>
         <tr>
             <th>选择</th>
-            <th>库存编号</th>
+            <!--<th>库存编号</th>-->
             <th>药品名字</th>
             <th>分库存量</th>
         </tr>
@@ -50,7 +50,7 @@
                 <input type="checkbox" th:id="${drugInventory.stock_number}" th:value="${drugInventory.stock_number}"/>
                 <label th:for="${drugInventory.stock_number}"></label>
             </td>
-            <td th:text="${drugInventory.stock_number}" class="stock_number">D133</td>
+            <!--<td th:text="${drugInventory.stock_number}" class="stock_number">D133</td>-->
             <td th:text="${drugInventory.drug_name}"></td>
             <td th:text="${drugInventory.storage_amount}" class="sl"></td>
             <!--<td th:text="${#dates.format(drugInventory.valid_period,'yyyy-MM-dd')}" class="valid_period"></td>-->

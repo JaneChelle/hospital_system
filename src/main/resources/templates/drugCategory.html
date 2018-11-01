@@ -50,7 +50,7 @@
 					<thead>
 		                <tr>
 		                	<th>选择</th>
-		                    <th>类别编号</th>
+		                    <!--<th>类别编号</th>-->
 		                    <th>类别名称</th>
 		                    <th>操作</th>
 		                </tr>
@@ -61,8 +61,8 @@
 	                			<input type="checkbox" th:id="${attribute.attribute_number}" th:value="${attribute.attribute_number}"/>
 								<label th:for="${attribute.attribute_number}"></label>
 	                		</td>
-	                		<td th:text="${attribute.attribute_number}" class="leibie">A133</td>
-	                		<td th:text="${attribute.attribute_name}">中药</td>
+	                		<td th:text="${attribute.attribute_number}" class="leibie" style="display: none;">A133</td>
+	                		<td th:text="${attribute.attribute_name}" class="attribute_name">中药</td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>
 	                			<button id="delete" class="deletess">删除</button>

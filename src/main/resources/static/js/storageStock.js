@@ -137,8 +137,9 @@ function spainner(){
 //删除
 $('.del').on('click',function () {
     var drugInventoryId =$(this).parent().parent().children('.stock_number').text();
-    console.log('s12324:---------'+drugInventoryId);
-    var inform = "您确定要删除患者编号为 " + drugInventoryId + " 的患者信息吗？";
+    var drug_name =$(this).parent().parent().children('.drug_name').text();
+    // console.log('s12324:---------'+drugInventoryId);
+    var inform = "您确定要删除--" + drug_name + "--的信息吗？";
     var r = confirm(inform);
     if (r==true) {
          $.ajax({
@@ -152,7 +153,9 @@ $('.del').on('click',function () {
                 $('.cure').addClass('uu');
                 $('.cure').html(data.msg);
                 setTimeout(function () {
-                    $('.cure').css('display', 'none');
+                    $('.cure').removeClass("uu");
+                    $('.cure').html("");
+
                 }, 2000);
                 setTimeout(function () {
                     location.reload(true);
@@ -163,7 +166,9 @@ $('.del').on('click',function () {
                 $('.cure').addClass('uu');
                 $('.cure').html(data.msg);
                 setTimeout(function () {
-                    $('.cure').css('display', 'none');
+                    $('.cure').removeClass("uu");
+                    $('.cure').html("");
+
                 }, 2000);
                 setTimeout(function () {
                     location.reload(true);

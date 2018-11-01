@@ -40,30 +40,15 @@
 			<table class="table table-bordered table-hover">
 				<thead>
 	                <tr>
-	                	<!--<th>选择</th>-->
-	                    <th>库存编号</th>
 	                    <th>药品名字</th>
 	                    <th>总库存量</th>
-	                    <!--<th>有效期</th>-->
-	                    <!--<th>操作</th>-->
 	                </tr>
                 </thead>
                 <tbody>
                 	<tr th:each="drugInventory :${drugInventories}">
-                		<!--<td>-->
-                			<!--<input type="checkbox" th:id="${drugInventory.stock_number}" th:value="${drugInventory.stock_number}"/>-->
-							<!--<label th:for="${drugInventory.stock_number}"></label>-->
-                		<!--</td>-->
-                		<td  th:text="${drugInventory.stock_number}">D133</td>
-
 						<td th:text="${drugInventory.drug_name}"></td>
-                		<td th:if="${drugInventory.is_safety_stock==1}" th:text="${drugInventory.storage_amount}"></td>
-						<td th:if="${drugInventory.is_safety_stock==0}" th:text="${drugInventory.storage_amount}" style="color: red;">
-                		<!--<td th:text="${drugInventory.valid_period}"></td>-->
-                		<!--<td>-->
-                			<!--<button id="modify" class="modify_add">修改</button>-->
-                			<!--<button id="delete">删除</button>-->
-                		<!--</td>-->
+                		<td th:if="${drugInventory.is_safety_stock==1}" th:text="${drugInventory.numberPraes(drugInventory.storage_amount)}"></td>
+						<td th:if="${drugInventory.is_safety_stock==0}" th:text="${drugInventory.numberPraes(drugInventory.storage_amount)}" style="color: red;">
                 	</tr>
 				</tbody>
 			</table>

@@ -191,6 +191,18 @@ public class NoteServiceImpl implements NoteService {
         return noteList;
     }
 
+    //查询该时间段患者数量
+    @Override
+    public int patientsNumber(String time) {
+        List<Integer> patientsNumber = null;
+        if(time != null){
+            String time_start = time.substring(0, 19);
+            String time_end = time.substring(time.length() - 19, time.length());
+            patientsNumber = noteMapper.patientsNumber(time_start,time_end);
+        }
+        return patientsNumber.size();
+    }
+
     //按时间查询某个药品的使用情况
     @Override
     public List<DrugNumber> drugUsage(String time, String drugName) {

@@ -100,7 +100,8 @@ $('.add1').on('click',function () {
 //删除
 $('.deletess').on('click',function () {
     var attribute_number =$(this).parent().parent().children('.leibie').text();
-    var inform = "您确定要删除治疗编号为 " + attribute_number + " 的信息吗？";
+    var attribute_name =$(this).parent().parent().children('.attribute_name').text();
+    var inform = "您确定要删除--" + attribute_name + "--的信息吗？";
     var r = confirm(inform);
     if (r==true) {
         // var attribute_number = $(this).next().text();
@@ -115,7 +116,8 @@ $('.deletess').on('click',function () {
                 $('.cure').addClass('uu');
                 $('.cure').html(data.msg);
                 setTimeout(function () {
-                    $('.cure').css('display', 'none');
+                    $('.cure').removeClass("uu");
+                    $('.cure').html("");
                 }, 2000);
                 setTimeout(function () {
                     location.reload(true);
@@ -124,9 +126,10 @@ $('.deletess').on('click',function () {
             },
             error: function (data) {
                 $('.cure').addClass('uu');
-                $('.cure').html(data.msg);
+                $('.cure').html("错误");
                 setTimeout(function () {
-                    $('.cure').css('display', 'none');
+                    $('.cure').removeClass("uu");
+                    $('.cure').html("");
                 }, 2000);
                 setTimeout(function () {
                     location.reload(true);

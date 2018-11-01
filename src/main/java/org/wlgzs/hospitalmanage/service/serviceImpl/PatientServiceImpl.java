@@ -43,13 +43,18 @@ public class PatientServiceImpl implements PatientService {
     }
 
     //注册患者
-    public void
-    savePatient(Patient patient, HttpSession session) {
+    public boolean savePatient(Patient patient, HttpSession session) {
         if (patient != null) {
-            session.setAttribute("patient", patient);
-            //session.setMaxInactiveInterval(30 *60);
-            patientMapper.insert(patient);
+            boolean isTrue =check(patient.getPatient_name());
+            if (!isTrue) {
+                session.setAttribute("patient", patient);
+                //session.setMaxInactiveInterval(30 *60);
+                patientMapper.insert(patient);
+                return true;
+            }
+            return false;
         }
+        return false;
     }
 
     //删除患者
@@ -89,7 +94,14 @@ public class PatientServiceImpl implements PatientService {
             return new Result(ResultCode.FAIL, "不存在！");
         }
     }
+    public Boolean check(String patient_name) {
+        List<Patient> patients = patientMapper.checkPatient(patient_name);
+        if (patients.size() > 0) {
+            return true;
+        }
+            return false;
 
+    }
     //查询欠费的患者
     @Override
     public List<Patient> billsPatient() {
