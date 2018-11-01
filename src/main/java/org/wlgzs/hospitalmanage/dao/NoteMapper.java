@@ -35,6 +35,10 @@ public interface NoteMapper extends Mapper<Note> {
     @Select("SELECT * FROM tb_note WHERE note_time between #{time_start}and #{time_end}")
     List<Note> chargeNote(@Param("time_start") String time_start,@Param("time_end") String time_end);
 
+    //查询该时间段患者数量
+    @Select("SELECT DISTINCT(patient_id) FROM tb_note WHERE note_time between #{time_start}and #{time_end}")
+    List<Integer> patientsNumber(@Param("time_start") String time_start,@Param("time_end") String time_end);
+
     //按时间段查询记录和总价
     @Select("SELECT prescription_id FROM tb_note WHERE note_time between #{time_start}and #{time_end}")
     List<Integer> prescriptionNote(@Param("time_start") String time_start,@Param("time_end") String time_end);

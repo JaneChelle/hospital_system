@@ -8,6 +8,7 @@ import org.wlgzs.hospitalmanage.entity.*;
 import org.wlgzs.hospitalmanage.util.Result;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
 
@@ -82,18 +83,39 @@ public class NoteController extends BaseController {
         return new ModelAndView("chargeNote");
     }
 
-    //按时间查询记录收费情况
+    //按时间查询记录收费情况，患者
     @RequestMapping("/chargeNote")
-    public Result chargeNote(String time) {
+    public ModelAndView chargeNote(String time,Model model) {
         System.out.println(time);
-        return noteService.chargeNote(time);
+        //查询该时间段患者数量
+        int patientsNumber = noteService.patientsNumber(time);
+        List<Note> noteList = noteService.chargeNote(time);
+        BigDecimal totalPrice = new BigDecimal("0");
+        for (Note aNoteList : noteList) {
+            totalPrice = totalPrice.add(aNoteList.getPrice_end());
+        }
+        String total_price = totalPrice.toString();
+        model.addAttribute("noteList",noteList);
+        model.addAttribute("total_price",total_price);
+        model.addAttribute("patientsNumber",patientsNumber);//患者数量
+        return new ModelAndView("chargeNote");
     }
+
+    //跳转到查询价格页面
+    @RequestMapping("/toDrugUsage")
+    public ModelAndView toDrugUsage() {
+        return new ModelAndView("chargeDrug");
+    }
+
+
 
     //按时间查询某个药品的使用情况
     @RequestMapping("/drugUsage")
-    public Result drugUsage(String time,
+    public ModelAndView drugUsage(String time,Model model,
                             @RequestParam(value = "drugName", defaultValue = "") String drugName) {
-        return noteService.drugUsage(time, drugName);
+        List<DrugNumber> drugNumberList = noteService.drugUsage(time, drugName);
+        model.addAttribute("drugNumberList",drugNumberList);
+        return new ModelAndView("chargeDrug");
     }
 
 }
