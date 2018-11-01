@@ -47,7 +47,7 @@
 					<thead>
 		                <tr>
 		                	<th>选择</th>
-		                	<th>剂型编号</th>
+		                	<!--<th>剂型编号</th>-->
 		                	<th>剂型名称</th>
 		                    <th>操作</th>
 		                </tr>
@@ -58,7 +58,7 @@
 	                			<input type="checkbox" th:id="${drugDosageSorm.attribute_number}" th:value="${drugDosageSorm.attribute_number}"/>
 								<label th:for="${drugDosageSorm.attribute_number}"></label>
 	                		</td>
-	                		<td th:text="${drugDosageSorm.attribute_number}" class="leibie">C133</td>
+	                		<td th:text="${drugDosageSorm.attribute_number}" class="leibie" style="display: none;">C133</td>
 	                		<td th:text="${drugDosageSorm.attribute_name}" class="name"></td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>

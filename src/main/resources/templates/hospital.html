@@ -29,14 +29,15 @@
                 <span th:if="${session.patient!=null}">
                     <input type="hidden" th:value="${session.patient.patient_name}"
                            class="patient_id">
-                    <input type="text" name="" th:value="${session.patient.patient_name}" placeholder="患者名称" autoComplete="off" class="patient_name ipt"
-                           onkeyup="spin(),spainner()"/>
+                    <input type="text" name="" th:value="${session.patient.patient_name}" placeholder="患者名称"
+                           autoComplete="off" class="patient_name ipt"
+                           onchange="spin(),spainner()"/>
                 </span>
                 <span th:if="${session.patient==null}">
                 <input type="hidden" th:each="patient :${patients}" th:value="${patient.patient_number}"
                        class="patient_id">
                 <input type="text" name="" value="" placeholder="患者名称" autoComplete="off" class="patient_name ipt"
-                       onkeyup="spin(),spainner()"/>
+                       onchange="spin(),spainner()"/>
                 </span>
                 <div class="btnn btnsty btnpatient add_item">添加</div>
             </div>
@@ -53,15 +54,16 @@
                 <label>疾病名称</label>
                 <span th:if="${session.disease!=null}">
                     <input type="hidden" th:value="${session.disease.disease_id}"
-                        class="disease_id">
-                    <input type="text" name="" th:value="${session.disease.disease_name}" class="ipt" id="findName" placeholder="疾病名称" autoComplete="off"
-                       onkeyup="spin3(),spainner3()">
+                           class="disease_id">
+                    <input type="text" name="" th:value="${session.disease.disease_name}" class="ipt" id="findName"
+                           placeholder="疾病名称" autoComplete="off"
+                           onchange="spin3(),spainner3()">
                 </span>
                 <span th:if="${session.disease==null}">
                 <input type="hidden" th:each="diseaseLists :${diseaseList}" th:value="${diseaseLists.disease_id}"
                        class="disease_id">
                 <input type="text" name="" value="" class="ipt" id="findName" placeholder="疾病名称" autoComplete="off"
-                       onkeyup="spin3(),spainner3()">
+                       onchange="spin3(),spainner3()">
                 </span>
                 <div class="btnn btnsty add_item2">添加</div>
             </div>
@@ -78,14 +80,15 @@
                 <span th:if="${session.prescription!=null}">
                 <input type="hidden"
                        th:value="${session.prescription.prescription_id}" class="prescription_id">
-                <input type="text" name="" th:value="${session.prescription.prescription_name}" class="prescription_name ipt" placeholder="处方名称" autoComplete="off"
-                       onkeyup="spin4(),spainner4()">
+                <input type="text" name="" th:value="${session.prescription.prescription_name}"
+                       class="prescription_name ipt" placeholder="处方名称" autoComplete="off"
+                       onchange="spin4(),spainner4()">
                 </span>
                 <span th:if="${session.prescription==null}">
                 <input type="hidden" th:each="prescriptionLists : ${prescriptionList}"
                        th:value="${prescriptionLists.prescription_id}" class="prescription_id">
                 <input type="text" name="" value="" class="prescription_name ipt" placeholder="处方名称" autoComplete="off"
-                       onkeyup="spin4(),spainner4()">
+                       onchange="spin4(),spainner4()">
                 </span>
                 <div class="btnn btnsty"><a th:href="@{/prescription/toAddPrescription}" style="color: #fff;"
                                             class="fff">添加</a></div>
@@ -99,10 +102,11 @@
             <div class="item_label">
                 <label>收&nbsp;&nbsp;费</label>
                 <span th:if="${session.prescription!=null}">
-                <input type="text" name="" th:value="${session.prescription.price_all}" class="price_end ipt" placeholder="收费1" autoComplete="off"/>
+                <input type="text" name="" th:value="${session.prescription.price_all}" class="price_end ipt"
+                       placeholder="收费1" autoComplete="off"/>
                 </span>
                 <span th:if="${session.prescription==null}">
-                <input type="text" name="" value="" class="price_end ipt" placeholder="收费2" autoComplete="off"/>
+                <input type="text" name="" value="" class="price_end ipt" placeholder="收费" autoComplete="off"/>
                 </span>
                 <div class="btnn btnsty1">添加</div>
             </div>
@@ -128,7 +132,7 @@
                 <tr>
                     <th>患者姓名</th>
                     <td>
-                        <input type="text" name="patient_name" value="" class="namePatient" required="required"/>
+                        <input type="text" name="patient_name" value="" class="namePatient" required="required" />
                     </td>
                 </tr>
                 <tr>
@@ -157,19 +161,13 @@
                 <tr>
                     <th>电话</th>
                     <td>
-                        <input type="" name="patient_phone" value="" class="phonePatient" required="required"/>
+                        <input type="" name="patient_phone" value="" class="phonePatient" required="required" onchange="account()"/>
                     </td>
                 </tr>
                 <tr>
                     <th>家庭住址</th>
                     <td>
                         <input type="text" name="home_address" class="home_address1">
-                        <!--<input type="hidden" name="home_address" class="home_address">-->
-                        <!--<div data-toggle="distpicker">-->
-                        <!--<select class="province" data-province="选择省"></select>-->
-                        <!--<select class="city" data-city="选择市"></select>-->
-                        <!--<select class="district" data-district="选择区"></select>-->
-                        <!--</div>-->
                     </td>
                 </tr>
                 </thead>

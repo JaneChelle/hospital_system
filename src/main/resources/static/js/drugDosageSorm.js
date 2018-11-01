@@ -1,8 +1,9 @@
 //删除
 $('.deletesss').on('click',function () {
     var attribute_number =$(this).parent().parent().children('.leibie').text();
-    console.log('s12324:---------'+attribute_number);
-    var inform = "您确定要删除治疗编号为 " + attribute_number + " 的信息吗？";
+    var name =$(this).parent().parent().children('.name').text();
+    // console.log('s12324:---------'+attribute_number);
+    var inform = "您确定要删除--" + name + "--的信息吗？";
     var r = confirm(inform);
     if (r==true) {
         // var attribute_number = $(this).next().text();

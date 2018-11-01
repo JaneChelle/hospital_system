@@ -50,7 +50,7 @@
 					<thead>
 		                <tr>
 		                	<th>选择</th>
-		                    <th>单位编号</th>
+		                    <!--<th>单位编号</th>-->
 		                    <th>单位名称</th>
 		                    <th>操作</th>
 		                </tr>
@@ -61,7 +61,7 @@
 	                			<input type="checkbox" th:id="${drugUnit.attribute_number}" th:value="${drugUnit.attribute_number}" class="selectall"/>
 								<label th:for="${drugUnit.attribute_number}"></label>
 	                		</td>
-	                		<td class="leibie" th:text="${drugUnit.attribute_number}">B133</td>
+	                		<td class="leibie" th:text="${drugUnit.attribute_number}" style="display: none;">B133</td>
 	                		<td class="drugUnit_name" th:text="${drugUnit.attribute_name}"></td>
 	                		<td>
 	                			<button id="modify" class="modify_add">修改</button>
