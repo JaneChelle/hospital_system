@@ -24,6 +24,36 @@ function spin4(){
     }
 }
 
+
+// 患者不存在提示
+function patient(){
+    if($('.patient_name').val() == ""){
+        $('.font').fadeOut();
+    }else {
+        $('.font').fadeIn();
+    }
+}
+
+// 疾病不存在提示
+function disease(){
+    if($('.disease_name').val() == ""){
+        $('.font2').fadeOut();
+    }else {
+        $('.font2').fadeIn();
+    }
+}
+
+// 处方不存在提示
+function pre(){
+    if($('.prescription_name').val() == ""){
+        $('.font3').fadeOut();
+    }else {
+        $('.font3').fadeIn();
+    }
+}
+
+
+
 $('.add_item2').on('click',function () {
     $('.window2_popup').css('display','block');
 });
@@ -33,7 +63,6 @@ $('.cancel_2').on('click',function () {
 // 患者下拉框
 var patient_name=$('.patient_name');
 function spainner(){
-
     $.ajax({
         type: "POST",//数据发送的方式（post 或者 get）
         url: "/patient/keyword",//要发送的后台地址
@@ -64,41 +93,46 @@ function spainner(){
                 }
                 check1();
             } else {
-                $('.spintwo').removeClass('spin2');
-                $('.spinners').html('');
-                $('.font').addClass('fontsty');
-                $('.font').text('该患者不存在，请添加');
+                // $('.spintwo').removeClass('spin2');
+                // $('.spinners').html('');
+                // $('.font').addClass('fontsty');
+                // $('.font').text('该患者不存在，请添加');
             }
         },
         error: function(msg) {//ajax请求失败后触发的方法
             alert("网络故障");//弹出错误信息
         }
     });
+
 }
 // 查看单个患者是否存在
 function check1() {
-   // var patient_name=$('.patient_name').val();
-    $.ajax({
-        type: "POST",//数据发送的方式（post 或者 get）
-        url: "/patient/checkPatient",//要发送的后台地址
-        data: {
-            patient_name:patient_name.val(),
-        },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
-        dataType:"JSON",
-        success: function (data) {//ajax请求成功后触发的方法
-            if (data.msg=="不存在！"){
-                 $('.font').addClass('fontsty');
-                $('.font').text('该患者不存在，请添加');
-            }else{
-               //患者存在
-                $('.font').removeClass("fontsty");
-                $('.font').text('');
+        // var patient_name=$('.patient_name').val();
+        $.ajax({
+            type: "POST",//数据发送的方式（post 或者 get）
+            url: "/patient/checkPatient",//要发送的后台地址
+            data: {
+                patient_name:patient_name.val(),
+            },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
+            dataType:"JSON",
+            success: function (data) {//ajax请求成功后触发的方法
+                if (data.msg=="不存在！"){
+                    $('.font').addClass('fontsty');
+                    $('.font').text('该患者不存在，请添加');
+                    $('.spintwo').removeClass('spin2');
+                    $('.spinners').html('');
+
+                }else{
+                    //患者存在
+                    $('.font').removeClass("fontsty");
+                    $('.font').text('');
+                }
+            },
+            error: function (msg) {//ajax请求失败后触发的方法
+                alert("网络故障");//弹出错误信息
             }
-        },
-        error: function (msg) {//ajax请求失败后触发的方法
-            alert("网络故障");//弹出错误信息
-        }
-    });
+        });
+
 }
 //该患者名字已经存在，加以区别ajax
 $(".namePatient").on("change", function (){
@@ -175,11 +209,7 @@ $(".namePatient").on("change", function (){
                             }, 2000);
                         }
                     }
-
                 });
-
-
-
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
@@ -236,10 +266,7 @@ function spainner3(){
                 }
                 check2();
             }else{
-                $('.spin3').removeClass('spin2');
-                $('.spinners3').html('');
-                $('.font2').addClass('fontsty2');
-                $('.font2').text('该疾病不存在，请添加');
+
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
@@ -250,32 +277,33 @@ function spainner3(){
 }
 // 查看单个疾病是否存在
 function check2() {
-    // var patient_name=$('.patient_name').val();
-    $.ajax({
-        type: "POST",//数据发送的方式（post 或者 get）
-        url: "/disease/checkDisease",//要发送的后台地址
-        data: {
-            disease_name:disease_name.val(),
-        },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
-        dataType:"JSON",
-        success: function (data) {//ajax请求成功后触发的方法
-            if (data.msg=="不存在！"){
-                $('.font2').addClass('fontsty2');
-                $('.font2').text('该疾病不存在，请添加');
-            }else{
-                //患者存在
-                $('.font2').removeClass("fontsty2");
-                $('.font2').text('');
+        $.ajax({
+            type: "POST",//数据发送的方式（post 或者 get）
+            url: "/disease/checkDisease",//要发送的后台地址
+            data: {
+                disease_name:disease_name.val(),
+            },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
+            dataType:"JSON",
+            success: function (data) {//ajax请求成功后触发的方法
+                if (data.msg=="不存在！"){
+                    $('.font2').addClass('fontsty2');
+                    $('.font2').text('该疾病不存在，请添加');
+                    $('.spinners3').html('');
+                    $('.spin3').removeClass('spin2');
+                }else{
+                    //患者存在
+                    $('.font2').removeClass("fontsty2");
+                    $('.font2').text('');
+                }
+            },
+            error: function (msg) {//ajax请求失败后触发的方法
+                alert("网络故障");//弹出错误信息
             }
-        },
-        error: function (msg) {//ajax请求失败后触发的方法
-            alert("网络故障");//弹出错误信息
-        }
-    });
+        });
 }
 //添加疾病
 $(".add_check").on('click', function () {
-    if($(".disease_name").val() != ""){
+    if($(".disease_name").val() != " "){
         $.ajax({
             type: "PUT",
             url: "/disease",
@@ -288,7 +316,7 @@ $(".add_check").on('click', function () {
                     $('.cure').addClass('uu');
                     $('.cure').html("添加成功");
                     setTimeout(function () {
-                        $('.cure').removeClass("uu")
+                        $('.cure').removeClass("uu");
                         $('.cure').html('');
                     }, 2000);
                     setTimeout(function () {
@@ -352,10 +380,10 @@ function spainner4(){
                 check3();
             }else{
                 //alert(data.msg+'ggggg');
-                $('.spin4').removeClass('spin2');
-                $('.spinners4').html('');
-                $('.font3').addClass('fontsty3');
-                $('.font3').text('该处方不存在，请添加');
+                // $('.spin4').removeClass('spin2');
+                // $('.spinners4').html('');
+                // $('.font3').addClass('fontsty3');
+                // $('.font3').text('该处方不存在，请添加');
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
@@ -365,28 +393,30 @@ function spainner4(){
 }
 //查看单个处方是否存在
 function check3() {
-    // var patient_name=$('.patient_name').val();
-    $.ajax({
-        type: "POST",//数据发送的方式（post 或者 get）
-        url: "/disease/checkDisease",//要发送的后台地址
-        data: {
-            prescription_name:prescription_name.val(),
-        },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
-        dataType:"JSON",
-        success: function (data) {//ajax请求成功后触发的方法
-            if (data.msg=="不存在!"){
-                $('.font3').addClass('fontsty3');
-                $('.font3').text('该处方不存在，请添加');
-            }else{
-                //患者存在
-                $('.font3').removeClass("fontsty3");
-                $('.font3').text('');
+        // var patient_name=$('.patient_name').val();
+        $.ajax({
+            type: "POST",//数据发送的方式（post 或者 get）
+            url: "/disease/checkDisease",//要发送的后台地址
+            data: {
+                prescription_name:prescription_name.val(),
+            },//要发送的数据（参数）格式为{'val1':"1","val2":"2"}
+            dataType:"JSON",
+            success: function (data) {//ajax请求成功后触发的方法
+                if (data.msg=="不存在!"){
+                    $('.font3').addClass('fontsty3');
+                    $('.font3').text('该处方不存在，请添加');
+                    $('.spinners4').html('');
+                    $('.spin4').removeClass('spin2');
+                }else{
+                    //患者存在
+                    $('.font3').removeClass("fontsty3");
+                    $('.font3').text('');
+                }
+            },
+            error: function (msg) {//ajax请求失败后触发的方法
+                alert("网络故障");//弹出错误信息
             }
-        },
-        error: function (msg) {//ajax请求失败后触发的方法
-            alert("网络故障");//弹出错误信息
-        }
-    });
+        });
 }
 
 

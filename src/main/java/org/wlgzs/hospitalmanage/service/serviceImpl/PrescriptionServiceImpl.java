@@ -511,9 +511,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     //搜索提示
     @Override
     public Result findPrescriptionByWord(String search_word) {
+        System.out.println("search_word "+search_word);
         if (search_word != null && !search_word.equals("")) {
             List<Prescription> prescriptionList = prescriptionMapper.findPrescriptionByWord(search_word);
             if (prescriptionList.size() > 0) {
+                System.out.println(prescriptionList);
                 return new Result(ResultCode.SUCCESS, prescriptionList);
             }
             return new Result(ResultCode.FAIL);
