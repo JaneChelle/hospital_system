@@ -118,6 +118,24 @@
 					          <i class="fa fa-dashboard"></i> <span>就诊记录</span>
 					        </a>
 				        </li>
+					<li class="treeview">
+						<a href="#">
+							<i class="fa fa-dashboard"></i><span> 汇总</span>
+							<i class="fa fa-angle-left pull-right"></i>
+						</a>
+						<ul class="treeview-menu">
+							<li>
+								<a th:href="@{/note/toChargeNote}" target="mainFrame" class="add_a">
+									<i class="fa fa-circle-o"></i> 记录汇总
+								</a>
+							</li>
+							<li>
+								<a th:href="@{/note/toDrugUsage}" target="mainFrame" class="add_a">
+									<i class="fa fa-circle-o"></i> 药品汇总
+								</a>
+							</li>
+						</ul>
+					</li>
 				</ul>
 	 	</aside>
 	 	<div class="wrapper">

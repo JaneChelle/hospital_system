@@ -97,6 +97,7 @@ public class NoteController extends BaseController {
         String total_price = totalPrice.toString();
         model.addAttribute("noteList",noteList);
         model.addAttribute("total_price",total_price);
+        System.out.println(total_price);
         model.addAttribute("patientsNumber",patientsNumber);//患者数量
         return new ModelAndView("chargeNote");
     }
