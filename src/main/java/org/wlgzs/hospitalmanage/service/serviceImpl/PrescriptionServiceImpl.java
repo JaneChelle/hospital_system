@@ -515,7 +515,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if (search_word != null && !search_word.equals("")) {
             List<Prescription> prescriptionList = prescriptionMapper.findPrescriptionByWord(search_word);
             if (prescriptionList.size() > 0) {
-                System.out.println(prescriptionList);
+                System.out.println("prescriptionList==="+prescriptionList);
                 return new Result(ResultCode.SUCCESS, prescriptionList);
             }
             return new Result(ResultCode.FAIL);
