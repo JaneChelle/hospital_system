@@ -24,20 +24,20 @@
         <div class="popup_table">
             <!---------------------------------------------------------------------------------->
             <div class="item_label">
-                <div class="font"></div>
+                <div class="font fontsty"></div>
                 <label>患者名称</label>
                 <span th:if="${session.patient!=null}">
                     <input type="hidden" th:value="${session.patient.patient_name}"
                            class="patient_id">
                     <input type="text" name="" th:value="${session.patient.patient_name}" placeholder="患者名称"
                            autoComplete="off" class="patient_name ipt"
-                           onchange="spin(),spainner()"/>
+                           onkeyup="spin(),spainner()"/>
                 </span>
                 <span th:if="${session.patient==null}">
                 <input type="hidden" th:each="patient :${patients}" th:value="${patient.patient_number}"
                        class="patient_id">
                 <input type="text" name="" value="" placeholder="患者名称" autoComplete="off" class="patient_name ipt"
-                       onchange="spin(),spainner()"/>
+                       onkeyup="spin(),spainner()"/>
                 </span>
                 <div class="btnn btnsty btnpatient add_item">添加</div>
             </div>
@@ -50,20 +50,20 @@
             </div>
             <!--------------------------------------------------------------------------------------->
             <div class="item_label">
-                <div class="font2"></div>
+                <div class="font2 fontsty2"></div>
                 <label>疾病名称</label>
                 <span th:if="${session.disease!=null}">
                     <input type="hidden" th:value="${session.disease.disease_id}"
                            class="disease_id">
-                    <input type="text" name="" th:value="${session.disease.disease_name}" class="ipt" id="findName"
+                    <input type="text" name="" th:value="${session.disease.disease_name}" class="ipt disease_name" id="findName"
                            placeholder="疾病名称" autoComplete="off"
-                           onchange="spin3(),spainner3()">
+                           onkeyup="spin3(),spainner3()">
                 </span>
                 <span th:if="${session.disease==null}">
                 <input type="hidden" th:each="diseaseLists :${diseaseList}" th:value="${diseaseLists.disease_id}"
                        class="disease_id">
-                <input type="text" name="" value="" class="ipt" id="findName" placeholder="疾病名称" autoComplete="off"
-                       onchange="spin3(),spainner3()">
+                <input type="text" name="" value="" class="ipt disease_name" id="findName" placeholder="疾病名称" autoComplete="off"
+                       onkeyup="spin3(),spainner3()">
                 </span>
                 <div class="btnn btnsty add_item2">添加</div>
             </div>
@@ -75,20 +75,20 @@
             </div>
             <!------------------------------------------------------------------------------------>
             <div class="item_label">
-                <div class="font3"></div>
+                <div class="font3 fontsty3"></div>
                 <label>处方名称</label>
                 <span th:if="${session.prescription!=null}">
                 <input type="hidden"
                        th:value="${session.prescription.prescription_id}" class="prescription_id">
                 <input type="text" name="" th:value="${session.prescription.prescription_name}"
                        class="prescription_name ipt" placeholder="处方名称" autoComplete="off"
-                       onchange="spin4(),spainner4()">
+                       onkeyup="spin4(),spainner4()">
                 </span>
                 <span th:if="${session.prescription==null}">
                 <input type="hidden" th:each="prescriptionLists : ${prescriptionList}"
                        th:value="${prescriptionLists.prescription_id}" class="prescription_id">
                 <input type="text" name="" value="" class="prescription_name ipt" placeholder="处方名称" autoComplete="off"
-                       onchange="spin4(),spainner4()">
+                       onkeyup="spin4(),spainner4()">
                 </span>
                 <div class="btnn btnsty"><a th:href="@{/prescription/toAddPrescription}" style="color: #fff;"
                                             class="fff">添加</a></div>
