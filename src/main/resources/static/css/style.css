@@ -10,7 +10,9 @@ body {
     height: 100%;
     color: #D5D6E2;
     background-color: #fff;
-    overflow: hidden;
+    overflow-y: hidden;
+	overflow-x:scroll;
+	min-width: 1200px
 }
 table {
     border-collapse: collapse;
@@ -88,11 +90,14 @@ header span b a{
 /*iframe*/
 .wrapper{
     margin-left: 164px;
+	overflow-x:scroll;
 }
 .wrapper iframe{
 	height: 720px;
 	width:100%;
 	overflow-y:hidden;
+	overflow-x:scroll;
+	min-width: 100%;
 }
 .aa{
 	color: #6AA3EF !important;
