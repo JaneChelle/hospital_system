@@ -59,7 +59,7 @@ $(function () {
     	if(this.checked){   
         	$(".section_table :checkbox").prop("checked", true);  
     	}else{   
-		$(".section_table :checkbox").prop("checked", false);
+		    $(".section_table :checkbox").prop("checked", false);
     	}   
  	}); 
 	//全选  

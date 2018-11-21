@@ -11,7 +11,7 @@ spring:
     druid:
       url: jdbc:mysql://wkyhky.site:3306/hospital?autoReconnect=true&useUnicode=true&characterEncoding=utf8
       username: root
-      password: wky123
+      password: wky123456
       driver-class-name: com.mysql.jdbc.Driver
 mybatis:
     type-aliases-package: org.wlgzs.hospitalmanage.entity

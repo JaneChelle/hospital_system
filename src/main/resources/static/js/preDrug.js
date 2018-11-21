@@ -560,7 +560,7 @@ $(".price_allPre").on("click",function () {
         dataType: "JSON",
         success: function (data) {
             if (data.code == 0) {
-                $(".adiv1").hide();
+                $(".adiv4").hide();
                 $(".adiv2").fadeIn();
             }else if(data.code == 2){
                 alert("data.count");
