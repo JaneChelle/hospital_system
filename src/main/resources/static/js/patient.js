@@ -317,7 +317,7 @@ function spainner(){
                     $('.spinners').append(aa);
                 }
             }else{
-                alert(data.msg);
+                $('.spinners').html(" ");
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
