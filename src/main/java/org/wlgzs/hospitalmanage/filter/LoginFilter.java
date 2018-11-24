@@ -31,12 +31,11 @@ public class LoginFilter implements Filter {
             filterChain.doFilter(httpRequest, httpResponse);
             return;
         } else {
-            filterChain.doFilter(httpRequest, httpResponse);
-//            if(url.equals("/toHome")||url.equals("/toHospital")){
-//                httpResponse.sendRedirect("/toLogin");
-//            }else{
-//                httpResponse.sendRedirect("../toLogin");
-//            }
+           if(url.equals("/toHome")||url.equals("/toHospital")){
+              httpResponse.sendRedirect("/toLogin");
+           }else{
+                httpResponse.sendRedirect("../toLogin");
+            }
             return;
         }
     }
