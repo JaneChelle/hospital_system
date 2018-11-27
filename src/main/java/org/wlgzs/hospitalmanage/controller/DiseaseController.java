@@ -51,6 +51,7 @@ public class DiseaseController extends BaseController {
         model.addAttribute("diseaseList", diseaseList);
         model.addAttribute("findName", findName);
         model.addAttribute("isSearch", 1);
+        System.out.println("findName==="+findName);
         return new ModelAndView("diseaseList");
     }
 

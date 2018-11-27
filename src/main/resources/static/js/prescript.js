@@ -76,8 +76,8 @@ $(".pre_modify").on('click', function () {
             dataType: "JSON",
             success: function (data) {
                 if (data.code == 0) {
-                    window.location.href="/prescription/findPrescription";
-                    // location.reload();
+                    // window.location.href="/prescription/findPrescription";
+                    location.reload();
                 } else {
 
                 }

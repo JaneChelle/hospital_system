@@ -18,7 +18,7 @@
         <div class="nav"><span>处方管理 > <b style="color: #F00;">添加处方</b></span>
             <button class="label-info">
                 <b>
-                    <a th:href="@{/prescription/toAddCheck}">
+                    <a href="javascript:history.go(-1)">
                         <i class="fa fa-mail-reply"></i>
                     </a>
                 </b>
@@ -70,7 +70,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="search search-a">
+            <div class="search search-a" style="margin: 12px">
                 <form th:action="@{/prescription/toAddTreatment}" method="post">
                     <input type="text" name="findName" id="findName" autoComplete="off" placeholder="治疗名称" required="required"/>
                     <button type="submit"></button>
