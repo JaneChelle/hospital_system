@@ -293,7 +293,7 @@ function spainner(){
             if(data.code==0){
                 $('.spinners').html(" ");
                 for (var i=0;i<datas.length;i++){
-                    var aa="<a href=/treatment/findTreatment?findName="+datas[i] +">" + datas[i] + "</a>"+'</br>';
+                    var aa="<a href=/treatment/findTreatment/1?findName="+datas[i] +">" + datas[i] + "</a>"+'</br>';
                     $('.spinners').append(aa);
                 }
             }else{

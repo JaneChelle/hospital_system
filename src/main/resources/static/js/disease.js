@@ -168,7 +168,7 @@ function spainner(){
             if(data.code==0){
                 $('.spinners').html(" ");
                 for (var i=0;i<datas.length;i++){
-                    var aa="<a href=/disease/findDisease?findName="+datas[i] +">" + datas[i].disease_name + "</a>"+'</br>';
+                    var aa="<a href=/disease/findDisease/1?findName="+datas[i].disease_name +">" + datas[i].disease_name + "</a>"+'</br>';
                     $('.spinners').append(aa);
                 }
             }else{

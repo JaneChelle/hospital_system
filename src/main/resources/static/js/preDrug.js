@@ -266,7 +266,7 @@ $(".select_check").on('click',function () {
             },
                 error: function (msg) {
                     $('.cure').addClass('uu');
-                    $('.cure').html(data.msg);
+                    $('.cure').html("aa");
                     setTimeout(function () {
                         $('.cure').removeClass("uu");
                         $('.cure').html('');

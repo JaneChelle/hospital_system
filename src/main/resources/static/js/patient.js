@@ -21,7 +21,8 @@ $(".delete").on('click', function () {
                         $('.cure').html('');
                     }, 2000);
                     setTimeout(function () {
-                        location.reload(true);
+                        // location.reload(true);
+                        window.location.href="/patient/patient/1";
                     }, 1000);
                 } else {
 
