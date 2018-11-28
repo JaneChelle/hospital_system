@@ -38,7 +38,7 @@ $(".delete").on('click', function () {
                                     $('.cure').html('');
                                 }, 2000);
                                 setTimeout(function () {
-                                    location.reload(true);
+                                    window.location.href="/treatment/1";
                                 }, 1000);
                             } else {
 
@@ -266,7 +266,7 @@ function spainner(){
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
-            alert("网络故障");//弹出错误信息
+            // alert("网络故障");//弹出错误信息
         }
     });
 }
@@ -301,7 +301,7 @@ function spainner(){
             }
         },
         error: function (msg) {//ajax请求失败后触发的方法
-            alert("网络故障");//弹出错误信息
+            console.log("网络故障");//弹出错误信息
         }
     });
 }
