@@ -30,7 +30,7 @@ $(".delete").on('click', function () {
                                     $('.cure').html('');
                                 }, 2000);
                                 setTimeout(function () {
-                                    location.reload(true);
+                                    window.location.href="/check/1";
                                 }, 1000);
                             } else {
 

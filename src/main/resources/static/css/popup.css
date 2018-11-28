@@ -179,6 +179,7 @@ input[type=button]:hover{
 }
 .input_btn{
 	padding: 0 12px;
+	float: left;
 	display: inline-block;
 }
 .input_btn input[type=button]{
@@ -201,6 +202,7 @@ input[type=button]:hover{
 	/*width: 600px;*/
 	height: 42px;
 	overflow: hidden;
+	float: left;
 }
 .search form{
 	position: relative;

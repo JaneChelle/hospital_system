@@ -16,10 +16,17 @@
 			<div class="fixed">
 				<div class="nav">
 					<span><b>常规检查</b></span>
+					<button class="label-info">
+						<b>
+							<a href="javascript:history.go(-1)">
+								<i class="fa fa-mail-reply"></i>
+							</a>
+						</b>
+					</button>
 				</div>
 				<div class="add">
 					<div class="search">
-						<form action="/check/findCheck" method="post">
+						<form action="/check/findCheck">
 							<input type="text" name="findName" id="findName" required="required" th:text="${findName}" autoComplete="off" placeholder="检查名称/拼音码" onkeyup="spin(),spainner()"/>
 							<button type="submit"></button>
 						</form>
